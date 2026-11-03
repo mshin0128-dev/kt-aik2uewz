@@ -394,6 +394,46 @@
     border: none; border-radius: var(--radius-md);
     background: #f0f0f0; font-weight: bold; font-size: 15px; cursor: pointer;
   }
+
+  .goal-form { display: flex; gap: 10px; }
+  .goal-field { flex: 1 1 0; min-width: 0; }
+  .goal-field label { display: block; font-size: 11px; color: var(--sub); margin-bottom: 4px; }
+  .goal-field input {
+    width: 100%; box-sizing: border-box;
+    padding: 9px 10px;
+    border: 2px solid #eee; border-radius: var(--radius-sm);
+    font-size: 15px; color: var(--text);
+    background: #fafafa;
+    font-family: inherit;
+  }
+  .goal-field input:focus { border-color: var(--accent); outline: none; }
+
+  .pace-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #f0f0f0; gap: 10px; }
+  .pace-row:last-child { border-bottom: none; }
+  .pace-row .pace-label { font-size: 13px; color: var(--sub); }
+  .pace-row .pace-value { font-size: 15px; font-weight: bold; white-space: nowrap; text-align: right; }
+  .status-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: bold; white-space: nowrap; }
+  .status-badge svg { width: 14px; height: 14px; display: block; }
+  .status-badge.on { background: #e5f7f0; color: #2a9d8f; }
+  .status-badge.off { background: #fff0ec; color: var(--danger); }
+  .status-badge.neutral { background: #f0f0f0; color: var(--sub); }
+  .goal-note { font-size: 12px; color: var(--sub); margin-top: 2px; }
+
+  .meal-day-card { padding-bottom: 6px; }
+  .meal-day-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; cursor: pointer; }
+  .meal-day-head .md-date { font-weight: bold; font-size: 14px; }
+  .meal-day-toggle { flex: 0 0 auto; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; color: var(--sub); transition: transform .15s; }
+  .meal-day-toggle svg { width: 16px; height: 16px; }
+  .meal-day-toggle.open { transform: rotate(180deg); }
+  .meal-bars { margin-top: 10px; }
+  .meal-bars .bar-value { width: 92px; white-space: normal; line-height: 1.3; font-size: 11px; }
+  .meal-items { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #eee; display: none; }
+  .meal-items.open { display: block; }
+  .meal-item-row { font-size: 13px; padding: 6px 2px; border-bottom: 1px solid #f7f7f7; overflow-wrap: anywhere; }
+  .meal-item-row:last-child { border-bottom: none; }
+  .meal-item-row .mi-time { color: var(--sub); font-size: 11px; margin-right: 6px; white-space: nowrap; }
+  .meal-note { font-size: 12px; color: var(--sub); margin-top: 8px; }
+  .meal-empty { font-size: 12px; color: var(--sub); }
 </style>
 </head>
 <body>
@@ -467,6 +507,12 @@
       <div id="weightContent"><div class="card"><div class="empty-msg">読み込み中…</div></div></div>
       <div class="app-footer" id="footerWeight"></div>
     </section>
+
+    <!-- 食事 -->
+    <section class="screen" id="screen-meal">
+      <div id="mealContent"><div class="card"><div class="empty-msg">読み込み中…</div></div></div>
+      <div class="app-footer" id="footerMeal"></div>
+    </section>
   </main>
 
   <nav class="tabbar">
@@ -485,6 +531,9 @@
     <button class="tab-btn" data-screen="weight">
       <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg></span>体重
     </button>
+    <button class="tab-btn" data-screen="meal">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M12 11V4"/><path d="M8 4c0 1.4 1 2 1 3.4"/><path d="M16 4c0 1.4-1 2-1 3.4"/></svg></span>食事
+    </button>
   </nav>
 </div>
 
@@ -500,7 +549,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.03f";
+  var APP_VERSION = "v2026.11.04a";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   var PART_COLORS = {
@@ -518,6 +567,13 @@
   var WEEKDAY_JP_MON = ["月", "火", "水", "木", "金", "土", "日"];
   var ICON_CHEVRON_LEFT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
   var ICON_CHEVRON_RIGHT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+  var ICON_CHEVRON_DOWN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+  var ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="8 12.5 11 15.5 16 9"/></svg>';
+  var ICON_WARN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><circle cx="12" cy="12" r="9"/><circle cx="12" cy="16" r="0.3"/></svg>';
+  var GOAL_WEIGHT_KEY = "kintore_goal_weight";
+  var GOAL_DATE_KEY = "kintore_goal_date";
+  var MEAL_KCAL_TARGET = 2200;
+  var MEAL_PROTEIN_TARGET = 130;
 
   var state = {
     data: null,
@@ -528,11 +584,32 @@
     selectedPart: null,
     selectedExercise: null,
     weightPeriod: null,
+    mealPeriod: null,
+    goalWeight: 70,
+    goalDate: "",
     currentTab: "day"
   };
   var charts = { exercise: null, weight: null };
   var rawRegistry = [];
+  var mealOpenDays = {};
   var gesture = { tracking: false, startX: 0, startY: 0, lockDir: null, eligible: false };
+
+  // ---------- 目標体重・目標日（localStorage） ----------
+  function loadGoalSettings() {
+    try {
+      var w = parseFloat(localStorage.getItem(GOAL_WEIGHT_KEY));
+      state.goalWeight = isFinite(w) && w > 0 ? w : 70;
+      state.goalDate = localStorage.getItem(GOAL_DATE_KEY) || "";
+    } catch (e) { state.goalWeight = 70; state.goalDate = ""; }
+  }
+  function saveGoalWeight(v) {
+    state.goalWeight = v;
+    try { localStorage.setItem(GOAL_WEIGHT_KEY, String(v)); } catch (e) {}
+  }
+  function saveGoalDate(v) {
+    state.goalDate = v;
+    try { localStorage.setItem(GOAL_DATE_KEY, v); } catch (e) {}
+  }
 
   // ---------- Chart.js value-label plugin (自作・外部プラグイン不要) ----------
   var valueLabelPlugin = {
@@ -807,6 +884,7 @@
           state.weekStart = latestKey ? mondayOf(dkToDate(latestKey)) : mondayOf(new Date());
           state.monthCursor = monthFromKey(latestKey ? latestKey : dateToKey(new Date()));
           state.weightPeriod = periodFromKey(latestKey ? latestKey : dateToKey(new Date()));
+          state.mealPeriod = periodFromKey(latestKey ? latestKey : dateToKey(new Date()));
         } else {
           if (json.days && json.days.length) {
             state.dayIndex = Math.min(state.dayIndex, json.days.length - 1);
@@ -843,7 +921,7 @@
 
   function renderFooters() {
     var text = APP_VERSION + " ・ データ更新: " + formatIsoDateTime(state.data && state.data.source_mtime);
-    ["footerDay", "footerWeek", "footerMonth", "footerExercise", "footerWeight"].forEach(function (id) {
+    ["footerDay", "footerWeek", "footerMonth", "footerExercise", "footerWeight", "footerMeal"].forEach(function (id) {
       document.getElementById(id).textContent = text;
     });
   }
@@ -1483,6 +1561,110 @@
   }
 
   // ---------- 体重タブ ----------
+  // ---------- 目標体重・ペース ----------
+  function findClosestBw(bwAll, targetKey, maxDiffDays) {
+    var targetDate = dkToDate(targetKey);
+    var best = null, bestDiff = Infinity;
+    bwAll.forEach(function (b) {
+      var diff = Math.abs((dkToDate(b.date) - targetDate) / 86400000);
+      if (diff <= maxDiffDays && diff < bestDiff) { bestDiff = diff; best = b; }
+    });
+    return best;
+  }
+  function computeGoalStats(bwAll) {
+    var latest = bwAll[bwAll.length - 1];
+    var latestDate = dkToDate(latest.date);
+    var within7 = bwAll.filter(function (b) {
+      var d = (latestDate - dkToDate(b.date)) / 86400000;
+      return d >= -0.5 && d <= 6.5;
+    });
+    var avg7 = within7.length ? within7.reduce(function (s, b) { return s + b.kg; }, 0) / within7.length : latest.kg;
+
+    var past7 = findClosestBw(bwAll, dateToKey(addDays(latestDate, -7)), 2);
+    var past14 = findClosestBw(bwAll, dateToKey(addDays(latestDate, -14)), 3);
+    var pace7 = null, pace14 = null;
+    if (past7 && past7.date !== latest.date) {
+      var days7 = (latestDate - dkToDate(past7.date)) / 86400000;
+      if (days7 > 0) pace7 = (latest.kg - past7.kg) / (days7 / 7);
+    }
+    if (past14 && past14.date !== latest.date) {
+      var days14 = (latestDate - dkToDate(past14.date)) / 86400000;
+      if (days14 > 0) pace14 = (latest.kg - past14.kg) / (days14 / 7);
+    }
+
+    var goalWeight = state.goalWeight;
+    var goalDate = state.goalDate;
+    var requiredPace = null, daysRemaining = null;
+    if (goalDate) {
+      daysRemaining = Math.round((dkToDate(goalDate) - latestDate) / 86400000);
+      if (daysRemaining > 0) requiredPace = (goalWeight - latest.kg) / (daysRemaining / 7);
+    }
+    var actualPace = pace7 != null ? pace7 : pace14;
+    var status = "neutral";
+    if (requiredPace != null && actualPace != null) {
+      if (Math.abs(requiredPace) < 0.05) {
+        status = Math.abs(actualPace) <= 0.3 ? "on" : "off";
+      } else {
+        var sameDir = (requiredPace < 0 && actualPace <= 0.05) || (requiredPace > 0 && actualPace >= -0.05);
+        status = (sameDir && Math.abs(actualPace) >= Math.abs(requiredPace) * 0.5) ? "on" : "off";
+      }
+    }
+    return {
+      latest: latest, avg7: Math.round(avg7 * 10) / 10,
+      pace7: pace7 != null ? Math.round(pace7 * 100) / 100 : null,
+      pace14: pace14 != null ? Math.round(pace14 * 100) / 100 : null,
+      goalWeight: goalWeight, goalDate: goalDate,
+      requiredPace: requiredPace != null ? Math.round(requiredPace * 100) / 100 : null,
+      daysRemaining: daysRemaining, actualPace: actualPace, status: status
+    };
+  }
+  function formatPace(v) {
+    if (v == null) return "—";
+    return (v >= 0 ? "+" : "") + v + "kg/週";
+  }
+  function goalSectionHtml(bwAll) {
+    var stats = computeGoalStats(bwAll);
+    var html = '<div class="card">';
+    html += '<div class="section-title">目標</div>';
+    html += '<div class="goal-form">';
+    html += '<div class="goal-field"><label for="goalWeightInput">目標体重(kg)</label><input type="number" inputmode="decimal" id="goalWeightInput" step="0.1" min="30" max="200" value="' + stats.goalWeight + '"></div>';
+    html += '<div class="goal-field"><label for="goalDateInput">目標日</label><input type="date" id="goalDateInput" value="' + escapeHtml(stats.goalDate) + '"></div>';
+    html += "</div></div>";
+
+    html += '<div class="card"><div class="section-title">目標までの進捗</div>';
+    html += '<div class="stat-grid">';
+    html += '<div class="stat-box"><div class="stat-label">現在(最新 ' + formatShortDate(stats.latest.date) + ')</div><div class="stat-value">' + formatWeight(stats.latest.kg) + "kg</div></div>";
+    html += '<div class="stat-box"><div class="stat-label">直近7日間平均</div><div class="stat-value">' + stats.avg7 + "kg</div></div>";
+    var diff = Math.round((stats.goalWeight - stats.latest.kg) * 10) / 10;
+    html += '<div class="stat-box"><div class="stat-label">目標まで</div><div class="stat-value">' + (diff === 0 ? "達成" : ((diff > 0 ? "+" : "") + diff + "kg")) + "</div></div>";
+    var remainLabel = "目標日未設定";
+    if (stats.goalDate) {
+      remainLabel = stats.daysRemaining > 0 ? stats.daysRemaining + "日" : (stats.daysRemaining === 0 ? "本日" : "期限超過");
+    }
+    html += '<div class="stat-box"><div class="stat-label">目標日まで</div><div class="stat-value">' + remainLabel + "</div></div>";
+    html += "</div>";
+
+    html += '<div style="margin-top:12px">';
+    html += '<div class="pace-row"><span class="pace-label">必要ペース(週)</span><span class="pace-value">' + (stats.goalDate ? (stats.requiredPace != null ? formatPace(stats.requiredPace) : "期限超過") : "目標日を設定") + "</span></div>";
+    html += '<div class="pace-row"><span class="pace-label">実際のペース(7日)</span><span class="pace-value">' + formatPace(stats.pace7) + "</span></div>";
+    html += '<div class="pace-row"><span class="pace-label">実際のペース(14日)</span><span class="pace-value">' + formatPace(stats.pace14) + "</span></div>";
+    var badge = stats.status === "on" ? '<span class="status-badge on">' + ICON_CHECK + "順調</span>" :
+      stats.status === "off" ? '<span class="status-badge off">' + ICON_WARN + "要調整</span>" :
+      '<span class="status-badge neutral">判定不可</span>';
+    html += '<div class="pace-row"><span class="pace-label">判定</span>' + badge + "</div>";
+    html += "</div></div>";
+    return html;
+  }
+  function wireGoalEvents() {
+    var gw = document.getElementById("goalWeightInput");
+    var gd = document.getElementById("goalDateInput");
+    if (gw) gw.addEventListener("change", function () {
+      var v = parseFloat(gw.value);
+      if (isFinite(v) && v > 0) { saveGoalWeight(v); renderWeightTab(); }
+    });
+    if (gd) gd.addEventListener("change", function () { saveGoalDate(gd.value); renderWeightTab(); });
+  }
+
   function renderWeightTab() {
     var content = document.getElementById("weightContent");
     var bwAll = ((state.data && state.data.bodyweight) || []).slice().sort(function (a, b) { return a.date < b.date ? -1 : 1; });
@@ -1523,6 +1705,8 @@
     }
     html += "</div>";
 
+    html += goalSectionHtml(bwAll);
+
     html += '<div class="card"><div class="stat-grid">';
     html += '<div class="stat-box"><div class="stat-label">最新</div><div class="stat-value">' + formatWeight(latest.kg) + "kg</div></div>";
     html += '<div class="stat-box"><div class="stat-label">期間の増減(' + formatShortDate(first.date) + "〜" + formatShortDate(latest.date) + ')</div><div class="stat-value">' + changeStr + "</div></div>";
@@ -1549,6 +1733,7 @@
     var nextBtn = document.getElementById("weightPeriodNextBtn");
     if (prevBtn) prevBtn.addEventListener("click", function () { changeWeightPeriod(-1); });
     if (nextBtn) nextBtn.addEventListener("click", function () { changeWeightPeriod(1); });
+    wireGoalEvents();
 
     if (charts.weight) { charts.weight.destroy(); charts.weight = null; }
     if (!hasPeriodData) return;
@@ -1589,6 +1774,17 @@
             pointRadius: 0,
             tension: 0,
             hideValueLabel: true
+          },
+          {
+            label: "目標体重",
+            data: periodKeys.map(function () { return state.goalWeight; }),
+            borderColor: "#2a9d8f",
+            backgroundColor: "#2a9d8f",
+            borderDash: [4, 3],
+            borderWidth: 2,
+            pointRadius: 0,
+            tension: 0,
+            hideValueLabel: true
           }
         ]
       },
@@ -1608,6 +1804,86 @@
     state.weightPeriod = shiftPeriod(state.weightPeriod, delta);
     renderWeightTab();
   }
+  function changeMealPeriod(delta) {
+    state.mealPeriod = shiftPeriod(state.mealPeriod, delta);
+    renderMealTab();
+  }
+
+  // ---------- 食事タブ ----------
+  function mealBarRow(label, value, target, color, unit) {
+    var pct = value == null ? 0 : Math.max(2, Math.min(100, Math.round((value / target) * 100)));
+    var valueText = value == null ? "未記録" : (value + "/" + target + unit);
+    var html = '<div class="bar-row">';
+    html += '<div class="bar-label">' + label + "</div>";
+    html += '<div class="bar-track"><div class="bar-fill" style="width:' + pct + "%;background:" + color + '"></div></div>';
+    html += '<div class="bar-value">' + valueText + "</div>";
+    html += "</div>";
+    return html;
+  }
+  function renderMealTab() {
+    var content = document.getElementById("mealContent");
+    var meals = (state.data && state.data.meals) || {};
+    var allKeys = Object.keys(meals).sort();
+    if (!allKeys.length) {
+      content.innerHTML = '<div class="card"><div class="empty-msg">食事の記録がありません</div></div>';
+      return;
+    }
+    if (!state.mealPeriod) state.mealPeriod = periodFromKey(allKeys[allKeys.length - 1]);
+    var period = state.mealPeriod;
+    var periodKeys = periodDateKeys(period);
+    var periodMeals = periodKeys.map(function (k) { return meals[k] || null; });
+    var hasAny = periodMeals.some(function (m) { return m && (m.kcal != null || m.protein != null || (m.items && m.items.length)); });
+
+    var html = '<div class="card period-swipe-zone"><div class="nav-switch">';
+    html += '<button id="mealPeriodPrevBtn" type="button" aria-label="前の期間">' + ICON_CHEVRON_LEFT + "</button>";
+    html += '<span class="nav-label">' + periodLabel(period) + "</span>";
+    html += '<button id="mealPeriodNextBtn" type="button" aria-label="次の期間">' + ICON_CHEVRON_RIGHT + "</button>";
+    html += "</div></div>";
+
+    var kcalVals = [], proteinVals = [];
+    periodMeals.forEach(function (m) {
+      if (m && m.kcal != null) kcalVals.push(m.kcal);
+      if (m && m.protein != null) proteinVals.push(m.protein);
+    });
+    var avgKcal = kcalVals.length ? Math.round(kcalVals.reduce(function (s, v) { return s + v; }, 0) / kcalVals.length) : null;
+    var avgProtein = proteinVals.length ? Math.round((proteinVals.reduce(function (s, v) { return s + v; }, 0) / proteinVals.length) * 10) / 10 : null;
+
+    html += '<div class="card"><div class="section-title">期間平均</div><div class="stat-grid">';
+    html += '<div class="stat-box"><div class="stat-label">平均kcal(' + kcalVals.length + "日分)</div><div class=\"stat-value\">" + (avgKcal != null ? avgKcal + "kcal" : "未記録") + "</div></div>";
+    html += '<div class="stat-box"><div class="stat-label">平均タンパク質(' + proteinVals.length + "日分)</div><div class=\"stat-value\">" + (avgProtein != null ? avgProtein + "g" : "未記録") + "</div></div>";
+    html += "</div></div>";
+
+    if (!hasAny) {
+      html += '<div class="card"><div class="empty-msg">この期間の記録なし</div></div>';
+    } else {
+      periodKeys.forEach(function (k, i) {
+        var m = periodMeals[i];
+        var open = !!mealOpenDays[k];
+        html += '<div class="card meal-day-card">';
+        html += '<div class="meal-day-head" data-meal-toggle="' + k + '"><span class="md-date">' + formatDateLabel(k) + '</span><span class="meal-day-toggle' + (open ? " open" : "") + '">' + ICON_CHEVRON_DOWN + "</span></div>";
+        html += '<div class="meal-bars">';
+        html += mealBarRow("kcal", m ? m.kcal : null, MEAL_KCAL_TARGET, "#ff8a5b", "kcal");
+        html += mealBarRow("P", m ? m.protein : null, MEAL_PROTEIN_TARGET, "#4ecdc4", "g");
+        html += "</div>";
+        if (m && m.note) html += '<div class="meal-note">' + escapeHtml(m.note) + "</div>";
+        html += '<div class="meal-items' + (open ? " open" : "") + '" id="mealItems-' + k + '">';
+        if (m && m.items && m.items.length) {
+          m.items.forEach(function (it) {
+            html += '<div class="meal-item-row">' + (it.time ? '<span class="mi-time">' + escapeHtml(it.time) + "</span>" : "") + escapeHtml(it.text) + "</div>";
+          });
+        } else {
+          html += '<div class="meal-empty">項目の記録なし(未記録)</div>';
+        }
+        html += "</div></div>";
+      });
+    }
+
+    content.innerHTML = html;
+    var prevBtn = document.getElementById("mealPeriodPrevBtn");
+    var nextBtn = document.getElementById("mealPeriodNextBtn");
+    if (prevBtn) prevBtn.addEventListener("click", function () { changeMealPeriod(-1); });
+    if (nextBtn) nextBtn.addEventListener("click", function () { changeMealPeriod(1); });
+  }
 
   // ---------- タブ制御 ----------
   function renderCurrentTab() {
@@ -1617,6 +1893,7 @@
     else if (state.currentTab === "month") renderMonthTab();
     else if (state.currentTab === "exercise") renderExerciseTab();
     else if (state.currentTab === "weight") renderWeightTab();
+    else if (state.currentTab === "meal") renderMealTab();
   }
   function switchTab(tab) {
     state.currentTab = tab;
@@ -1664,12 +1941,22 @@
     var idx = +el.getAttribute("data-raw-idx");
     openRawModal(rawRegistry[idx]);
   });
+  document.addEventListener("click", function (e) {
+    var head = e.target.closest ? e.target.closest("[data-meal-toggle]") : null;
+    if (!head) return;
+    var k = head.getAttribute("data-meal-toggle");
+    mealOpenDays[k] = !mealOpenDays[k];
+    var itemsEl = document.getElementById("mealItems-" + k);
+    var toggleEl = head.querySelector(".meal-day-toggle");
+    if (itemsEl) itemsEl.classList.toggle("open", !!mealOpenDays[k]);
+    if (toggleEl) toggleEl.classList.toggle("open", !!mealOpenDays[k]);
+  });
 
   // ---------- 横スワイプ（日別・週別は画面全体、種目別・体重はグラフ区間） ----------
   var SWIPE_DECIDE_DISTANCE = 10;
   var SWIPE_TRIGGER_DISTANCE = 50;
   var SWIPE_RATIO = 1.5;
-  var SWIPE_TABS = { day: true, week: true, month: true, weight: true };
+  var SWIPE_TABS = { day: true, week: true, month: true, weight: true, meal: true };
 
   function isFormTarget(el) {
     while (el && el !== document.body) {
@@ -1694,7 +1981,7 @@
   function isSwipeEligibleTarget(target, tab) {
     if (isFormTarget(target) || scrollableAncestorX(target)) return false;
     if (tab === "day" || tab === "week" || tab === "month") return true;
-    if (tab === "weight") {
+    if (tab === "weight" || tab === "meal") {
       return !!(target.closest && target.closest(".period-swipe-zone"));
     }
     return false;
@@ -1747,6 +2034,7 @@
       else if (state.currentTab === "week") changeWeek(dir);
       else if (state.currentTab === "month") changeMonth(dir);
       else if (state.currentTab === "weight") changeWeightPeriod(dir);
+      else if (state.currentTab === "meal") changeMealPeriod(dir);
     }
   }
   document.addEventListener("touchend", gestureFinish);
@@ -1755,10 +2043,11 @@
   // ---------- 初期化 ----------
   function initialTabFromHash() {
     var h = (location.hash || "").replace("#", "");
-    if (h === "day" || h === "week" || h === "month" || h === "exercise" || h === "weight") return h;
+    if (h === "day" || h === "week" || h === "month" || h === "exercise" || h === "weight" || h === "meal") return h;
     return "day";
   }
   function init() {
+    loadGoalSettings();
     var initial = initialTabFromHash();
     switchTab(initial);
     loadData();
