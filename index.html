@@ -37,6 +37,7 @@
     --safe-b: env(safe-area-inset-bottom, 0px);
     --safe-l: env(safe-area-inset-left, 0px);
     --safe-r: env(safe-area-inset-right, 0px);
+    --nav-h: 62px; /* .tabbar height excluding safe-area inset: 6px top pad + 44px btn + 12px base bottom pad */
   }
   * { box-sizing: border-box; }
   html, body {
@@ -58,7 +59,7 @@
     min-width: 0;
     display: flex;
     flex-direction: column;
-    padding-bottom: calc(72px + var(--safe-b));
+    padding-bottom: calc(var(--nav-h) + var(--safe-b) + 16px);
     padding-left: var(--safe-l);
     padding-right: var(--safe-r);
   }
@@ -549,7 +550,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.04a";
+  var APP_VERSION = "v2026.11.04b";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   var PART_COLORS = {
