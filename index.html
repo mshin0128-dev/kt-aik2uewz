@@ -456,7 +456,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.03c";
+  var APP_VERSION = "v2026.11.03d";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   var PART_COLORS = {
@@ -481,7 +481,6 @@
     weekStart: null,
     selectedPart: "all",
     selectedExercise: null,
-    exercisePeriod: null,
     weightPeriod: null,
     currentTab: "day"
   };
@@ -731,8 +730,6 @@
           state.dayIndex = Math.max(0, (json.days || []).length - 1);
           var latestKey = computeLatestDateKey();
           state.weekStart = latestKey ? mondayOf(dkToDate(latestKey)) : mondayOf(new Date());
-          var initialPeriod = latestKey ? periodFromKey(latestKey) : periodFromKey(dateToKey(new Date()));
-          state.exercisePeriod = initialPeriod;
           state.weightPeriod = periodFromKey(latestKey ? latestKey : dateToKey(new Date()));
         } else {
           if (json.days && json.days.length) {
@@ -1069,23 +1066,10 @@
     });
     dateKeys.sort();
 
-    if (!state.exercisePeriod) {
-      var lk = dateKeys.length ? dateKeys[dateKeys.length - 1] : computeLatestDateKey();
-      state.exercisePeriod = periodFromKey(lk || dateToKey(new Date()));
-    }
-    var period = state.exercisePeriod;
-    var periodKeys = periodDateKeys(period);
-    var hasPeriodData = periodKeys.some(function (k) { return !!perDate[k]; });
-
-    var html = '<div class="card period-swipe-zone">';
-    html += '<div class="nav-switch">';
-    html += '<button id="exercisePeriodPrevBtn" type="button" aria-label="前の期間">' + ICON_CHEVRON_LEFT + "</button>";
-    html += '<span class="nav-label">' + periodLabel(period) + "</span>";
-    html += '<button id="exercisePeriodNextBtn" type="button" aria-label="次の期間">' + ICON_CHEVRON_RIGHT + "</button>";
-    html += "</div>";
-    html += '<div class="section-title" style="margin-top:8px;">' + escapeHtml(name) + "の推移</div>";
-    if (!hasPeriodData) {
-      html += '<div class="empty-msg">この期間の記録なし</div>';
+    var html = '<div class="card">';
+    html += '<div class="section-title">' + escapeHtml(name) + "の推移</div>";
+    if (!dateKeys.length) {
+      html += '<div class="empty-msg">記録なし</div>';
     } else {
       html += '<div class="chart-wrap"><canvas id="exerciseChartCanvas"></canvas></div>';
     }
@@ -1108,13 +1092,8 @@
     html += "</div>";
     content.innerHTML = html;
 
-    var prevBtn = document.getElementById("exercisePeriodPrevBtn");
-    var nextBtn = document.getElementById("exercisePeriodNextBtn");
-    if (prevBtn) prevBtn.addEventListener("click", function () { changeExercisePeriod(-1); });
-    if (nextBtn) nextBtn.addEventListener("click", function () { changeExercisePeriod(1); });
-
-    if (hasPeriodData) {
-      renderExerciseChart(periodKeys, perDate, isAerobic);
+    if (dateKeys.length) {
+      renderExerciseChart(dateKeys, perDate, isAerobic);
     } else if (charts.exercise) {
       charts.exercise.destroy();
       charts.exercise = null;
@@ -1354,10 +1333,6 @@
   }
 
   // ---------- 期間切替 ----------
-  function changeExercisePeriod(delta) {
-    state.exercisePeriod = shiftPeriod(state.exercisePeriod, delta);
-    renderExerciseTab();
-  }
   function changeWeightPeriod(delta) {
     state.weightPeriod = shiftPeriod(state.weightPeriod, delta);
     renderWeightTab();
@@ -1420,7 +1395,7 @@
   var SWIPE_DECIDE_DISTANCE = 10;
   var SWIPE_TRIGGER_DISTANCE = 50;
   var SWIPE_RATIO = 1.5;
-  var SWIPE_TABS = { day: true, week: true, exercise: true, weight: true };
+  var SWIPE_TABS = { day: true, week: true, weight: true };
 
   function isFormTarget(el) {
     while (el && el !== document.body) {
@@ -1445,7 +1420,7 @@
   function isSwipeEligibleTarget(target, tab) {
     if (isFormTarget(target) || scrollableAncestorX(target)) return false;
     if (tab === "day" || tab === "week") return true;
-    if (tab === "exercise" || tab === "weight") {
+    if (tab === "weight") {
       return !!(target.closest && target.closest(".period-swipe-zone"));
     }
     return false;
@@ -1496,7 +1471,6 @@
       var dir = dx < 0 ? 1 : -1;
       if (state.currentTab === "day") changeDay(dir);
       else if (state.currentTab === "week") changeWeek(dir);
-      else if (state.currentTab === "exercise") changeExercisePeriod(dir);
       else if (state.currentTab === "weight") changeWeightPeriod(dir);
     }
   }
