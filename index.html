@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>筋トレ記録まとめ</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="筋トレ">
+<meta name="theme-color" content="#ff8a5b">
+<meta name="robots" content="noindex,nofollow">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #f4f6f8;
+    --card: #ffffff;
+    --accent: #ff8a5b;
+    --accent2: #4ecdc4;
+    --text: #333;
+    --sub: #888;
+    --danger: #ff5a5a;
+    --radius-lg: 18px;
+    --radius: 16px;
+    --radius-md: 12px;
+    --radius-sm: 10px;
+    --space: 14px;
+    --space-sm: 8px;
+    --font-label: 13px;
+    --font-base: 16px;
+    --font-lg: 20px;
+    --safe-t: env(safe-area-inset-top, 0px);
+    --safe-b: env(safe-area-inset-bottom, 0px);
+    --safe-l: env(safe-area-inset-left, 0px);
+    --safe-r: env(safe-area-inset-right, 0px);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    overscroll-behavior-y: contain;
+    touch-action: pan-y;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  #app {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: calc(72px + var(--safe-b));
+    padding-left: var(--safe-l);
+    padding-right: var(--safe-r);
+  }
+  header.topbar {
+    position: sticky; top: 0; z-index: 10;
+    background: linear-gradient(135deg, var(--accent), #ffb37b);
+    color: #fff;
+    padding: calc(14px + var(--safe-t)) 16px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  header.topbar .topbar-spacer { width: 24px; flex: 0 0 auto; }
+  header.topbar .title { flex: 1 1 auto; text-align: center; font-size: 18px; font-weight: bold; overflow-wrap: anywhere; }
+  header.topbar .reload-btn {
+    flex: 0 0 auto;
+    width: 24px; height: 24px;
+    background: none; border: none; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; padding: 0;
+  }
+  header.topbar .reload-btn svg { width: 20px; height: 20px; display: block; }
+  header.topbar .reload-btn.spinning svg { animation: spin 0.7s linear; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  main { flex: 1; padding: 12px; min-width: 0; }
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: var(--space);
+    margin-bottom: var(--space);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    min-width: 0;
+  }
+
+  .section-title { font-size: 15px; font-weight: bold; margin-bottom: 8px; }
+
+  .nav-switch {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .nav-switch button {
+    background: #fff;
+    border: 2px solid #eee;
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    cursor: pointer;
+    flex: 0 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text);
+  }
+  .nav-switch button[disabled] { opacity: 0.35; cursor: default; }
+  .nav-switch button svg { width: 16px; height: 16px; display: block; }
+  .nav-switch .nav-label {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .top-banner {
+    display: none;
+    text-align: center;
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space);
+  }
+  .top-banner.show { display: block; }
+  .top-banner.error { background: #fff0f0; color: var(--danger); border: 1px solid #ffd6d6; }
+  .top-banner.warn { background: #fff8f0; color: #a56b1f; border: 1px solid #ffe3c6; }
+  .top-banner button {
+    display: block; margin: 8px auto 0; padding: 8px 18px;
+    border: none; border-radius: var(--radius-sm);
+    background: var(--accent); color: #fff; font-weight: bold; cursor: pointer;
+  }
+
+  .empty-msg { text-align: center; color: var(--sub); padding: 30px 0; font-size: 14px; }
+
+  .part-chip {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #fff;
+    white-space: nowrap;
+  }
+  .part-chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+
+  .day-summary-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--sub);
+    margin-bottom: 10px;
+  }
+  .day-summary-row strong { color: var(--text); font-size: 14px; }
+
+  .bw-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #eafaf7;
+    color: #2a9d8f;
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .ex-block { border-bottom: 1px solid #f0f0f0; padding: 10px 0; }
+  .ex-block:last-child { border-bottom: none; padding-bottom: 0; }
+  .ex-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+  .ex-name { font-size: 15px; font-weight: bold; overflow-wrap: anywhere; min-width: 0; }
+  .ex-row { margin-bottom: 4px; }
+  .set-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .set-chip {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 4px 9px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .ex-note {
+    font-size: 11px;
+    color: var(--sub);
+    margin-top: 3px;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+  }
+  .ex-note:active { opacity: 0.6; }
+  .summary-only-box {
+    cursor: pointer;
+  }
+  .summary-only-box .so-title { font-size: 15px; font-weight: bold; margin-bottom: 4px; }
+  .summary-only-box .so-sub { font-size: 12px; color: var(--sub); text-decoration: underline; text-decoration-style: dotted; }
+
+  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .bar-row:last-child { margin-bottom: 0; }
+  .bar-label { width: 44px; flex: 0 0 auto; font-size: 13px; }
+  .bar-track { flex: 1 1 auto; height: 14px; background: #f0f0f0; border-radius: 8px; overflow: hidden; min-width: 0; }
+  .bar-fill { height: 100%; border-radius: 8px; min-width: 2px; }
+  .bar-value { width: 72px; flex: 0 0 auto; text-align: right; font-size: 12px; color: var(--sub); white-space: nowrap; }
+
+  .aerobic-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f4f6f8;
+    border-radius: var(--radius-md);
+    padding: 10px 12px;
+    font-size: 13px;
+    margin-top: 4px;
+  }
+
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat-box { background: #fafafa; border-radius: var(--radius-md); padding: 10px; text-align: center; min-width: 0; }
+  .stat-box .stat-label { font-size: 11px; color: var(--sub); }
+  .stat-box .stat-value { font-size: 18px; font-weight: bold; margin-top: 2px; overflow-wrap: anywhere; }
+
+  .trained-days-box {
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .trained-days-box .num { font-size: 28px; font-weight: bold; color: var(--accent); }
+  .trained-days-box .lbl { font-size: 12px; color: var(--sub); }
+
+  .week-dots { display: flex; justify-content: space-between; }
+  .week-dot-col { display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 11px; color: var(--sub); }
+  .week-dot { width: 15px; height: 15px; border-radius: 50%; background: #fff; border: 2px solid #e8e8e8; }
+  .week-dot.full { background: var(--accent); border-color: var(--accent); }
+  .week-dot.summary { background: #fff; border-color: var(--accent); }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; -webkit-overflow-scrolling: touch; }
+  .chip {
+    flex: 0 0 auto;
+    padding: 7px 13px;
+    border-radius: 999px;
+    border: 2px solid #eee;
+    background: #fafafa;
+    font-size: 13px;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .chip.active { border-color: var(--accent); background: #fff1e8; font-weight: bold; }
+
+  .chart-wrap { position: relative; height: 230px; margin: 10px auto; }
+
+  .list-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 11px 4px; border-bottom: 1px solid #f0f0f0; min-width: 0; }
+  .list-item:last-child { border-bottom: none; }
+  .li-left { display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; }
+  .li-item { font-weight: bold; font-size: 14px; overflow-wrap: anywhere; }
+  .li-meta { font-size: 12px; color: var(--sub); overflow-wrap: anywhere; }
+  .li-right { flex: 0 0 auto; text-align: right; font-size: 14px; font-weight: bold; white-space: nowrap; }
+  .li-right .diff { display: block; font-size: 11px; font-weight: normal; color: var(--sub); }
+
+  .app-footer {
+    text-align: center;
+    color: var(--sub);
+    font-size: 11px;
+    margin-top: 2px;
+    padding: 4px 0 2px;
+  }
+
+  .tabbar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    max-width: 480px;
+    margin: 0 auto;
+    display: flex;
+    background: #fff;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+    z-index: 20;
+    padding-top: 6px;
+    padding-bottom: calc(var(--safe-b) + 12px);
+    padding-left: var(--safe-l);
+    padding-right: var(--safe-r);
+  }
+  .tab-btn {
+    flex: 1;
+    min-height: 44px;
+    padding: 6px 0 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 12px;
+    color: var(--sub);
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  .tab-btn .icon { display: flex; align-items: center; justify-content: center; margin-bottom: 2px; }
+  .tab-btn .icon svg { width: 20px; height: 20px; display: block; }
+  .tab-btn.active { color: var(--accent); font-weight: bold; }
+
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 50;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal-box {
+    background: #fff;
+    width: 100%;
+    max-width: 480px;
+    border-radius: 18px 18px 0 0;
+    padding: 16px;
+    padding-bottom: calc(16px + var(--safe-b));
+    max-height: 70vh;
+    overflow-y: auto;
+    user-select: text;
+  }
+  .modal-box h4 { margin: 0 0 8px; font-size: 13px; color: var(--sub); font-weight: bold; }
+  .modal-box p { font-size: 14px; line-height: 1.7; white-space: pre-wrap; word-break: break-word; margin: 0; }
+  .modal-close-btn {
+    display: block; width: 100%; margin-top: 14px; padding: 12px;
+    border: none; border-radius: var(--radius-md);
+    background: #f0f0f0; font-weight: bold; font-size: 15px; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <span class="topbar-spacer"></span>
+    <span class="title">筋トレ記録まとめ</span>
+    <button class="reload-btn" id="reloadBtn" aria-label="再読み込み" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <div class="top-banner" id="topBanner"></div>
+
+    <!-- 日別 -->
+    <section class="screen active" id="screen-day">
+      <div class="card">
+        <div class="nav-switch">
+          <button id="dayPrevBtn" type="button" aria-label="前の日"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <span class="nav-label" id="dayLabel"></span>
+          <button id="dayNextBtn" type="button" aria-label="次の日"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+      </div>
+      <div id="dayContent"><div class="card"><div class="empty-msg">読み込み中…</div></div></div>
+      <div class="app-footer" id="footerDay"></div>
+    </section>
+
+    <!-- 週別 -->
+    <section class="screen" id="screen-week">
+      <div class="card">
+        <div class="nav-switch">
+          <button id="weekPrevBtn" type="button" aria-label="前の週"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <span class="nav-label" id="weekLabel"></span>
+          <button id="weekNextBtn" type="button" aria-label="次の週"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+      </div>
+      <div id="weekContent"><div class="card"><div class="empty-msg">読み込み中…</div></div></div>
+      <div class="app-footer" id="footerWeek"></div>
+    </section>
+
+    <!-- 種目別 -->
+    <section class="screen" id="screen-exercise">
+      <div class="card">
+        <div class="section-title">種目を選ぶ</div>
+        <div class="chip-row" id="exerciseChips"></div>
+      </div>
+      <div id="exerciseContent"><div class="card"><div class="empty-msg">読み込み中…</div></div></div>
+      <div class="app-footer" id="footerExercise"></div>
+    </section>
+
+    <!-- 体重 -->
+    <section class="screen" id="screen-weight">
+      <div id="weightContent"><div class="card"><div class="empty-msg">読み込み中…</div></div></div>
+      <div class="app-footer" id="footerWeight"></div>
+    </section>
+  </main>
+
+  <nav class="tabbar">
+    <button class="tab-btn active" data-screen="day">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>日別
+    </button>
+    <button class="tab-btn" data-screen="week">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="9" y1="4" x2="9" y2="22"/><line x1="15" y1="4" x2="15" y2="22"/></svg></span>週別
+    </button>
+    <button class="tab-btn" data-screen="exercise">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8v8"/><path d="M4 9v6"/><path d="M20 9v6"/><path d="M22 8v8"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M9 8v8"/><path d="M15 8v8"/></svg></span>種目別
+    </button>
+    <button class="tab-btn" data-screen="weight">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg></span>体重
+    </button>
+  </nav>
+</div>
+
+<div class="modal-overlay" id="rawModalOverlay">
+  <div class="modal-box">
+    <h4>記録メモ（原文）</h4>
+    <p id="rawModalText"></p>
+    <button class="modal-close-btn" id="rawModalClose" type="button">閉じる</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var APP_VERSION = "v2026.11.03a";
+  var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
+  var PART_COLORS = {
+    "胸": "#ff8a5b",
+    "背中": "#4ecdc4",
+    "肩": "#7b9acc",
+    "二頭": "#f4b942",
+    "三頭": "#c97bdb",
+    "脚": "#5fb47c",
+    "腹筋": "#ef6f6c",
+    "有酸素": "#9aa0a6"
+  };
+  var WEEKDAY_JP = ["日", "月", "火", "水", "木", "金", "土"];
+
+  var state = {
+    data: null,
+    loaded: false,
+    dayIndex: -1,
+    weekStart: null,
+    selectedExercise: null,
+    currentTab: "day"
+  };
+  var charts = { exercise: null, weight: null };
+  var rawRegistry = [];
+  var gesture = { tracking: false, startX: 0, startY: 0, lockDir: null, eligible: false };
+
+  // ---------- utilities ----------
+  function pad2(n) { return (n < 10 ? "0" : "") + n; }
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function formatWeight(n) { return String(n); }
+  function dkToDate(key) {
+    var p = key.split("-");
+    return new Date(+p[0], +p[1] - 1, +p[2], 12, 0, 0);
+  }
+  function dateToKey(d) {
+    return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate());
+  }
+  function addDays(d, n) {
+    var d2 = new Date(d);
+    d2.setDate(d2.getDate() + n);
+    return d2;
+  }
+  function weekdayJp(d) { return WEEKDAY_JP[d.getDay()]; }
+  function formatDateLabel(key) {
+    var d = dkToDate(key);
+    return d.getFullYear() + "/" + pad2(d.getMonth() + 1) + "/" + pad2(d.getDate()) + "(" + weekdayJp(d) + ")";
+  }
+  function formatShortDate(key) {
+    var d = dkToDate(key);
+    return pad2(d.getMonth() + 1) + "/" + pad2(d.getDate());
+  }
+  function mondayOf(d) {
+    var offset = (d.getDay() + 6) % 7;
+    return addDays(d, -offset);
+  }
+  function formatIsoDateTime(iso) {
+    if (!iso) return "不明";
+    var m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(iso);
+    if (!m) return "不明";
+    return m[1] + "/" + m[2] + "/" + m[3] + " " + m[4] + ":" + m[5];
+  }
+  function registerRaw(text) {
+    rawRegistry.push(text);
+    return rawRegistry.length - 1;
+  }
+  function openRawModal(text) {
+    document.getElementById("rawModalText").textContent = text || "(原文なし)";
+    document.getElementById("rawModalOverlay").classList.add("show");
+  }
+  function closeRawModal() {
+    document.getElementById("rawModalOverlay").classList.remove("show");
+  }
+
+  // ---------- entry formatting ----------
+  function entrySetStrings(entry) {
+    if (entry.minutes != null) {
+      return [entry.minutes + "分"];
+    }
+    if (entry.weight_type === "自重") {
+      if (entry.reps && entry.reps.length) return entry.reps.map(function (r) { return r + "回"; });
+      return ["回数不明"];
+    }
+    var w = entry.weight_kg != null ? formatWeight(entry.weight_kg) + "kg" : "";
+    var suffix = "";
+    if (entry.weight_type === "不明") suffix = "(片手/合計 不明)";
+    else if (entry.weight_type && entry.weight_type !== "-") suffix = "(" + entry.weight_type + ")";
+    var label = w + suffix;
+    if (entry.reps && entry.reps.length) return entry.reps.map(function (r) { return label + "×" + r; });
+    return [label + "×回数不明"];
+  }
+  function getEntrySetsCount(entry) {
+    if (entry.part === "有酸素") return 0;
+    if (entry.sets != null) return entry.sets;
+    if (entry.reps && entry.reps.length) return entry.reps.length;
+    return 1;
+  }
+  function isApproxSets(entry) {
+    return entry.part !== "有酸素" && entry.sets == null;
+  }
+  function groupEntriesByExercise(entries) {
+    var order = [];
+    var map = {};
+    entries.forEach(function (e) {
+      if (!map[e.exercise]) {
+        map[e.exercise] = { exercise: e.exercise, part: e.part, entries: [] };
+        order.push(e.exercise);
+      }
+      map[e.exercise].entries.push(e);
+    });
+    return order.map(function (name) { return map[name]; });
+  }
+  function partChipHtml(part) {
+    var color = PART_COLORS[part] || "#aaa";
+    return '<span class="part-chip" style="background:' + color + '">' + escapeHtml(part) + "</span>";
+  }
+  function exBlockHtml(group) {
+    var html = '<div class="ex-block">';
+    html += '<div class="ex-head"><span class="ex-name">' + escapeHtml(group.exercise) + "</span>" + partChipHtml(group.part) + "</div>";
+    group.entries.forEach(function (entry) {
+      var sets = entrySetStrings(entry);
+      var chips = sets.map(function (s) { return '<span class="set-chip">' + escapeHtml(s) + "</span>"; }).join("");
+      html += '<div class="ex-row">';
+      html += '<div class="set-chips">' + chips + "</div>";
+      if (entry.note) {
+        var idx = registerRaw(entry.raw || "");
+        html += '<div class="ex-note" data-raw-idx="' + idx + '">注: ' + escapeHtml(entry.note) + "</div>";
+      }
+      html += "</div>";
+    });
+    html += "</div>";
+    return html;
+  }
+
+  // ---------- data loading ----------
+  function setBanner(type, message, showRetry) {
+    var el = document.getElementById("topBanner");
+    el.className = "top-banner show " + type;
+    el.innerHTML = escapeHtml(message) + (showRetry ? '<button id="bannerRetryBtn" type="button">再読み込み</button>' : "");
+    if (showRetry) {
+      document.getElementById("bannerRetryBtn").addEventListener("click", function () { loadData(); });
+    }
+  }
+  function hideBanner() {
+    var el = document.getElementById("topBanner");
+    el.className = "top-banner";
+    el.innerHTML = "";
+  }
+  function loadData() {
+    var btn = document.getElementById("reloadBtn");
+    btn.classList.add("spinning");
+    fetch("data.json?t=" + Date.now(), { cache: "no-store" })
+      .then(function (res) {
+        if (!res.ok) throw new Error("http " + res.status);
+        return res.json();
+      })
+      .then(function (json) {
+        var isInitial = !state.loaded;
+        state.data = json;
+        state.loaded = true;
+        state.bwMap = {};
+        (json.bodyweight || []).forEach(function (b) { state.bwMap[b.date] = b.kg; });
+        if (isInitial) {
+          state.dayIndex = Math.max(0, (json.days || []).length - 1);
+          var latestKey = computeLatestDateKey();
+          state.weekStart = latestKey ? mondayOf(dkToDate(latestKey)) : mondayOf(new Date());
+        } else {
+          if (json.days && json.days.length) {
+            state.dayIndex = Math.min(state.dayIndex, json.days.length - 1);
+          } else {
+            state.dayIndex = -1;
+          }
+        }
+        hideBanner();
+        buildExerciseChips();
+        renderFooters();
+        renderCurrentTab();
+      })
+      .catch(function (err) {
+        if (state.loaded) {
+          setBanner("warn", "データの更新に失敗しました。通信状態を確認してください。", false);
+          setTimeout(hideBanner, 4000);
+        } else {
+          setBanner("error", "データを読み込めませんでした。しばらくしてからもう一度お試しください。", true);
+        }
+      })
+      .then(function () {
+        btn.classList.remove("spinning");
+      });
+  }
+  function computeLatestDateKey() {
+    var days = (state.data && state.data.days) || [];
+    var bw = (state.data && state.data.bodyweight) || [];
+    var keys = days.map(function (d) { return d.date; }).concat(bw.map(function (b) { return b.date; }));
+    if (!keys.length) return null;
+    keys.sort();
+    return keys[keys.length - 1];
+  }
+
+  function renderFooters() {
+    var text = APP_VERSION + " ・ データ更新: " + formatIsoDateTime(state.data && state.data.source_mtime);
+    ["footerDay", "footerWeek", "footerExercise", "footerWeight"].forEach(function (id) {
+      document.getElementById(id).textContent = text;
+    });
+  }
+
+  // ---------- 日別タブ ----------
+  function renderDayTab() {
+    var days = (state.data && state.data.days) || [];
+    var labelEl = document.getElementById("dayLabel");
+    var prevBtn = document.getElementById("dayPrevBtn");
+    var nextBtn = document.getElementById("dayNextBtn");
+    var content = document.getElementById("dayContent");
+
+    if (!days.length) {
+      labelEl.textContent = "記録なし";
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      content.innerHTML = '<div class="card"><div class="empty-msg">記録がありません</div></div>';
+      return;
+    }
+    if (state.dayIndex < 0) state.dayIndex = days.length - 1;
+    if (state.dayIndex > days.length - 1) state.dayIndex = days.length - 1;
+    var day = days[state.dayIndex];
+    labelEl.textContent = formatDateLabel(day.date);
+    prevBtn.disabled = state.dayIndex <= 0;
+    nextBtn.disabled = state.dayIndex >= days.length - 1;
+
+    var html = "";
+    var bw = state.bwMap[day.date];
+    if (bw != null) {
+      html += '<div class="card"><span class="bw-pill">体重 ' + formatWeight(bw) + "kg</span></div>";
+    }
+
+    if (day.summary_only) {
+      var so = day.summary_only;
+      var idx = registerRaw(so.raw || "");
+      html += '<div class="card summary-only-box" data-raw-idx="' + idx + '">';
+      html += '<div class="so-title">詳細不明: ' + escapeHtml(so.parts_text || "") + "</div>";
+      if (so.sets != null) html += '<div class="li-meta">合計約' + so.sets + "セット</div>";
+      html += '<div class="so-sub">タップして原文を表示</div>';
+      html += "</div>";
+    } else {
+      var parts = [];
+      day.entries.forEach(function (e) { if (parts.indexOf(e.part) === -1) parts.push(e.part); });
+      var totalSets = 0, aerobicMinutes = 0;
+      day.entries.forEach(function (e) {
+        if (e.part === "有酸素") aerobicMinutes += (e.minutes || 0);
+        else totalSets += getEntrySetsCount(e);
+      });
+
+      html += '<div class="card">';
+      html += '<div class="part-chip-row">' + parts.map(partChipHtml).join("") + "</div>";
+      html += '<div class="day-summary-row"><span><strong>' + totalSets + "</strong>セット</span>";
+      if (aerobicMinutes > 0) html += '<span>有酸素 <strong>' + aerobicMinutes + "</strong>分</span>";
+      html += "</div>";
+      var groups = groupEntriesByExercise(day.entries);
+      html += groups.map(exBlockHtml).join("");
+      html += "</div>";
+    }
+    content.innerHTML = html;
+  }
+
+  // ---------- 週別タブ ----------
+  function renderWeekTab() {
+    if (!state.weekStart) state.weekStart = mondayOf(new Date());
+    var weekStart = state.weekStart;
+    var weekEnd = addDays(weekStart, 6);
+    var labelEl = document.getElementById("weekLabel");
+    labelEl.textContent = weekStart.getFullYear() + "/" + pad2(weekStart.getMonth() + 1) + "/" + pad2(weekStart.getDate()) +
+      "(" + weekdayJp(weekStart) + ")〜" + pad2(weekEnd.getMonth() + 1) + "/" + pad2(weekEnd.getDate()) + "(" + weekdayJp(weekEnd) + ")";
+
+    var days = (state.data && state.data.days) || [];
+    var dayMap = {};
+    days.forEach(function (d) { dayMap[d.date] = d; });
+
+    var partsSets = {};
+    STRENGTH_PARTS.forEach(function (p) { partsSets[p] = 0; });
+    var approxParts = {};
+    var aerobicMinutes = 0;
+    var trainedDaysCount = 0;
+    var dotInfo = [];
+
+    for (var i = 0; i < 7; i++) {
+      var d = addDays(weekStart, i);
+      var key = dateToKey(d);
+      var day = dayMap[key];
+      var status = "none";
+      if (day) {
+        trainedDaysCount++;
+        if (day.summary_only) {
+          status = "summary";
+        } else {
+          status = "full";
+          day.entries.forEach(function (e) {
+            if (e.part === "有酸素") {
+              aerobicMinutes += (e.minutes || 0);
+            } else if (partsSets.hasOwnProperty(e.part)) {
+              partsSets[e.part] += getEntrySetsCount(e);
+              if (isApproxSets(e)) approxParts[e.part] = true;
+            }
+          });
+        }
+      }
+      dotInfo.push({ key: key, label: weekdayJp(d), status: status });
+    }
+
+    var maxVal = Math.max.apply(null, STRENGTH_PARTS.map(function (p) { return partsSets[p]; }).concat([1]));
+
+    var html = "";
+    html += '<div class="card trained-days-box"><div class="num">' + trainedDaysCount + '</div><div class="lbl">今週トレした日数</div></div>';
+
+    html += '<div class="card"><div class="section-title">部位別セット数</div>';
+    STRENGTH_PARTS.forEach(function (p) {
+      var val = partsSets[p];
+      var pct = val === 0 ? 0 : Math.max(4, Math.round((val / maxVal) * 100));
+      html += '<div class="bar-row">';
+      html += '<div class="bar-label">' + escapeHtml(p) + "</div>";
+      html += '<div class="bar-track"><div class="bar-fill" style="width:' + pct + "%;background:" + (PART_COLORS[p] || "#aaa") + '"></div></div>';
+      html += '<div class="bar-value">' + val + "セット" + (approxParts[p] ? "(概算)" : "") + "</div>";
+      html += "</div>";
+    });
+    html += "</div>";
+
+    html += '<div class="card"><div class="aerobic-row"><span>有酸素</span><strong>' + aerobicMinutes + "分</strong></div></div>";
+
+    html += '<div class="card"><div class="section-title">日別</div><div class="week-dots">';
+    dotInfo.forEach(function (info) {
+      html += '<div class="week-dot-col"><span>' + info.label + '</span><span class="week-dot ' + info.status + '"></span></div>';
+    });
+    html += "</div></div>";
+
+    document.getElementById("weekContent").innerHTML = html;
+  }
+
+  // ---------- 種目別タブ ----------
+  function allEntriesFlat() {
+    var out = [];
+    ((state.data && state.data.days) || []).forEach(function (day) {
+      day.entries.forEach(function (e) { out.push(e); });
+    });
+    return out;
+  }
+  function buildExerciseChips() {
+    var entries = allEntriesFlat();
+    var counts = {};
+    var order = [];
+    entries.forEach(function (e) {
+      if (!counts[e.exercise]) { counts[e.exercise] = 0; order.push(e.exercise); }
+      counts[e.exercise]++;
+    });
+    order.sort(function (a, b) {
+      if (counts[b] !== counts[a]) return counts[b] - counts[a];
+      return a.localeCompare(b, "ja");
+    });
+    state.exerciseOrder = order;
+    if (!state.selectedExercise || order.indexOf(state.selectedExercise) === -1) {
+      state.selectedExercise = order[0] || null;
+    }
+    var chipRow = document.getElementById("exerciseChips");
+    if (!order.length) {
+      chipRow.innerHTML = '<span class="empty-msg">種目がありません</span>';
+      return;
+    }
+    chipRow.innerHTML = order.map(function (name) {
+      var active = name === state.selectedExercise ? " active" : "";
+      return '<button type="button" class="chip' + active + '" data-exercise="' + escapeHtml(name) + '">' + escapeHtml(name) + "</button>";
+    }).join("");
+    Array.prototype.forEach.call(chipRow.querySelectorAll(".chip"), function (btn) {
+      btn.addEventListener("click", function () {
+        state.selectedExercise = btn.getAttribute("data-exercise");
+        buildExerciseChips();
+        renderExerciseTab();
+      });
+    });
+  }
+  function renderExerciseTab() {
+    var content = document.getElementById("exerciseContent");
+    var name = state.selectedExercise;
+    if (!name) {
+      content.innerHTML = '<div class="card"><div class="empty-msg">種目がありません</div></div>';
+      return;
+    }
+    var days = (state.data && state.data.days) || [];
+    var perDate = {};
+    var dateKeys = [];
+    var isAerobic = false;
+    days.forEach(function (day) {
+      var matches = day.entries.filter(function (e) { return e.exercise === name; });
+      if (!matches.length) return;
+      if (!perDate[day.date]) { perDate[day.date] = []; dateKeys.push(day.date); }
+      matches.forEach(function (e) {
+        perDate[day.date].push(e);
+        if (e.part === "有酸素") isAerobic = true;
+      });
+    });
+    dateKeys.sort();
+
+    var html = '<div class="card"><div class="section-title">' + escapeHtml(name) + "の推移</div>";
+    html += '<div class="chart-wrap"><canvas id="exerciseChartCanvas"></canvas></div></div>';
+
+    html += '<div class="card"><div class="section-title">履歴</div>';
+    if (!dateKeys.length) {
+      html += '<div class="empty-msg">記録がありません</div>';
+    } else {
+      var descKeys = dateKeys.slice().reverse();
+      descKeys.forEach(function (key) {
+        var group = { exercise: name, part: perDate[key][0].part, entries: perDate[key] };
+        html += '<div class="li-meta" style="margin:8px 0 2px;font-weight:bold;color:var(--text);">' + formatDateLabel(key) + "</div>";
+        html += exBlockHtml(group);
+      });
+    }
+    html += "</div>";
+    content.innerHTML = html;
+
+    renderExerciseChart(dateKeys, perDate, isAerobic);
+  }
+  function renderExerciseChart(dateKeys, perDate, isAerobic) {
+    if (charts.exercise) { charts.exercise.destroy(); charts.exercise = null; }
+    var canvas = document.getElementById("exerciseChartCanvas");
+    if (!canvas || !dateKeys.length) return;
+    var ctx = canvas.getContext("2d");
+    var labels = dateKeys.map(formatShortDate);
+
+    if (isAerobic) {
+      var minutesData = dateKeys.map(function (k) {
+        var total = 0;
+        perDate[k].forEach(function (e) { total += (e.minutes || 0); });
+        return total;
+      });
+      charts.exercise = new Chart(ctx, {
+        type: "line",
+        data: { labels: labels, datasets: [{
+          label: "分",
+          data: minutesData,
+          borderColor: "#9aa0a6",
+          backgroundColor: "#9aa0a6",
+          tension: 0.25
+        }] },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } } },
+          scales: { y: { beginAtZero: true, title: { display: true, text: "分" } } }
+        }
+      });
+      return;
+    }
+
+    var weightTypes = [];
+    dateKeys.forEach(function (k) {
+      perDate[k].forEach(function (e) {
+        if (e.weight_type && e.weight_type !== "自重" && e.weight_type !== "-" && weightTypes.indexOf(e.weight_type) === -1) {
+          weightTypes.push(e.weight_type);
+        }
+      });
+    });
+    var typeColors = { "片手": "#ff8a5b", "片側": "#c97bdb", "合計": "#7b9acc", "不明": "#aaaaaa" };
+    var datasets = [];
+    weightTypes.forEach(function (wt) {
+      datasets.push({
+        label: wt + "の最大重量(kg)",
+        data: dateKeys.map(function (k) {
+          var max = null;
+          perDate[k].forEach(function (e) {
+            if (e.weight_type === wt && e.weight_kg != null) max = max == null ? e.weight_kg : Math.max(max, e.weight_kg);
+          });
+          return max;
+        }),
+        borderColor: typeColors[wt] || "#ff8a5b",
+        backgroundColor: typeColors[wt] || "#ff8a5b",
+        spanGaps: true,
+        tension: 0.25,
+        yAxisID: "yWeight"
+      });
+    });
+    datasets.push({
+      label: "総回数",
+      data: dateKeys.map(function (k) {
+        var total = 0;
+        perDate[k].forEach(function (e) { if (e.reps) e.reps.forEach(function (r) { total += r; }); });
+        return total;
+      }),
+      borderColor: "#4ecdc4",
+      backgroundColor: "#4ecdc4",
+      borderDash: [4, 3],
+      tension: 0.25,
+      yAxisID: "yReps"
+    });
+
+    charts.exercise = new Chart(ctx, {
+      type: "line",
+      data: { labels: labels, datasets: datasets },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10 } } } },
+        scales: {
+          yWeight: { position: "left", beginAtZero: true, title: { display: true, text: "kg" } },
+          yReps: { position: "right", beginAtZero: true, title: { display: true, text: "回数" }, grid: { drawOnChartArea: false } }
+        }
+      }
+    });
+  }
+
+  // ---------- 体重タブ ----------
+  function renderWeightTab() {
+    var content = document.getElementById("weightContent");
+    var bw = ((state.data && state.data.bodyweight) || []).slice().sort(function (a, b) { return a.date < b.date ? -1 : 1; });
+    if (!bw.length) {
+      content.innerHTML = '<div class="card"><div class="empty-msg">体重の記録がありません</div></div>';
+      return;
+    }
+    var latest = bw[bw.length - 1];
+    var first = bw[0];
+    var minEntry = bw[0], maxEntry = bw[0];
+    bw.forEach(function (b) {
+      if (b.kg < minEntry.kg) minEntry = b;
+      if (b.kg > maxEntry.kg) maxEntry = b;
+    });
+    var change = latest.kg - first.kg;
+    var changeStr = (change >= 0 ? "+" : "") + Math.round(change * 10) / 10 + "kg";
+
+    var html = '<div class="card"><div class="chart-wrap"><canvas id="weightChartCanvas"></canvas></div></div>';
+    html += '<div class="card"><div class="stat-grid">';
+    html += '<div class="stat-box"><div class="stat-label">最新</div><div class="stat-value">' + formatWeight(latest.kg) + "kg</div></div>";
+    html += '<div class="stat-box"><div class="stat-label">期間の増減(' + formatShortDate(first.date) + "〜" + formatShortDate(latest.date) + ')</div><div class="stat-value">' + changeStr + "</div></div>";
+    html += '<div class="stat-box"><div class="stat-label">最小 (' + formatShortDate(minEntry.date) + ')</div><div class="stat-value">' + formatWeight(minEntry.kg) + "kg</div></div>";
+    html += '<div class="stat-box"><div class="stat-label">最大 (' + formatShortDate(maxEntry.date) + ')</div><div class="stat-value">' + formatWeight(maxEntry.kg) + "kg</div></div>";
+    html += "</div></div>";
+
+    html += '<div class="card"><div class="section-title">一覧</div>';
+    var desc = bw.slice().reverse();
+    desc.forEach(function (b, i) {
+      var prev = bw[bw.length - 1 - i - 1];
+      var diffHtml = "";
+      if (prev) {
+        var d = Math.round((b.kg - prev.kg) * 10) / 10;
+        diffHtml = '<span class="diff">' + (d >= 0 ? "+" : "") + d + "kg</span>";
+      }
+      html += '<div class="list-item"><div class="li-left"><div class="li-item">' + formatDateLabel(b.date) + '</div></div>';
+      html += '<div class="li-right">' + formatWeight(b.kg) + "kg" + diffHtml + "</div></div>";
+    });
+    html += "</div>";
+    content.innerHTML = html;
+
+    if (charts.weight) { charts.weight.destroy(); charts.weight = null; }
+    var ctx = document.getElementById("weightChartCanvas").getContext("2d");
+    charts.weight = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: bw.map(function (b) { return formatShortDate(b.date); }),
+        datasets: [{
+          label: "体重(kg)",
+          data: bw.map(function (b) { return b.kg; }),
+          borderColor: "#ff8a5b",
+          backgroundColor: "#ff8a5b",
+          tension: 0.3,
+          pointRadius: 3
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { title: { display: true, text: "kg" } } }
+      }
+    });
+  }
+
+  // ---------- タブ制御 ----------
+  function renderCurrentTab() {
+    if (!state.loaded) return;
+    if (state.currentTab === "day") renderDayTab();
+    else if (state.currentTab === "week") renderWeekTab();
+    else if (state.currentTab === "exercise") renderExerciseTab();
+    else if (state.currentTab === "weight") renderWeightTab();
+  }
+  function switchTab(tab) {
+    state.currentTab = tab;
+    Array.prototype.forEach.call(document.querySelectorAll(".screen"), function (s) {
+      s.classList.toggle("active", s.id === "screen-" + tab);
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".tab-btn"), function (b) {
+      b.classList.toggle("active", b.getAttribute("data-screen") === tab);
+    });
+    try { history.replaceState(null, "", "#" + tab); } catch (e) {}
+    renderCurrentTab();
+  }
+
+  // ---------- イベント ----------
+  document.getElementById("reloadBtn").addEventListener("click", function () { loadData(); });
+  document.getElementById("dayPrevBtn").addEventListener("click", function () { changeDay(-1); });
+  document.getElementById("dayNextBtn").addEventListener("click", function () { changeDay(1); });
+  document.getElementById("weekPrevBtn").addEventListener("click", function () { changeWeek(-1); });
+  document.getElementById("weekNextBtn").addEventListener("click", function () { changeWeek(1); });
+  function changeDay(delta) {
+    var days = (state.data && state.data.days) || [];
+    var ni = state.dayIndex + delta;
+    if (ni < 0 || ni > days.length - 1) return;
+    state.dayIndex = ni;
+    renderDayTab();
+  }
+  function changeWeek(delta) {
+    state.weekStart = addDays(state.weekStart, delta * 7);
+    renderWeekTab();
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll(".tab-btn"), function (btn) {
+    btn.addEventListener("click", function () { switchTab(btn.getAttribute("data-screen")); });
+  });
+
+  document.getElementById("rawModalClose").addEventListener("click", closeRawModal);
+  document.getElementById("rawModalOverlay").addEventListener("click", function (e) {
+    if (e.target === this) closeRawModal();
+  });
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest ? e.target.closest("[data-raw-idx]") : null;
+    if (!el) return;
+    var idx = +el.getAttribute("data-raw-idx");
+    openRawModal(rawRegistry[idx]);
+  });
+
+  // ---------- 横スワイプ（日別・週別のみ） ----------
+  var SWIPE_DECIDE_DISTANCE = 10;
+  var SWIPE_TRIGGER_DISTANCE = 50;
+  var SWIPE_RATIO = 1.5;
+  var SWIPE_TABS = { day: true, week: true };
+
+  function isFormTarget(el) {
+    while (el && el !== document.body) {
+      if (el.nodeType === 1) {
+        var tag = el.tagName.toLowerCase();
+        if (tag === "input" || tag === "textarea" || tag === "select" || el.isContentEditable) return true;
+      }
+      el = el.parentElement;
+    }
+    return false;
+  }
+  function scrollableAncestorX(el) {
+    while (el && el !== document.body && el !== document.documentElement) {
+      if (el.nodeType === 1) {
+        var style = window.getComputedStyle(el);
+        if ((style.overflowX === "auto" || style.overflowX === "scroll") && el.scrollWidth > el.clientWidth) return el;
+      }
+      el = el.parentElement;
+    }
+    return null;
+  }
+
+  document.addEventListener("touchstart", function (e) {
+    if (e.touches.length !== 1 || document.querySelector(".modal-overlay.show")) {
+      gesture.tracking = false;
+      return;
+    }
+    var target = e.target;
+    gesture.tracking = true;
+    gesture.startX = e.touches[0].clientX;
+    gesture.startY = e.touches[0].clientY;
+    gesture.lockDir = null;
+    gesture.eligible = !isFormTarget(target) && !scrollableAncestorX(target) && !!SWIPE_TABS[state.currentTab];
+  }, { passive: true });
+
+  document.addEventListener("touchmove", function (e) {
+    if (!gesture.tracking || e.touches.length !== 1) return;
+    var touch = e.touches[0];
+    var dx = touch.clientX - gesture.startX;
+    var dy = touch.clientY - gesture.startY;
+    var absDx = Math.abs(dx);
+    var absDy = Math.abs(dy);
+    if (gesture.lockDir === null) {
+      if (absDx > SWIPE_DECIDE_DISTANCE && absDx > absDy * SWIPE_RATIO) {
+        gesture.lockDir = "x";
+      } else if (absDy > SWIPE_DECIDE_DISTANCE) {
+        gesture.lockDir = "y";
+      } else {
+        return;
+      }
+    }
+    if (gesture.lockDir === "x" && gesture.eligible) e.preventDefault();
+  }, { passive: false });
+
+  function gestureFinish(e) {
+    if (!gesture.tracking) return;
+    var locked = gesture.lockDir === "x" && gesture.eligible;
+    gesture.tracking = false;
+    if (!locked) return;
+    var touch = e && e.changedTouches && e.changedTouches[0];
+    if (!touch) return;
+    var dx = touch.clientX - gesture.startX;
+    var dy = touch.clientY - gesture.startY;
+    if (Math.abs(dx) > SWIPE_TRIGGER_DISTANCE && Math.abs(dx) > Math.abs(dy) * SWIPE_RATIO) {
+      if (state.currentTab === "day") changeDay(dx < 0 ? 1 : -1);
+      else if (state.currentTab === "week") changeWeek(dx < 0 ? 1 : -1);
+    }
+  }
+  document.addEventListener("touchend", gestureFinish);
+  document.addEventListener("touchcancel", function () { gesture.tracking = false; });
+
+  // ---------- 初期化 ----------
+  function initialTabFromHash() {
+    var h = (location.hash || "").replace("#", "");
+    if (h === "day" || h === "week" || h === "exercise" || h === "weight") return h;
+    return "day";
+  }
+  function init() {
+    var initial = initialTabFromHash();
+    switchTab(initial);
+    loadData();
+  }
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "visible") loadData();
+  });
+  window.addEventListener("pageshow", function () { loadData(); });
+
+  init();
+})();
+</script>
+</body>
+</html>
