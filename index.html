@@ -496,7 +496,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.03e";
+  var APP_VERSION = "v2026.11.03f";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   var PART_COLORS = {
@@ -521,7 +521,7 @@
     dayIndex: -1,
     weekStart: null,
     monthCursor: null,
-    selectedPart: "all",
+    selectedPart: null,
     selectedExercise: null,
     weightPeriod: null,
     currentTab: "day"
@@ -1182,13 +1182,26 @@
     var parts = PART_DISPLAY_ORDER.filter(function (p) { return present[p]; });
     if (present["不明"]) parts.push("不明");
     state.partsAvailable = parts;
-    if (state.selectedPart !== "all" && parts.indexOf(state.selectedPart) === -1) {
-      state.selectedPart = "all";
+    if (!state.selectedPart || parts.indexOf(state.selectedPart) === -1) {
+      if (parts.indexOf("胸") !== -1) {
+        state.selectedPart = "胸";
+      } else if (parts.length) {
+        var setsByPart = {};
+        allEntriesFlat().forEach(function (e) {
+          var p = e.part || "不明";
+          setsByPart[p] = (setsByPart[p] || 0) + getEntrySetsCount(e);
+        });
+        state.selectedPart = parts.reduce(function (best, p) {
+          return (setsByPart[p] || 0) > (setsByPart[best] || 0) ? p : best;
+        }, parts[0]);
+      } else {
+        state.selectedPart = null;
+      }
     }
     var row = document.getElementById("partChips");
-    var items = [{ key: "all", label: "すべて", color: "#999" }].concat(parts.map(function (p) {
+    var items = parts.map(function (p) {
       return { key: p, label: p === "不明" ? "その他" : p, color: PART_COLORS[p] || "#aaa" };
-    }));
+    });
     row.innerHTML = items.map(function (it) {
       var active = state.selectedPart === it.key ? " active" : "";
       return '<button type="button" class="part-chip-btn' + active + '" style="background:' + it.color + '" data-part="' + escapeHtml(it.key) + '">' + escapeHtml(it.label) + "</button>";
@@ -1207,7 +1220,6 @@
   }
   function buildExerciseChips() {
     var entries = allEntriesFlat().filter(function (e) {
-      if (state.selectedPart === "all") return true;
       return (e.part || "不明") === state.selectedPart;
     });
     var counts = {};
