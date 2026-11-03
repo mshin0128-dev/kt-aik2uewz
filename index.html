@@ -419,7 +419,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.03a";
+  var APP_VERSION = "v2026.11.03b";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_COLORS = {
     "胸": "#ff8a5b",
@@ -505,11 +505,17 @@
       if (entry.reps && entry.reps.length) return entry.reps.map(function (r) { return r + "回"; });
       return ["回数不明"];
     }
-    var w = entry.weight_kg != null ? formatWeight(entry.weight_kg) + "kg" : "";
-    var suffix = "";
-    if (entry.weight_type === "不明") suffix = "(片手/合計 不明)";
-    else if (entry.weight_type && entry.weight_type !== "-") suffix = "(" + entry.weight_type + ")";
-    var label = w + suffix;
+    var label;
+    if (entry.hands === "両手" && entry.total_kg != null) {
+      label = "片手" + formatWeight(entry.weight_kg) + "kg(合計" + formatWeight(entry.total_kg) + "kg)";
+    } else {
+      var w = entry.weight_kg != null ? formatWeight(entry.weight_kg) + "kg" : "";
+      var suffix = "";
+      if (entry.weight_type === "不明") suffix = "(片手/合計 不明)";
+      else if (entry.weight_type === "マシン" || entry.weight_type === "バー") suffix = "";
+      else if (entry.weight_type && entry.weight_type !== "-") suffix = "(" + entry.weight_type + ")";
+      label = w + suffix;
+    }
     if (entry.reps && entry.reps.length) return entry.reps.map(function (r) { return label + "×" + r; });
     return [label + "×回数不明"];
   }
@@ -870,28 +876,43 @@
       return;
     }
 
-    var weightTypes = [];
+    function chartWeightValue(e) { return e.total_kg != null ? e.total_kg : e.weight_kg; }
+    function chartSeriesKey(e) { return e.total_kg != null ? "合計(両手)" : e.weight_type; }
+
+    var seriesKeys = [];
     dateKeys.forEach(function (k) {
       perDate[k].forEach(function (e) {
-        if (e.weight_type && e.weight_type !== "自重" && e.weight_type !== "-" && weightTypes.indexOf(e.weight_type) === -1) {
-          weightTypes.push(e.weight_type);
+        var key = chartSeriesKey(e);
+        if (key && key !== "自重" && key !== "-" && seriesKeys.indexOf(key) === -1) {
+          seriesKeys.push(key);
         }
       });
     });
-    var typeColors = { "片手": "#ff8a5b", "片側": "#c97bdb", "合計": "#7b9acc", "不明": "#aaaaaa" };
+    var typeColors = {
+      "片手": "#ff8a5b",
+      "片側": "#c97bdb",
+      "合計": "#7b9acc",
+      "不明": "#aaaaaa",
+      "合計(両手)": "#2a9d8f",
+      "マシン": "#9d6b53",
+      "バー": "#5fb47c"
+    };
     var datasets = [];
-    weightTypes.forEach(function (wt) {
+    seriesKeys.forEach(function (key) {
       datasets.push({
-        label: wt + "の最大重量(kg)",
+        label: key + "の最大重量(kg)",
         data: dateKeys.map(function (k) {
           var max = null;
           perDate[k].forEach(function (e) {
-            if (e.weight_type === wt && e.weight_kg != null) max = max == null ? e.weight_kg : Math.max(max, e.weight_kg);
+            if (chartSeriesKey(e) === key) {
+              var v = chartWeightValue(e);
+              if (v != null) max = max == null ? v : Math.max(max, v);
+            }
           });
           return max;
         }),
-        borderColor: typeColors[wt] || "#ff8a5b",
-        backgroundColor: typeColors[wt] || "#ff8a5b",
+        borderColor: typeColors[key] || "#ff8a5b",
+        backgroundColor: typeColors[key] || "#ff8a5b",
         spanGaps: true,
         tension: 0.25,
         yAxisID: "yWeight"
