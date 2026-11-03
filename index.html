@@ -2,6 +2,21 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<script>
+(function () {
+  try {
+    var KEY = "kintore_theme_pref";
+    var pref = localStorage.getItem(KEY);
+    if (pref !== "light" && pref !== "dark" && pref !== "auto") pref = "auto";
+    document.documentElement.setAttribute("data-theme", pref);
+    var dark = pref === "dark" || (pref === "auto" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    var tc = document.querySelector('meta[name="theme-color"]');
+    if (tc) tc.setAttribute("content", dark ? "#14161a" : "#ff8a5b");
+    var sb = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+    if (sb) sb.setAttribute("content", dark ? "black-translucent" : "default");
+  } catch (e) {}
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>筋トレ記録まとめ</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -24,6 +39,20 @@
     --text: #333;
     --sub: #888;
     --danger: #ff5a5a;
+    --teal: #2a9d8f;
+    --border: #eee;
+    --border-soft: #f0f0f0;
+    --border-softer: #f7f7f7;
+    --surface-alt: #fafafa;
+    --chip-active-bg: #fff1e8;
+    --banner-error-bg: #fff0f0;
+    --banner-error-border: #ffd6d6;
+    --banner-warn-bg: #fff8f0;
+    --banner-warn-border: #ffe3c6;
+    --banner-warn-text: #a56b1f;
+    --bw-pill-bg: #eafaf7;
+    --status-on-bg: #e5f7f0;
+    --status-off-bg: #fff0ec;
     --radius-lg: 18px;
     --radius: 16px;
     --radius-md: 12px;
@@ -37,7 +66,52 @@
     --safe-b: env(safe-area-inset-bottom, 0px);
     --safe-l: env(safe-area-inset-left, 0px);
     --safe-r: env(safe-area-inset-right, 0px);
-    --nav-h: 62px; /* .tabbar height excluding safe-area inset: 6px top pad + 44px btn + 12px base bottom pad */
+    --nav-h: 74px; /* .tabbar height excluding safe-area inset: 6px top pad + 56px btn (7+27 icon+3 gap+13 label+6) + 12px base bottom pad */
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+  }
+  :root[data-theme="dark"] {
+    --bg: #14161a;
+    --card: #1e2024;
+    --text: #e8eaed;
+    --sub: #9aa1a9;
+    --border: #33363b;
+    --border-soft: #2a2c30;
+    --border-softer: #26282c;
+    --surface-alt: #25282c;
+    --chip-active-bg: rgba(255,138,91,0.18);
+    --banner-error-bg: rgba(255,90,90,0.12);
+    --banner-error-border: rgba(255,90,90,0.35);
+    --banner-warn-bg: rgba(224,169,74,0.12);
+    --banner-warn-border: rgba(224,169,74,0.35);
+    --banner-warn-text: #e0a94a;
+    --bw-pill-bg: rgba(42,157,143,0.18);
+    --status-on-bg: rgba(42,157,143,0.18);
+    --status-off-bg: rgba(255,90,90,0.15);
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root[data-theme="auto"] {
+      --bg: #14161a;
+      --card: #1e2024;
+      --text: #e8eaed;
+      --sub: #9aa1a9;
+      --border: #33363b;
+      --border-soft: #2a2c30;
+      --border-softer: #26282c;
+      --surface-alt: #25282c;
+      --chip-active-bg: rgba(255,138,91,0.18);
+      --banner-error-bg: rgba(255,90,90,0.12);
+      --banner-error-border: rgba(255,90,90,0.35);
+      --banner-warn-bg: rgba(224,169,74,0.12);
+      --banner-warn-border: rgba(224,169,74,0.35);
+      --banner-warn-text: #e0a94a;
+      --bw-pill-bg: rgba(42,157,143,0.18);
+      --status-on-bg: rgba(42,157,143,0.18);
+      --status-off-bg: rgba(255,90,90,0.15);
+      color-scheme: dark;
+    }
   }
   * { box-sizing: border-box; }
   html, body {
@@ -73,16 +147,15 @@
     justify-content: space-between;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
-  header.topbar .topbar-spacer { width: 24px; flex: 0 0 auto; }
   header.topbar .title { flex: 1 1 auto; text-align: center; font-size: 18px; font-weight: bold; overflow-wrap: anywhere; }
-  header.topbar .reload-btn {
+  header.topbar .reload-btn, header.topbar .theme-btn {
     flex: 0 0 auto;
     width: 24px; height: 24px;
     background: none; border: none; color: #fff;
     display: flex; align-items: center; justify-content: center;
     cursor: pointer; padding: 0;
   }
-  header.topbar .reload-btn svg { width: 20px; height: 20px; display: block; }
+  header.topbar .reload-btn svg, header.topbar .theme-btn svg { width: 20px; height: 20px; display: block; }
   header.topbar .reload-btn.spinning svg { animation: spin 0.7s linear; }
   @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
@@ -109,8 +182,8 @@
     margin-bottom: 4px;
   }
   .nav-switch button {
-    background: #fff;
-    border: 2px solid #eee;
+    background: var(--card);
+    border: 2px solid var(--border);
     border-radius: var(--radius-sm);
     padding: 8px 12px;
     cursor: pointer;
@@ -138,8 +211,8 @@
     margin-bottom: var(--space);
   }
   .top-banner.show { display: block; }
-  .top-banner.error { background: #fff0f0; color: var(--danger); border: 1px solid #ffd6d6; }
-  .top-banner.warn { background: #fff8f0; color: #a56b1f; border: 1px solid #ffe3c6; }
+  .top-banner.error { background: var(--banner-error-bg); color: var(--danger); border: 1px solid var(--banner-error-border); }
+  .top-banner.warn { background: var(--banner-warn-bg); color: var(--banner-warn-text); border: 1px solid var(--banner-warn-border); }
   .top-banner button {
     display: block; margin: 8px auto 0; padding: 8px 18px;
     border: none; border-radius: var(--radius-sm);
@@ -196,8 +269,8 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: #eafaf7;
-    color: #2a9d8f;
+    background: var(--bw-pill-bg);
+    color: var(--teal);
     border-radius: 999px;
     padding: 5px 12px;
     font-size: 13px;
@@ -205,15 +278,15 @@
     margin-bottom: 10px;
   }
 
-  .ex-block { border-bottom: 1px solid #f0f0f0; padding: 10px 0 10px 10px; }
+  .ex-block { border-bottom: 1px solid var(--border-soft); padding: 10px 0 10px 10px; }
   .ex-block:last-child { border-bottom: none; padding-bottom: 0; }
   .ex-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
   .ex-name { font-size: 15px; font-weight: bold; overflow-wrap: anywhere; min-width: 0; }
   .ex-row { margin-bottom: 4px; }
   .set-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
   .set-chip {
-    background: #fafafa;
-    border: 1px solid #eee;
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 4px 9px;
     font-size: 13px;
@@ -247,7 +320,7 @@
   .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
   .bar-row:last-child { margin-bottom: 0; }
   .bar-label { width: 44px; flex: 0 0 auto; font-size: 13px; }
-  .bar-track { flex: 1 1 auto; height: 14px; background: #f0f0f0; border-radius: 8px; overflow: hidden; min-width: 0; }
+  .bar-track { flex: 1 1 auto; height: 14px; background: var(--border-soft); border-radius: 8px; overflow: hidden; min-width: 0; }
   .bar-fill { height: 100%; border-radius: 8px; min-width: 2px; }
   .bar-value { width: 72px; flex: 0 0 auto; text-align: right; font-size: 12px; color: var(--sub); white-space: nowrap; }
   .part-tag-value { margin-left: auto; font-size: 12px; color: var(--sub); white-space: nowrap; }
@@ -256,7 +329,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #f4f6f8;
+    background: var(--bg);
     border-radius: var(--radius-md);
     padding: 10px 12px;
     font-size: 13px;
@@ -264,7 +337,7 @@
   }
 
   .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .stat-box { background: #fafafa; border-radius: var(--radius-md); padding: 10px; text-align: center; min-width: 0; }
+  .stat-box { background: var(--surface-alt); border-radius: var(--radius-md); padding: 10px; text-align: center; min-width: 0; }
   .stat-box .stat-label { font-size: 11px; color: var(--sub); }
   .stat-box .stat-value { font-size: 18px; font-weight: bold; margin-top: 2px; overflow-wrap: anywhere; }
 
@@ -277,9 +350,9 @@
 
   .week-dots { display: flex; justify-content: space-between; }
   .week-dot-col { display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 11px; color: var(--sub); }
-  .week-dot { width: 15px; height: 15px; border-radius: 50%; background: #fff; border: 2px solid #e8e8e8; }
+  .week-dot { width: 15px; height: 15px; border-radius: 50%; background: var(--card); border: 2px solid var(--border); }
   .week-dot.full { background: var(--accent); border-color: var(--accent); }
-  .week-dot.summary { background: #fff; border-color: var(--accent); }
+  .week-dot.summary { background: var(--card); border-color: var(--accent); }
 
   .month-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
   .month-cal-dow { text-align: center; font-size: 11px; color: var(--sub); padding-bottom: 4px; }
@@ -291,7 +364,7 @@
     justify-content: center;
     gap: 2px;
     border-radius: 8px;
-    background: #fafafa;
+    background: var(--surface-alt);
     font-size: 11px;
     color: var(--text);
     min-width: 0;
@@ -300,24 +373,24 @@
   .month-day.today { box-shadow: 0 0 0 2px var(--accent) inset; font-weight: bold; }
   .month-day .md-dots { display: flex; flex-wrap: wrap; gap: 2px; justify-content: center; }
   .md-dot { width: 6px; height: 6px; border-radius: 50%; }
-  .md-dot.summary-dot { width: 6px; height: 6px; background: #fff; border: 1.5px solid var(--sub); box-sizing: border-box; }
+  .md-dot.summary-dot { width: 6px; height: 6px; background: var(--card); border: 1.5px solid var(--sub); box-sizing: border-box; }
 
   .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; -webkit-overflow-scrolling: touch; }
   .chip {
     flex: 0 0 auto;
     padding: 7px 13px;
     border-radius: 999px;
-    border: 2px solid #eee;
-    background: #fafafa;
+    border: 2px solid var(--border);
+    background: var(--surface-alt);
     font-size: 13px;
     white-space: nowrap;
     cursor: pointer;
   }
-  .chip.active { border-color: var(--accent); background: #fff1e8; font-weight: bold; }
+  .chip.active { border-color: var(--accent); background: var(--chip-active-bg); font-weight: bold; }
 
   .chart-wrap { position: relative; height: 230px; margin: 10px auto; }
 
-  .list-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 11px 4px; border-bottom: 1px solid #f0f0f0; min-width: 0; }
+  .list-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 11px 4px; border-bottom: 1px solid var(--border-soft); min-width: 0; }
   .list-item:last-child { border-bottom: none; }
   .li-left { display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; }
   .li-item { font-weight: bold; font-size: 14px; overflow-wrap: anywhere; }
@@ -339,7 +412,7 @@
     max-width: 480px;
     margin: 0 auto;
     display: flex;
-    background: #fff;
+    background: var(--card);
     box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
     z-index: 20;
     padding-top: 6px;
@@ -351,7 +424,7 @@
     flex: 1;
     min-width: 0;
     min-height: 44px;
-    padding: 6px 1px 4px;
+    padding: 7px 1px 6px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -364,8 +437,8 @@
     background: none;
     cursor: pointer;
   }
-  .tab-btn .icon { display: flex; align-items: center; justify-content: center; margin-bottom: 2px; }
-  .tab-btn .icon svg { width: 18px; height: 18px; display: block; }
+  .tab-btn .icon { display: flex; align-items: center; justify-content: center; margin-bottom: 3px; }
+  .tab-btn .icon svg { width: 27px; height: 27px; display: block; }
   .tab-btn.active { color: var(--accent); font-weight: bold; }
 
   .modal-overlay {
@@ -378,7 +451,7 @@
   }
   .modal-overlay.show { display: flex; }
   .modal-box {
-    background: #fff;
+    background: var(--card);
     width: 100%;
     max-width: 480px;
     border-radius: 18px 18px 0 0;
@@ -393,8 +466,25 @@
   .modal-close-btn {
     display: block; width: 100%; margin-top: 14px; padding: 12px;
     border: none; border-radius: var(--radius-md);
-    background: #f0f0f0; font-weight: bold; font-size: 15px; cursor: pointer;
+    background: var(--surface-alt); color: var(--text); font-weight: bold; font-size: 15px; cursor: pointer;
   }
+
+  .theme-option-list { display: flex; flex-direction: column; }
+  .theme-option {
+    display: flex; align-items: center; gap: 10px;
+    width: 100%; background: none; border: none;
+    padding: 12px 4px; border-bottom: 1px solid var(--border-soft);
+    font-size: 15px; color: var(--text); cursor: pointer; text-align: left;
+    font-family: inherit;
+  }
+  .theme-option:last-child { border-bottom: none; }
+  .theme-option-icon { width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; color: var(--sub); flex: 0 0 auto; }
+  .theme-option-icon svg { width: 20px; height: 20px; display: block; }
+  .theme-option-label { flex: 1 1 auto; }
+  .theme-option-check { width: 20px; height: 20px; flex: 0 0 auto; color: var(--accent); visibility: hidden; }
+  .theme-option-check svg { width: 20px; height: 20px; display: block; }
+  .theme-option.active .theme-option-icon { color: var(--accent); }
+  .theme-option.active .theme-option-check { visibility: visible; }
 
   .goal-form { display: flex; gap: 10px; }
   .goal-field { flex: 1 1 0; min-width: 0; }
@@ -402,22 +492,22 @@
   .goal-field input {
     width: 100%; box-sizing: border-box;
     padding: 9px 10px;
-    border: 2px solid #eee; border-radius: var(--radius-sm);
+    border: 2px solid var(--border); border-radius: var(--radius-sm);
     font-size: 15px; color: var(--text);
-    background: #fafafa;
+    background: var(--surface-alt);
     font-family: inherit;
   }
   .goal-field input:focus { border-color: var(--accent); outline: none; }
 
-  .pace-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #f0f0f0; gap: 10px; }
+  .pace-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--border-soft); gap: 10px; }
   .pace-row:last-child { border-bottom: none; }
   .pace-row .pace-label { font-size: 13px; color: var(--sub); }
   .pace-row .pace-value { font-size: 15px; font-weight: bold; white-space: nowrap; text-align: right; }
   .status-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: bold; white-space: nowrap; }
   .status-badge svg { width: 14px; height: 14px; display: block; }
-  .status-badge.on { background: #e5f7f0; color: #2a9d8f; }
-  .status-badge.off { background: #fff0ec; color: var(--danger); }
-  .status-badge.neutral { background: #f0f0f0; color: var(--sub); }
+  .status-badge.on { background: var(--status-on-bg); color: var(--teal); }
+  .status-badge.off { background: var(--status-off-bg); color: var(--danger); }
+  .status-badge.neutral { background: var(--border-soft); color: var(--sub); }
   .goal-note { font-size: 12px; color: var(--sub); margin-top: 2px; }
 
   .meal-day-card { padding-bottom: 6px; }
@@ -428,9 +518,9 @@
   .meal-day-toggle.open { transform: rotate(180deg); }
   .meal-bars { margin-top: 10px; }
   .meal-bars .bar-value { width: 92px; white-space: normal; line-height: 1.3; font-size: 11px; }
-  .meal-items { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #eee; display: none; }
+  .meal-items { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border); display: none; }
   .meal-items.open { display: block; }
-  .meal-item-row { font-size: 13px; padding: 6px 2px; border-bottom: 1px solid #f7f7f7; overflow-wrap: anywhere; }
+  .meal-item-row { font-size: 13px; padding: 6px 2px; border-bottom: 1px solid var(--border-softer); overflow-wrap: anywhere; }
   .meal-item-row:last-child { border-bottom: none; }
   .meal-item-row .mi-time { color: var(--sub); font-size: 11px; margin-right: 6px; white-space: nowrap; }
   .meal-note { font-size: 12px; color: var(--sub); margin-top: 8px; }
@@ -440,7 +530,9 @@
 <body>
 <div id="app">
   <header class="topbar">
-    <span class="topbar-spacer"></span>
+    <button class="theme-btn" id="themeBtn" aria-label="テーマ設定" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    </button>
     <span class="title">筋トレ記録まとめ</span>
     <button class="reload-btn" id="reloadBtn" aria-label="再読み込み" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
@@ -546,11 +638,35 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="themeModalOverlay">
+  <div class="modal-box">
+    <h4>テーマ</h4>
+    <div class="theme-option-list">
+      <button type="button" class="theme-option" data-theme-choice="auto">
+        <span class="theme-option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
+        <span class="theme-option-label">自動</span>
+        <span class="theme-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="8 12.5 11 15.5 16 9"/></svg></span>
+      </button>
+      <button type="button" class="theme-option" data-theme-choice="light">
+        <span class="theme-option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+        <span class="theme-option-label">ライト</span>
+        <span class="theme-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="8 12.5 11 15.5 16 9"/></svg></span>
+      </button>
+      <button type="button" class="theme-option" data-theme-choice="dark">
+        <span class="theme-option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+        <span class="theme-option-label">ダーク</span>
+        <span class="theme-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="8 12.5 11 15.5 16 9"/></svg></span>
+      </button>
+    </div>
+    <button class="modal-close-btn" id="themeModalClose" type="button">閉じる</button>
+  </div>
+</div>
+
 <script>
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.04b";
+  var APP_VERSION = "v2026.11.04c";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   var PART_COLORS = {
@@ -610,6 +726,54 @@
   function saveGoalDate(v) {
     state.goalDate = v;
     try { localStorage.setItem(GOAL_DATE_KEY, v); } catch (e) {}
+  }
+
+  // ---------- テーマ（ライト/ダーク/自動） ----------
+  var THEME_KEY = "kintore_theme_pref";
+  var themeMql = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+  function getThemePref() {
+    var p = null;
+    try { p = localStorage.getItem(THEME_KEY); } catch (e) {}
+    return (p === "light" || p === "dark" || p === "auto") ? p : "auto";
+  }
+  function isDarkActive() {
+    var pref = getThemePref();
+    return pref === "dark" || (pref === "auto" && !!(themeMql && themeMql.matches));
+  }
+  function updateThemeMeta() {
+    var dark = isDarkActive();
+    var tc = document.querySelector('meta[name="theme-color"]');
+    if (tc) tc.setAttribute("content", dark ? "#14161a" : "#ff8a5b");
+    var sb = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+    if (sb) sb.setAttribute("content", dark ? "black-translucent" : "default");
+  }
+  function updateThemeModalUi() {
+    var pref = getThemePref();
+    Array.prototype.forEach.call(document.querySelectorAll(".theme-option"), function (btn) {
+      btn.classList.toggle("active", btn.getAttribute("data-theme-choice") === pref);
+    });
+  }
+  function themeColors() {
+    var cs = getComputedStyle(document.documentElement);
+    return {
+      text: cs.getPropertyValue("--text").trim() || "#333",
+      sub: cs.getPropertyValue("--sub").trim() || "#888",
+      grid: cs.getPropertyValue("--border").trim() || "#eee"
+    };
+  }
+  function applyThemePref(pref) {
+    try { localStorage.setItem(THEME_KEY, pref); } catch (e) {}
+    document.documentElement.setAttribute("data-theme", pref);
+    updateThemeMeta();
+    updateThemeModalUi();
+    renderCurrentTab();
+  }
+  function openThemeModal() {
+    updateThemeModalUi();
+    document.getElementById("themeModalOverlay").classList.add("show");
+  }
+  function closeThemeModal() {
+    document.getElementById("themeModalOverlay").classList.remove("show");
   }
 
   // ---------- Chart.js value-label plugin (自作・外部プラグイン不要) ----------
@@ -725,6 +889,46 @@
     var cur = p;
     var n = Math.abs(delta);
     for (var i = 0; i < n; i++) cur = delta > 0 ? nextPeriod(cur) : prevPeriod(cur);
+    return cur;
+  }
+
+  // ---------- 7日区間（食事タブ用）ユーティリティ ----------
+  function mealPeriodSegCount(year, month) { return Math.ceil(daysInMonth(year, month) / 7); }
+  function mealPeriodFromKey(key) {
+    var d = dkToDate(key);
+    var day = d.getDate();
+    return { year: d.getFullYear(), month: d.getMonth() + 1, seg: Math.ceil(day / 7) };
+  }
+  function mealPeriodDateKeys(p) {
+    var start = (p.seg - 1) * 7 + 1;
+    var end = Math.min(start + 6, daysInMonth(p.year, p.month));
+    var keys = [];
+    for (var day = start; day <= end; day++) {
+      keys.push(p.year + "-" + pad2(p.month) + "-" + pad2(day));
+    }
+    return keys;
+  }
+  function mealPeriodLabel(p) {
+    var start = (p.seg - 1) * 7 + 1;
+    var end = Math.min(start + 6, daysInMonth(p.year, p.month));
+    return p.year + "/" + pad2(p.month) + "/" + pad2(start) + "〜" + pad2(p.month) + "/" + pad2(end);
+  }
+  function nextMealPeriod(p) {
+    if (p.seg < mealPeriodSegCount(p.year, p.month)) return { year: p.year, month: p.month, seg: p.seg + 1 };
+    var m = p.month + 1, y = p.year;
+    if (m > 12) { m = 1; y++; }
+    return { year: y, month: m, seg: 1 };
+  }
+  function prevMealPeriod(p) {
+    if (p.seg > 1) return { year: p.year, month: p.month, seg: p.seg - 1 };
+    var m = p.month - 1, y = p.year;
+    if (m < 1) { m = 12; y--; }
+    return { year: y, month: m, seg: mealPeriodSegCount(y, m) };
+  }
+  function shiftMealPeriod(p, delta) {
+    var cur = p;
+    var n = Math.abs(delta);
+    for (var i = 0; i < n; i++) cur = delta > 0 ? nextMealPeriod(cur) : prevMealPeriod(cur);
     return cur;
   }
 
@@ -885,7 +1089,7 @@
           state.weekStart = latestKey ? mondayOf(dkToDate(latestKey)) : mondayOf(new Date());
           state.monthCursor = monthFromKey(latestKey ? latestKey : dateToKey(new Date()));
           state.weightPeriod = periodFromKey(latestKey ? latestKey : dateToKey(new Date()));
-          state.mealPeriod = periodFromKey(latestKey ? latestKey : dateToKey(new Date()));
+          state.mealPeriod = mealPeriodFromKey(latestKey ? latestKey : dateToKey(new Date()));
         } else {
           if (json.days && json.days.length) {
             state.dayIndex = Math.min(state.dayIndex, json.days.length - 1);
@@ -1455,6 +1659,7 @@
     if (!canvas) return;
     var ctx = canvas.getContext("2d");
     var labels = periodKeys.map(formatShortDate);
+    var tcol = themeColors();
 
     if (isAerobic) {
       var minutesData = periodKeys.map(function (k) {
@@ -1477,9 +1682,15 @@
         options: {
           responsive: true, maintainAspectRatio: false,
           interaction: { mode: "nearest", intersect: false },
-          plugins: { legend: { position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } }, tooltip: { enabled: true } },
+          plugins: {
+            legend: { position: "bottom", labels: { boxWidth: 12, font: { size: 11 }, color: tcol.text } },
+            tooltip: { enabled: true }
+          },
           layout: { padding: { top: 20 } },
-          scales: { y: { beginAtZero: true, grace: "10%", title: { display: true, text: "分" } } }
+          scales: {
+            x: { ticks: { color: tcol.sub }, grid: { color: tcol.grid } },
+            y: { beginAtZero: true, grace: "10%", title: { display: true, text: "分", color: tcol.sub }, ticks: { color: tcol.sub }, grid: { color: tcol.grid } }
+          }
         },
         plugins: [valueLabelPlugin]
       });
@@ -1550,11 +1761,15 @@
       options: {
         responsive: true, maintainAspectRatio: false,
         interaction: { mode: "nearest", intersect: false },
-        plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10 } } }, tooltip: { enabled: true } },
+        plugins: {
+          legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10 }, color: tcol.text } },
+          tooltip: { enabled: true }
+        },
         layout: { padding: { top: 20 } },
         scales: {
-          yWeight: { position: "left", beginAtZero: true, grace: "10%", title: { display: true, text: "kg" } },
-          yReps: { position: "right", beginAtZero: true, grace: "10%", title: { display: true, text: "回数" }, grid: { drawOnChartArea: false } }
+          x: { ticks: { color: tcol.sub }, grid: { color: tcol.grid } },
+          yWeight: { position: "left", beginAtZero: true, grace: "10%", title: { display: true, text: "kg", color: tcol.sub }, ticks: { color: tcol.sub }, grid: { color: tcol.grid } },
+          yReps: { position: "right", beginAtZero: true, grace: "10%", title: { display: true, text: "回数", color: tcol.sub }, ticks: { color: tcol.sub }, grid: { drawOnChartArea: false } }
         }
       },
       plugins: [valueLabelPlugin]
@@ -1746,6 +1961,7 @@
     var maxIdx = periodVals.lastIndexOf(maxVal2);
 
     var ctx = document.getElementById("weightChartCanvas").getContext("2d");
+    var tcol = themeColors();
     charts.weight = new Chart(ctx, {
       type: "line",
       data: {
@@ -1794,7 +2010,15 @@
         interaction: { mode: "nearest", intersect: false },
         plugins: { legend: { display: false }, tooltip: { enabled: true } },
         layout: { padding: { top: 20 } },
-        scales: { y: { grace: "10%", title: { display: true, text: "kg" }, ticks: { callback: function (v) { return Number(v).toFixed(1); } } } }
+        scales: {
+          x: { ticks: { color: tcol.sub }, grid: { color: tcol.grid } },
+          y: {
+            grace: "10%",
+            title: { display: true, text: "kg", color: tcol.sub },
+            ticks: { color: tcol.sub, callback: function (v) { return Number(v).toFixed(1); } },
+            grid: { color: tcol.grid }
+          }
+        }
       },
       plugins: [valueLabelPlugin]
     });
@@ -1806,7 +2030,7 @@
     renderWeightTab();
   }
   function changeMealPeriod(delta) {
-    state.mealPeriod = shiftPeriod(state.mealPeriod, delta);
+    state.mealPeriod = shiftMealPeriod(state.mealPeriod, delta);
     renderMealTab();
   }
 
@@ -1829,15 +2053,15 @@
       content.innerHTML = '<div class="card"><div class="empty-msg">食事の記録がありません</div></div>';
       return;
     }
-    if (!state.mealPeriod) state.mealPeriod = periodFromKey(allKeys[allKeys.length - 1]);
+    if (!state.mealPeriod) state.mealPeriod = mealPeriodFromKey(allKeys[allKeys.length - 1]);
     var period = state.mealPeriod;
-    var periodKeys = periodDateKeys(period);
+    var periodKeys = mealPeriodDateKeys(period);
     var periodMeals = periodKeys.map(function (k) { return meals[k] || null; });
     var hasAny = periodMeals.some(function (m) { return m && (m.kcal != null || m.protein != null || (m.items && m.items.length)); });
 
     var html = '<div class="card period-swipe-zone"><div class="nav-switch">';
     html += '<button id="mealPeriodPrevBtn" type="button" aria-label="前の期間">' + ICON_CHEVRON_LEFT + "</button>";
-    html += '<span class="nav-label">' + periodLabel(period) + "</span>";
+    html += '<span class="nav-label">' + mealPeriodLabel(period) + "</span>";
     html += '<button id="mealPeriodNextBtn" type="button" aria-label="次の期間">' + ICON_CHEVRON_RIGHT + "</button>";
     html += "</div></div>";
 
@@ -1936,6 +2160,28 @@
   document.getElementById("rawModalOverlay").addEventListener("click", function (e) {
     if (e.target === this) closeRawModal();
   });
+
+  document.getElementById("themeBtn").addEventListener("click", openThemeModal);
+  document.getElementById("themeModalClose").addEventListener("click", closeThemeModal);
+  document.getElementById("themeModalOverlay").addEventListener("click", function (e) {
+    if (e.target === this) closeThemeModal();
+  });
+  Array.prototype.forEach.call(document.querySelectorAll(".theme-option"), function (btn) {
+    btn.addEventListener("click", function () {
+      applyThemePref(btn.getAttribute("data-theme-choice"));
+      closeThemeModal();
+    });
+  });
+  if (themeMql) {
+    var onThemeMqlChange = function () {
+      if (getThemePref() === "auto") {
+        updateThemeMeta();
+        renderCurrentTab();
+      }
+    };
+    if (themeMql.addEventListener) themeMql.addEventListener("change", onThemeMqlChange);
+    else if (themeMql.addListener) themeMql.addListener(onThemeMqlChange);
+  }
   document.addEventListener("click", function (e) {
     var el = e.target.closest ? e.target.closest("[data-raw-idx]") : null;
     if (!el) return;
