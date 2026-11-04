@@ -113,10 +113,12 @@
       color-scheme: dark;
     }
   }
-  * { box-sizing: border-box; }
+  *, *::before, *::after { box-sizing: border-box; }
+  input, select, button { min-width: 0; max-width: 100%; }
   html, body {
     margin: 0; padding: 0;
     width: 100%;
+    max-width: 100%;
     overflow-x: hidden;
     overscroll-behavior-y: contain;
     touch-action: pan-y;
@@ -366,11 +368,11 @@
   .trained-days-box .num { font-size: 28px; font-weight: bold; color: var(--accent); }
   .trained-days-box .lbl { font-size: 12px; color: var(--sub); }
 
-  .week-dots { display: flex; justify-content: space-between; }
+  .week-dots { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 1px; }
   .week-dot-col {
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 5px; font-size: 11px; color: var(--sub);
-    min-width: 44px; min-height: 44px;
+    min-width: 0; min-height: 44px;
     border-radius: 10px;
     cursor: pointer;
   }
@@ -515,18 +517,32 @@
   .theme-option.active .theme-option-icon { color: var(--accent); }
   .theme-option.active .theme-option-check { visibility: visible; }
 
-  .goal-form { display: flex; gap: 10px; }
-  .goal-field { flex: 1 1 0; min-width: 0; }
+  .goal-form { display: flex; gap: 10px; min-width: 0; }
+  .goal-field { flex: 1 1 0; min-width: 0; max-width: 100%; }
   .goal-field label { display: block; font-size: 11px; color: var(--sub); margin-bottom: 4px; }
   .goal-field input {
-    width: 100%; box-sizing: border-box;
-    padding: 9px 10px;
+    -webkit-appearance: none; appearance: none;
+    display: block;
+    width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box;
+    padding: 9px 6px;
     border: 2px solid var(--border); border-radius: var(--radius-sm);
     font-size: 15px; color: var(--text);
     background: var(--surface-alt);
     font-family: inherit;
   }
   .goal-field input:focus { border-color: var(--accent); outline: none; }
+  .goal-field input[type="date"] {
+    font-size: 14px;
+  }
+  .goal-field input[type="date"]::-webkit-date-and-time-value {
+    text-align: left;
+    min-width: 0;
+  }
+  .goal-field input[type="date"]::-webkit-datetime-edit {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
 
   .pace-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--border-soft); gap: 10px; }
   .pace-row:last-child { border-bottom: none; }
@@ -696,7 +712,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.04d";
+  var APP_VERSION = "v2026.11.04e";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   var PART_COLORS = {
