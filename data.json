@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-04T12:17:43+09:00",
+ "source_mtime": "2026-11-04T12:21:10+09:00",
  "parts": [
   "胸",
   "背中",
@@ -3437,24 +3437,6 @@
     },
     {
      "date": "2026-11-04",
-     "time": "12:07",
-     "exercise": "ショルダープレス",
-     "part": "肩",
-     "weight_kg": null,
-     "weight_type": "不明",
-     "reps": null,
-     "sets": null,
-     "unknown": [
-      "重さ",
-      "回数",
-      "セット数"
-     ],
-     "note": "重さの記載なし / 回数・セット数不明",
-     "raw": "ショルダープレスの動きで痛む",
-     "hands": null
-    },
-    {
-     "date": "2026-11-04",
      "time": "12:11",
      "exercise": "ライイング オーバーヘッドエクステンション",
      "part": "不明",
@@ -3505,6 +3487,24 @@
      ],
      "note": null,
      "raw": "12:17 ライイング オーバーヘッドエクステンション 15kg(EZバー込み)×6(3セット目)",
+     "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "12:20",
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "12:20 ケーブルプレスダウン 35kg×8(1セット目)",
      "hands": null
     }
    ],
@@ -4730,6 +4730,6 @@
    "note": null
   }
  },
- "content_hash": "7fbe83ad9277",
- "generated_at": "2026-11-04T12:18:45+09:00"
+ "content_hash": "d7380bbd91ef",
+ "generated_at": "2026-11-04T12:21:49+09:00"
 }
