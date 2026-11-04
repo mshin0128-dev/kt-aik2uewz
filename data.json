@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-04T13:04:14+09:00",
+ "source_mtime": "2026-11-04T15:01:22+09:00",
  "parts": [
   "胸",
   "背中",
@@ -4834,9 +4834,9 @@
    "note": null
   },
   "2026-11-04": {
-   "kcal": 390,
+   "kcal": 929,
    "kcal_range": null,
-   "protein": 15,
+   "protein": 51.4,
    "items": [
     {
      "time": "09:32",
@@ -4849,11 +4849,19 @@
     {
      "time": "09:32",
      "text": "バナナ1本(P1g)。概算 約390kcal・P約15.3g。11/4"
+    },
+    {
+     "time": "15:01",
+     "text": "シーチキンとたまごのサラダ(ラベルの読み取りで約194kcal・P約6.8g、未確認)"
+    },
+    {
+     "time": "15:01",
+     "text": "ザバス ミルクプロテイン脂肪0 200ml 107kcal P20.0g"
     }
    ],
    "note": null
   }
  },
- "content_hash": "dd6ee9f6a036",
- "generated_at": "2026-11-04T13:05:06+09:00"
+ "content_hash": "85f303ca786b",
+ "generated_at": "2026-11-04T15:02:37+09:00"
 }
