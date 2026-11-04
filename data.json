@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-04T09:32:57+09:00",
+ "source_mtime": "2026-11-04T10:20:29+09:00",
  "parts": [
   "胸",
   "背中",
@@ -3383,6 +3383,60 @@
     }
    ],
    "summary_only": null
+  },
+  {
+   "date": "2026-11-04",
+   "entries": [
+    {
+     "date": "2026-11-04",
+     "time": "10:20",
+     "exercise": "腹筋: 自重×",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10:20 腹筋 自重×20回(1セット目)",
+     "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "10:20",
+     "exercise": "腹筋: 自重×",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10:20 腹筋 自重×20回(2セット目)",
+     "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "10:20",
+     "exercise": "アブローラー",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10:20 膝立てアブローラー 自重×10回(1セット目)",
+     "hands": null
+    }
+   ],
+   "summary_only": null
   }
  ],
  "bodyweight": [
@@ -3475,6 +3529,7 @@
  "exercises": [
   "EZバーカール",
   "アブドミナル（マシン）",
+  "アブローラー",
   "アーノルドプレス",
   "アームカール",
   "インクラインダンベルカール",
@@ -4602,6 +4657,6 @@
    "note": null
   }
  },
- "content_hash": "55e3bf0b74f3",
- "generated_at": "2026-11-04T09:33:42+09:00"
+ "content_hash": "7611bfa629ff",
+ "generated_at": "2026-11-04T10:21:44+09:00"
 }
