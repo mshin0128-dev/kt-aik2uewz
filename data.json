@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-04T12:28:56+09:00",
+ "source_mtime": "2026-11-04T12:30:54+09:00",
  "parts": [
   "胸",
   "背中",
@@ -3578,6 +3578,24 @@
      "note": null,
      "raw": "12:28 ケーブルオーバーヘッドエクステンション 30kg×8(2セット目)",
      "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "12:30",
+     "exercise": "ケーブルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": 30.0,
+     "weight_type": "マシン",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "12:30 ケーブルオーバーヘッドエクステンション 30kg×5(3セット目)",
+     "hands": null
     }
    ],
    "summary_only": null
@@ -4803,6 +4821,6 @@
    "note": null
   }
  },
- "content_hash": "994f7d0bae31",
- "generated_at": "2026-11-04T12:30:05+09:00"
+ "content_hash": "3c1564d03069",
+ "generated_at": "2026-11-04T12:31:39+09:00"
 }
