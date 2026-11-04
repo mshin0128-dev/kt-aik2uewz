@@ -201,6 +201,21 @@
     min-width: 0;
     overflow-wrap: anywhere;
   }
+  #dayLabel {
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+  }
+  #dayLabel:active { opacity: 0.6; }
+  .day-date-input {
+    position: absolute;
+    left: 0; top: 0;
+    width: 1px; height: 1px;
+    opacity: 0;
+    border: none;
+    pointer-events: none;
+  }
 
   .top-banner {
     display: none;
@@ -220,6 +235,9 @@
   }
 
   .empty-msg { text-align: center; color: var(--sub); padding: 30px 0; font-size: 14px; }
+  .empty-day { text-align: center; color: var(--sub); padding: 34px 0; }
+  .empty-day svg { width: 40px; height: 40px; display: block; margin: 0 auto 10px; }
+  .empty-day .empty-day-text { font-size: 14px; }
 
   .part-chip {
     display: inline-block;
@@ -349,7 +367,14 @@
   .trained-days-box .lbl { font-size: 12px; color: var(--sub); }
 
   .week-dots { display: flex; justify-content: space-between; }
-  .week-dot-col { display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 11px; color: var(--sub); }
+  .week-dot-col {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 5px; font-size: 11px; color: var(--sub);
+    min-width: 44px; min-height: 44px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .week-dot-col:active { background: var(--border-soft); }
   .week-dot { width: 15px; height: 15px; border-radius: 50%; background: var(--card); border: 2px solid var(--border); }
   .week-dot.full { background: var(--accent); border-color: var(--accent); }
   .week-dot.summary { background: var(--card); border-color: var(--accent); }
@@ -368,8 +393,12 @@
     font-size: 11px;
     color: var(--text);
     min-width: 0;
+    min-height: 44px;
+    cursor: pointer;
   }
-  .month-day.empty { background: none; visibility: hidden; }
+  .month-day:active { background: var(--chip-active-bg); }
+  .month-day.empty { background: none; visibility: hidden; cursor: default; }
+  .month-day.empty:active { background: none; }
   .month-day.today { box-shadow: 0 0 0 2px var(--accent) inset; font-weight: bold; }
   .month-day .md-dots { display: flex; flex-wrap: wrap; gap: 2px; justify-content: center; }
   .md-dot { width: 6px; height: 6px; border-radius: 50%; }
@@ -550,6 +579,7 @@
           <span class="nav-label" id="dayLabel"></span>
           <button id="dayNextBtn" type="button" aria-label="次の日"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
+        <input type="date" id="dayDateInput" class="day-date-input" aria-label="日付を選択" tabindex="-1">
       </div>
       <div id="dayContent"><div class="card"><div class="empty-msg">読み込み中…</div></div></div>
       <div class="app-footer" id="footerDay"></div>
@@ -666,7 +696,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.04c";
+  var APP_VERSION = "v2026.11.04d";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   var PART_COLORS = {
@@ -687,6 +717,7 @@
   var ICON_CHEVRON_DOWN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
   var ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="8 12.5 11 15.5 16 9"/></svg>';
   var ICON_WARN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><circle cx="12" cy="12" r="9"/><circle cx="12" cy="16" r="0.3"/></svg>';
+  var ICON_CALENDAR_EMPTY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="7" y1="15" x2="17" y2="19"/></svg>';
   var GOAL_WEIGHT_KEY = "kintore_goal_weight";
   var GOAL_DATE_KEY = "kintore_goal_date";
   var MEAL_KCAL_TARGET = 2200;
@@ -695,7 +726,7 @@
   var state = {
     data: null,
     loaded: false,
-    dayIndex: -1,
+    dayKey: null,
     weekStart: null,
     monthCursor: null,
     selectedPart: null,
@@ -1084,18 +1115,12 @@
         (json.bodyweight || []).forEach(function (b) { state.bwMap[b.date] = b.kg; });
         computeBestBadges();
         if (isInitial) {
-          state.dayIndex = Math.max(0, (json.days || []).length - 1);
           var latestKey = computeLatestDateKey();
+          state.dayKey = latestKey || dateToKey(new Date());
           state.weekStart = latestKey ? mondayOf(dkToDate(latestKey)) : mondayOf(new Date());
           state.monthCursor = monthFromKey(latestKey ? latestKey : dateToKey(new Date()));
           state.weightPeriod = periodFromKey(latestKey ? latestKey : dateToKey(new Date()));
           state.mealPeriod = mealPeriodFromKey(latestKey ? latestKey : dateToKey(new Date()));
-        } else {
-          if (json.days && json.days.length) {
-            state.dayIndex = Math.min(state.dayIndex, json.days.length - 1);
-          } else {
-            state.dayIndex = -1;
-          }
         }
         hideBanner();
         buildPartChips();
@@ -1122,6 +1147,21 @@
     if (!keys.length) return null;
     keys.sort();
     return keys[keys.length - 1];
+  }
+  function computeEarliestDateKey() {
+    var days = (state.data && state.data.days) || [];
+    var bw = (state.data && state.data.bodyweight) || [];
+    var keys = days.map(function (d) { return d.date; }).concat(bw.map(function (b) { return b.date; }));
+    if (!keys.length) return null;
+    keys.sort();
+    return keys[0];
+  }
+  function dayNavRange() {
+    var earliest = computeEarliestDateKey();
+    if (!earliest) return null;
+    var today = new Date();
+    today.setHours(12, 0, 0, 0);
+    return { start: dkToDate(earliest), end: addDays(today, 7) };
   }
 
   function renderFooters() {
@@ -1188,29 +1228,38 @@
   }
   function renderDayTab() {
     var days = (state.data && state.data.days) || [];
+    var dayMap = {};
+    days.forEach(function (d) { dayMap[d.date] = d; });
     var labelEl = document.getElementById("dayLabel");
     var prevBtn = document.getElementById("dayPrevBtn");
     var nextBtn = document.getElementById("dayNextBtn");
     var content = document.getElementById("dayContent");
+    var range = dayNavRange();
 
-    if (!days.length) {
+    if (!range) {
       labelEl.textContent = "記録なし";
       prevBtn.disabled = true;
       nextBtn.disabled = true;
       content.innerHTML = '<div class="card"><div class="empty-msg">記録がありません</div></div>';
       return;
     }
-    if (state.dayIndex < 0) state.dayIndex = days.length - 1;
-    if (state.dayIndex > days.length - 1) state.dayIndex = days.length - 1;
-    var day = days[state.dayIndex];
-    labelEl.textContent = formatDateLabel(day.date);
-    prevBtn.disabled = state.dayIndex <= 0;
-    nextBtn.disabled = state.dayIndex >= days.length - 1;
+    if (!state.dayKey) state.dayKey = computeLatestDateKey() || dateToKey(range.end);
+    var curDate = dkToDate(state.dayKey);
+    labelEl.textContent = formatDateLabel(state.dayKey);
+    prevBtn.disabled = curDate.getTime() <= range.start.getTime();
+    nextBtn.disabled = curDate.getTime() >= range.end.getTime();
 
+    var day = dayMap[state.dayKey];
     var html = "";
-    var bw = state.bwMap[day.date];
+    var bw = state.bwMap[state.dayKey];
     if (bw != null) {
       html += '<div class="card"><span class="bw-pill">体重 ' + formatWeight(bw) + "kg</span></div>";
+    }
+
+    if (!day) {
+      html += '<div class="card"><div class="empty-day">' + ICON_CALENDAR_EMPTY + '<div class="empty-day-text">記録なし</div></div></div>';
+      content.innerHTML = html;
+      return;
     }
 
     html += dayPartsSetsCardHtml(day);
@@ -1317,7 +1366,7 @@
 
     html += '<div class="card"><div class="section-title">日別</div><div class="week-dots">';
     cur.dotInfo.forEach(function (info) {
-      html += '<div class="week-dot-col"><span>' + info.label + '</span><span class="week-dot ' + info.status + '"></span></div>';
+      html += '<div class="week-dot-col" data-day-key="' + info.key + '"><span>' + info.label + '</span><span class="week-dot ' + info.status + '"></span></div>';
     });
     html += "</div></div>";
 
@@ -1380,7 +1429,7 @@
       var key = m.year + "-" + pad2(m.month) + "-" + pad2(day);
       var info = cur.dayStatus[key] || { status: "none" };
       var cls = "month-day" + (key === todayKey ? " today" : "");
-      html += '<div class="' + cls + '"><span>' + day + "</span>";
+      html += '<div class="' + cls + '" data-day-key="' + key + '"><span>' + day + "</span>";
       if (info.status === "full" && info.parts && info.parts.length) {
         html += '<div class="md-dots">' + info.parts.map(function (p) {
           return '<span class="md-dot" style="background:' + (PART_COLORS[p] || "#aaa") + '"></span>';
@@ -2136,16 +2185,50 @@
   document.getElementById("reloadBtn").addEventListener("click", function () { loadData(); });
   document.getElementById("dayPrevBtn").addEventListener("click", function () { changeDay(-1); });
   document.getElementById("dayNextBtn").addEventListener("click", function () { changeDay(1); });
+  var dayDateInput = document.getElementById("dayDateInput");
+  document.getElementById("dayLabel").addEventListener("click", function () {
+    var range = dayNavRange();
+    if (!range) return;
+    dayDateInput.min = dateToKey(range.start);
+    dayDateInput.max = dateToKey(range.end);
+    dayDateInput.value = state.dayKey || dateToKey(range.end);
+    if (dayDateInput.showPicker) {
+      try { dayDateInput.showPicker(); } catch (e) { dayDateInput.focus(); }
+    } else {
+      dayDateInput.focus();
+    }
+  });
+  dayDateInput.addEventListener("change", function () {
+    if (!dayDateInput.value) return;
+    var range = dayNavRange();
+    if (!range) return;
+    var d = dkToDate(dayDateInput.value);
+    if (d.getTime() < range.start.getTime()) d = range.start;
+    if (d.getTime() > range.end.getTime()) d = range.end;
+    state.dayKey = dateToKey(d);
+    renderDayTab();
+  });
+  document.addEventListener("click", function (e) {
+    var cell = e.target.closest ? e.target.closest("[data-day-key]") : null;
+    if (!cell) return;
+    goToDay(cell.getAttribute("data-day-key"));
+  });
   document.getElementById("weekPrevBtn").addEventListener("click", function () { changeWeek(-1); });
   document.getElementById("weekNextBtn").addEventListener("click", function () { changeWeek(1); });
   document.getElementById("monthPrevBtn").addEventListener("click", function () { changeMonth(-1); });
   document.getElementById("monthNextBtn").addEventListener("click", function () { changeMonth(1); });
   function changeDay(delta) {
-    var days = (state.data && state.data.days) || [];
-    var ni = state.dayIndex + delta;
-    if (ni < 0 || ni > days.length - 1) return;
-    state.dayIndex = ni;
+    var range = dayNavRange();
+    if (!range) return;
+    var curKey = state.dayKey || computeLatestDateKey() || dateToKey(range.end);
+    var nd = addDays(dkToDate(curKey), delta);
+    if (nd.getTime() < range.start.getTime() || nd.getTime() > range.end.getTime()) return;
+    state.dayKey = dateToKey(nd);
     renderDayTab();
+  }
+  function goToDay(dateKey) {
+    state.dayKey = dateKey;
+    switchTab("day");
   }
   function changeWeek(delta) {
     state.weekStart = addDays(state.weekStart, delta * 7);
