@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-04T12:34:25+09:00",
+ "source_mtime": "2026-11-04T13:04:14+09:00",
  "parts": [
   "胸",
   "背中",
@@ -3614,6 +3614,21 @@
      "note": null,
      "raw": "12:34 ケーブルプレスダウン 35kg×6(4セット目)",
      "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "13:04",
+     "exercise": "トレッドミル",
+     "part": "有酸素",
+     "weight_kg": null,
+     "weight_type": "-",
+     "reps": null,
+     "sets": null,
+     "minutes": 25,
+     "unknown": [],
+     "note": null,
+     "raw": "  トレッドミル 時速5.5km 計25分(傾斜0で5分／傾斜3で15分／傾斜4で5分)",
+     "hands": null
     }
    ],
    "summary_only": null
@@ -4839,6 +4854,6 @@
    "note": null
   }
  },
- "content_hash": "1aa8e5a7d8c6",
- "generated_at": "2026-11-04T12:35:14+09:00"
+ "content_hash": "dd6ee9f6a036",
+ "generated_at": "2026-11-04T13:05:06+09:00"
 }
