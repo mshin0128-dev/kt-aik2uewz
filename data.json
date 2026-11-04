@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-04T12:21:10+09:00",
+ "source_mtime": "2026-11-04T12:21:59+09:00",
  "parts": [
   "胸",
   "背中",
@@ -3506,6 +3506,24 @@
      "note": null,
      "raw": "12:20 ケーブルプレスダウン 35kg×8(1セット目)",
      "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "12:21",
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "12:21 ケーブルプレスダウン 35kg×6(2セット目)",
+     "hands": null
     }
    ],
    "summary_only": null
@@ -4730,6 +4748,6 @@
    "note": null
   }
  },
- "content_hash": "d7380bbd91ef",
- "generated_at": "2026-11-04T12:21:49+09:00"
+ "content_hash": "84b0ab46126b",
+ "generated_at": "2026-11-04T12:23:23+09:00"
 }
