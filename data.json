@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-04T15:01:22+09:00",
+ "source_mtime": "2026-11-05T01:08:02+09:00",
  "parts": [
   "胸",
   "背中",
@@ -4834,9 +4834,9 @@
    "note": null
   },
   "2026-11-04": {
-   "kcal": 929,
+   "kcal": 2179,
    "kcal_range": null,
-   "protein": 51.4,
+   "protein": 87.4,
    "items": [
     {
      "time": "09:32",
@@ -4857,11 +4857,19 @@
     {
      "time": "15:01",
      "text": "ザバス ミルクプロテイン脂肪0 200ml 107kcal P20.0g"
+    },
+    {
+     "time": "01:07",
+     "text": "もつ鍋 1人前(概算 約500kcal・P約25g、量は未確認)"
+    },
+    {
+     "time": "01:07",
+     "text": "ご飯 3杯(1杯150gとして概算 約750kcal・P約11g)"
     }
    ],
    "note": null
   }
  },
- "content_hash": "85f303ca786b",
- "generated_at": "2026-11-04T15:02:37+09:00"
+ "content_hash": "7cb1caefffec",
+ "generated_at": "2026-11-05T01:09:32+09:00"
 }
