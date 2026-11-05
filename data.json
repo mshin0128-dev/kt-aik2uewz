@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-06T00:05:02+09:00",
+ "source_mtime": "2026-11-06T00:09:13+09:00",
  "parts": [
   "胸",
   "背中",
@@ -35,6 +35,9 @@
      ],
      "note": null,
      "raw": "09/30(共有チャット 23:37~): ハンマーカール10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -56,6 +59,9 @@
      ],
      "note": null,
      "raw": "頭の後ろで行うトライセプスエクステンション10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "判断不可"
     },
     {
@@ -74,6 +80,9 @@
      "unknown": [],
      "note": "各セット後に秒数キープ",
      "raw": "ベンチで脚を伸ばして上下する腹筋10回+10秒キープ×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -98,6 +107,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/01(共有チャットのタイムスタンプで確定): 20:44~20:53にダンベルチェストプレス片手10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -116,6 +128,9 @@
      "unknown": [],
      "note": null,
      "raw": "ダンベルフライ片手10kg 10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -134,6 +149,9 @@
      "unknown": [],
      "note": null,
      "raw": "ベンチ・レッグレイズ10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -160,6 +178,9 @@
      ],
      "note": null,
      "raw": "10/03: ダンベルカール10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -179,6 +200,9 @@
      ],
      "note": null,
      "raw": "頭の後ろで行うトライセプスエクステンション10kg 10×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "判断不可"
     },
     {
@@ -199,6 +223,9 @@
      ],
      "note": null,
      "raw": "ダンベルキックバック3kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "片腕ずつ"
     },
     {
@@ -218,6 +245,9 @@
      ],
      "note": null,
      "raw": "コンセントレーションカール10kg 左右12×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "片腕ずつ"
     },
     {
@@ -235,6 +265,9 @@
      ],
      "note": "時間で記録（原文参照）",
      "raw": "プランク1分・サイドプランク左右30秒・脚を浮かせて1分キープ",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -261,6 +294,9 @@
      ],
      "note": null,
      "raw": "10/05(深夜の報告を活動日に整理): ダンベルカール10kg 8/9/5回",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -281,6 +317,9 @@
      ],
      "note": null,
      "raw": "ハンマーカール10kg 10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -302,6 +341,9 @@
      ],
      "note": null,
      "raw": "トライセプスエクステンション10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "判断不可"
     },
     {
@@ -322,6 +364,9 @@
      ],
      "note": null,
      "raw": "キックバック5kg 10×3(左のみ)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "片腕ずつ"
     },
     {
@@ -339,6 +384,9 @@
      "unknown": [],
      "note": null,
      "raw": "ダンベルチェストプレス片手10kg 10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -359,6 +407,9 @@
      "unknown": [],
      "note": "各セット後に秒数キープ",
      "raw": "腹筋の脚上げ10回+10秒キープ×4",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -384,6 +435,9 @@
      ],
      "note": null,
      "raw": "10/06(深夜の自宅トレの報告を活動日に整理): 自宅でアームカール10kg 10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -405,6 +459,9 @@
      ],
      "note": null,
      "raw": "ダンベルキックバック3kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "片腕ずつ"
     },
     {
@@ -423,6 +480,9 @@
      "unknown": [],
      "note": null,
      "raw": "脚を伸縮する腹筋10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -449,6 +509,9 @@
      ],
      "note": null,
      "raw": "10/09: アームカール10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -467,6 +530,9 @@
      ],
      "note": "回数があいまい（原文参照）",
      "raw": "ダンベルキックバック片手3kg(「10回／15回3セット」の報告で回数があいまい／当時は15×3として整理)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "片腕ずつ"
     },
     {
@@ -485,6 +551,9 @@
      "unknown": [],
      "note": "各セット後に秒数キープ",
      "raw": "腹筋の脚上げ12回+10秒キープ×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -516,6 +585,9 @@
      "unknown": [],
      "note": null,
      "raw": "トレッドミル時速10km 10分(約1.67km)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -534,6 +606,9 @@
      "unknown": [],
      "note": null,
      "raw": "サイドレイズ片手5kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 10.0
     },
@@ -553,6 +628,9 @@
      "unknown": [],
      "note": null,
      "raw": "ショルダープレス片手10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -572,6 +650,9 @@
      ],
      "note": null,
      "raw": "ラットプルダウン25kg 10×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -591,6 +672,9 @@
      ],
      "note": null,
      "raw": "35kg 10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -622,6 +706,9 @@
      "unknown": [],
      "note": null,
      "raw": "トレッドミル15分・約2.13km(5.5km/h 3分→10km/h 10分→5.5km/h 2分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -643,6 +730,9 @@
      ],
      "note": "片手と仮定の記載あり（未確定）",
      "raw": "ショルダープレス10kg(片手と仮定)10×4",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -664,6 +754,9 @@
      ],
      "note": "片手と仮定の記載あり（未確定）",
      "raw": "サイドレイズ5kg(片手と仮定)10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 10.0
     },
@@ -685,6 +778,9 @@
      ],
      "note": null,
      "raw": "ダンベルロウ12.5kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "片腕ずつ"
     },
     {
@@ -705,6 +801,9 @@
      ],
      "note": null,
      "raw": "ラットプルダウン30kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -724,6 +823,9 @@
      ],
      "note": null,
      "raw": "ペックフライ30kg 10回・5回",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -745,6 +847,9 @@
      "unknown": [],
      "note": null,
      "raw": "トレッドミル15分・約2.11km(5.5km/h 3分→10km/h 10分→5km/h 2分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -763,6 +868,9 @@
      "unknown": [],
      "note": null,
      "raw": "ダンベルフライ片手10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -782,6 +890,9 @@
      "unknown": [],
      "note": null,
      "raw": "ダンベルチェストプレス片手10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -801,6 +912,9 @@
      ],
      "note": "重さの記載なし",
      "raw": "インクラインダンベルフライ10×1(重量未確認)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -821,6 +935,9 @@
      ],
      "note": null,
      "raw": "ハンマーカール10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     }
@@ -843,6 +960,9 @@
      "unknown": [],
      "note": null,
      "raw": "トレッドミル12分・約1.86km(5.5km/h 3分→12km/h 7分→5.5km/h 2分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -862,6 +982,9 @@
      ],
      "note": null,
      "raw": "肘固定アームカール10kg 10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "片腕ずつ"
     },
     {
@@ -881,6 +1004,9 @@
      "unknown": [],
      "note": null,
      "raw": "立位ダンベルカール片手10kg 10×4",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -900,6 +1026,9 @@
      "unknown": [],
      "note": null,
      "raw": "インクラインダンベルカール片手9kg 10/7/5回(左が弱い)+片手ずつ左右各5回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 18.0
     },
@@ -921,6 +1050,9 @@
      ],
      "note": null,
      "raw": "ケーブル三頭(プレスダウンと推定)30kg 10/10/8",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -939,6 +1071,9 @@
      "unknown": [],
      "note": null,
      "raw": "腹筋=脚を曲げ伸ばしする種目20×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -958,6 +1093,9 @@
      ],
      "note": null,
      "raw": "アブドミナル40kg 10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -982,6 +1120,9 @@
      "unknown": [],
      "note": null,
      "raw": "実施報告あり(10/20 2:00ごろ本人訂正):アームカール片手10kg×10回×3セット",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -1000,6 +1141,9 @@
      "unknown": [],
      "note": null,
      "raw": "プリーチャーカール(肘固定)片手10kg×10回×2セット(10/20 2:08ごろ本人報告で1→2セットに更新)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "片腕ずつ"
     }
    ],
@@ -1024,6 +1168,9 @@
      "unknown": [],
      "note": null,
      "raw": "筋トレ(10/21 1:20ごろ報告・深夜なので10/20に計上): ダンベルプレス片手12.5kg×15回・10回・10回",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 25.0
     },
@@ -1041,6 +1188,9 @@
      "unknown": [],
      "note": null,
      "raw": "ダンベルフライ片手12.5kg×7回×1セット",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 25.0
     },
@@ -1058,6 +1208,9 @@
      "unknown": [],
      "note": null,
      "raw": "インクラインダンベルフライ片手10kg×10回×1セット",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -1077,6 +1230,9 @@
      "unknown": [],
      "note": null,
      "raw": "インクラインダンベルプレス片手10kg×10回×3セット",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -1095,6 +1251,9 @@
      "unknown": [],
      "note": null,
      "raw": "アームカール片手10kg×15回×2セット",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -1112,6 +1271,9 @@
      "unknown": [],
      "note": "原文で重さ省略（直前と同じ重さで記録）",
      "raw": "10回×1セット",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -1131,6 +1293,9 @@
      "unknown": [],
      "note": null,
      "raw": "ブルガリアンスクワット片手10kg×左右各10回×3セット",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "判断不可"
     },
     {
@@ -1150,6 +1315,9 @@
      ],
      "note": null,
      "raw": "ケーブルトライセプスエクステンション30kg×10回・7回(2セット／限界)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -1176,6 +1344,9 @@
      "unknown": [],
      "note": null,
      "raw": "筋トレ: ショルダープレス片手10kg×10×5",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -1195,6 +1366,9 @@
      "unknown": [],
      "note": null,
      "raw": "シーテッドサイドレイズ片手5kg×10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 10.0
     },
@@ -1213,6 +1387,9 @@
      "unknown": [],
      "note": null,
      "raw": "ダンベルロウ片手12.5kg×10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "片腕ずつ"
     },
     {
@@ -1229,6 +1406,9 @@
      "unknown": [],
      "note": "原文で重さ省略（直前と同じ重さで記録）",
      "raw": "15×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "片腕ずつ"
     },
     {
@@ -1249,6 +1429,9 @@
      ],
      "note": null,
      "raw": "ケーブルプレスダウン30kg×10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1268,6 +1451,9 @@
      ],
      "note": null,
      "raw": "ラットプルダウン35kg×10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1286,6 +1472,9 @@
      ],
      "note": null,
      "raw": "40kg×10×1(深夜)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -1309,6 +1498,9 @@
      "unknown": [],
      "note": null,
      "raw": "筋トレ: レッグレイズ30回×2セット",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1326,6 +1518,9 @@
      "unknown": [],
      "note": null,
      "raw": "ヒールタッチ 左右交互で合計20回×2セット(腹筋)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1342,6 +1537,9 @@
      "unknown": [],
      "note": null,
      "raw": "バイシクルクランチ 左右交互で合計60回×1セット(腹筋)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -1366,6 +1564,9 @@
      "unknown": [],
      "note": null,
      "raw": "筋トレ: ダンベルプレス片手10kg 16回・19回・15回(3セット／部位: 胸／15回は同じ重さと解釈／重さは未確認)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -1385,6 +1586,9 @@
      "unknown": [],
      "note": null,
      "raw": "追加(20:20ごろ報告): ダンベルプレス片手12.5kg×10×3(先の10kg 3セットとは別に記録)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 25.0
     },
@@ -1404,6 +1608,9 @@
      "unknown": [],
      "note": null,
      "raw": "ダンベルフライ片手12.5kg×10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 25.0
     },
@@ -1422,6 +1629,9 @@
      "unknown": [],
      "note": null,
      "raw": "追加(21:15ごろ報告): インクラインダンベルカール片手12.5kg 8回・9回(2セット／部位: 腕)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 25.0
     },
@@ -1439,6 +1649,9 @@
      "unknown": [],
      "note": "右12回・左11回",
      "raw": "プリーチャーカール片手10kg 1セット目 右12回・左11回",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "片腕ずつ"
     },
     {
@@ -1455,6 +1668,9 @@
      "unknown": [],
      "note": "原文で重さ省略（直前と同じ重さで記録） / 右10回・左7回",
      "raw": "2セット目 右10回・左7回(2セット目は同じ重さと解釈)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "片腕ずつ"
     },
     {
@@ -1471,6 +1687,9 @@
      "unknown": [],
      "note": "原文で重さ省略（直前と同じ重さで記録） / 右6回・左6回",
      "raw": "3セット目 右6回・左6回(3セット／部位: 腕)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "片腕ずつ"
     }
    ],
@@ -1494,6 +1713,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/24 21:08報告: 筋トレ=ショルダープレス片手12.5kg 10回×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 25.0
     },
@@ -1511,6 +1733,9 @@
      "unknown": [],
      "note": "原文で重さ省略（直前と同じ重さで記録）",
      "raw": "8回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 25.0
     },
@@ -1530,6 +1755,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/24 21:13報告: 筋トレ=サイドレイズ片手5kg 10回×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 10.0
     },
@@ -1550,6 +1778,9 @@
      ],
      "note": null,
      "raw": "10/24 21:20報告: 筋トレ=ラットプルダウン40kg 5回×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -1575,6 +1806,9 @@
      ],
      "note": null,
      "raw": "10/25(日)17:38報告: 筋トレ=ケーブルプレスダウン35kg 10回×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1593,6 +1827,9 @@
      ],
      "note": "原文で重さ省略（直前と同じ重さで記録）",
      "raw": "7回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1611,6 +1848,9 @@
      ],
      "note": null,
      "raw": "10/25 17:42報告: 筋トレ=ケーブルアームカール35kg 12回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1629,6 +1869,9 @@
      ],
      "note": null,
      "raw": "40kg 10回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1647,6 +1890,9 @@
      ],
      "note": null,
      "raw": "40kg 7回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1663,6 +1909,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/25 17:49報告: 筋トレ=スミスマシンベンチプレス 片側10kg(合計32kg)5回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1679,6 +1928,9 @@
      "unknown": [],
      "note": null,
      "raw": "片側15kg(合計42kg)3回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1696,6 +1948,9 @@
      "unknown": [],
      "note": null,
      "raw": "合計32kg 8回×2(胸4セット／バー12kg込み)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -1718,6 +1973,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/26 18:57報告 筋トレ:レッグレイズ20回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1734,6 +1992,9 @@
      "unknown": [],
      "note": null,
      "raw": "ベンチに寝てヒールタッチ20回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1750,6 +2011,9 @@
      "unknown": [],
      "note": "セット数の記載なし（1セットとして集計）",
      "raw": "10/26 19:00報告 筋トレ追加:レッグレイズ20回",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1766,6 +2030,9 @@
      "unknown": [],
      "note": null,
      "raw": "ヒールタッチ20回をもう1セットずつ(腹筋は計4セット／どちらも追加したと判断)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1786,6 +2053,9 @@
      ],
      "note": null,
      "raw": "10/26 21:13報告 筋トレ:ラットプルダウン40kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1802,6 +2072,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/26 21:18報告 筋トレ:ブルガリアンスクワット片手10kg 左右10回×1(脚1セット／セット数は報告どおり1)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "判断不可"
     },
     {
@@ -1818,6 +2091,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/26 21:22報告 筋トレ追加:ブルガリアンスクワット片手10kg 左右10回の2セット目",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "判断不可"
     },
     {
@@ -1834,6 +2110,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/26 21:29報告 筋トレ追加:ブルガリアンスクワット片手10kg 左右10回の3セット目",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "判断不可"
     },
     {
@@ -1852,6 +2131,9 @@
      ],
      "note": null,
      "raw": "10/26 21:37報告 筋トレ:レッグエクステンション45kg 12回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1870,6 +2152,9 @@
      ],
      "note": null,
      "raw": "10/26 21:40報告 筋トレ追加:レッグエクステンション55kg 10回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1888,6 +2173,9 @@
      ],
      "note": null,
      "raw": "10/26 21:43報告 筋トレ追加:レッグエクステンション3セット目 55kg 10回(本人確認済み)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1906,6 +2194,9 @@
      ],
      "note": null,
      "raw": "10/26 21:45報告 筋トレ追加:レッグエクステンション4セット目 55kg 10回(本人確認済み)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -1928,6 +2219,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/28 16:46 筋トレ:EZバーカール 合計30kg(プレート20kg+バー10kg)×8回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1944,6 +2238,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/28 16:49 筋トレ:EZバーカール 合計30kg×6回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1960,6 +2257,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/28 16:51 筋トレ:EZバーカール 合計30kg×5回(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -1977,6 +2277,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/28 16:59 筋トレ:インクラインダンベルカール 片手9kg×10回×2セット",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 18.0
     },
@@ -1994,6 +2297,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/28 17:04 筋トレ:インクラインダンベルカール 片手9kg×10回(3セット目／重量・回数は同じと想定)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 18.0
     },
@@ -2011,6 +2317,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/28 17:06 筋トレ:インクラインハンマーカール 片手9kg×10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 18.0
     },
@@ -2030,6 +2339,9 @@
      ],
      "note": null,
      "raw": "10/28 17:09 筋トレ:ケーブルアームカール 40kg×8回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -2048,6 +2360,9 @@
      ],
      "note": null,
      "raw": "10/28 17:11 筋トレ:ケーブルアームカール 35kg×10回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -2066,6 +2381,9 @@
      ],
      "note": null,
      "raw": "10/28 17:13 筋トレ:ケーブルアームカール 35kg×6回(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -2084,6 +2402,9 @@
      ],
      "note": null,
      "raw": "10/28 17:16 筋トレ:ケーブルプレスダウン 35kg×10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -2102,6 +2423,9 @@
      ],
      "note": null,
      "raw": "10/28 17:17 筋トレ:ケーブルプレスダウン 40kg×9回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -2120,6 +2444,9 @@
      ],
      "note": null,
      "raw": "10/28 17:21 筋トレ:ケーブルプレスダウン 40kg×8回(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -2138,6 +2465,9 @@
      ],
      "note": null,
      "raw": "10/28 17:23 筋トレ:ケーブルフレンチプレス 20kg×12回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -2154,6 +2484,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/28 23:08 筋トレ:ダンベルベンチプレス 片手15kg×8回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 30.0
     },
@@ -2171,6 +2504,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/28 23:16 筋トレ:ダンベルベンチプレス 片手15kg×10回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 30.0
     },
@@ -2188,6 +2524,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/28 23:26 筋トレ:ダンベルベンチプレス 片手15kg×10回(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 30.0
     },
@@ -2205,6 +2544,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/28 23:55 筋トレ:ブルガリアンスクワット 片手15kg×左右各10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "判断不可"
     },
     {
@@ -2221,6 +2563,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/28(10/29 0:05)筋トレ:ダンベルスクワット 片手15kg×15回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "判断不可"
     },
     {
@@ -2237,6 +2582,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/28(10/29 0:06)筋トレ:ダンベルベンチプレス 片手15kg×5回(4セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 30.0
     },
@@ -2254,6 +2602,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/28(10/29 0:06)筋トレ:ダンベルフライ 片手15kg×5回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 30.0
     },
@@ -2271,6 +2622,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/28(10/29 0:23)筋トレ:インクラインダンベルプレス 片手15kg×7回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 30.0
     },
@@ -2290,6 +2644,9 @@
      ],
      "note": null,
      "raw": "10/28(10/29 0:27)筋トレ:EZバー ライイングエクステンション 10kg(バーのみ)×10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -2306,6 +2663,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/28(10/29 0:33)筋トレ:EZバー ライイングエクステンション 合計15kg(バー10kg+片側2.5kg／EZバーと仮定)×6回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -2328,6 +2688,9 @@
      "unknown": [],
      "note": null,
      "raw": "13:52 筋トレ レッグレイズ 自重×20 1セット目",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -2344,6 +2707,9 @@
      "unknown": [],
      "note": null,
      "raw": "13:57 筋トレ ヒールタッチ 自重 左右各10 1セット目",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -2360,6 +2726,9 @@
      "unknown": [],
      "note": null,
      "raw": "13:58 筋トレ レッグレイズ 自重×20 2セット目",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -2376,6 +2745,9 @@
      "unknown": [],
      "note": null,
      "raw": "14:00 筋トレ ヒールタッチ 自重 左右各10 2セット目",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -2391,7 +2763,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "20:06 筋トレ マシンショルダープレス 片側10kg×10 1セット目 /負荷量 20kg×10=200kg",
+     "raw": "20:06 筋トレ マシンショルダープレス 片側10kg×10 1セット目",
+     "load_kg": 20.0,
+     "load_reps": 10,
+     "volume_kg": 200.0,
      "hands": null
     },
     {
@@ -2407,7 +2782,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "20:08 筋トレ マシンショルダープレス 片側10kg×10 2セット目(重量・回数は1セット目と同じとして記録) /負荷量 20kg×10=200kg",
+     "raw": "20:08 筋トレ マシンショルダープレス 片側10kg×10 2セット目(重量・回数は1セット目と同じとして記録)",
+     "load_kg": 20.0,
+     "load_reps": 10,
+     "volume_kg": 200.0,
      "hands": null
     },
     {
@@ -2423,7 +2801,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "20:12 筋トレ マシンショルダープレス 片側12.5kg×9 3セット目 /負荷量 25kg×9=225kg",
+     "raw": "20:12 筋トレ マシンショルダープレス 片側12.5kg×9 3セット目",
+     "load_kg": 25.0,
+     "load_reps": 9,
+     "volume_kg": 225.0,
      "hands": null
     },
     {
@@ -2439,7 +2820,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "20:14 筋トレ マシンショルダープレス 片側12.5kg×5 4セット目(重量は前セットと同じとして記録) /負荷量 25kg×5=125kg",
+     "raw": "20:14 筋トレ マシンショルダープレス 片側12.5kg×5 4セット目(重量は前セットと同じとして記録)",
+     "load_kg": 25.0,
+     "load_reps": 5,
+     "volume_kg": 125.0,
      "hands": null
     },
     {
@@ -2455,7 +2839,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "20:17 筋トレ マシンショルダープレス 片側12.5kg×8 5セット目(重量は前セットと同じとして記録) /負荷量 25kg×8=200kg",
+     "raw": "20:17 筋トレ マシンショルダープレス 片側12.5kg×8 5セット目(重量は前セットと同じとして記録)",
+     "load_kg": 25.0,
+     "load_reps": 8,
+     "volume_kg": 200.0,
      "hands": null
     },
     {
@@ -2471,7 +2858,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "20:19 筋トレ シーテッドサイドレイズ 片手7.5kg×9 1セット目 /負荷量 15kg×9=135kg",
+     "raw": "20:19 筋トレ シーテッドサイドレイズ 片手7.5kg×9 1セット目",
+     "load_kg": 15.0,
+     "load_reps": 9,
+     "volume_kg": 135.0,
      "hands": "両手",
      "total_kg": 15.0
     },
@@ -2488,7 +2878,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "20:23 筋トレ シーテッドサイドレイズ 片手7.5kg×9 2セット目 /負荷量 15kg×9=135kg",
+     "raw": "20:23 筋トレ シーテッドサイドレイズ 片手7.5kg×9 2セット目",
+     "load_kg": 15.0,
+     "load_reps": 9,
+     "volume_kg": 135.0,
      "hands": "両手",
      "total_kg": 15.0
     },
@@ -2505,7 +2898,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "20:27 筋トレ シーテッドサイドレイズ 片手7.5kg×9 3セット目 /負荷量 15kg×9=135kg",
+     "raw": "20:27 筋トレ シーテッドサイドレイズ 片手7.5kg×9 3セット目",
+     "load_kg": 15.0,
+     "load_reps": 9,
+     "volume_kg": 135.0,
      "hands": "両手",
      "total_kg": 15.0
     },
@@ -2522,7 +2918,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "20:30 筋トレ シーテッドサイドレイズ 片手7.5kg×7 4セット目 /負荷量 15kg×7=105kg",
+     "raw": "20:30 筋トレ シーテッドサイドレイズ 片手7.5kg×7 4セット目",
+     "load_kg": 15.0,
+     "load_reps": 7,
+     "volume_kg": 105.0,
      "hands": "両手",
      "total_kg": 15.0
     },
@@ -2539,7 +2938,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "20:33 筋トレ シーテッドサイドレイズ 片手7.5kg×6 5セット目 /負荷量 15kg×6=90kg",
+     "raw": "20:33 筋トレ シーテッドサイドレイズ 片手7.5kg×6 5セット目",
+     "load_kg": 15.0,
+     "load_reps": 6,
+     "volume_kg": 90.0,
      "hands": "両手",
      "total_kg": 15.0
     },
@@ -2556,7 +2958,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "20:37 筋トレ ダンベルベンチプレス(チェスト) 片手15kg×7 1セット目 /負荷量 30kg×7=210kg",
+     "raw": "20:37 筋トレ ダンベルベンチプレス(チェスト) 片手15kg×7 1セット目",
+     "load_kg": 30.0,
+     "load_reps": 7,
+     "volume_kg": 210.0,
      "hands": "両手",
      "total_kg": 30.0
     },
@@ -2573,7 +2978,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "20:41 筋トレ ダンベルベンチプレス(チェスト) 片手15kg×9 2セット目 /負荷量 30kg×9=270kg",
+     "raw": "20:41 筋トレ ダンベルベンチプレス(チェスト) 片手15kg×9 2セット目",
+     "load_kg": 30.0,
+     "load_reps": 9,
+     "volume_kg": 270.0,
      "hands": "両手",
      "total_kg": 30.0
     },
@@ -2590,7 +2998,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "20:48 筋トレ ダンベルベンチプレス(チェスト) 片手15kg×9 3セット目 /負荷量 30kg×9=270kg",
+     "raw": "20:48 筋トレ ダンベルベンチプレス(チェスト) 片手15kg×9 3セット目",
+     "load_kg": 30.0,
+     "load_reps": 9,
+     "volume_kg": 270.0,
      "hands": "両手",
      "total_kg": 30.0
     },
@@ -2609,7 +3020,10 @@
       "片手/合計の別"
      ],
      "note": null,
-     "raw": "20:53 筋トレ ラットプルダウン 40kg×10 1セット目 /負荷量 40kg×10=400kg",
+     "raw": "20:53 筋トレ ラットプルダウン 40kg×10 1セット目",
+     "load_kg": 40.0,
+     "load_reps": 10,
+     "volume_kg": 400.0,
      "hands": null
     },
     {
@@ -2627,7 +3041,10 @@
       "片手/合計の別"
      ],
      "note": null,
-     "raw": "20:57 筋トレ ラットプルダウン 40kg×10 2セット目(重量・回数は1セット目と同じとして記録) /負荷量 40kg×10=400kg",
+     "raw": "20:57 筋トレ ラットプルダウン 40kg×10 2セット目(重量・回数は1セット目と同じとして記録)",
+     "load_kg": 40.0,
+     "load_reps": 10,
+     "volume_kg": 400.0,
      "hands": null
     },
     {
@@ -2645,7 +3062,10 @@
       "片手/合計の別"
      ],
      "note": null,
-     "raw": "21:02 筋トレ ラットプルダウン 40kg×10 3セット目(重量・回数は前セットと同じとして記録) /負荷量 40kg×10=400kg",
+     "raw": "21:02 筋トレ ラットプルダウン 40kg×10 3セット目(重量・回数は前セットと同じとして記録)",
+     "load_kg": 40.0,
+     "load_reps": 10,
+     "volume_kg": 400.0,
      "hands": null
     }
    ],
@@ -2668,6 +3088,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/31 20:40 EZバーカール 30kg(片側10kg+バー10kg)×9回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -2686,6 +3109,9 @@
      ],
      "note": null,
      "raw": "10/31 20:41 EZバーカール 30kg×5回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -2704,6 +3130,9 @@
      ],
      "note": null,
      "raw": "10/31 20:45 EZバーカール 30kg×7回(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -2722,6 +3151,9 @@
      ],
      "note": null,
      "raw": "10/31 20:49 EZバーカール 30kg×5回(4セット目／休憩約4分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -2738,6 +3170,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/31 20:52 インクラインダンベルカール 片手12.5kg×5回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 25.0
     },
@@ -2755,6 +3190,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/31 20:56 インクラインダンベルカール 片手10kg×10回(2セット目／休憩約4分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -2772,6 +3210,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/31 21:00 インクラインダンベルカール 片手10kg×8回(3セット目／休憩約4分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -2789,6 +3230,9 @@
      "unknown": [],
      "note": null,
      "raw": "10/31 21:03 インクラインダンベルカール 片手10kg×8回(4セット目／休憩約3分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -2806,6 +3250,9 @@
      "unknown": [],
      "note": "右6回・左4回",
      "raw": "10/31 21:05 プリーチャーカール(ダンベル片手)10kg 右6回・左4回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "片腕ずつ"
     },
     {
@@ -2824,6 +3271,9 @@
      ],
      "note": null,
      "raw": "10/31 21:10 ケーブルアームカール 40kg×7回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -2842,6 +3292,9 @@
      ],
      "note": null,
      "raw": "10/31 21:13 ケーブルアームカール 40kg×6回(2セット目／休憩約3分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -2860,6 +3313,9 @@
      ],
      "note": null,
      "raw": "10/31 21:16 ケーブルアームカール 35kg×8回(3セット目／休憩約3分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -2882,6 +3338,9 @@
      "unknown": [],
      "note": null,
      "raw": "11/2 20:55 筋トレ:インクラインダンベルカール 片手10kg×10(1セット目／風邪気味の中)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -2899,6 +3358,9 @@
      "unknown": [],
      "note": null,
      "raw": "11/2 20:57 インクラインダンベルカール 片手10kg×10(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -2916,6 +3378,9 @@
      "unknown": [],
      "note": null,
      "raw": "11/2 21:02 インクラインダンベルカール 片手10kg×10(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -2933,6 +3398,9 @@
      "unknown": [],
      "note": null,
      "raw": "11/2 21:05 ショルダープレス 片手10kg×13(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -2950,6 +3418,9 @@
      "unknown": [],
      "note": null,
      "raw": "11/2 21:08 ショルダープレス 片手10kg×12(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -2967,6 +3438,9 @@
      "unknown": [],
      "note": null,
      "raw": "11/2 21:11 ショルダープレス 片手10kg×10(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -2984,6 +3458,9 @@
      "unknown": [],
      "note": null,
      "raw": "11/2 21:15 アーノルドプレス 片手10kg×10(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -3001,6 +3478,9 @@
      "unknown": [],
      "note": null,
      "raw": "11/2 21:23 アーノルドプレス 片手10kg×10(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -3018,6 +3498,9 @@
      "unknown": [],
      "note": null,
      "raw": "11/2 21:27 アーノルドプレス 片手10kg×10(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 20.0
     },
@@ -3035,6 +3518,9 @@
      "unknown": [],
      "note": null,
      "raw": "11/2 21:28 サイドレイズ 片手3kg×11(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 6.0
     },
@@ -3052,6 +3538,9 @@
      "unknown": [],
      "note": null,
      "raw": "11/2 21:33 サイドレイズ 片手3kg×12(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 6.0
     },
@@ -3069,6 +3558,9 @@
      "unknown": [],
      "note": null,
      "raw": "11/2 21:34 サイドレイズ 片手3kg×12(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": "両手",
      "total_kg": 6.0
     },
@@ -3086,6 +3578,9 @@
      "unknown": [],
      "note": "セット数の記載なし（1セットとして集計）",
      "raw": "22:48 腕立て伏せ 自重×9回(胸)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -3102,6 +3597,9 @@
      "unknown": [],
      "note": null,
      "raw": "22:51 腕立て伏せ 自重×10回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -3123,7 +3621,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "16:15 ダンベルベンチプレス 片手15kg×12(1セット目) /負荷量 30kg×12=360kg",
+     "raw": "16:15 ダンベルベンチプレス 片手15kg×12(1セット目)",
+     "load_kg": 30.0,
+     "load_reps": 12,
+     "volume_kg": 360.0,
      "hands": "両手",
      "total_kg": 30.0
     },
@@ -3140,7 +3641,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "16:18 ダンベルベンチプレス 片手15kg×10(2セット目) /負荷量 30kg×10=300kg",
+     "raw": "16:18 ダンベルベンチプレス 片手15kg×10(2セット目)",
+     "load_kg": 30.0,
+     "load_reps": 10,
+     "volume_kg": 300.0,
      "hands": "両手",
      "total_kg": 30.0
     },
@@ -3157,7 +3661,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "16:20 ダンベルベンチプレス 片手15kg×9(3セット目) /負荷量 30kg×9=270kg",
+     "raw": "16:20 ダンベルベンチプレス 片手15kg×9(3セット目)",
+     "load_kg": 30.0,
+     "load_reps": 9,
+     "volume_kg": 270.0,
      "hands": "両手",
      "total_kg": 30.0
     },
@@ -3174,7 +3681,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "16:24 ダンベルフライ 片手15kg×8(1セット目) /負荷量 30kg×8=240kg",
+     "raw": "16:24 ダンベルフライ 片手15kg×8(1セット目)",
+     "load_kg": 30.0,
+     "load_reps": 8,
+     "volume_kg": 240.0,
      "hands": "両手",
      "total_kg": 30.0
     },
@@ -3191,7 +3701,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "16:28 ダンベルフライ 片手15kg×9(2セット目) /負荷量 30kg×9=270kg",
+     "raw": "16:28 ダンベルフライ 片手15kg×9(2セット目)",
+     "load_kg": 30.0,
+     "load_reps": 9,
+     "volume_kg": 270.0,
      "hands": "両手",
      "total_kg": 30.0
     },
@@ -3208,7 +3721,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "16:32 ダンベルフライ 片手15kg×7(3セット目) /負荷量 30kg×7=210kg",
+     "raw": "16:32 ダンベルフライ 片手15kg×7(3セット目)",
+     "load_kg": 30.0,
+     "load_reps": 7,
+     "volume_kg": 210.0,
      "hands": "両手",
      "total_kg": 30.0
     },
@@ -3225,7 +3741,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "16:41 スミスマシン ベンチプレス 37kg(バー込み)×5(1セット目) /負荷量 37kg×5=185kg",
+     "raw": "16:41 スミスマシン ベンチプレス 37kg(バー込み)×5(1セット目)",
+     "load_kg": 37.0,
+     "load_reps": 5,
+     "volume_kg": 185.0,
      "hands": null
     },
     {
@@ -3241,7 +3760,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "16:44 スミスマシン ベンチプレス 37kg(バー込み)×4(2セット目) /負荷量 37kg×4=148kg",
+     "raw": "16:44 スミスマシン ベンチプレス 37kg(バー込み)×4(2セット目)",
+     "load_kg": 37.0,
+     "load_reps": 4,
+     "volume_kg": 148.0,
      "hands": null
     },
     {
@@ -3259,7 +3781,10 @@
       "片手/合計の別"
      ],
      "note": null,
-     "raw": "16:58 ラットプルダウン 45kg×5(1セット目) /負荷量 45kg×5=225kg",
+     "raw": "16:58 ラットプルダウン 45kg×5(1セット目)",
+     "load_kg": 45.0,
+     "load_reps": 5,
+     "volume_kg": 225.0,
      "hands": null
     },
     {
@@ -3277,7 +3802,10 @@
       "片手/合計の別"
      ],
      "note": null,
-     "raw": "16:59 ラットプルダウン 40kg×10(2セット目) /負荷量 40kg×10=400kg",
+     "raw": "16:59 ラットプルダウン 40kg×10(2セット目)",
+     "load_kg": 40.0,
+     "load_reps": 10,
+     "volume_kg": 400.0,
      "hands": null
     },
     {
@@ -3295,7 +3823,10 @@
       "片手/合計の別"
      ],
      "note": null,
-     "raw": "17:02 ラットプルダウン 40kg×10(3セット目) /負荷量 40kg×10=400kg",
+     "raw": "17:02 ラットプルダウン 40kg×10(3セット目)",
+     "load_kg": 40.0,
+     "load_reps": 10,
+     "volume_kg": 400.0,
      "hands": null
     },
     {
@@ -3313,7 +3844,10 @@
       "片手/合計の別"
      ],
      "note": null,
-     "raw": "17:10 ラットプルダウン 40kg×10(4セット目) /負荷量 40kg×10=400kg",
+     "raw": "17:10 ラットプルダウン 40kg×10(4セット目)",
+     "load_kg": 40.0,
+     "load_reps": 10,
+     "volume_kg": 400.0,
      "hands": null
     },
     {
@@ -3330,6 +3864,9 @@
      "unknown": [],
      "note": null,
      "raw": "0:36 腹筋 自重×20回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -3347,6 +3884,9 @@
      ],
      "note": "時間で記録（原文参照）",
      "raw": "0:36 プランク 1分(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -3363,6 +3903,9 @@
      "unknown": [],
      "note": null,
      "raw": "0:39 腹筋 自重×20回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -3379,6 +3922,9 @@
      "unknown": [],
      "note": null,
      "raw": "0:41 腹筋 自重×20回(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -3401,6 +3947,9 @@
      "unknown": [],
      "note": null,
      "raw": "10:20 腹筋 自重×20回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -3417,6 +3966,9 @@
      "unknown": [],
      "note": null,
      "raw": "10:20 腹筋 自重×20回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -3433,6 +3985,9 @@
      "unknown": [],
      "note": null,
      "raw": "10:20 膝立てアブローラー 自重×10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     },
     {
@@ -3450,7 +4005,10 @@
       "片手/合計の別"
      ],
      "note": null,
-     "raw": "12:11 ライイング オーバーヘッドエクステンション 15kg(EZバー込み)×10(1セット目) /負荷量 15kg×10=150kg",
+     "raw": "12:11 ライイング オーバーヘッドエクステンション 15kg(EZバー込み)×10(1セット目)",
+     "load_kg": 15.0,
+     "load_reps": 10,
+     "volume_kg": 150.0,
      "hands": null
     },
     {
@@ -3468,7 +4026,10 @@
       "片手/合計の別"
      ],
      "note": null,
-     "raw": "12:14 ライイング オーバーヘッドエクステンション 15kg(EZバー込み)×8(2セット目) /負荷量 15kg×8=120kg",
+     "raw": "12:14 ライイング オーバーヘッドエクステンション 15kg(EZバー込み)×8(2セット目)",
+     "load_kg": 15.0,
+     "load_reps": 8,
+     "volume_kg": 120.0,
      "hands": null
     },
     {
@@ -3486,7 +4047,10 @@
       "片手/合計の別"
      ],
      "note": null,
-     "raw": "12:17 ライイング オーバーヘッドエクステンション 15kg(EZバー込み)×6(3セット目) /負荷量 15kg×6=90kg",
+     "raw": "12:17 ライイング オーバーヘッドエクステンション 15kg(EZバー込み)×6(3セット目)",
+     "load_kg": 15.0,
+     "load_reps": 6,
+     "volume_kg": 90.0,
      "hands": null
     },
     {
@@ -3504,7 +4068,10 @@
       "片手/合計の別"
      ],
      "note": null,
-     "raw": "12:20 ケーブルプレスダウン 35kg×8(1セット目) /負荷量 35kg×8=280kg",
+     "raw": "12:20 ケーブルプレスダウン 35kg×8(1セット目)",
+     "load_kg": 35.0,
+     "load_reps": 8,
+     "volume_kg": 280.0,
      "hands": null
     },
     {
@@ -3522,7 +4089,10 @@
       "片手/合計の別"
      ],
      "note": null,
-     "raw": "12:21 ケーブルプレスダウン 35kg×6(2セット目) /負荷量 35kg×6=210kg",
+     "raw": "12:21 ケーブルプレスダウン 35kg×6(2セット目)",
+     "load_kg": 35.0,
+     "load_reps": 6,
+     "volume_kg": 210.0,
      "hands": null
     },
     {
@@ -3540,7 +4110,10 @@
       "片手/合計の別"
      ],
      "note": null,
-     "raw": "12:24 ケーブルプレスダウン 35kg×6(3セット目) /負荷量 35kg×6=210kg",
+     "raw": "12:24 ケーブルプレスダウン 35kg×6(3セット目)",
+     "load_kg": 35.0,
+     "load_reps": 6,
+     "volume_kg": 210.0,
      "hands": null
     },
     {
@@ -3558,7 +4131,10 @@
       "片手/合計の別"
      ],
      "note": null,
-     "raw": "12:25 ケーブルオーバーヘッドエクステンション 30kg×6(1セット目) /負荷量 30kg×6=180kg",
+     "raw": "12:25 ケーブルオーバーヘッドエクステンション 30kg×6(1セット目)",
+     "load_kg": 30.0,
+     "load_reps": 6,
+     "volume_kg": 180.0,
      "hands": null
     },
     {
@@ -3576,7 +4152,10 @@
       "片手/合計の別"
      ],
      "note": null,
-     "raw": "12:28 ケーブルオーバーヘッドエクステンション 30kg×8(2セット目) /負荷量 30kg×8=240kg",
+     "raw": "12:28 ケーブルオーバーヘッドエクステンション 30kg×8(2セット目)",
+     "load_kg": 30.0,
+     "load_reps": 8,
+     "volume_kg": 240.0,
      "hands": null
     },
     {
@@ -3594,7 +4173,10 @@
       "片手/合計の別"
      ],
      "note": null,
-     "raw": "12:30 ケーブルオーバーヘッドエクステンション 30kg×5(3セット目) /負荷量 30kg×5=150kg",
+     "raw": "12:30 ケーブルオーバーヘッドエクステンション 30kg×5(3セット目)",
+     "load_kg": 30.0,
+     "load_reps": 5,
+     "volume_kg": 150.0,
      "hands": null
     },
     {
@@ -3612,7 +4194,10 @@
       "片手/合計の別"
      ],
      "note": null,
-     "raw": "12:34 ケーブルプレスダウン 35kg×6(4セット目) /負荷量 35kg×6=210kg",
+     "raw": "12:34 ケーブルプレスダウン 35kg×6(4セット目)",
+     "load_kg": 35.0,
+     "load_reps": 6,
+     "volume_kg": 210.0,
      "hands": null
     },
     {
@@ -3628,6 +4213,9 @@
      "unknown": [],
      "note": null,
      "raw": "  トレッドミル 時速5.5km 計25分(傾斜0で5分／傾斜3で15分／傾斜4で5分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
      "hands": null
     }
    ],
@@ -3649,7 +4237,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "23:33 インクラインダンベルカール 片手12.5kg×8(1セット目) /負荷量 25kg×8=200kg",
+     "raw": "23:33 インクラインダンベルカール 片手12.5kg×8(1セット目)",
+     "load_kg": 25.0,
+     "load_reps": 8,
+     "volume_kg": 200.0,
      "hands": "両手",
      "total_kg": 25.0
     },
@@ -3666,7 +4257,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "23:37 インクラインダンベルカール 片手12.5kg×7(2セット目) /負荷量 25kg×7=175kg",
+     "raw": "23:37 インクラインダンベルカール 片手12.5kg×7(2セット目)",
+     "load_kg": 25.0,
+     "load_reps": 7,
+     "volume_kg": 175.0,
      "hands": "両手",
      "total_kg": 25.0
     },
@@ -3683,7 +4277,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "23:41 インクラインダンベルカール 片手12.5kg×5(3セット目) /負荷量 25kg×5=125kg",
+     "raw": "23:41 インクラインダンベルカール 片手12.5kg×5(3セット目)",
+     "load_kg": 25.0,
+     "load_reps": 5,
+     "volume_kg": 125.0,
      "hands": "両手",
      "total_kg": 25.0
     },
@@ -3700,7 +4297,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "23:45 インクラインダンベルカール 片手12.5kg×5(4セット目) /負荷量 25kg×5=125kg",
+     "raw": "23:45 インクラインダンベルカール 片手12.5kg×5(4セット目)",
+     "load_kg": 25.0,
+     "load_reps": 5,
+     "volume_kg": 125.0,
      "hands": "両手",
      "total_kg": 25.0
     },
@@ -3717,7 +4317,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "23:49 ダンベルプレス 片手15kg×10(1セット目) /負荷量 30kg×10=300kg",
+     "raw": "23:49 ダンベルプレス 片手15kg×10(1セット目)",
+     "load_kg": 30.0,
+     "load_reps": 10,
+     "volume_kg": 300.0,
      "hands": "両手",
      "total_kg": 30.0
     },
@@ -3734,7 +4337,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "23:53 ダンベルプレス 片手15kg×10(2セット目) /負荷量 30kg×10=300kg",
+     "raw": "23:53 ダンベルプレス 片手15kg×10(2セット目)",
+     "load_kg": 30.0,
+     "load_reps": 10,
+     "volume_kg": 300.0,
      "hands": "両手",
      "total_kg": 30.0
     },
@@ -3751,7 +4357,10 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "23:56 ダンベルプレス 片手17.5kg×4(3セット目) /負荷量 35kg×4=140kg",
+     "raw": "23:56 ダンベルプレス 片手17.5kg×4(3セット目)",
+     "load_kg": 35.0,
+     "load_reps": 4,
+     "volume_kg": 140.0,
      "hands": "両手",
      "total_kg": 35.0
     },
@@ -3768,9 +4377,32 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "00:03 ダンベルプレス 片手17.5kg×6(4セット目) /負荷量 35kg×6=210kg",
+     "raw": "00:03 ダンベルプレス 片手17.5kg×6(4セット目)",
+     "load_kg": 35.0,
+     "load_reps": 6,
+     "volume_kg": 210.0,
      "hands": "両手",
      "total_kg": 35.0
+    },
+    {
+     "date": "2026-11-05",
+     "time": "00:09",
+     "exercise": "インクラインダンベルフライ",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "00:09 インクラインダンベルフライ 片手15kg×8(1セット目)",
+     "load_kg": 30.0,
+     "load_reps": 8,
+     "volume_kg": 240.0,
+     "hands": "両手",
+     "total_kg": 30.0
     }
    ],
    "summary_only": null
@@ -5033,6 +5665,6 @@
    "note": null
   }
  },
- "content_hash": "ef141ccae281",
- "generated_at": "2026-11-06T00:05:34+09:00"
+ "content_hash": "4d569e17af9f",
+ "generated_at": "2026-11-06T00:10:00+09:00"
 }
