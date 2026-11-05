@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-06T01:37:08+09:00",
+ "source_mtime": "2026-11-06T04:01:16+09:00",
  "parts": [
   "胸",
   "背中",
@@ -5927,9 +5927,9 @@
    "note": null
   },
   "2026-11-05": {
-   "kcal": 1243,
+   "kcal": 1424,
    "kcal_range": null,
-   "protein": 71.7,
+   "protein": 87.7,
    "items": [
     {
      "time": "20:36",
@@ -5946,11 +5946,15 @@
     {
      "time": "01:36",
      "text": "ザバス ミルクプロテイン200ml 107kcal・P20g"
+    },
+    {
+     "time": "04:01",
+     "text": "プロテインバー(チョコ、商品名未確認) 181kcal・P16g"
     }
    ],
    "note": null
   }
  },
- "content_hash": "bc71f05eaade",
- "generated_at": "2026-11-06T01:37:49+09:00"
+ "content_hash": "22f29cc41e58",
+ "generated_at": "2026-11-06T04:02:01+09:00"
 }
