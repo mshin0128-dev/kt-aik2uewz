@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-06T00:29:21+09:00",
+ "source_mtime": "2026-11-06T00:37:09+09:00",
  "parts": [
   "胸",
   "背中",
@@ -4443,6 +4443,48 @@
      "volume_kg": 240.0,
      "hands": "両手",
      "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-05",
+     "time": "00:37",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      11
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "00:37 ケーブルアームカール 40kg×11(1セット目) /負荷量 40kg×11=440kg",
+     "load_kg": 40.0,
+     "load_reps": 11,
+     "volume_kg": 440.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-05",
+     "time": "00:37",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      9
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "00:37 ケーブルアームカール 40kg×9(2セット目) /負荷量 40kg×9=360kg",
+     "load_kg": 40.0,
+     "load_reps": 9,
+     "volume_kg": 360.0,
+     "hands": null
     }
    ],
    "summary_only": null
@@ -5705,6 +5747,6 @@
    "note": null
   }
  },
- "content_hash": "45afc2a988c0",
- "generated_at": "2026-11-06T00:30:08+09:00"
+ "content_hash": "3881c3be711b",
+ "generated_at": "2026-11-06T00:38:35+09:00"
 }
