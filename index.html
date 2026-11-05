@@ -331,6 +331,12 @@
     text-decoration-style: dotted;
   }
   .ex-note:active { opacity: 0.6; }
+  .load-tag {
+    font-size: 11px;
+    color: var(--sub);
+    margin-top: 3px;
+    overflow-wrap: anywhere;
+  }
   .summary-only-box {
     cursor: pointer;
   }
@@ -712,7 +718,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.04e";
+  var APP_VERSION = "v2026.11.06a";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   var PART_COLORS = {
@@ -753,7 +759,7 @@
     goalDate: "",
     currentTab: "day"
   };
-  var charts = { exercise: null, weight: null };
+  var charts = { exercise: null, exerciseVolume: null, weight: null };
   var rawRegistry = [];
   var mealOpenDays = {};
   var gesture = { tracking: false, startX: 0, startY: 0, lockDir: null, eligible: false };
@@ -855,6 +861,14 @@
     });
   }
   function formatWeight(n) { return String(n); }
+  function formatComma(n) {
+    if (n == null) return "";
+    var neg = n < 0;
+    var rounded = Math.round(Math.abs(n) * 10) / 10;
+    var parts = String(rounded).split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return (neg ? "-" : "") + parts.join(".");
+  }
   function dkToDate(key) {
     var p = key.split("-");
     return new Date(+p[0], +p[1] - 1, +p[2], 12, 0, 0);
@@ -1070,6 +1084,9 @@
       html += '<div class="set-chips">' + chips;
       if (opts.showBest && entry.__isBest) html += '<span class="best-badge">自己ベスト</span>';
       html += "</div>";
+      if (entry.volume_kg != null) {
+        html += '<div class="load-tag">負荷 ' + formatComma(entry.volume_kg) + "kg</div>";
+      }
       if (entry.note) {
         var idx = registerRaw(entry.raw || "");
         html += '<div class="ex-note" data-raw-idx="' + idx + '">注: ' + escapeHtml(entry.note) + "</div>";
@@ -1291,16 +1308,18 @@
     } else {
       var parts = [];
       day.entries.forEach(function (e) { if (parts.indexOf(e.part) === -1) parts.push(e.part); });
-      var totalSets = 0, aerobicMinutes = 0;
+      var totalSets = 0, aerobicMinutes = 0, totalVolume = 0, hasVolume = false;
       day.entries.forEach(function (e) {
         if (e.part === "有酸素") aerobicMinutes += (e.minutes || 0);
         else totalSets += getEntrySetsCount(e);
+        if (e.volume_kg != null) { totalVolume += e.volume_kg; hasVolume = true; }
       });
 
       html += '<div class="card">';
       html += '<div class="part-chip-row">' + parts.map(partChipHtml).join("") + "</div>";
       html += '<div class="day-summary-row"><span><strong>' + totalSets + "</strong>セット</span>";
       if (aerobicMinutes > 0) html += '<span>有酸素 <strong>' + aerobicMinutes + "</strong>分</span>";
+      if (hasVolume) html += '<span>総負荷量 <strong>' + formatComma(totalVolume) + "</strong>kg</span>";
       html += "</div>";
       var groups = groupEntriesByExercise(day.entries);
       html += groups.map(function (g) { return exBlockHtml(g, { showBest: true }); }).join("");
@@ -1321,6 +1340,7 @@
     var aerobicMinutes = 0;
     var trainedDaysCount = 0;
     var dotInfo = [];
+    var totalVolume = 0;
 
     for (var i = 0; i < 7; i++) {
       var d = addDays(weekStart, i);
@@ -1340,13 +1360,14 @@
               partsSets[e.part] += getEntrySetsCount(e);
               if (isApproxSets(e)) approxParts[e.part] = true;
             }
+            if (e.volume_kg != null) totalVolume += e.volume_kg;
           });
         }
       }
       dotInfo.push({ key: key, label: weekdayJp(d), status: status });
     }
     var totalSets = STRENGTH_PARTS.reduce(function (sum, p) { return sum + partsSets[p]; }, 0);
-    return { partsSets: partsSets, approxParts: approxParts, aerobicMinutes: aerobicMinutes, trainedDaysCount: trainedDaysCount, dotInfo: dotInfo, totalSets: totalSets };
+    return { partsSets: partsSets, approxParts: approxParts, aerobicMinutes: aerobicMinutes, trainedDaysCount: trainedDaysCount, dotInfo: dotInfo, totalSets: totalSets, totalVolume: totalVolume };
   }
   function renderWeekTab() {
     if (!state.weekStart) state.weekStart = mondayOf(new Date());
@@ -1379,6 +1400,10 @@
     html += "</div>";
 
     html += '<div class="card"><div class="aerobic-row"><span>有酸素</span><strong>' + cur.aerobicMinutes + "分</strong></div></div>";
+
+    if (cur.totalVolume > 0) {
+      html += '<div class="card"><div class="aerobic-row"><span>総負荷量</span><strong>' + formatComma(cur.totalVolume) + "kg</strong></div></div>";
+    }
 
     html += '<div class="card"><div class="section-title">日別</div><div class="week-dots">';
     cur.dotInfo.forEach(function (info) {
@@ -1668,12 +1693,14 @@
     if (!name) {
       content.innerHTML = '<div class="card"><div class="empty-msg">種目がありません</div></div>';
       if (charts.exercise) { charts.exercise.destroy(); charts.exercise = null; }
+      if (charts.exerciseVolume) { charts.exerciseVolume.destroy(); charts.exerciseVolume = null; }
       return;
     }
     var days = (state.data && state.data.days) || [];
     var perDate = {};
     var dateKeys = [];
     var isAerobic = false;
+    var hasVolume = false;
     days.forEach(function (day) {
       var matches = day.entries.filter(function (e) { return e.exercise === name; });
       if (!matches.length) return;
@@ -1681,6 +1708,7 @@
       matches.forEach(function (e) {
         perDate[day.date].push(e);
         if (e.part === "有酸素") isAerobic = true;
+        if (e.volume_kg != null) hasVolume = true;
       });
     });
     dateKeys.sort();
@@ -1693,6 +1721,13 @@
       html += '<div class="chart-wrap"><canvas id="exerciseChartCanvas"></canvas></div>';
     }
     html += "</div>";
+
+    if (hasVolume) {
+      html += '<div class="card">';
+      html += '<div class="section-title">' + escapeHtml(name) + "の負荷量(volume)の推移</div>";
+      html += '<div class="chart-wrap"><canvas id="exerciseVolumeChartCanvas"></canvas></div>';
+      html += "</div>";
+    }
 
     var bestInfo = computeExerciseBestInfo(name, dateKeys, perDate);
     html += bestCardHtml(bestInfo);
@@ -1716,6 +1751,12 @@
     } else if (charts.exercise) {
       charts.exercise.destroy();
       charts.exercise = null;
+    }
+    if (hasVolume) {
+      renderExerciseVolumeChart(dateKeys, perDate);
+    } else if (charts.exerciseVolume) {
+      charts.exerciseVolume.destroy();
+      charts.exerciseVolume = null;
     }
   }
   function renderExerciseChart(periodKeys, perDate, isAerobic) {
@@ -1835,6 +1876,48 @@
           x: { ticks: { color: tcol.sub }, grid: { color: tcol.grid } },
           yWeight: { position: "left", beginAtZero: true, grace: "10%", title: { display: true, text: "kg", color: tcol.sub }, ticks: { color: tcol.sub }, grid: { color: tcol.grid } },
           yReps: { position: "right", beginAtZero: true, grace: "10%", title: { display: true, text: "回数", color: tcol.sub }, ticks: { color: tcol.sub }, grid: { drawOnChartArea: false } }
+        }
+      },
+      plugins: [valueLabelPlugin]
+    });
+  }
+  function renderExerciseVolumeChart(periodKeys, perDate) {
+    if (charts.exerciseVolume) { charts.exerciseVolume.destroy(); charts.exerciseVolume = null; }
+    var canvas = document.getElementById("exerciseVolumeChartCanvas");
+    if (!canvas) return;
+    var ctx = canvas.getContext("2d");
+    var labels = periodKeys.map(formatShortDate);
+    var tcol = themeColors();
+    var data = periodKeys.map(function (k) {
+      var list = perDate[k];
+      if (!list) return null;
+      var sum = null;
+      list.forEach(function (e) {
+        if (e.volume_kg != null) sum = (sum || 0) + e.volume_kg;
+      });
+      return sum;
+    });
+    charts.exerciseVolume = new Chart(ctx, {
+      type: "bar",
+      data: { labels: labels, datasets: [{
+        label: "負荷量(kg)",
+        data: data,
+        backgroundColor: "#c97bdb",
+        borderColor: "#c97bdb",
+        borderRadius: 4,
+        maxBarThickness: 28
+      }] },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: "nearest", intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: true }
+        },
+        layout: { padding: { top: 20 } },
+        scales: {
+          x: { ticks: { color: tcol.sub }, grid: { color: tcol.grid } },
+          y: { beginAtZero: true, grace: "10%", title: { display: true, text: "kg", color: tcol.sub }, ticks: { color: tcol.sub }, grid: { color: tcol.grid } }
         }
       },
       plugins: [valueLabelPlugin]
