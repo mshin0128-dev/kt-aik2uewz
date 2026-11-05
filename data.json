@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-05T23:45:23+09:00",
+ "source_mtime": "2026-11-05T23:49:28+09:00",
  "parts": [
   "胸",
   "背中",
@@ -3703,6 +3703,23 @@
      "raw": "23:45 インクラインダンベルカール 片手12.5kg×5(4セット目)",
      "hands": "両手",
      "total_kg": 25.0
+    },
+    {
+     "date": "2026-11-05",
+     "time": "23:49",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:49 ダンベルプレス 片手15kg×10(1セット目)",
+     "hands": "両手",
+     "total_kg": 30.0
     }
    ],
    "summary_only": null
@@ -4965,6 +4982,6 @@
    "note": null
   }
  },
- "content_hash": "6a2790651ebf",
- "generated_at": "2026-11-05T23:46:52+09:00"
+ "content_hash": "7f3fd4079f71",
+ "generated_at": "2026-11-05T23:50:57+09:00"
 }
