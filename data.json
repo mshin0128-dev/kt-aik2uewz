@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-06T00:23:28+09:00",
+ "source_mtime": "2026-11-06T00:29:21+09:00",
  "parts": [
   "胸",
   "背中",
@@ -4387,7 +4387,7 @@
     {
      "date": "2026-11-05",
      "time": "00:09",
-     "exercise": "インクラインダンベルフライ",
+     "exercise": "ダンベルフライ",
      "part": "胸",
      "weight_kg": 15.0,
      "weight_type": "片手",
@@ -4397,7 +4397,7 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "00:09 インクラインダンベルフライ 片手15kg×8(1セット目) /負荷量 30kg×8=240kg",
+     "raw": "00:09 ダンベルフライ 片手15kg×8(1セット目) /負荷量 30kg×8=240kg",
      "load_kg": 30.0,
      "load_reps": 8,
      "volume_kg": 240.0,
@@ -4407,7 +4407,7 @@
     {
      "date": "2026-11-05",
      "time": "00:23",
-     "exercise": "インクラインダンベルフライ",
+     "exercise": "ダンベルフライ",
      "part": "胸",
      "weight_kg": 15.0,
      "weight_type": "片手",
@@ -4417,10 +4417,30 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "00:23 インクラインダンベルフライ 片手15kg×6(2セット目) /負荷量 30kg×6=180kg",
+     "raw": "00:23 ダンベルフライ 片手15kg×6(2セット目) /負荷量 30kg×6=180kg",
      "load_kg": 30.0,
      "load_reps": 6,
      "volume_kg": 180.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-05",
+     "time": "00:29",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "00:29 ダンベルフライ 片手15kg×8(3セット目) /負荷量 30kg×8=240kg",
+     "load_kg": 30.0,
+     "load_reps": 8,
+     "volume_kg": 240.0,
      "hands": "両手",
      "total_kg": 30.0
     }
@@ -5685,6 +5705,6 @@
    "note": null
   }
  },
- "content_hash": "7a5bf063112b",
- "generated_at": "2026-11-06T00:24:04+09:00"
+ "content_hash": "45afc2a988c0",
+ "generated_at": "2026-11-06T00:30:08+09:00"
 }
