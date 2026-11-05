@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-05T13:03:17+09:00",
+ "source_mtime": "2026-11-05T20:36:40+09:00",
  "parts": [
   "胸",
   "背中",
@@ -4875,13 +4875,22 @@
    "note": null
   },
   "2026-11-05": {
-   "kcal": null,
+   "kcal": 1070,
    "kcal_range": null,
-   "protein": null,
-   "items": [],
+   "protein": 43,
+   "items": [
+    {
+     "time": "20:36",
+     "text": "来来亭 こってりチャーシュー麺(概算 約900kcal・P約40g、公式値は未確認)"
+    },
+    {
+     "time": "20:36",
+     "text": "小ライス 約100g(概算 約170kcal・P約3g)"
+    }
+   ],
    "note": null
   }
  },
- "content_hash": "6415b124ceb6",
- "generated_at": "2026-11-05T13:04:24+09:00"
+ "content_hash": "0e5c2a23d037",
+ "generated_at": "2026-11-05T20:37:31+09:00"
 }
