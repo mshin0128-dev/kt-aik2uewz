@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-06T00:39:06+09:00",
+ "source_mtime": "2026-11-06T01:37:08+09:00",
  "parts": [
   "胸",
   "背中",
@@ -5927,9 +5927,9 @@
    "note": null
   },
   "2026-11-05": {
-   "kcal": 1070,
+   "kcal": 1243,
    "kcal_range": null,
-   "protein": 43,
+   "protein": 71.7,
    "items": [
     {
      "time": "20:36",
@@ -5938,11 +5938,19 @@
     {
      "time": "20:36",
      "text": "小ライス 約100g(概算 約170kcal・P約3g)"
+    },
+    {
+     "time": "01:36",
+     "text": "蒸し鶏と玉子のサラダ 66kcal・P8.7g"
+    },
+    {
+     "time": "01:36",
+     "text": "ザバス ミルクプロテイン200ml 107kcal・P20g"
     }
    ],
    "note": null
   }
  },
- "content_hash": "1e5b22e6a25e",
- "generated_at": "2026-11-06T01:18:01+09:00"
+ "content_hash": "bc71f05eaade",
+ "generated_at": "2026-11-06T01:37:49+09:00"
 }
