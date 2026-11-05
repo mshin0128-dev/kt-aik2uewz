@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-05T23:53:26+09:00",
+ "source_mtime": "2026-11-05T23:57:09+09:00",
  "parts": [
   "胸",
   "背中",
@@ -3737,6 +3737,23 @@
      "raw": "23:53 ダンベルプレス 片手15kg×10(2セット目)",
      "hands": "両手",
      "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-05",
+     "time": "23:56",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 17.5,
+     "weight_type": "片手",
+     "reps": [
+      4
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:56 ダンベルプレス 片手17.5kg×4(3セット目)",
+     "hands": "両手",
+     "total_kg": 35.0
     }
    ],
    "summary_only": null
@@ -4999,6 +5016,6 @@
    "note": null
   }
  },
- "content_hash": "931a75fb347e",
- "generated_at": "2026-11-05T23:54:55+09:00"
+ "content_hash": "21447669b56c",
+ "generated_at": "2026-11-05T23:57:59+09:00"
 }
