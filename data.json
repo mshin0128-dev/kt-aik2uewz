@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-05T01:08:02+09:00",
+ "source_mtime": "2026-11-05T13:03:17+09:00",
  "parts": [
   "胸",
   "背中",
@@ -3719,6 +3719,11 @@
    "date": "2026-11-04",
    "kg": 75.4,
    "raw": "- 09:31 体重 75.4kg"
+  },
+  {
+   "date": "2026-11-05",
+   "kg": 76.8,
+   "raw": "- 13:02 体重 76.8kg"
   }
  ],
  "exercises": [
@@ -4868,8 +4873,15 @@
     }
    ],
    "note": null
+  },
+  "2026-11-05": {
+   "kcal": null,
+   "kcal_range": null,
+   "protein": null,
+   "items": [],
+   "note": null
   }
  },
- "content_hash": "7cb1caefffec",
- "generated_at": "2026-11-05T01:09:32+09:00"
+ "content_hash": "6415b124ceb6",
+ "generated_at": "2026-11-05T13:04:24+09:00"
 }
