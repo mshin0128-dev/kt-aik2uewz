@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-06T12:30:33+09:00",
+ "source_mtime": "2026-11-06T14:41:10+09:00",
  "parts": [
   "胸",
   "背中",
@@ -4684,6 +4684,50 @@
     }
    ],
    "summary_only": null
+  },
+  {
+   "date": "2026-11-06",
+   "entries": [
+    {
+     "date": "2026-11-06",
+     "time": "14:39",
+     "exercise": "腹筋: 自重",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": null,
+     "sets": 1,
+     "unknown": [
+      "回数"
+     ],
+     "note": "回数不明",
+     "raw": "14:39 腹筋 自重20回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-06",
+     "time": "14:41",
+     "exercise": "腹筋: 自重",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": null,
+     "sets": 1,
+     "unknown": [
+      "回数"
+     ],
+     "note": "回数不明",
+     "raw": "14:41 腹筋 自重20回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    }
+   ],
+   "summary_only": null
   }
  ],
  "bodyweight": [
@@ -4831,6 +4875,7 @@
   "腹筋: 脚を伸縮する",
   "腹筋: 脚を曲げ伸ばしする種目",
   "腹筋: 脚上げ",
+  "腹筋: 自重",
   "腹筋: 自重×"
  ],
  "meals": {
@@ -5967,6 +6012,6 @@
    "note": null
   }
  },
- "content_hash": "bdf8fd65fa85",
- "generated_at": "2026-11-06T12:31:12+09:00"
+ "content_hash": "1e3dfb7731eb",
+ "generated_at": "2026-11-06T14:41:42+09:00"
 }
