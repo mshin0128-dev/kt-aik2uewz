@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-06T15:15:30+09:00",
+ "source_mtime": "2026-11-06T15:37:19+09:00",
  "parts": [
   "胸",
   "背中",
@@ -6101,13 +6101,30 @@
    "note": null
   },
   "2026-11-06": {
-   "kcal": null,
+   "kcal": 857,
    "kcal_range": null,
-   "protein": null,
-   "items": [],
+   "protein": 33.8,
+   "items": [
+    {
+     "time": "15:37",
+     "text": "サトウのご飯 ゆめぴりか150g×2パック 414kcal・P7g"
+    },
+    {
+     "time": "15:37",
+     "text": "ウインナー5本 約150kcal・P約6g(概算)"
+    },
+    {
+     "time": "15:37",
+     "text": "千切りキャベツ100g 約23kcal・P約1.3g"
+    },
+    {
+     "time": "15:37",
+     "text": "目玉焼き3個 約270kcal・P約19.5g(概算)"
+    }
+   ],
    "note": null
   }
  },
- "content_hash": "3365b7166965",
- "generated_at": "2026-11-06T15:16:15+09:00"
+ "content_hash": "f04b0bc6c716",
+ "generated_at": "2026-11-06T15:38:14+09:00"
 }
