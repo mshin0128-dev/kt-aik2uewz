@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-06T15:37:19+09:00",
+ "source_mtime": "2026-11-06T16:53:48+09:00",
  "parts": [
   "胸",
   "背中",
@@ -4695,12 +4695,12 @@
      "part": "腹筋",
      "weight_kg": null,
      "weight_type": "自重",
-     "reps": null,
-     "sets": 1,
-     "unknown": [
-      "回数"
+     "reps": [
+      20
      ],
-     "note": "回数不明",
+     "sets": 1,
+     "unknown": [],
+     "note": null,
      "raw": "14:39 腹筋 自重20回(1セット目)",
      "load_kg": null,
      "load_reps": null,
@@ -4714,12 +4714,12 @@
      "part": "腹筋",
      "weight_kg": null,
      "weight_type": "自重",
-     "reps": null,
-     "sets": 1,
-     "unknown": [
-      "回数"
+     "reps": [
+      20
      ],
-     "note": "回数不明",
+     "sets": 1,
+     "unknown": [],
+     "note": null,
      "raw": "14:41 腹筋 自重20回(2セット目)",
      "load_kg": null,
      "load_reps": null,
@@ -4733,12 +4733,12 @@
      "part": "腹筋",
      "weight_kg": null,
      "weight_type": "自重",
-     "reps": null,
-     "sets": 1,
-     "unknown": [
-      "回数"
+     "reps": [
+      10
      ],
-     "note": "回数不明",
+     "sets": 1,
+     "unknown": [],
+     "note": "左右各10回ずつ",
      "raw": "14:44 ヒールタッチ 自重左右10回ずつ(1セット目)",
      "load_kg": null,
      "load_reps": null,
@@ -4752,12 +4752,12 @@
      "part": "腹筋",
      "weight_kg": null,
      "weight_type": "自重",
-     "reps": null,
-     "sets": 1,
-     "unknown": [
-      "回数"
+     "reps": [
+      10
      ],
-     "note": "回数不明",
+     "sets": 1,
+     "unknown": [],
+     "note": null,
      "raw": "14:49 レッグレイズ 自重10回(1セット目)",
      "load_kg": null,
      "load_reps": null,
@@ -4771,12 +4771,12 @@
      "part": "腹筋",
      "weight_kg": null,
      "weight_type": "自重",
-     "reps": null,
-     "sets": 1,
-     "unknown": [
-      "回数"
+     "reps": [
+      10
      ],
-     "note": "回数不明",
+     "sets": 1,
+     "unknown": [],
+     "note": "左右各10回ずつ",
      "raw": "14:53 ヒールタッチ 自重左右10回ずつ(2セット目)",
      "load_kg": null,
      "load_reps": null,
@@ -4790,12 +4790,12 @@
      "part": "腹筋",
      "weight_kg": null,
      "weight_type": "自重",
-     "reps": null,
-     "sets": 1,
-     "unknown": [
-      "回数"
+     "reps": [
+      10
      ],
-     "note": "回数不明",
+     "sets": 1,
+     "unknown": [],
+     "note": null,
      "raw": "14:55 レッグレイズ 自重10回(2セット目)",
      "load_kg": null,
      "load_reps": null,
@@ -6125,6 +6125,6 @@
    "note": null
   }
  },
- "content_hash": "f04b0bc6c716",
- "generated_at": "2026-11-06T15:38:14+09:00"
+ "content_hash": "6140f2c76e95",
+ "generated_at": "2026-11-07T00:09:13+09:00"
 }
