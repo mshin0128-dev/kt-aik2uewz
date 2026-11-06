@@ -482,7 +482,7 @@
     {
      "date": "2026-10-06",
      "time": null,
-     "exercise": "腹筋: 脚を伸縮する",
+     "exercise": "レッグレイズ",
      "part": "腹筋",
      "weight_kg": null,
      "weight_type": "自重",
@@ -1141,7 +1141,7 @@
     {
      "date": "2026-10-16",
      "time": "1:32",
-     "exercise": "腹筋: 脚を曲げ伸ばしする種目",
+     "exercise": "レッグレイズ",
      "part": "腹筋",
      "weight_kg": null,
      "weight_type": "自重",
@@ -4028,7 +4028,7 @@
     {
      "date": "2026-11-03",
      "time": "0:36",
-     "exercise": "腹筋: 自重×",
+     "exercise": "腹筋",
      "part": "腹筋",
      "weight_kg": null,
      "weight_type": "自重",
@@ -4067,7 +4067,7 @@
     {
      "date": "2026-11-03",
      "time": "0:39",
-     "exercise": "腹筋: 自重×",
+     "exercise": "腹筋",
      "part": "腹筋",
      "weight_kg": null,
      "weight_type": "自重",
@@ -4086,7 +4086,7 @@
     {
      "date": "2026-11-03",
      "time": "0:41",
-     "exercise": "腹筋: 自重×",
+     "exercise": "腹筋",
      "part": "腹筋",
      "weight_kg": null,
      "weight_type": "自重",
@@ -4111,7 +4111,7 @@
     {
      "date": "2026-11-04",
      "time": "10:20",
-     "exercise": "腹筋: 自重×",
+     "exercise": "腹筋",
      "part": "腹筋",
      "weight_kg": null,
      "weight_type": "自重",
@@ -4130,7 +4130,7 @@
     {
      "date": "2026-11-04",
      "time": "10:20",
-     "exercise": "腹筋: 自重×",
+     "exercise": "腹筋",
      "part": "腹筋",
      "weight_kg": null,
      "weight_type": "自重",
@@ -4691,7 +4691,7 @@
     {
      "date": "2026-11-06",
      "time": "14:39",
-     "exercise": "腹筋: 自重",
+     "exercise": "腹筋",
      "part": "腹筋",
      "weight_kg": null,
      "weight_type": "自重",
@@ -4710,7 +4710,7 @@
     {
      "date": "2026-11-06",
      "time": "14:41",
-     "exercise": "腹筋: 自重",
+     "exercise": "腹筋",
      "part": "腹筋",
      "weight_kg": null,
      "weight_type": "自重",
@@ -4967,12 +4967,9 @@
   "レッグエクステンション",
   "レッグレイズ",
   "腕立て伏せ",
+  "腹筋",
   "腹筋: ベンチで脚を伸ばして上下する",
-  "腹筋: 脚を伸縮する",
-  "腹筋: 脚を曲げ伸ばしする種目",
-  "腹筋: 脚上げ",
-  "腹筋: 自重",
-  "腹筋: 自重×"
+  "腹筋: 脚上げ"
  ],
  "meals": {
   "2026-09-30": {
@@ -6125,6 +6122,6 @@
    "note": null
   }
  },
- "content_hash": "6140f2c76e95",
- "generated_at": "2026-11-07T00:09:13+09:00"
+ "content_hash": "3902522fdda8",
+ "generated_at": "2026-11-07T02:51:58+09:00"
 }
