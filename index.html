@@ -2,6 +2,13 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>筋トレ記録まとめ</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="筋トレ">
+<meta name="theme-color" content="#FF8A5B">
 <script>
 (function () {
   try {
@@ -11,19 +18,13 @@
     document.documentElement.setAttribute("data-theme", pref);
     var dark = pref === "dark" || (pref === "auto" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
     var tc = document.querySelector('meta[name="theme-color"]');
-    if (tc) tc.setAttribute("content", dark ? "#14161a" : "#ff8a5b");
+    if (tc) tc.setAttribute("content", dark ? "#C45A2E" : "#FF8A5B");
     var sb = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
     if (sb) sb.setAttribute("content", dark ? "black-translucent" : "default");
+    document.documentElement.style.colorScheme = dark ? "dark" : "light";
   } catch (e) {}
 })();
 </script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>筋トレ記録まとめ</title>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="筋トレ">
-<meta name="theme-color" content="#ff8a5b">
 <meta name="robots" content="noindex,nofollow">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2026110301">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2026110301">
@@ -32,18 +33,20 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
   :root {
-    --bg: #f4f6f8;
-    --card: #ffffff;
-    --accent: #ff8a5b;
+    --bg: #F7F4F2;
+    --card: #FFFFFF;
+    --accent: #FF8A5B;
     --accent2: #4ecdc4;
-    --text: #333;
-    --sub: #888;
-    --danger: #ff5a5a;
+    --header-grad-1: #FF8A5B;
+    --header-grad-2: #FFB07A;
+    --text: #2A2420;
+    --sub: #7A716C;
+    --danger: #E05555;
     --teal: #2a9d8f;
-    --border: #eee;
-    --border-soft: #f0f0f0;
-    --border-softer: #f7f7f7;
-    --surface-alt: #fafafa;
+    --border: #EDE7E3;
+    --border-soft: #F1ECE9;
+    --border-softer: #F6F2F0;
+    --surface-alt: #FAF7F5;
     --chip-active-bg: #fff1e8;
     --banner-error-bg: #fff0f0;
     --banner-error-border: #ffd6d6;
@@ -53,6 +56,10 @@
     --bw-pill-bg: #eafaf7;
     --status-on-bg: #e5f7f0;
     --status-off-bg: #fff0ec;
+    --tabbar-bg: #FFFFFF;
+    --tabbar-border: #EDE7E3;
+    --tab-pill-bg: #F0EBE8;
+    --modal-overlay: rgba(0,0,0,0.4);
     --radius-lg: 18px;
     --radius: 16px;
     --radius-md: 12px;
@@ -66,50 +73,66 @@
     --safe-b: env(safe-area-inset-bottom, 0px);
     --safe-l: env(safe-area-inset-left, 0px);
     --safe-r: env(safe-area-inset-right, 0px);
-    --nav-h: 74px; /* .tabbar height excluding safe-area inset: 6px top pad + 56px btn (7+27 icon+3 gap+13 label+6) + 12px base bottom pad */
+    --nav-h: 88px; /* 浮いたピル型タブバー＋余白分の高さ。#app の padding-bottom に使う */
   }
   :root[data-theme="light"] {
     color-scheme: light;
   }
   :root[data-theme="dark"] {
-    --bg: #14161a;
-    --card: #1e2024;
-    --text: #e8eaed;
-    --sub: #9aa1a9;
-    --border: #33363b;
-    --border-soft: #2a2c30;
-    --border-softer: #26282c;
-    --surface-alt: #25282c;
+    --bg: #161310;
+    --card: #221E1B;
+    --accent: #FFB07A;
+    --header-grad-1: #C45A2E;
+    --header-grad-2: #FF8A5B;
+    --text: #EDE8E4;
+    --sub: #A89F99;
+    --danger: #FF6B6B;
+    --border: #3A3430;
+    --border-soft: #332E2B;
+    --border-softer: #2C2825;
+    --surface-alt: #2A2623;
     --chip-active-bg: rgba(255,138,91,0.18);
-    --banner-error-bg: rgba(255,90,90,0.12);
-    --banner-error-border: rgba(255,90,90,0.35);
+    --banner-error-bg: rgba(255,107,107,0.12);
+    --banner-error-border: rgba(255,107,107,0.35);
     --banner-warn-bg: rgba(224,169,74,0.12);
     --banner-warn-border: rgba(224,169,74,0.35);
     --banner-warn-text: #e0a94a;
     --bw-pill-bg: rgba(42,157,143,0.18);
     --status-on-bg: rgba(42,157,143,0.18);
-    --status-off-bg: rgba(255,90,90,0.15);
+    --status-off-bg: rgba(255,107,107,0.15);
+    --tabbar-bg: #1C1917;
+    --tabbar-border: rgba(255,255,255,0.08);
+    --tab-pill-bg: #2A2623;
+    --modal-overlay: rgba(0,0,0,0.6);
     color-scheme: dark;
   }
   @media (prefers-color-scheme: dark) {
     :root[data-theme="auto"] {
-      --bg: #14161a;
-      --card: #1e2024;
-      --text: #e8eaed;
-      --sub: #9aa1a9;
-      --border: #33363b;
-      --border-soft: #2a2c30;
-      --border-softer: #26282c;
-      --surface-alt: #25282c;
+      --bg: #161310;
+      --card: #221E1B;
+      --accent: #FFB07A;
+      --header-grad-1: #C45A2E;
+      --header-grad-2: #FF8A5B;
+      --text: #EDE8E4;
+      --sub: #A89F99;
+      --danger: #FF6B6B;
+      --border: #3A3430;
+      --border-soft: #332E2B;
+      --border-softer: #2C2825;
+      --surface-alt: #2A2623;
       --chip-active-bg: rgba(255,138,91,0.18);
-      --banner-error-bg: rgba(255,90,90,0.12);
-      --banner-error-border: rgba(255,90,90,0.35);
+      --banner-error-bg: rgba(255,107,107,0.12);
+      --banner-error-border: rgba(255,107,107,0.35);
       --banner-warn-bg: rgba(224,169,74,0.12);
       --banner-warn-border: rgba(224,169,74,0.35);
       --banner-warn-text: #e0a94a;
       --bw-pill-bg: rgba(42,157,143,0.18);
       --status-on-bg: rgba(42,157,143,0.18);
-      --status-off-bg: rgba(255,90,90,0.15);
+      --status-off-bg: rgba(255,107,107,0.15);
+      --tabbar-bg: #1C1917;
+      --tabbar-border: rgba(255,255,255,0.08);
+      --tab-pill-bg: #2A2623;
+      --modal-overlay: rgba(0,0,0,0.6);
       color-scheme: dark;
     }
   }
@@ -135,13 +158,13 @@
     min-width: 0;
     display: flex;
     flex-direction: column;
-    padding-bottom: calc(var(--nav-h) + var(--safe-b) + 16px);
+    padding-bottom: calc(var(--nav-h) + var(--safe-b));
     padding-left: var(--safe-l);
     padding-right: var(--safe-r);
   }
   header.topbar {
     position: sticky; top: 0; z-index: 10;
-    background: linear-gradient(135deg, var(--accent), #ffb37b);
+    background: linear-gradient(135deg, var(--header-grad-1), var(--header-grad-2));
     color: #fff;
     padding: calc(14px + var(--safe-t)) 16px 14px;
     display: flex;
@@ -445,23 +468,25 @@
 
   .tabbar {
     position: fixed;
-    bottom: 0; left: 0; right: 0;
-    max-width: 480px;
+    left: calc(12px + var(--safe-l));
+    right: calc(12px + var(--safe-r));
+    bottom: calc(8px + var(--safe-b));
+    max-width: 456px;
     margin: 0 auto;
     display: flex;
-    background: var(--card);
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
+    gap: 4px;
+    background: var(--tabbar-bg);
+    border: 1px solid var(--tabbar-border);
+    border-radius: 28px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.16);
     z-index: 20;
-    padding-top: 6px;
-    padding-bottom: calc(var(--safe-b) + 12px);
-    padding-left: var(--safe-l);
-    padding-right: var(--safe-r);
+    padding: 6px;
   }
   .tab-btn {
     flex: 1;
     min-width: 0;
-    min-height: 44px;
-    padding: 7px 1px 6px;
+    min-height: 48px;
+    padding: 6px 2px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -472,15 +497,16 @@
     color: var(--sub);
     border: none;
     background: none;
+    border-radius: 20px;
     cursor: pointer;
   }
   .tab-btn .icon { display: flex; align-items: center; justify-content: center; margin-bottom: 3px; }
-  .tab-btn .icon svg { width: 27px; height: 27px; display: block; }
-  .tab-btn.active { color: var(--accent); font-weight: bold; }
+  .tab-btn .icon svg { width: 22px; height: 22px; display: block; }
+  .tab-btn.active { color: var(--accent); font-weight: bold; background: var(--tab-pill-bg); }
 
   .modal-overlay {
     position: fixed; inset: 0;
-    background: rgba(0,0,0,0.45);
+    background: var(--modal-overlay);
     display: none;
     align-items: flex-end;
     justify-content: center;
@@ -661,23 +687,23 @@
   </main>
 
   <nav class="tabbar">
-    <button class="tab-btn active" data-screen="day">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>日別
+    <button class="tab-btn active" data-screen="day" type="button" aria-label="日別">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>日別
     </button>
-    <button class="tab-btn" data-screen="week">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="9" y1="4" x2="9" y2="22"/><line x1="15" y1="4" x2="15" y2="22"/></svg></span>週別
+    <button class="tab-btn" data-screen="week" type="button" aria-label="週別">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="9" y1="4" x2="9" y2="22"/><line x1="15" y1="4" x2="15" y2="22"/></svg></span>週別
     </button>
-    <button class="tab-btn" data-screen="month">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="4" x2="9" y2="22"/><line x1="15" y1="4" x2="15" y2="22"/></svg></span>月別
+    <button class="tab-btn" data-screen="month" type="button" aria-label="月別">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="4" x2="9" y2="22"/><line x1="15" y1="4" x2="15" y2="22"/></svg></span>月別
     </button>
-    <button class="tab-btn" data-screen="exercise">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8v8"/><path d="M4 9v6"/><path d="M20 9v6"/><path d="M22 8v8"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M9 8v8"/><path d="M15 8v8"/></svg></span>種目別
+    <button class="tab-btn" data-screen="exercise" type="button" aria-label="種目別">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8v8"/><path d="M4 9v6"/><path d="M20 9v6"/><path d="M22 8v8"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M9 8v8"/><path d="M15 8v8"/></svg></span>種目別
     </button>
-    <button class="tab-btn" data-screen="weight">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg></span>体重
+    <button class="tab-btn" data-screen="weight" type="button" aria-label="体重">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg></span>体重
     </button>
-    <button class="tab-btn" data-screen="meal">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M12 11V4"/><path d="M8 4c0 1.4 1 2 1 3.4"/><path d="M16 4c0 1.4-1 2-1 3.4"/></svg></span>食事
+    <button class="tab-btn" data-screen="meal" type="button" aria-label="食事">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M12 11V4"/><path d="M8 4c0 1.4 1 2 1 3.4"/><path d="M16 4c0 1.4-1 2-1 3.4"/></svg></span>食事
     </button>
   </nav>
 </div>
@@ -718,7 +744,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.06a";
+  var APP_VERSION = "v2026.11.11a";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   var PART_COLORS = {
@@ -796,9 +822,10 @@
   function updateThemeMeta() {
     var dark = isDarkActive();
     var tc = document.querySelector('meta[name="theme-color"]');
-    if (tc) tc.setAttribute("content", dark ? "#14161a" : "#ff8a5b");
+    if (tc) tc.setAttribute("content", dark ? "#C45A2E" : "#FF8A5B");
     var sb = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
     if (sb) sb.setAttribute("content", dark ? "black-translucent" : "default");
+    document.documentElement.style.colorScheme = dark ? "dark" : "light";
   }
   function updateThemeModalUi() {
     var pref = getThemePref();
