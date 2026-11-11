@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-09T19:42:08+09:00",
+ "source_mtime": "2026-11-10T23:55:29+09:00",
  "parts": [
   "胸",
   "背中",
@@ -4868,6 +4868,211 @@
     }
    ],
    "summary_only": null
+  },
+  {
+   "date": "2026-11-10",
+   "entries": [
+    {
+     "date": "2026-11-10",
+     "time": "23:17",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:17 インクラインダンベルベンチプレス 片手10kg×15(1セット目) /負荷量 20kg×15=300kg",
+     "load_kg": 20.0,
+     "load_reps": 15,
+     "volume_kg": 300.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-10",
+     "time": "23:17",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:17 インクラインダンベルベンチプレス 片手10kg×15(2セット目) /負荷量 20kg×15=300kg",
+     "load_kg": 20.0,
+     "load_reps": 15,
+     "volume_kg": 300.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-10",
+     "time": "23:21",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:21 インクラインダンベルベンチプレス 片手10kg×15(3セット目) /負荷量 20kg×15=300kg",
+     "load_kg": 20.0,
+     "load_reps": 15,
+     "volume_kg": 300.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-10",
+     "time": "23:27",
+     "exercise": "インクラインダンベルフライ",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      13
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:27 インクラインダンベルフライ 片手10kg×13(1セット目) /負荷量 20kg×13=260kg",
+     "load_kg": 20.0,
+     "load_reps": 13,
+     "volume_kg": 260.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-10",
+     "time": "23:27",
+     "exercise": "インクラインダンベルフライ",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      11
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:27 インクラインダンベルフライ 片手10kg×11(2セット目) /負荷量 20kg×11=220kg",
+     "load_kg": 20.0,
+     "load_reps": 11,
+     "volume_kg": 220.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-10",
+     "time": "23:31",
+     "exercise": "インクラインダンベルフライ",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:31 インクラインダンベルフライ 片手10kg×10(3セット目) /負荷量 20kg×10=200kg",
+     "load_kg": 20.0,
+     "load_reps": 10,
+     "volume_kg": 200.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-10",
+     "time": "23:40",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:40 インクラインダンベルカール 片手10kg×10(1セット目) /負荷量 20kg×10=200kg",
+     "load_kg": 20.0,
+     "load_reps": 10,
+     "volume_kg": 200.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-10",
+     "time": "23:52",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:52 インクラインダンベルカール 片手10kg×10(2セット目) /負荷量 20kg×10=200kg",
+     "load_kg": 20.0,
+     "load_reps": 10,
+     "volume_kg": 200.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-10",
+     "time": "23:52",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:52 インクラインダンベルカール 片手10kg×10(3セット目) /負荷量 20kg×10=200kg",
+     "load_kg": 20.0,
+     "load_reps": 10,
+     "volume_kg": 200.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-10",
+     "time": "23:55",
+     "exercise": "腕立て",
+     "part": "不明",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:55 腕立て 自重10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    }
+   ],
+   "summary_only": null
   }
  ],
  "bodyweight": [
@@ -4970,6 +5175,16 @@
    "date": "2026-11-07",
    "kg": 76.0,
    "raw": "- 16:50 体重 76.0kg"
+  },
+  {
+   "date": "2026-11-09",
+   "kg": 76.8,
+   "raw": "- 22:26 体重 76.8kg"
+  },
+  {
+   "date": "2026-11-10",
+   "kg": 77.0,
+   "raw": "- 14:27 体重 77.0kg"
   }
  ],
  "exercises": [
@@ -5015,6 +5230,7 @@
   "ラットプルダウン",
   "レッグエクステンション",
   "レッグレイズ",
+  "腕立て",
   "腕立て伏せ",
   "腹筋"
  ],
@@ -6201,14 +6417,27 @@
    "note": null
   },
   "2026-11-08": {
-   "kcal": null,
+   "kcal": 2200,
    "kcal_range": null,
    "protein": null,
-   "items": [],
-   "note": "- 04:26 第一旭 チャーシューめん(11/9深夜報告のため11/8分) kcal・P未確認(サイズ・トッピング詳細未確認)- 04:26 飲み会あり(11/8分) 飲酒・料理の内容と量、kcal・P未確認"
+   "items": [
+    {
+     "time": "22:28",
+     "text": "概算(本人指示):第一旭 チャーシューめん(並と仮定) 概算約700kcal・P約35g"
+    },
+    {
+     "time": "22:28",
+     "text": "概算(本人指示):飲み会(ビール等+料理、一般的な量と仮定) 概算約1500kcal・P約50g"
+    },
+    {
+     "time": null,
+     "text": "合計("
+    }
+   ],
+   "note": "- 04:26 第一旭 チャーシューめん(11/9深夜報告のため11/8分) kcal・P未確認(サイズ・トッピング詳細未確認)- 04:26 飲み会あり(11/8分) 飲酒・料理の内容と量、kcal・P未確認- 22:28 概算(本人指示):第一旭 チャーシューめん(並と仮定) 概算約700kcal・P約35g- 22:28 概算(本人指示):飲み会(ビール等+料理、一般的な量と仮定) 概算約1500kcal・P約50g- 11/8 合計(報告分の概算) 約2200kcal・P約85g(他の食事は未報告)"
   },
   "2026-11-09": {
-   "kcal": 671,
+   "kcal": 1099,
    "kcal_range": null,
    "protein": null,
    "items": [
@@ -6219,11 +6448,27 @@
     {
      "time": "17:39",
      "text": "千切りキャベツ 100g 概算21kcal・P1.3g"
+    },
+    {
+     "time": "22:26",
+     "text": "ファミマ 生パスタ 濃い濃いカルボナーラ 428kcal・P19.1g(ラベル値)"
     }
    ],
-   "note": "- 17:39 ファミマ 大盛 グリルチキンのペペロンチーノ(大盛と仮定) 650kcal・P31.1g(公表値ベース)- 17:39 千切りキャベツ 100g 概算21kcal・P1.3g- 17:39 シーザーサラダドレッシング(量未確認) kcal・P未確認"
+   "note": "- 17:39 ファミマ 大盛 グリルチキンのペペロンチーノ(大盛と仮定) 650kcal・P31.1g(公表値ベース)- 17:39 千切りキャベツ 100g 概算21kcal・P1.3g- 17:39 シーザーサラダドレッシング(量未確認) kcal・P未確認- 22:26 体重 76.8kg- 22:26 ファミマ 生パスタ 濃い濃いカルボナーラ 428kcal・P19.1g(ラベル値)"
+  },
+  "2026-11-10": {
+   "kcal": 1400,
+   "kcal_range": null,
+   "protein": 55,
+   "items": [
+    {
+     "time": "23:17",
+     "text": "夢を語れ ラーメン 麺300g(豚・野菜・スープは標準と仮定、トッピング未確認) 概算約1400kcal・P約55g"
+    }
+   ],
+   "note": null
   }
  },
- "content_hash": "2cde390b07b1",
- "generated_at": "2026-11-09T22:26:16+09:00"
+ "content_hash": "3c1de17dddd4",
+ "generated_at": "2026-11-11T16:25:05+09:00"
 }
