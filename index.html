@@ -144,12 +144,15 @@
     max-width: 100%;
     overflow-x: hidden;
     overscroll-behavior-y: contain;
-    touch-action: pan-y;
+    touch-action: manipulation;
     background: var(--bg);
     color: var(--text);
     font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
+  }
+  button, a, input, select, textarea, label, [role="button"] {
+    touch-action: manipulation;
   }
   #app {
     max-width: 480px;
@@ -240,6 +243,7 @@
     opacity: 0;
     border: none;
     pointer-events: none;
+    font-size: 16px;
   }
 
   .top-banner {
@@ -558,13 +562,13 @@
     width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box;
     padding: 9px 6px;
     border: 2px solid var(--border); border-radius: var(--radius-sm);
-    font-size: 15px; color: var(--text);
+    font-size: 16px; color: var(--text);
     background: var(--surface-alt);
     font-family: inherit;
   }
   .goal-field input:focus { border-color: var(--accent); outline: none; }
   .goal-field input[type="date"] {
-    font-size: 14px;
+    font-size: 16px;
   }
   .goal-field input[type="date"]::-webkit-date-and-time-value {
     text-align: left;
@@ -744,7 +748,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.11a";
+  var APP_VERSION = "v2026.11.12a";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   var PART_COLORS = {
@@ -2495,6 +2499,23 @@
   }
   document.addEventListener("touchend", gestureFinish);
   document.addEventListener("touchcancel", function () { gesture.tracking = false; });
+
+  // ---------- ダブルタップズーム防止（iOS Safari 対策） ----------
+  var lastTouchEndAt = 0;
+  document.addEventListener("touchend", function (e) {
+    if (isFormTarget(e.target)) { lastTouchEndAt = 0; return; }
+    var now = Date.now();
+    if (now - lastTouchEndAt <= 300) {
+      e.preventDefault();
+      lastTouchEndAt = 0;
+    } else {
+      lastTouchEndAt = now;
+    }
+  }, { passive: false });
+  document.addEventListener("dblclick", function (e) {
+    if (isFormTarget(e.target)) return;
+    e.preventDefault();
+  }, { passive: false });
 
   // ---------- 初期化 ----------
   function initialTabFromHash() {
