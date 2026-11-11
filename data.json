@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-11T20:21:15+09:00",
+ "source_mtime": "2026-11-11T20:27:43+09:00",
  "parts": [
   "胸",
   "背中",
@@ -5190,6 +5190,25 @@
      "load_reps": null,
      "volume_kg": null,
      "hands": null
+    },
+    {
+     "date": "2026-11-11",
+     "time": "20:27",
+     "exercise": "アブローラー",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:27 アブローラー 自重10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
     }
    ],
    "summary_only": null
@@ -6601,6 +6620,6 @@
    "note": null
   }
  },
- "content_hash": "11a59ba07483",
- "generated_at": "2026-11-11T20:21:54+09:00"
+ "content_hash": "2c16524c9a26",
+ "generated_at": "2026-11-11T20:28:56+09:00"
 }
