@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-11T20:36:03+09:00",
+ "source_mtime": "2026-11-11T20:36:45+09:00",
  "parts": [
   "胸",
   "背中",
@@ -5213,7 +5213,7 @@
     {
      "date": "2026-11-11",
      "time": "20:31",
-     "exercise": "アームカール",
+     "exercise": "ダンベルカール",
      "part": "二頭",
      "weight_kg": 10.0,
      "weight_type": "片手",
@@ -5223,7 +5223,7 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "20:31 アームカール 片手10kg×11(1セット目) /負荷量 20kg×11=220kg",
+     "raw": "20:31 ダンベルカール 片手10kg×11(1セット目) /負荷量 20kg×11=220kg",
      "load_kg": 20.0,
      "load_reps": 11,
      "volume_kg": 220.0,
@@ -5264,7 +5264,7 @@
      "sets": 1,
      "unknown": [],
      "note": null,
-     "raw": "20:35 ダンベルカール 片手10kg×12(1セット目) /負荷量 20kg×12=240kg",
+     "raw": "20:35 ダンベルカール 片手10kg×12(2セット目) /負荷量 20kg×12=240kg",
      "load_kg": 20.0,
      "load_reps": 12,
      "volume_kg": 240.0,
@@ -6682,6 +6682,6 @@
    "note": null
   }
  },
- "content_hash": "2f144d9163ff",
- "generated_at": "2026-11-11T20:36:40+09:00"
+ "content_hash": "7432c2a01892",
+ "generated_at": "2026-11-11T20:38:14+09:00"
 }
