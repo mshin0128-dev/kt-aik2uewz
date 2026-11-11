@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-11T20:44:00+09:00",
+ "source_mtime": "2026-11-11T20:47:59+09:00",
  "parts": [
   "胸",
   "背中",
@@ -5290,6 +5290,25 @@
      "volume_kg": 240.0,
      "hands": "両手",
      "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-11",
+     "time": "20:47",
+     "exercise": "プリーチャーカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:47 プリーチャーカール 片手10kg×左右10(1セット目) /負荷量 20kg×10=200kg",
+     "load_kg": 20.0,
+     "load_reps": 10,
+     "volume_kg": 200.0,
+     "hands": "片腕ずつ"
     }
    ],
    "summary_only": null
@@ -6701,6 +6720,6 @@
    "note": null
   }
  },
- "content_hash": "608ffd0e34a6",
- "generated_at": "2026-11-11T20:44:47+09:00"
+ "content_hash": "f27df1466269",
+ "generated_at": "2026-11-11T20:49:26+09:00"
 }
