@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-11T20:36:45+09:00",
+ "source_mtime": "2026-11-11T20:44:00+09:00",
  "parts": [
   "胸",
   "背中",
@@ -5270,6 +5270,26 @@
      "volume_kg": 240.0,
      "hands": "両手",
      "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-11",
+     "time": "20:43",
+     "exercise": "ダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      12
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:43 ダンベルカール 片手10kg×12(3セット目) /負荷量 20kg×12=240kg",
+     "load_kg": 20.0,
+     "load_reps": 12,
+     "volume_kg": 240.0,
+     "hands": "両手",
+     "total_kg": 20.0
     }
    ],
    "summary_only": null
@@ -6681,6 +6701,6 @@
    "note": null
   }
  },
- "content_hash": "8ed99642c256",
- "generated_at": "2026-11-11T20:40:21+09:00"
+ "content_hash": "608ffd0e34a6",
+ "generated_at": "2026-11-11T20:44:47+09:00"
 }
