@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-11T20:27:43+09:00",
+ "source_mtime": "2026-11-11T20:32:52+09:00",
  "parts": [
   "胸",
   "背中",
@@ -5209,6 +5209,47 @@
      "load_reps": null,
      "volume_kg": null,
      "hands": null
+    },
+    {
+     "date": "2026-11-11",
+     "time": "20:31",
+     "exercise": "アームカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      11
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:31 アームカール 片手10kg×11(1セット目) /負荷量 20kg×11=220kg",
+     "load_kg": 20.0,
+     "load_reps": 11,
+     "volume_kg": 220.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-11",
+     "time": "20:32",
+     "exercise": "ダンベルオーバーヘッドエクステンション ダンベル",
+     "part": "不明",
+     "weight_kg": 10.0,
+     "weight_type": "不明",
+     "reps": [
+      12
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "20:32 ダンベルオーバーヘッドエクステンション ダンベル1個10kg×12(1セット目) /負荷量 10kg×12=120kg",
+     "load_kg": 10.0,
+     "load_reps": 12,
+     "volume_kg": 120.0,
+     "hands": null
     }
    ],
    "summary_only": null
@@ -5353,6 +5394,7 @@
   "ショルダープレス",
   "シーテッドサイドレイズ",
   "スミスマシンベンチプレス",
+  "ダンベルオーバーヘッドエクステンション ダンベル",
   "ダンベルカール",
   "ダンベルキックバック",
   "ダンベルスクワット",
@@ -6620,6 +6662,6 @@
    "note": null
   }
  },
- "content_hash": "2c16524c9a26",
- "generated_at": "2026-11-11T20:28:56+09:00"
+ "content_hash": "5a99a9046b02",
+ "generated_at": "2026-11-11T20:33:46+09:00"
 }
