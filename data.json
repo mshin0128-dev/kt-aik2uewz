@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-12T11:29:01+09:00",
+ "source_mtime": "2026-11-13T00:28:55+09:00",
  "parts": [
   "胸",
   "背中",
@@ -6733,13 +6733,21 @@
    "note": null
   },
   "2026-11-12": {
-   "kcal": null,
-   "kcal_range": null,
-   "protein": null,
-   "items": [],
+   "kcal": 103.5,
+   "kcal_range": [
+    102,
+    105
+   ],
+   "protein": 15,
+   "items": [
+    {
+     "time": "00:27",
+     "text": "ザバス ミルクプロテイン 脂肪0 200ml(たんぱく質15g配合、風味未確認) 公式 約102~105kcal・P15.0g"
+    }
+   ],
    "note": null
   }
  },
- "content_hash": "1e89971225ae",
- "generated_at": "2026-11-12T11:30:06+09:00"
+ "content_hash": "e0f91956786c",
+ "generated_at": "2026-11-13T00:29:59+09:00"
 }
