@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-13T02:56:53+09:00",
+ "source_mtime": "2026-11-13T16:05:39+09:00",
  "parts": [
   "胸",
   "背中",
@@ -6750,8 +6750,44 @@
     }
    ],
    "note": null
+  },
+  "2026-11-13": {
+   "kcal": 1337,
+   "kcal_range": null,
+   "protein": 56.9,
+   "items": [
+    {
+     "time": "16:05",
+     "text": "キャベツ 150g 概算約32kcal・P約2.0g"
+    },
+    {
+     "time": "16:05",
+     "text": "卵 3個(目玉焼き、油の量は未確認) 概算約228kcal・P約18.6g"
+    },
+    {
+     "time": "16:05",
+     "text": "ウインナー 100g 概算約319kcal・P約11.5g"
+    },
+    {
+     "time": "16:05",
+     "text": "ご飯 250g 概算約390kcal・P約6.3g"
+    },
+    {
+     "time": "16:05",
+     "text": "オイコス(味未確認) 概算約92kcal・P10g(本人申告)"
+    },
+    {
+     "time": "16:05",
+     "text": "バナナ 1本 概算約86kcal・P約1.1g"
+    },
+    {
+     "time": "16:05",
+     "text": "無糖グラノーラ 40g 概算約190kcal・P約7.4g"
+    }
+   ],
+   "note": null
   }
  },
- "content_hash": "f4fbc50012b8",
- "generated_at": "2026-11-13T02:57:50+09:00"
+ "content_hash": "c5dde4447ecd",
+ "generated_at": "2026-11-13T16:07:00+09:00"
 }
