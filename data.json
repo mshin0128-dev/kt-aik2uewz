@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-14T19:56:31+09:00",
+ "source_mtime": "2026-11-14T20:06:53+09:00",
  "parts": [
   "胸",
   "背中",
@@ -5698,6 +5698,25 @@
      "volume_kg": 90.0,
      "hands": "両手",
      "total_kg": 6.0
+    },
+    {
+     "date": "2026-11-14",
+     "time": "20:06",
+     "exercise": "腕立て伏せ",
+     "part": "胸",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:06 腕立て伏せ 15回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
     }
    ],
    "summary_only": null
@@ -7202,6 +7221,6 @@
    "note": null
   }
  },
- "content_hash": "21beaa9607f9",
- "generated_at": "2026-11-14T19:57:34+09:00"
+ "content_hash": "5aac818f9860",
+ "generated_at": "2026-11-14T20:08:08+09:00"
 }
