@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-14T19:53:27+09:00",
+ "source_mtime": "2026-11-14T19:56:31+09:00",
  "parts": [
   "胸",
   "背中",
@@ -5678,6 +5678,26 @@
      "load_reps": null,
      "volume_kg": null,
      "hands": null
+    },
+    {
+     "date": "2026-11-14",
+     "time": "19:56",
+     "exercise": "サイドレイズ",
+     "part": "肩",
+     "weight_kg": 3.0,
+     "weight_type": "片手",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "19:56 サイドレイズ 片手3kg×15(3セット目) /負荷量 6kg×15=90kg",
+     "load_kg": 6.0,
+     "load_reps": 15,
+     "volume_kg": 90.0,
+     "hands": "両手",
+     "total_kg": 6.0
     }
    ],
    "summary_only": null
@@ -7182,6 +7202,6 @@
    "note": null
   }
  },
- "content_hash": "1ae4cbb2cf43",
- "generated_at": "2026-11-14T19:54:02+09:00"
+ "content_hash": "21beaa9607f9",
+ "generated_at": "2026-11-14T19:57:34+09:00"
 }
