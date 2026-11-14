@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-14T17:27:40+09:00",
+ "source_mtime": "2026-11-14T19:00:00+09:00",
  "parts": [
   "胸",
   "背中",
@@ -7048,13 +7048,26 @@
    "note": null
   },
   "2026-11-14": {
-   "kcal": null,
+   "kcal": 1640,
    "kcal_range": null,
-   "protein": null,
-   "items": [],
+   "protein": 60,
+   "items": [
+    {
+     "time": "18:59",
+     "text": "ご飯 1.5合分(炊き上がり約495gと仮定) 概算約770kcal・P約12g"
+    },
+    {
+     "time": "18:59",
+     "text": "生姜焼き 200g(本人申告) 概算約670kcal・P約33g"
+    },
+    {
+     "time": "18:59",
+     "text": "ネギトロ(量未確認、1パック約80gと仮定) 概算約200kcal・P約15g"
+    }
+   ],
    "note": null
   }
  },
- "content_hash": "d0e5b32d5562",
- "generated_at": "2026-11-14T17:28:11+09:00"
+ "content_hash": "3fe09ec97c8b",
+ "generated_at": "2026-11-14T19:00:35+09:00"
 }
