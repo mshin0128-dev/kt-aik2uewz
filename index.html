@@ -161,6 +161,7 @@
     min-width: 0;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
     padding-bottom: calc(var(--nav-h) + var(--safe-b));
     padding-left: var(--safe-l);
     padding-right: var(--safe-r);
@@ -249,6 +250,34 @@
     border: none;
     pointer-events: none;
     font-size: 16px;
+  }
+
+  .record-segment {
+    display: none;
+    gap: 6px;
+    margin: 0 0 var(--space);
+    background: var(--surface-alt);
+    border-radius: var(--radius-sm);
+    padding: 4px;
+  }
+  .record-segment.show { display: flex; }
+  .record-seg-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 44px;
+    min-height: 44px;
+    border: none;
+    border-radius: 8px;
+    background: none;
+    color: var(--sub);
+    font-size: 14px;
+    font-weight: bold;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  .record-seg-btn.active {
+    background: var(--tab-pill-bg);
+    color: var(--accent);
   }
 
   .top-banner {
@@ -490,23 +519,19 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.16);
     z-index: 20;
     padding: 6px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    overflow: hidden;
   }
-  .tabbar::-webkit-scrollbar { display: none; }
   .tab-btn {
-    flex: 1 0 52px;
-    min-width: 52px;
+    flex: 1 1 0;
+    min-width: 0;
     min-height: 48px;
-    padding: 6px 8px;
+    padding: 6px 2px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-size: 11px;
+    font-size: 10px;
     white-space: nowrap;
     color: var(--sub);
     border: none;
@@ -794,6 +819,12 @@
   <main>
     <div class="top-banner" id="topBanner"></div>
 
+    <div class="record-segment show" id="recordSegment">
+      <button class="record-seg-btn active" data-period="day" type="button">日</button>
+      <button class="record-seg-btn" data-period="week" type="button">週</button>
+      <button class="record-seg-btn" data-period="month" type="button">月</button>
+    </div>
+
     <!-- 日別 -->
     <section class="screen active" id="screen-day">
       <div class="card">
@@ -869,14 +900,8 @@
   <input type="file" id="photoFileInput" class="photo-file-input" accept="image/*" aria-hidden="true" tabindex="-1">
 
   <nav class="tabbar">
-    <button class="tab-btn active" data-screen="day" type="button" aria-label="日別">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>日別
-    </button>
-    <button class="tab-btn" data-screen="week" type="button" aria-label="週別">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="9" y1="4" x2="9" y2="22"/><line x1="15" y1="4" x2="15" y2="22"/></svg></span>週別
-    </button>
-    <button class="tab-btn" data-screen="month" type="button" aria-label="月別">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="4" x2="9" y2="22"/><line x1="15" y1="4" x2="15" y2="22"/></svg></span>月別
+    <button class="tab-btn active" data-screen="record" type="button" aria-label="記録">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>記録
     </button>
     <button class="tab-btn" data-screen="exercise" type="button" aria-label="種目別">
       <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8v8"/><path d="M4 9v6"/><path d="M20 9v6"/><path d="M22 8v8"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M9 8v8"/><path d="M15 8v8"/></svg></span>種目別
@@ -934,7 +959,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.14a";
+  var APP_VERSION = "v2026.11.15a";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   var PART_COLORS = {
@@ -958,6 +983,7 @@
   var ICON_CALENDAR_EMPTY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="7" y1="15" x2="17" y2="19"/></svg>';
   var GOAL_WEIGHT_KEY = "kintore_goal_weight";
   var GOAL_DATE_KEY = "kintore_goal_date";
+  var RECORD_PERIOD_KEY = "kintore_record_period";
   var MEAL_KCAL_TARGET = 2200;
   var MEAL_PROTEIN_TARGET = 130;
 
@@ -1004,6 +1030,16 @@
   function saveGoalDate(v) {
     state.goalDate = v;
     try { localStorage.setItem(GOAL_DATE_KEY, v); } catch (e) {}
+  }
+
+  // ---------- 記録タブの表示期間（日/週/月、localStorage） ----------
+  function getRecordPeriod() {
+    var p = null;
+    try { p = localStorage.getItem(RECORD_PERIOD_KEY); } catch (e) {}
+    return (p === "day" || p === "week" || p === "month") ? p : "day";
+  }
+  function saveRecordPeriod(period) {
+    try { localStorage.setItem(RECORD_PERIOD_KEY, period); } catch (e) {}
   }
 
   // ---------- テーマ（ライト/ダーク/自動） ----------
@@ -1760,6 +1796,7 @@
   function changeMonth(delta) {
     state.monthCursor = shiftMonthBy(state.monthCursor, delta);
     renderMonthTab();
+    return true;
   }
 
   // ---------- 種目別タブ ----------
@@ -2397,10 +2434,12 @@
   function changeWeightPeriod(delta) {
     state.weightPeriod = shiftPeriod(state.weightPeriod, delta);
     renderWeightTab();
+    return true;
   }
   function changeMealPeriod(delta) {
     state.mealPeriod = shiftMealPeriod(state.mealPeriod, delta);
     renderMealTab();
+    return true;
   }
 
   // ---------- 食事タブ ----------
@@ -2743,10 +2782,11 @@
     var range = photoNavRange();
     var cur = state.photoKey || todayKey();
     var nd = addDays(dkToDate(cur), delta);
-    if (nd.getTime() < range.start.getTime() || nd.getTime() > range.end.getTime()) return;
+    if (nd.getTime() < range.start.getTime() || nd.getTime() > range.end.getTime()) return false;
     state.photoKey = dateToKey(nd);
     state.photoMonth = monthFromKey(state.photoKey);
     renderPhotoTab();
+    return true;
   }
   function changePhotoMonth(delta) {
     if (!state.photoMonth) state.photoMonth = monthFromKey(state.photoKey || todayKey());
@@ -3037,20 +3077,31 @@
     else if (state.currentTab === "meal") renderMealTab();
     else if (state.currentTab === "photo") renderPhotoTab();
   }
+  function isRecordPeriodTab(tab) {
+    return tab === "day" || tab === "week" || tab === "month";
+  }
   function switchTab(tab) {
     state.currentTab = tab;
+    var isRecord = isRecordPeriodTab(tab);
+    if (isRecord) saveRecordPeriod(tab);
     Array.prototype.forEach.call(document.querySelectorAll(".screen"), function (s) {
       s.classList.toggle("active", s.id === "screen-" + tab);
     });
     Array.prototype.forEach.call(document.querySelectorAll(".tab-btn"), function (b) {
-      b.classList.toggle("active", b.getAttribute("data-screen") === tab);
+      b.classList.toggle("active", b.getAttribute("data-screen") === (isRecord ? "record" : tab));
     });
-    try { history.replaceState(null, "", "#" + tab); } catch (e) {}
-    var activeBtn = document.querySelector(".tab-btn.active");
-    if (activeBtn && activeBtn.scrollIntoView) {
-      try { activeBtn.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" }); } catch (e2) {}
+    var segEl = document.getElementById("recordSegment");
+    if (segEl) {
+      segEl.classList.toggle("show", isRecord);
+      Array.prototype.forEach.call(segEl.querySelectorAll(".record-seg-btn"), function (b) {
+        b.classList.toggle("active", b.getAttribute("data-period") === tab);
+      });
     }
+    try { history.replaceState(null, "", isRecord ? "#record" : "#" + tab); } catch (e) {}
     renderCurrentTab();
+  }
+  function setRecordPeriod(period) {
+    switchTab(period);
   }
 
   // ---------- イベント ----------
@@ -3091,12 +3142,13 @@
   document.getElementById("monthNextBtn").addEventListener("click", function () { changeMonth(1); });
   function changeDay(delta) {
     var range = dayNavRange();
-    if (!range) return;
+    if (!range) return false;
     var curKey = state.dayKey || computeLatestDateKey() || dateToKey(range.end);
     var nd = addDays(dkToDate(curKey), delta);
-    if (nd.getTime() < range.start.getTime() || nd.getTime() > range.end.getTime()) return;
+    if (nd.getTime() < range.start.getTime() || nd.getTime() > range.end.getTime()) return false;
     state.dayKey = dateToKey(nd);
     renderDayTab();
+    return true;
   }
   function goToDay(dateKey) {
     state.dayKey = dateKey;
@@ -3105,10 +3157,17 @@
   function changeWeek(delta) {
     state.weekStart = addDays(state.weekStart, delta * 7);
     renderWeekTab();
+    return true;
   }
 
   Array.prototype.forEach.call(document.querySelectorAll(".tab-btn"), function (btn) {
-    btn.addEventListener("click", function () { switchTab(btn.getAttribute("data-screen")); });
+    btn.addEventListener("click", function () {
+      var screen = btn.getAttribute("data-screen");
+      switchTab(screen === "record" ? getRecordPeriod() : screen);
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll(".record-seg-btn"), function (btn) {
+    btn.addEventListener("click", function () { setRecordPeriod(btn.getAttribute("data-period")); });
   });
 
   document.getElementById("rawModalClose").addEventListener("click", closeRawModal);
@@ -3198,11 +3257,13 @@
     if (keyEl) onPhotoKeySelect(keyEl.getAttribute("data-photo-key"));
   });
 
-  // ---------- 横スワイプ（日別・週別は画面全体、種目別・体重はグラフ区間） ----------
+  // ---------- 横スワイプ（記録タブは画面全体、体重・食事はグラフ区間、写真は画面全体） ----------
   var SWIPE_DECIDE_DISTANCE = 10;
-  var SWIPE_TRIGGER_DISTANCE = 50;
+  var SWIPE_TRIGGER_DISTANCE = 60;
   var SWIPE_RATIO = 1.5;
+  var SWIPE_EDGE_GUARD = 24;
   var SWIPE_TABS = { day: true, week: true, month: true, weight: true, meal: true, photo: true };
+  var pgesture = { tracking: false, pointerId: null, startX: 0, startY: 0, lockDir: null, eligible: false };
 
   function isFormTarget(el) {
     while (el && el !== document.body) {
@@ -3226,11 +3287,44 @@
   }
   function isSwipeEligibleTarget(target, tab) {
     if (isFormTarget(target) || scrollableAncestorX(target)) return false;
+    if (target.closest && target.closest(".tabbar")) return false;
     if (tab === "day" || tab === "week" || tab === "month" || tab === "photo") return true;
     if (tab === "weight" || tab === "meal") {
       return !!(target.closest && target.closest(".period-swipe-zone"));
     }
     return false;
+  }
+  function swipeEdgeOk(startX) {
+    var vw = window.innerWidth || document.documentElement.clientWidth || 0;
+    return startX >= SWIPE_EDGE_GUARD && startX <= vw - SWIPE_EDGE_GUARD;
+  }
+  function playSwipeAnim(el, dir) {
+    if (!el) return;
+    var offset = dir * 24;
+    el.style.transition = "none";
+    el.style.transform = "translateX(" + offset + "px)";
+    el.style.opacity = "0.6";
+    void el.offsetWidth;
+    el.style.transition = "transform 200ms ease-out, opacity 200ms ease-out";
+    el.style.transform = "translateX(0)";
+    el.style.opacity = "1";
+    window.setTimeout(function () {
+      el.style.transition = "";
+      el.style.transform = "";
+      el.style.opacity = "";
+    }, 220);
+  }
+  function triggerSwipeChange(dir) {
+    var tab = state.currentTab;
+    var el = document.querySelector(".screen.active");
+    var changed = false;
+    if (tab === "day") changed = changeDay(dir);
+    else if (tab === "week") changed = changeWeek(dir);
+    else if (tab === "month") changed = changeMonth(dir);
+    else if (tab === "weight") changed = changeWeightPeriod(dir);
+    else if (tab === "meal") changed = changeMealPeriod(dir);
+    else if (tab === "photo") changed = changePhotoDay(dir);
+    if (changed) playSwipeAnim(el, dir);
   }
 
   document.addEventListener("touchstart", function (e) {
@@ -3243,7 +3337,7 @@
     gesture.startX = e.touches[0].clientX;
     gesture.startY = e.touches[0].clientY;
     gesture.lockDir = null;
-    gesture.eligible = !!SWIPE_TABS[state.currentTab] && isSwipeEligibleTarget(target, state.currentTab);
+    gesture.eligible = !!SWIPE_TABS[state.currentTab] && swipeEdgeOk(gesture.startX) && isSwipeEligibleTarget(target, state.currentTab);
   }, { passive: true });
 
   document.addEventListener("touchmove", function (e) {
@@ -3275,17 +3369,57 @@
     var dx = touch.clientX - gesture.startX;
     var dy = touch.clientY - gesture.startY;
     if (Math.abs(dx) > SWIPE_TRIGGER_DISTANCE && Math.abs(dx) > Math.abs(dy) * SWIPE_RATIO) {
-      var dir = dx < 0 ? 1 : -1;
-      if (state.currentTab === "day") changeDay(dir);
-      else if (state.currentTab === "week") changeWeek(dir);
-      else if (state.currentTab === "month") changeMonth(dir);
-      else if (state.currentTab === "weight") changeWeightPeriod(dir);
-      else if (state.currentTab === "meal") changeMealPeriod(dir);
-      else if (state.currentTab === "photo") changePhotoDay(dir);
+      triggerSwipeChange(dx < 0 ? 1 : -1);
     }
   }
   document.addEventListener("touchend", gestureFinish);
   document.addEventListener("touchcancel", function () { gesture.tracking = false; });
+
+  // マウス・ペンなど touch 以外の pointer によるスワイプ（pointerType==="touch" は上の touch* 側に任せる）
+  document.addEventListener("pointerdown", function (e) {
+    if (e.pointerType === "touch" || document.querySelector(".modal-overlay.show")) {
+      pgesture.tracking = false;
+      return;
+    }
+    pgesture.tracking = true;
+    pgesture.pointerId = e.pointerId;
+    pgesture.startX = e.clientX;
+    pgesture.startY = e.clientY;
+    pgesture.lockDir = null;
+    pgesture.eligible = !!SWIPE_TABS[state.currentTab] && swipeEdgeOk(pgesture.startX) && isSwipeEligibleTarget(e.target, state.currentTab);
+  });
+  document.addEventListener("pointermove", function (e) {
+    if (!pgesture.tracking || e.pointerId !== pgesture.pointerId) return;
+    var dx = e.clientX - pgesture.startX;
+    var dy = e.clientY - pgesture.startY;
+    var absDx = Math.abs(dx);
+    var absDy = Math.abs(dy);
+    if (pgesture.lockDir === null) {
+      if (absDx > SWIPE_DECIDE_DISTANCE && absDx > absDy * SWIPE_RATIO) {
+        pgesture.lockDir = "x";
+      } else if (absDy > SWIPE_DECIDE_DISTANCE) {
+        pgesture.lockDir = "y";
+      } else {
+        return;
+      }
+    }
+    if (pgesture.lockDir === "x" && pgesture.eligible) e.preventDefault();
+  }, { passive: false });
+  function pgestureFinish(e) {
+    if (!pgesture.tracking || e.pointerId !== pgesture.pointerId) return;
+    var locked = pgesture.lockDir === "x" && pgesture.eligible;
+    pgesture.tracking = false;
+    if (!locked) return;
+    var dx = e.clientX - pgesture.startX;
+    var dy = e.clientY - pgesture.startY;
+    if (Math.abs(dx) > SWIPE_TRIGGER_DISTANCE && Math.abs(dx) > Math.abs(dy) * SWIPE_RATIO) {
+      triggerSwipeChange(dx < 0 ? 1 : -1);
+    }
+  }
+  document.addEventListener("pointerup", pgestureFinish);
+  document.addEventListener("pointercancel", function (e) {
+    if (e.pointerId === pgesture.pointerId) pgesture.tracking = false;
+  });
 
   // ---------- ダブルタップズーム防止（iOS Safari 対策） ----------
   var lastTouchEndAt = 0;
@@ -3307,8 +3441,9 @@
   // ---------- 初期化 ----------
   function initialTabFromHash() {
     var h = (location.hash || "").replace("#", "");
-    if (h === "day" || h === "week" || h === "month" || h === "exercise" || h === "weight" || h === "meal" || h === "photo") return h;
-    return "day";
+    if (h === "exercise" || h === "weight" || h === "meal" || h === "photo") return h;
+    if (h === "day" || h === "week" || h === "month") return h;
+    return getRecordPeriod();
   }
   function init() {
     loadGoalSettings();
