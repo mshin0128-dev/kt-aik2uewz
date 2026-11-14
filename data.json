@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-13T21:20:35+09:00",
+ "source_mtime": "2026-11-14T17:25:57+09:00",
  "parts": [
   "胸",
   "背中",
@@ -5521,6 +5521,32 @@
     }
    ],
    "summary_only": null
+  },
+  {
+   "date": "2026-11-14",
+   "entries": [
+    {
+     "date": "2026-11-14",
+     "time": "17:24",
+     "exercise": "サイドレイズ",
+     "part": "肩",
+     "weight_kg": 3.0,
+     "weight_type": "片手",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "17:24 サイドレイズ 片手3kg×20(1セット目) /負荷量 6kg×20=120kg",
+     "load_kg": 6.0,
+     "load_reps": 20,
+     "volume_kg": 120.0,
+     "hands": "両手",
+     "total_kg": 6.0
+    }
+   ],
+   "summary_only": null
   }
  ],
  "bodyweight": [
@@ -5643,6 +5669,11 @@
    "date": "2026-11-12",
    "kg": 76.6,
    "raw": "- 11:28 体重 76.6kg"
+  },
+  {
+   "date": "2026-11-14",
+   "kg": 76.6,
+   "raw": "- 17:25 体重 76.6kg"
   }
  ],
  "exercises": [
@@ -6961,9 +6992,9 @@
    "note": null
   },
   "2026-11-13": {
-   "kcal": 1337,
+   "kcal": 1500,
    "kcal_range": null,
-   "protein": 56.9,
+   "protein": 88,
    "items": [
     {
      "time": "16:05",
@@ -6995,8 +7026,15 @@
     }
    ],
    "note": null
+  },
+  "2026-11-14": {
+   "kcal": null,
+   "kcal_range": null,
+   "protein": null,
+   "items": [],
+   "note": null
   }
  },
- "content_hash": "d0dd414854a1",
- "generated_at": "2026-11-13T21:21:47+09:00"
+ "content_hash": "77fa85fe9871",
+ "generated_at": "2026-11-14T17:26:37+09:00"
 }
