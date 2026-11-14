@@ -176,14 +176,15 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   }
   header.topbar .title { flex: 1 1 auto; text-align: center; font-size: 18px; font-weight: bold; overflow-wrap: anywhere; }
-  header.topbar .reload-btn, header.topbar .theme-btn {
+  header.topbar .reload-btn, header.topbar .settings-btn {
     flex: 0 0 auto;
     width: 24px; height: 24px;
     background: none; border: none; color: #fff;
     display: flex; align-items: center; justify-content: center;
     cursor: pointer; padding: 0;
   }
-  header.topbar .reload-btn svg, header.topbar .theme-btn svg { width: 20px; height: 20px; display: block; }
+  header.topbar .reload-btn svg, header.topbar .settings-btn svg { width: 20px; height: 20px; display: block; }
+  header.topbar .settings-btn[aria-pressed="true"] { opacity: 0.75; }
   header.topbar .reload-btn.spinning svg { animation: spin 0.7s linear; }
   @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
@@ -229,13 +230,17 @@
     min-width: 0;
     overflow-wrap: anywhere;
   }
-  #dayLabel {
+  #dayLabel, #photoLabel {
     cursor: pointer;
     text-decoration: underline;
     text-decoration-style: dotted;
     text-underline-offset: 3px;
   }
-  #dayLabel:active { opacity: 0.6; }
+  #dayLabel:active, #photoLabel:active { opacity: 0.6; }
+  #photoLabel { white-space: nowrap; font-size: 15px; }
+  @media (max-width: 340px) {
+    #photoLabel { font-size: 13px; }
+  }
   .day-date-input {
     position: absolute;
     left: 0; top: 0;
@@ -485,12 +490,17 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.16);
     z-index: 20;
     padding: 6px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
+  .tabbar::-webkit-scrollbar { display: none; }
   .tab-btn {
-    flex: 1;
-    min-width: 0;
+    flex: 1 0 52px;
+    min-width: 52px;
     min-height: 48px;
-    padding: 6px 2px;
+    padding: 6px 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -606,17 +616,178 @@
   .meal-item-row .mi-time { color: var(--sub); font-size: 11px; margin-right: 6px; white-space: nowrap; }
   .meal-note { font-size: 12px; color: var(--sub); margin-top: 8px; }
   .meal-empty { font-size: 12px; color: var(--sub); }
+
+  .settings-note { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-soft); }
+  .settings-note p { font-size: 13px; line-height: 1.7; color: var(--sub); overflow-wrap: anywhere; }
+  .modal-box .section-title { margin-top: 0; }
+
+  .photo-file-input {
+    position: absolute;
+    width: 1px; height: 1px;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .photo-stage {
+    position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--surface-alt);
+    min-width: 0;
+  }
+  .photo-stage img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+  .photo-overlay {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 28px 12px 10px;
+    background: linear-gradient(to top, rgba(0,0,0,0.62), rgba(0,0,0,0));
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.65);
+    pointer-events: none;
+  }
+  .photo-overlay-date { font-size: 16px; font-weight: bold; overflow-wrap: anywhere; }
+  .photo-overlay-weight { font-size: 14px; font-weight: bold; margin-top: 2px; overflow-wrap: anywhere; }
+  .photo-empty-stage {
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--sub);
+    text-align: center;
+    font-size: 14px;
+    padding: 20px 12px;
+    border-radius: var(--radius-md);
+    background: var(--surface-alt);
+  }
+  .photo-empty-stage svg { width: 36px; height: 36px; display: block; }
+  .photo-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .photo-btn {
+    flex: 1 1 calc(50% - 8px);
+    min-width: 0;
+    padding: 11px 12px;
+    border: none;
+    border-radius: var(--radius-md);
+    background: var(--accent);
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+  .photo-btn.secondary {
+    background: var(--surface-alt);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .photo-btn.danger {
+    background: var(--status-off-bg);
+    color: var(--danger);
+    border: none;
+  }
+  .photo-weight-row { margin-top: 10px; }
+  .photo-weight-row label { display: block; font-size: 13px; color: var(--sub); margin-bottom: 4px; }
+  .photo-weight-row .photo-weight-value { font-size: 16px; font-weight: bold; }
+  .photo-weight-row input {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface-alt);
+    color: var(--text);
+  }
+  .photo-hint { font-size: 12px; color: var(--sub); margin-top: 8px; overflow-wrap: anywhere; }
+  .photo-thumbs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+  .photo-thumbs::-webkit-scrollbar { display: none; }
+  .photo-thumb {
+    flex: 0 0 72px;
+    width: 72px;
+    height: 72px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    padding: 0;
+    background: var(--surface-alt);
+    cursor: pointer;
+  }
+  .photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-thumb.active { border-color: var(--accent); }
+  .photo-thumb.cmp { border-color: var(--accent2); }
+  button.photo-cal-cell {
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    font: inherit;
+    color: inherit;
+    margin: 0;
+  }
+  .photo-cal-cell.has-photo {
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    background: var(--surface-alt);
+  }
+  .photo-cal-cell.has-photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .photo-cal-cell.has-photo .pcd-num {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  }
+  .photo-cal-cell.selected { box-shadow: 0 0 0 2px var(--accent) inset; }
+  .photo-cal-cell.cmp-selected { box-shadow: 0 0 0 2px var(--accent2) inset; }
+  .photo-cal-cell.future { opacity: 0.35; cursor: default; }
+  .photo-compare {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 8px;
+    min-width: 0;
+  }
+  .photo-compare .photo-stage { min-width: 0; }
+  .photo-compare .photo-overlay { padding: 20px 8px 8px; }
+  .photo-compare .photo-overlay-date { font-size: 12px; }
+  .photo-compare .photo-overlay-weight { font-size: 11px; }
+  .photo-compare-cap { font-size: 11px; color: var(--sub); margin-top: 6px; text-align: center; overflow-wrap: anywhere; }
 </style>
 </head>
 <body>
 <div id="app">
   <header class="topbar">
-    <button class="theme-btn" id="themeBtn" aria-label="テーマ設定" type="button">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-    </button>
-    <span class="title">筋トレ記録まとめ</span>
     <button class="reload-btn" id="reloadBtn" aria-label="再読み込み" type="button">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+    </button>
+    <span class="title">筋トレ記録まとめ</span>
+    <button class="settings-btn" id="settingsBtn" aria-label="設定" type="button" aria-pressed="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
     </button>
   </header>
 
@@ -688,7 +859,14 @@
       <div id="mealContent"><div class="card"><div class="empty-msg">読み込み中…</div></div></div>
       <div class="app-footer" id="footerMeal"></div>
     </section>
+
+    <!-- 写真 -->
+    <section class="screen" id="screen-photo">
+      <div id="photoContent"><div class="card"><div class="empty-msg">読み込み中…</div></div></div>
+      <div class="app-footer" id="footerPhoto"></div>
+    </section>
   </main>
+  <input type="file" id="photoFileInput" class="photo-file-input" accept="image/*" aria-hidden="true" tabindex="-1">
 
   <nav class="tabbar">
     <button class="tab-btn active" data-screen="day" type="button" aria-label="日別">
@@ -706,6 +884,9 @@
     <button class="tab-btn" data-screen="weight" type="button" aria-label="体重">
       <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg></span>体重
     </button>
+    <button class="tab-btn" data-screen="photo" type="button" aria-label="写真">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>写真
+    </button>
     <button class="tab-btn" data-screen="meal" type="button" aria-label="食事">
       <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M12 11V4"/><path d="M8 4c0 1.4 1 2 1 3.4"/><path d="M16 4c0 1.4-1 2-1 3.4"/></svg></span>食事
     </button>
@@ -720,9 +901,10 @@
   </div>
 </div>
 
-<div class="modal-overlay" id="themeModalOverlay">
+<div class="modal-overlay" id="settingsModalOverlay">
   <div class="modal-box">
-    <h4>テーマ</h4>
+    <h4>設定</h4>
+    <div class="section-title">テーマ</div>
     <div class="theme-option-list">
       <button type="button" class="theme-option" data-theme-choice="auto">
         <span class="theme-option-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span>
@@ -740,7 +922,11 @@
         <span class="theme-option-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="8 12.5 11 15.5 16 9"/></svg></span>
       </button>
     </div>
-    <button class="modal-close-btn" id="themeModalClose" type="button">閉じる</button>
+    <div class="settings-note">
+      <div class="section-title">写真の保存</div>
+      <p>体の写真はこの端末のブラウザの中だけに保存されます。サーバーや公開ページには送りません。iPhoneを替えたときや、Safariの履歴・Webサイトデータを消したときは、写真も消えます。</p>
+    </div>
+    <button class="modal-close-btn" id="settingsModalClose" type="button">閉じる</button>
   </div>
 </div>
 
@@ -748,7 +934,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.12a";
+  var APP_VERSION = "v2026.11.14a";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   var PART_COLORS = {
@@ -787,7 +973,16 @@
     mealPeriod: null,
     goalWeight: 70,
     goalDate: "",
-    currentTab: "day"
+    currentTab: "day",
+    photoKey: null,
+    photoMonth: null,
+    photoCompare: [],
+    photoCompareOn: false,
+    photoCache: {},
+    photoDates: [],
+    photoReady: false,
+    photoError: false,
+    manualWeight: {}
   };
   var charts = { exercise: null, exerciseVolume: null, weight: null };
   var rawRegistry = [];
@@ -852,13 +1047,8 @@
     updateThemeModalUi();
     renderCurrentTab();
   }
-  function openThemeModal() {
-    updateThemeModalUi();
-    document.getElementById("themeModalOverlay").classList.add("show");
-  }
-  function closeThemeModal() {
-    document.getElementById("themeModalOverlay").classList.remove("show");
-  }
+  function openThemeModal() { openSettingsModal(); }
+  function closeThemeModal() { closeSettingsModal(); }
 
   // ---------- Chart.js value-label plugin (自作・外部プラグイン不要) ----------
   var valueLabelPlugin = {
@@ -1230,7 +1420,7 @@
 
   function renderFooters() {
     var text = APP_VERSION + " ・ データ更新: " + formatIsoDateTime(state.data && state.data.source_mtime);
-    ["footerDay", "footerWeek", "footerMonth", "footerExercise", "footerWeight", "footerMeal"].forEach(function (id) {
+    ["footerDay", "footerWeek", "footerMonth", "footerExercise", "footerWeight", "footerMeal", "footerPhoto"].forEach(function (id) {
       document.getElementById(id).textContent = text;
     });
   }
@@ -2289,6 +2479,553 @@
     if (nextBtn) nextBtn.addEventListener("click", function () { changeMealPeriod(1); });
   }
 
+
+  // ---------- 体の写真（IndexedDB のみ。サーバーへは送らない） ----------
+  var PHOTO_DB_NAME = "kintore_photos_v1";
+  var PHOTO_STORE = "photos";
+  var PHOTO_MAX_EDGE = 1600;
+  var PHOTO_JPEG_QUALITY = 0.85;
+  var ICON_CAMERA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>';
+  var photoDbPromise = null;
+  var photoUrlMap = {};
+
+  function formatPhotoDateLabel(key) {
+    var d = dkToDate(key);
+    return d.getFullYear() + "/" + pad2(d.getMonth() + 1) + "/" + pad2(d.getDate()) + "（" + weekdayJp(d) + "）";
+  }
+  function todayKey() {
+    var n = new Date();
+    n.setHours(12, 0, 0, 0);
+    return dateToKey(n);
+  }
+  function openPhotoDb() {
+    if (photoDbPromise) return photoDbPromise;
+    photoDbPromise = new Promise(function (resolve, reject) {
+      var req = indexedDB.open(PHOTO_DB_NAME, 1);
+      req.onupgradeneeded = function (e) {
+        var db = e.target.result;
+        if (!db.objectStoreNames.contains(PHOTO_STORE)) {
+          db.createObjectStore(PHOTO_STORE, { keyPath: "date" });
+        }
+      };
+      req.onsuccess = function (e) { resolve(e.target.result); };
+      req.onerror = function () { reject(req.error); };
+    });
+    return photoDbPromise;
+  }
+  function idbReq(req) {
+    return new Promise(function (resolve, reject) {
+      req.onsuccess = function () { resolve(req.result); };
+      req.onerror = function () { reject(req.error); };
+    });
+  }
+  function withPhotoStore(mode, fn) {
+    return openPhotoDb().then(function (db) {
+      var tx = db.transaction(PHOTO_STORE, mode);
+      var store = tx.objectStore(PHOTO_STORE);
+      var p = Promise.resolve(fn(store));
+      var txDone = new Promise(function (resolve, reject) {
+        tx.oncomplete = function () { resolve(); };
+        tx.onerror = function () { reject(tx.error); };
+        tx.onabort = function () { reject(tx.error || new Error("aborted")); };
+      });
+      return p.then(function (val) { return txDone.then(function () { return val; }); });
+    });
+  }
+  function revokePhotoUrl(date) {
+    if (photoUrlMap[date]) {
+      URL.revokeObjectURL(photoUrlMap[date]);
+      delete photoUrlMap[date];
+    }
+  }
+  function photoSrc(date) {
+    if (photoUrlMap[date]) return photoUrlMap[date];
+    var rec = state.photoCache[date];
+    if (!rec || !rec.blob) return "";
+    photoUrlMap[date] = URL.createObjectURL(rec.blob);
+    return photoUrlMap[date];
+  }
+  function loadAllPhotos() {
+    return withPhotoStore("readonly", function (store) {
+      return idbReq(store.getAll());
+    }).then(function (rows) {
+      Object.keys(photoUrlMap).forEach(revokePhotoUrl);
+      state.photoCache = {};
+      state.photoDates = [];
+      (rows || []).forEach(function (row) {
+        state.photoCache[row.date] = row;
+        state.photoDates.push(row.date);
+      });
+      state.photoDates.sort();
+    });
+  }
+  function getPhotoWeight(date) {
+    if (state.bwMap && state.bwMap[date] != null && isFinite(state.bwMap[date])) {
+      return { kg: state.bwMap[date], source: "data" };
+    }
+    if (state.manualWeight[date] != null && isFinite(state.manualWeight[date])) {
+      return { kg: state.manualWeight[date], source: "manual" };
+    }
+    var rec = state.photoCache[date];
+    if (rec && rec.weightKg != null && isFinite(rec.weightKg)) {
+      return { kg: rec.weightKg, source: rec.weightSource || "manual" };
+    }
+    return { kg: null, source: null };
+  }
+  function loadImageFromBlob(blob) {
+    return new Promise(function (resolve, reject) {
+      if (typeof createImageBitmap === "function") {
+        var opts = { imageOrientation: "from-image" };
+        createImageBitmap(blob, opts).then(resolve).catch(function () {
+          createImageBitmap(blob).then(resolve).catch(function () {
+            fallbackImage();
+          });
+        });
+        return;
+      }
+      fallbackImage();
+      function fallbackImage() {
+        var url = URL.createObjectURL(blob);
+        var img = new Image();
+        img.onload = function () { URL.revokeObjectURL(url); resolve(img); };
+        img.onerror = function () { URL.revokeObjectURL(url); reject(new Error("image")); };
+        img.src = url;
+      }
+    });
+  }
+  function canvasToJpeg(canvas, quality) {
+    return new Promise(function (resolve, reject) {
+      canvas.toBlob(function (b) {
+        if (b) resolve(b);
+        else reject(new Error("toBlob"));
+      }, "image/jpeg", quality);
+    });
+  }
+  function resizeImageBlob(blob) {
+    return loadImageFromBlob(blob).then(function (img) {
+      var w = img.width;
+      var h = img.height;
+      var scale = Math.min(1, PHOTO_MAX_EDGE / Math.max(w, h));
+      var cw = Math.max(1, Math.round(w * scale));
+      var ch = Math.max(1, Math.round(h * scale));
+      var canvas = document.createElement("canvas");
+      canvas.width = cw;
+      canvas.height = ch;
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, cw, ch);
+      if (img.close) img.close();
+      return canvasToJpeg(canvas, PHOTO_JPEG_QUALITY).then(function (out) {
+        return { blob: out, width: cw, height: ch };
+      });
+    });
+  }
+  function drawOverlayOnCanvas(canvas, dateKey, weightKg) {
+    var ctx = canvas.getContext("2d");
+    var w = canvas.width;
+    var h = canvas.height;
+    var pad = Math.max(16, Math.round(w * 0.045));
+    var fontSize = Math.max(28, Math.round(w * 0.048));
+    var line2 = Math.max(24, Math.round(w * 0.042));
+    var barH = Math.round(fontSize * 2.8 + pad);
+    var grad = ctx.createLinearGradient(0, h - barH * 1.4, 0, h);
+    grad.addColorStop(0, "rgba(0,0,0,0)");
+    grad.addColorStop(0.45, "rgba(0,0,0,0.35)");
+    grad.addColorStop(1, "rgba(0,0,0,0.62)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, h - barH * 1.4, w, barH * 1.4);
+    ctx.fillStyle = "#fff";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "bottom";
+    ctx.shadowColor = "rgba(0,0,0,0.65)";
+    ctx.shadowBlur = 8;
+    var fontFamily = "'Hiragino Sans','Hiragino Kaku Gothic ProN','Noto Sans JP','Yu Gothic',sans-serif";
+    var y = h - pad;
+    if (weightKg != null && isFinite(weightKg)) {
+      ctx.font = "bold " + line2 + "px " + fontFamily;
+      ctx.fillText(formatWeight(weightKg) + " kg", pad, y);
+      y -= line2 + Math.round(fontSize * 0.25);
+    }
+    ctx.font = "bold " + fontSize + "px " + fontFamily;
+    ctx.fillText(formatPhotoDateLabel(dateKey), pad, y);
+    ctx.shadowBlur = 0;
+  }
+  function makeOverlayBlob(srcBlob, width, height, dateKey, weightKg) {
+    return loadImageFromBlob(srcBlob).then(function (img) {
+      var canvas = document.createElement("canvas");
+      canvas.width = width || img.width;
+      canvas.height = height || img.height;
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      if (img.close) img.close();
+      drawOverlayOnCanvas(canvas, dateKey, weightKg);
+      return canvasToJpeg(canvas, PHOTO_JPEG_QUALITY);
+    });
+  }
+  function putPhotoRecord(rec) {
+    return withPhotoStore("readwrite", function (store) {
+      return idbReq(store.put(rec));
+    }).then(function () {
+      revokePhotoUrl(rec.date);
+      state.photoCache[rec.date] = rec;
+      if (state.photoDates.indexOf(rec.date) === -1) {
+        state.photoDates.push(rec.date);
+        state.photoDates.sort();
+      }
+    });
+  }
+  function savePhotoFromFile(file, dateKey) {
+    var winfo = getPhotoWeight(dateKey);
+    return resizeImageBlob(file).then(function (resized) {
+      return makeOverlayBlob(resized.blob, resized.width, resized.height, dateKey, winfo.kg).then(function (overlay) {
+        var rec = {
+          date: dateKey,
+          weightKg: winfo.kg,
+          weightSource: winfo.source,
+          blob: resized.blob,
+          overlayBlob: overlay,
+          width: resized.width,
+          height: resized.height,
+          updatedAt: Date.now()
+        };
+        return putPhotoRecord(rec);
+      });
+    });
+  }
+  function updatePhotoWeight(dateKey, kg) {
+    var rec = state.photoCache[dateKey];
+    if (!rec) return Promise.resolve();
+    rec.weightKg = kg;
+    rec.weightSource = "manual";
+    rec.updatedAt = Date.now();
+    return makeOverlayBlob(rec.blob, rec.width, rec.height, dateKey, kg).then(function (overlay) {
+      rec.overlayBlob = overlay;
+      return putPhotoRecord(rec);
+    });
+  }
+  function deletePhoto(dateKey) {
+    return withPhotoStore("readwrite", function (store) {
+      return idbReq(store.delete(dateKey));
+    }).then(function () {
+      revokePhotoUrl(dateKey);
+      delete state.photoCache[dateKey];
+      state.photoDates = state.photoDates.filter(function (d) { return d !== dateKey; });
+      state.photoCompare = state.photoCompare.filter(function (d) { return d !== dateKey; });
+    });
+  }
+  function photoNavRange() {
+    var today = new Date();
+    today.setHours(12, 0, 0, 0);
+    var start = addDays(today, -366);
+    var earliest = computeEarliestDateKey();
+    if (earliest) {
+      var ed = dkToDate(earliest);
+      if (ed.getTime() < start.getTime()) start = ed;
+    }
+    if (state.photoDates.length) {
+      var pd = dkToDate(state.photoDates[0]);
+      if (pd.getTime() < start.getTime()) start = pd;
+    }
+    return { start: start, end: today };
+  }
+  function clampPhotoKey(key) {
+    var range = photoNavRange();
+    var d = dkToDate(key);
+    if (d.getTime() < range.start.getTime()) return dateToKey(range.start);
+    if (d.getTime() > range.end.getTime()) return dateToKey(range.end);
+    return dateToKey(d);
+  }
+  function ensurePhotoCursor() {
+    if (!state.photoKey) state.photoKey = todayKey();
+    state.photoKey = clampPhotoKey(state.photoKey);
+    if (!state.photoMonth) state.photoMonth = monthFromKey(state.photoKey);
+  }
+  function changePhotoDay(delta) {
+    var range = photoNavRange();
+    var cur = state.photoKey || todayKey();
+    var nd = addDays(dkToDate(cur), delta);
+    if (nd.getTime() < range.start.getTime() || nd.getTime() > range.end.getTime()) return;
+    state.photoKey = dateToKey(nd);
+    state.photoMonth = monthFromKey(state.photoKey);
+    renderPhotoTab();
+  }
+  function changePhotoMonth(delta) {
+    if (!state.photoMonth) state.photoMonth = monthFromKey(state.photoKey || todayKey());
+    state.photoMonth = shiftMonthBy(state.photoMonth, delta);
+    renderPhotoTab();
+  }
+  function photoStageHtml(dateKey, compact) {
+    var rec = state.photoCache[dateKey];
+    if (!rec) return "";
+    var winfo = getPhotoWeight(dateKey);
+    var html = '<div class="photo-stage">';
+    html += '<img src="' + photoSrc(dateKey) + '" alt="' + escapeHtml(formatPhotoDateLabel(dateKey)) + 'の写真">';
+    html += '<div class="photo-overlay">';
+    html += '<div class="photo-overlay-date">' + escapeHtml(formatPhotoDateLabel(dateKey)) + "</div>";
+    if (winfo.kg != null) {
+      html += '<div class="photo-overlay-weight">' + escapeHtml(formatWeight(winfo.kg)) + " kg</div>";
+    }
+    html += "</div></div>";
+    return html;
+  }
+  function renderPhotoTab() {
+    var el = document.getElementById("photoContent");
+    if (!el) return;
+    if (!state.photoReady) {
+      el.innerHTML = '<div class="card"><div class="empty-msg">読み込み中…</div></div>';
+      return;
+    }
+    if (state.photoError) {
+      el.innerHTML = '<div class="card"><div class="empty-msg">写真の保存領域を開けませんでした。ブラウザの設定を確認してください。</div></div>';
+      return;
+    }
+    ensurePhotoCursor();
+    var key = state.photoKey;
+    var rec = state.photoCache[key];
+    var winfo = getPhotoWeight(key);
+    var range = photoNavRange();
+    var html = "";
+
+    html += '<div class="card"><div class="nav-switch">';
+    html += '<button id="photoPrevBtn" type="button" aria-label="前の日">' + ICON_CHEVRON_LEFT + "</button>";
+    html += '<span class="nav-label" id="photoLabel">' + escapeHtml(formatPhotoDateLabel(key)) + "</span>";
+    html += '<button id="photoNextBtn" type="button" aria-label="次の日">' + ICON_CHEVRON_RIGHT + "</button>";
+    html += "</div>";
+    html += '<input type="date" id="photoDateInput" class="day-date-input" aria-label="日付を選択" tabindex="-1">';
+    html += "</div>";
+
+    html += '<div class="card">';
+    html += '<div class="section-title">この日の写真</div>';
+    if (rec) {
+      html += photoStageHtml(key, false);
+    } else {
+      html += '<div class="photo-empty-stage">' + ICON_CAMERA + '<div>まだ写真がありません</div></div>';
+    }
+    if (winfo.source === "data") {
+      html += '<div class="photo-weight-row"><div class="photo-weight-value">体重 ' + escapeHtml(formatWeight(winfo.kg)) + " kg</div>";
+      html += '<div class="photo-hint">体重の記録から自動で入れています</div></div>';
+    } else {
+      html += '<div class="photo-weight-row"><label for="photoWeightInput">体重（kg）</label>';
+      html += '<input type="number" id="photoWeightInput" inputmode="decimal" step="0.1" min="20" max="300" placeholder="例: 76.6" value="' + (winfo.kg != null ? escapeHtml(formatWeight(winfo.kg)) : "") + '">';
+      html += '<div class="photo-hint">この日の体重記録がないので、自分で入力できます。写真を保存するときに画像へ重ねます。</div></div>';
+    }
+    html += '<div class="photo-actions">';
+    if (rec) {
+      html += '<button class="photo-btn" type="button" data-photo-act="pick">撮り直す</button>';
+      html += '<button class="photo-btn secondary" type="button" data-photo-act="share">画像を保存／共有</button>';
+      html += '<button class="photo-btn danger" type="button" data-photo-act="delete">削除</button>';
+    } else {
+      html += '<button class="photo-btn" type="button" data-photo-act="pick">写真を撮る／選ぶ</button>';
+    }
+    html += "</div></div>";
+
+    var month = state.photoMonth;
+    html += '<div class="card">';
+    html += '<div class="section-title">カレンダー</div>';
+    html += '<div class="nav-switch">';
+    html += '<button id="photoMonthPrevBtn" type="button" aria-label="前の月">' + ICON_CHEVRON_LEFT + "</button>";
+    html += '<span class="nav-label">' + escapeHtml(monthLabel(month)) + "</span>";
+    html += '<button id="photoMonthNextBtn" type="button" aria-label="次の月">' + ICON_CHEVRON_RIGHT + "</button>";
+    html += "</div>";
+    html += '<div class="month-cal">';
+    WEEKDAY_JP_MON.forEach(function (dow) {
+      html += '<div class="month-cal-dow">' + dow + "</div>";
+    });
+    var first = new Date(month.year, month.month - 1, 1, 12, 0, 0);
+    var startPad = (first.getDay() + 6) % 7;
+    var dim = daysInMonth(month.year, month.month);
+    var i;
+    for (i = 0; i < startPad; i++) html += '<div class="month-day empty"></div>';
+    var today = todayKey();
+    for (i = 1; i <= dim; i++) {
+      var dkey = month.year + "-" + pad2(month.month) + "-" + pad2(i);
+      var d = dkToDate(dkey);
+      var future = d.getTime() > range.end.getTime();
+      var cls = "month-day photo-cal-cell";
+      if (state.photoCache[dkey]) cls += " has-photo";
+      if (dkey === key) cls += " selected";
+      if (state.photoCompare.indexOf(dkey) !== -1) cls += " cmp-selected";
+      if (dkey === today) cls += " today";
+      if (future) cls += " future";
+      html += '<button type="button" class="' + cls + '" data-photo-key="' + dkey + '"' + (future ? " disabled" : "") + ">";
+      if (state.photoCache[dkey]) {
+        html += '<img src="' + photoSrc(dkey) + '" alt="">';
+      }
+      html += '<span class="pcd-num">' + i + "</span></button>";
+    }
+    html += "</div>";
+    if (state.photoDates.length) {
+      html += '<div class="photo-hint">写真がある日: ' + state.photoDates.length + "日</div>";
+    }
+    html += "</div>";
+
+    if (state.photoDates.length) {
+      html += '<div class="card"><div class="section-title">これまでの写真</div>';
+      html += '<div class="photo-thumbs">';
+      state.photoDates.slice().reverse().forEach(function (dk) {
+        var tcls = "photo-thumb";
+        if (dk === key) tcls += " active";
+        if (state.photoCompare.indexOf(dk) !== -1) tcls += " cmp";
+        html += '<button type="button" class="' + tcls + '" data-photo-key="' + dk + '" aria-label="' + escapeHtml(formatPhotoDateLabel(dk)) + '">';
+        html += '<img src="' + photoSrc(dk) + '" alt=""></button>';
+      });
+      html += "</div></div>";
+    }
+
+    html += '<div class="card"><div class="section-title">2枚を比べる</div>';
+    html += '<div class="photo-actions">';
+    html += '<button class="photo-btn ' + (state.photoCompareOn ? "" : "secondary") + '" type="button" data-photo-act="compare-toggle">' + (state.photoCompareOn ? "比べるのをやめる" : "2枚を選んで比べる") + "</button>";
+    if (state.photoCompare.length) {
+      html += '<button class="photo-btn secondary" type="button" data-photo-act="compare-clear">選択をクリア</button>';
+    }
+    html += "</div>";
+    if (state.photoCompareOn && state.photoCompare.length < 2) {
+      html += '<div class="photo-hint">カレンダーまたは一覧から、比べたい写真を2枚タップしてください。</div>';
+    }
+    if (state.photoCompare.length === 2) {
+      html += '<div class="photo-compare" style="margin-top:10px;">';
+      state.photoCompare.forEach(function (dk) {
+        html += "<div>" + photoStageHtml(dk, true) + '<div class="photo-compare-cap">' + escapeHtml(formatPhotoDateLabel(dk));
+        var cw = getPhotoWeight(dk);
+        if (cw.kg != null) html += " ・ " + escapeHtml(formatWeight(cw.kg)) + " kg";
+        html += "</div></div>";
+      });
+      html += "</div>";
+    }
+    html += "</div>";
+
+    el.innerHTML = html;
+
+    var prevBtn = document.getElementById("photoPrevBtn");
+    var nextBtn = document.getElementById("photoNextBtn");
+    if (prevBtn) {
+      prevBtn.disabled = dkToDate(key).getTime() <= range.start.getTime();
+      prevBtn.addEventListener("click", function () { changePhotoDay(-1); });
+    }
+    if (nextBtn) {
+      nextBtn.disabled = dkToDate(key).getTime() >= range.end.getTime();
+      nextBtn.addEventListener("click", function () { changePhotoDay(1); });
+    }
+    var monthPrev = document.getElementById("photoMonthPrevBtn");
+    var monthNext = document.getElementById("photoMonthNextBtn");
+    if (monthPrev) monthPrev.addEventListener("click", function () { changePhotoMonth(-1); });
+    if (monthNext) monthNext.addEventListener("click", function () { changePhotoMonth(1); });
+
+    var dateInput = document.getElementById("photoDateInput");
+    var label = document.getElementById("photoLabel");
+    if (label && dateInput) {
+      label.addEventListener("click", function () {
+        dateInput.min = dateToKey(range.start);
+        dateInput.max = dateToKey(range.end);
+        dateInput.value = key;
+        if (dateInput.showPicker) {
+          try { dateInput.showPicker(); } catch (e) { dateInput.focus(); }
+        } else {
+          dateInput.focus();
+        }
+      });
+      dateInput.addEventListener("change", function () {
+        if (!dateInput.value) return;
+        state.photoKey = clampPhotoKey(dateInput.value);
+        state.photoMonth = monthFromKey(state.photoKey);
+        renderPhotoTab();
+      });
+    }
+    var wInput = document.getElementById("photoWeightInput");
+    if (wInput) {
+      wInput.addEventListener("change", function () {
+        var raw = wInput.value.trim();
+        if (raw === "") {
+          delete state.manualWeight[key];
+          return;
+        }
+        var n = parseFloat(raw);
+        if (!isFinite(n) || n <= 0 || n > 300) return;
+        n = Math.round(n * 10) / 10;
+        state.manualWeight[key] = n;
+        if (state.photoCache[key] && getPhotoWeight(key).source !== "data") {
+          updatePhotoWeight(key, n).then(function () { renderPhotoTab(); });
+        }
+      });
+    }
+  }
+  function openPhotoPicker() {
+    var input = document.getElementById("photoFileInput");
+    if (!input) return;
+    input.value = "";
+    input.click();
+  }
+  function handlePhotoFile(file) {
+    if (!file) return;
+    ensurePhotoCursor();
+    var key = state.photoKey;
+    var proceed = Promise.resolve();
+    if (state.photoCache[key]) {
+      if (!window.confirm("この日の写真を撮り直しますか。今の写真は置き換わります。")) return;
+    }
+    proceed.then(function () {
+      return savePhotoFromFile(file, key);
+    }).then(function () {
+      renderPhotoTab();
+    }).catch(function (err) {
+      window.alert("写真を保存できませんでした。別の画像で試してください。");
+    });
+  }
+  function sharePhoto(dateKey) {
+    var rec = state.photoCache[dateKey];
+    if (!rec) return;
+    var winfo = getPhotoWeight(dateKey);
+    var ready = rec.overlayBlob
+      ? Promise.resolve(rec.overlayBlob)
+      : makeOverlayBlob(rec.blob, rec.width, rec.height, dateKey, winfo.kg);
+    ready.then(function (blob) {
+      var filename = "kintore-" + dateKey + ".jpg";
+      var shareFile = new File([blob], filename, { type: "image/jpeg" });
+      if (navigator.canShare && navigator.canShare({ files: [shareFile] }) && navigator.share) {
+        return navigator.share({ files: [shareFile], title: formatPhotoDateLabel(dateKey) });
+      }
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 1000);
+    }).catch(function (err) {
+      if (err && err.name === "AbortError") return;
+      window.alert("画像を書き出せませんでした。");
+    });
+  }
+  function onPhotoKeySelect(dateKey) {
+    if (!dateKey) return;
+    var range = photoNavRange();
+    var d = dkToDate(dateKey);
+    if (d.getTime() > range.end.getTime()) return;
+    if (state.photoCompareOn && state.photoCache[dateKey]) {
+      var idx = state.photoCompare.indexOf(dateKey);
+      if (idx >= 0) state.photoCompare.splice(idx, 1);
+      else if (state.photoCompare.length < 2) state.photoCompare.push(dateKey);
+      else { state.photoCompare.shift(); state.photoCompare.push(dateKey); }
+    }
+    state.photoKey = clampPhotoKey(dateKey);
+    state.photoMonth = monthFromKey(state.photoKey);
+    renderPhotoTab();
+  }
+  function initPhotos() {
+    return loadAllPhotos().then(function () {
+      state.photoReady = true;
+      state.photoError = false;
+      ensurePhotoCursor();
+      if (state.currentTab === "photo") renderPhotoTab();
+    }).catch(function () {
+      state.photoReady = true;
+      state.photoError = true;
+      if (state.currentTab === "photo") renderPhotoTab();
+    });
+  }
+
   // ---------- タブ制御 ----------
   function renderCurrentTab() {
     if (!state.loaded) return;
@@ -2298,6 +3035,7 @@
     else if (state.currentTab === "exercise") renderExerciseTab();
     else if (state.currentTab === "weight") renderWeightTab();
     else if (state.currentTab === "meal") renderMealTab();
+    else if (state.currentTab === "photo") renderPhotoTab();
   }
   function switchTab(tab) {
     state.currentTab = tab;
@@ -2308,6 +3046,10 @@
       b.classList.toggle("active", b.getAttribute("data-screen") === tab);
     });
     try { history.replaceState(null, "", "#" + tab); } catch (e) {}
+    var activeBtn = document.querySelector(".tab-btn.active");
+    if (activeBtn && activeBtn.scrollIntoView) {
+      try { activeBtn.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" }); } catch (e2) {}
+    }
     renderCurrentTab();
   }
 
@@ -2374,15 +3116,29 @@
     if (e.target === this) closeRawModal();
   });
 
-  document.getElementById("themeBtn").addEventListener("click", openThemeModal);
-  document.getElementById("themeModalClose").addEventListener("click", closeThemeModal);
-  document.getElementById("themeModalOverlay").addEventListener("click", function (e) {
-    if (e.target === this) closeThemeModal();
+  function openSettingsModal() {
+    updateThemeModalUi();
+    document.getElementById("settingsModalOverlay").classList.add("show");
+    var sb = document.getElementById("settingsBtn");
+    if (sb) sb.setAttribute("aria-pressed", "true");
+  }
+  function closeSettingsModal() {
+    document.getElementById("settingsModalOverlay").classList.remove("show");
+    var sb = document.getElementById("settingsBtn");
+    if (sb) sb.setAttribute("aria-pressed", "false");
+  }
+  document.getElementById("settingsBtn").addEventListener("click", function () {
+    var overlay = document.getElementById("settingsModalOverlay");
+    if (overlay.classList.contains("show")) closeSettingsModal();
+    else openSettingsModal();
+  });
+  document.getElementById("settingsModalClose").addEventListener("click", closeSettingsModal);
+  document.getElementById("settingsModalOverlay").addEventListener("click", function (e) {
+    if (e.target === this) closeSettingsModal();
   });
   Array.prototype.forEach.call(document.querySelectorAll(".theme-option"), function (btn) {
     btn.addEventListener("click", function () {
       applyThemePref(btn.getAttribute("data-theme-choice"));
-      closeThemeModal();
     });
   });
   if (themeMql) {
@@ -2412,11 +3168,41 @@
     if (toggleEl) toggleEl.classList.toggle("open", !!mealOpenDays[k]);
   });
 
+  document.getElementById("photoFileInput").addEventListener("change", function () {
+    var file = this.files && this.files[0];
+    this.value = "";
+    if (file) handlePhotoFile(file);
+  });
+  document.addEventListener("click", function (e) {
+    var actEl = e.target.closest ? e.target.closest("[data-photo-act]") : null;
+    if (actEl) {
+      var act = actEl.getAttribute("data-photo-act");
+      if (act === "pick") openPhotoPicker();
+      else if (act === "delete") {
+        if (!state.photoKey || !state.photoCache[state.photoKey]) return;
+        if (!window.confirm("この日の写真を削除しますか。削除すると元に戻せません。")) return;
+        deletePhoto(state.photoKey).then(function () { renderPhotoTab(); });
+      } else if (act === "share") {
+        sharePhoto(state.photoKey);
+      } else if (act === "compare-toggle") {
+        state.photoCompareOn = !state.photoCompareOn;
+        if (!state.photoCompareOn) state.photoCompare = [];
+        renderPhotoTab();
+      } else if (act === "compare-clear") {
+        state.photoCompare = [];
+        renderPhotoTab();
+      }
+      return;
+    }
+    var keyEl = e.target.closest ? e.target.closest("[data-photo-key]") : null;
+    if (keyEl) onPhotoKeySelect(keyEl.getAttribute("data-photo-key"));
+  });
+
   // ---------- 横スワイプ（日別・週別は画面全体、種目別・体重はグラフ区間） ----------
   var SWIPE_DECIDE_DISTANCE = 10;
   var SWIPE_TRIGGER_DISTANCE = 50;
   var SWIPE_RATIO = 1.5;
-  var SWIPE_TABS = { day: true, week: true, month: true, weight: true, meal: true };
+  var SWIPE_TABS = { day: true, week: true, month: true, weight: true, meal: true, photo: true };
 
   function isFormTarget(el) {
     while (el && el !== document.body) {
@@ -2440,7 +3226,7 @@
   }
   function isSwipeEligibleTarget(target, tab) {
     if (isFormTarget(target) || scrollableAncestorX(target)) return false;
-    if (tab === "day" || tab === "week" || tab === "month") return true;
+    if (tab === "day" || tab === "week" || tab === "month" || tab === "photo") return true;
     if (tab === "weight" || tab === "meal") {
       return !!(target.closest && target.closest(".period-swipe-zone"));
     }
@@ -2495,6 +3281,7 @@
       else if (state.currentTab === "month") changeMonth(dir);
       else if (state.currentTab === "weight") changeWeightPeriod(dir);
       else if (state.currentTab === "meal") changeMealPeriod(dir);
+      else if (state.currentTab === "photo") changePhotoDay(dir);
     }
   }
   document.addEventListener("touchend", gestureFinish);
@@ -2520,7 +3307,7 @@
   // ---------- 初期化 ----------
   function initialTabFromHash() {
     var h = (location.hash || "").replace("#", "");
-    if (h === "day" || h === "week" || h === "month" || h === "exercise" || h === "weight" || h === "meal") return h;
+    if (h === "day" || h === "week" || h === "month" || h === "exercise" || h === "weight" || h === "meal" || h === "photo") return h;
     return "day";
   }
   function init() {
@@ -2528,6 +3315,7 @@
     var initial = initialTabFromHash();
     switchTab(initial);
     loadData();
+    initPhotos();
   }
   document.addEventListener("visibilitychange", function () {
     if (document.visibilityState === "visible") loadData();
