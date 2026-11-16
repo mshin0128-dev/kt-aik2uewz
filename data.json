@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-16T11:56:06+09:00",
+ "source_mtime": "2026-11-16T13:02:20+09:00",
  "parts": [
   "胸",
   "背中",
@@ -7250,9 +7250,9 @@
    "note": null
   },
   "2026-11-16": {
-   "kcal": 546,
+   "kcal": 651,
    "kcal_range": null,
-   "protein": 32,
+   "protein": 47,
    "items": [
     {
      "time": "11:55",
@@ -7261,11 +7261,15 @@
     {
      "time": "11:55",
      "text": "リュウジ ガリバタチキンパスタ 1パック(ラベル表示) 467kcal・P25.2g"
+    },
+    {
+     "time": "13:02",
+     "text": "ザバス プロテイン(種類未確認、前回と同じミルクプロテイン脂肪0 200mlと仮定) 約105kcal・P15g"
     }
    ],
    "note": null
   }
  },
- "content_hash": "5ff5c6c4476f",
- "generated_at": "2026-11-16T11:56:41+09:00"
+ "content_hash": "8cb330bd1d29",
+ "generated_at": "2026-11-16T13:03:35+09:00"
 }
