@@ -313,28 +313,11 @@
   }
   .part-chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
 
-  .chip-row-scroll {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 6px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 2px;
-  }
-  .chip-row-scroll::-webkit-scrollbar { display: none; }
-  .part-chip-btn {
-    flex: 0 0 auto;
-    border: none;
-    padding: 7px 14px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #fff;
-    white-space: nowrap;
-    cursor: pointer;
-    opacity: 0.5;
-  }
-  .part-chip-btn.active { opacity: 1; box-shadow: 0 0 0 2px rgba(0,0,0,0.22) inset; }
+  .equip-group { min-width: 0; margin-bottom: 14px; }
+  .equip-group:last-child { margin-bottom: 0; }
+  .equip-part-block { min-width: 0; margin-bottom: 10px; }
+  .equip-part-block:last-child { margin-bottom: 0; }
+  .equip-part-block > .part-chip { display: inline-block; margin-bottom: 6px; }
 
   .day-summary-row {
     display: flex;
@@ -473,15 +456,18 @@
   .md-dot { width: 6px; height: 6px; border-radius: 50%; }
   .md-dot.summary-dot { width: 6px; height: 6px; background: var(--card); border: 1.5px solid var(--sub); box-sizing: border-box; }
 
-  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; -webkit-overflow-scrolling: touch; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; min-width: 0; -webkit-overflow-scrolling: touch; }
   .chip {
-    flex: 0 0 auto;
+    flex: 0 1 auto;
+    max-width: 100%;
     padding: 7px 13px;
     border-radius: 999px;
     border: 2px solid var(--border);
     background: var(--surface-alt);
     font-size: 13px;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
     cursor: pointer;
   }
   .chip.active { border-color: var(--accent); background: var(--chip-active-bg); font-weight: bold; }
@@ -868,12 +854,7 @@
     <!-- 種目別 -->
     <section class="screen" id="screen-exercise">
       <div class="card">
-        <div class="section-title">部位で絞り込む</div>
-        <div class="chip-row-scroll" id="partChips"></div>
-      </div>
-      <div class="card">
-        <div class="section-title">種目を選ぶ</div>
-        <div class="chip-row" id="exerciseChips"></div>
+        <div id="equipList"></div>
       </div>
       <div id="exerciseContent"><div class="card"><div class="empty-msg">読み込み中…</div></div></div>
       <div class="app-footer" id="footerExercise"></div>
@@ -959,7 +940,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.15a";
+  var APP_VERSION = "v2026.11.16a";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   var PART_COLORS = {
@@ -993,7 +974,6 @@
     dayKey: null,
     weekStart: null,
     monthCursor: null,
-    selectedPart: null,
     selectedExercise: null,
     weightPeriod: null,
     mealPeriod: null,
@@ -1413,8 +1393,7 @@
           state.mealPeriod = mealPeriodFromKey(latestKey ? latestKey : dateToKey(new Date()));
         }
         hideBanner();
-        buildPartChips();
-        buildExerciseChips();
+        buildExerciseList();
         renderFooters();
         renderCurrentTab();
       })
@@ -1807,83 +1786,147 @@
     });
     return out;
   }
-  function partsInUse() {
-    var set = {};
-    allEntriesFlat().forEach(function (e) { set[e.part || "不明"] = true; });
-    return set;
+  var EQUIP_ORDER = ["ダンベル", "ケーブル", "マシン", "自重", "その他"];
+  var EQUIP_MAP = {
+    "インクラインダンベルフライ": "ダンベル",
+    "インクラインダンベルプレス": "ダンベル",
+    "ダンベルフライ": "ダンベル",
+    "ダンベルベンチプレス": "ダンベル",
+    "ダンベルロウ": "ダンベル",
+    "アーノルドプレス": "ダンベル",
+    "サイドレイズ": "ダンベル",
+    "ショルダープレス": "ダンベル",
+    "シーテッドサイドレイズ": "ダンベル",
+    "インクラインダンベルカール": "ダンベル",
+    "インクラインハンマーカール": "ダンベル",
+    "コンセントレーションカール": "ダンベル",
+    "ダンベルカール": "ダンベル",
+    "ハンマーカール": "ダンベル",
+    "プリーチャーカール": "ダンベル",
+    "ダンベルオーバーヘッドエクステンション": "ダンベル",
+    "ダンベルキックバック": "ダンベル",
+    "ダンベルスクワット": "ダンベル",
+    "ブルガリアンスクワット": "ダンベル",
+    "ケーブルアームカール": "ケーブル",
+    "ケーブルオーバーヘッドエクステンション": "ケーブル",
+    "ケーブルプレスダウン": "ケーブル",
+    "スミスマシンベンチプレス": "マシン",
+    "ペックフライ": "マシン",
+    "ラットプルダウン": "マシン",
+    "マシンショルダープレス": "マシン",
+    "レッグエクステンション": "マシン",
+    "アブドミナル（マシン）": "マシン",
+    "腕立て伏せ": "自重",
+    "アブローラー": "自重",
+    "サイドプランク": "自重",
+    "バイシクルクランチ": "自重",
+    "ヒールタッチ": "自重",
+    "プランク": "自重",
+    "レッグレイズ": "自重",
+    "腹筋": "自重",
+    "EZバーカール": "その他",
+    "ライイングエクステンション": "その他",
+    "トレッドミル": "その他",
+    "ベンチプレス": "その他",
+    "デッドリフト": "その他",
+    "懸垂": "自重",
+    "ディップス": "自重",
+    "クランチ": "自重"
+  };
+  function classifyEquipment(name, entries) {
+    if (EQUIP_MAP.hasOwnProperty(name)) return EQUIP_MAP[name];
+    if (name.indexOf("ダンベル") !== -1) return "ダンベル";
+    if (name.indexOf("ケーブル") !== -1 || name.indexOf("フェイスプル") !== -1) return "ケーブル";
+    var machineKeywords = ["マシン", "スミスマシン", "ラットプル", "ペックフライ", "レッグエクステンション", "レッグプレス", "レッグカール", "アブドミナル", "チェストプレス"];
+    if (machineKeywords.some(function (k) { return name.indexOf(k) !== -1; })) return "マシン";
+    var part = entries.length ? (entries[0].part || "不明") : "不明";
+    if (part === "有酸素") return "その他";
+    var allBodyweight = entries.length > 0 && entries.every(function (e) {
+      return (e.weight_kg == null && e.total_kg == null) || e.weight_type === "自重";
+    });
+    if (allBodyweight) return "自重";
+    return "その他";
   }
-  function buildPartChips() {
-    var present = partsInUse();
-    var parts = PART_DISPLAY_ORDER.filter(function (p) { return present[p]; });
-    if (present["不明"]) parts.push("不明");
-    state.partsAvailable = parts;
-    if (!state.selectedPart || parts.indexOf(state.selectedPart) === -1) {
-      if (parts.indexOf("胸") !== -1) {
-        state.selectedPart = "胸";
-      } else if (parts.length) {
-        var setsByPart = {};
-        allEntriesFlat().forEach(function (e) {
-          var p = e.part || "不明";
-          setsByPart[p] = (setsByPart[p] || 0) + getEntrySetsCount(e);
-        });
-        state.selectedPart = parts.reduce(function (best, p) {
-          return (setsByPart[p] || 0) > (setsByPart[best] || 0) ? p : best;
-        }, parts[0]);
-      } else {
-        state.selectedPart = null;
-      }
-    }
-    var row = document.getElementById("partChips");
-    var items = parts.map(function (p) {
-      return { key: p, label: p === "不明" ? "その他" : p, color: PART_COLORS[p] || "#aaa" };
-    });
-    row.innerHTML = items.map(function (it) {
-      var active = state.selectedPart === it.key ? " active" : "";
-      return '<button type="button" class="part-chip-btn' + active + '" style="background:' + it.color + '" data-part="' + escapeHtml(it.key) + '">' + escapeHtml(it.label) + "</button>";
-    }).join("");
-    Array.prototype.forEach.call(row.querySelectorAll(".part-chip-btn"), function (btn) {
-      btn.addEventListener("click", function () {
-        var part = btn.getAttribute("data-part");
-        if (part === state.selectedPart) return;
-        state.selectedPart = part;
-        state.selectedExercise = null;
-        buildPartChips();
-        buildExerciseChips();
-        renderExerciseTab();
-      });
-    });
-  }
-  function buildExerciseChips() {
-    var entries = allEntriesFlat().filter(function (e) {
-      return (e.part || "不明") === state.selectedPart;
-    });
-    var counts = {};
+  function buildEquipExerciseStructure() {
+    var entries = allEntriesFlat();
+    var byExercise = {};
     var order = [];
     entries.forEach(function (e) {
-      if (!counts[e.exercise]) { counts[e.exercise] = 0; order.push(e.exercise); }
-      counts[e.exercise]++;
+      var name = e.exercise;
+      if (!byExercise[name]) { byExercise[name] = { exercise: name, part: e.part || "不明", entries: [], count: 0 }; order.push(name); }
+      byExercise[name].entries.push(e);
+      byExercise[name].count++;
     });
-    order.sort(function (a, b) {
-      if (counts[b] !== counts[a]) return counts[b] - counts[a];
-      return a.localeCompare(b, "ja");
+    var equipGroups = {};
+    order.forEach(function (name) {
+      var ex = byExercise[name];
+      var equip = classifyEquipment(name, ex.entries);
+      var part = ex.part || "不明";
+      if (!equipGroups[equip]) equipGroups[equip] = {};
+      if (!equipGroups[equip][part]) equipGroups[equip][part] = [];
+      equipGroups[equip][part].push({ name: name, count: ex.count });
     });
-    state.exerciseOrder = order;
-    if (!state.selectedExercise || order.indexOf(state.selectedExercise) === -1) {
-      state.selectedExercise = order[0] || null;
-    }
-    var chipRow = document.getElementById("exerciseChips");
-    if (!order.length) {
-      chipRow.innerHTML = '<span class="empty-msg">種目がありません</span>';
+    var partOrder = PART_DISPLAY_ORDER.concat(["不明"]);
+    var structure = [];
+    EQUIP_ORDER.forEach(function (equip) {
+      var partsMap = equipGroups[equip];
+      if (!partsMap) return;
+      var parts = [];
+      partOrder.forEach(function (part) {
+        if (!partsMap[part] || !partsMap[part].length) return;
+        var list = partsMap[part].slice().sort(function (a, b) {
+          if (b.count !== a.count) return b.count - a.count;
+          return a.name.localeCompare(b.name, "ja");
+        });
+        parts.push({ part: part, list: list });
+      });
+      if (parts.length) structure.push({ equip: equip, parts: parts });
+    });
+    return structure;
+  }
+  function buildExerciseList() {
+    var structure = buildEquipExerciseStructure();
+    var flatOrder = [];
+    structure.forEach(function (g) {
+      g.parts.forEach(function (p) {
+        p.list.forEach(function (it) { flatOrder.push(it.name); });
+      });
+    });
+    state.exerciseOrder = flatOrder;
+    var listEl = document.getElementById("equipList");
+    if (!flatOrder.length) {
+      state.selectedExercise = null;
+      listEl.innerHTML = '<div class="empty-msg">種目がありません</div>';
       return;
     }
-    chipRow.innerHTML = order.map(function (name) {
-      var active = name === state.selectedExercise ? " active" : "";
-      return '<button type="button" class="chip' + active + '" data-exercise="' + escapeHtml(name) + '">' + escapeHtml(name) + "</button>";
-    }).join("");
-    Array.prototype.forEach.call(chipRow.querySelectorAll(".chip"), function (btn) {
+    if (!state.selectedExercise || flatOrder.indexOf(state.selectedExercise) === -1) {
+      state.selectedExercise = flatOrder[0];
+    }
+    var html = "";
+    structure.forEach(function (g) {
+      html += '<div class="equip-group"><div class="section-title">' + escapeHtml(g.equip) + "</div>";
+      g.parts.forEach(function (p) {
+        var label = p.part === "不明" ? "その他" : p.part;
+        var color = PART_COLORS[p.part] || "#aaa";
+        html += '<div class="equip-part-block">';
+        html += '<span class="part-chip" style="background:' + color + '">' + escapeHtml(label) + "</span>";
+        html += '<div class="chip-row">' + p.list.map(function (it) {
+          var active = it.name === state.selectedExercise ? " active" : "";
+          return '<button type="button" class="chip' + active + '" data-exercise="' + escapeHtml(it.name) + '">' + escapeHtml(it.name) + "</button>";
+        }).join("") + "</div>";
+        html += "</div>";
+      });
+      html += "</div>";
+    });
+    listEl.innerHTML = html;
+    Array.prototype.forEach.call(listEl.querySelectorAll(".chip"), function (btn) {
       btn.addEventListener("click", function () {
-        state.selectedExercise = btn.getAttribute("data-exercise");
-        buildExerciseChips();
+        var name = btn.getAttribute("data-exercise");
+        if (name === state.selectedExercise) return;
+        state.selectedExercise = name;
+        Array.prototype.forEach.call(listEl.querySelectorAll(".chip"), function (b) {
+          b.classList.toggle("active", b.getAttribute("data-exercise") === name);
+        });
         renderExerciseTab();
       });
     });
