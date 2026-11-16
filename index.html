@@ -313,11 +313,27 @@
   }
   .part-chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
 
-  .equip-group { min-width: 0; margin-bottom: 14px; }
-  .equip-group:last-child { margin-bottom: 0; }
-  .equip-part-block { min-width: 0; margin-bottom: 10px; }
-  .equip-part-block:last-child { margin-bottom: 0; }
-  .equip-part-block > .part-chip { display: inline-block; margin-bottom: 6px; }
+  .chip-row-scroll { display: flex; flex-wrap: nowrap; gap: 6px; overflow-x: auto; padding-bottom: 2px; min-width: 0; -webkit-overflow-scrolling: touch; }
+  .part-chip-btn {
+    flex: 0 0 auto;
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: none;
+    font-size: 13px;
+    font-weight: bold;
+    color: #fff;
+    opacity: 0.5;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .part-chip-btn.active { opacity: 1; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.85); }
+
+  .part-group { min-width: 0; }
+  .part-chip-lg { font-size: 14px; padding: 5px 14px; margin-bottom: 10px; }
+  .equip-block { min-width: 0; margin-bottom: 12px; }
+  .equip-block:last-child { margin-bottom: 0; }
+  .equip-subhead { font-size: 13px; font-weight: bold; color: var(--sub); margin-bottom: 6px; }
 
   .day-summary-row {
     display: flex;
@@ -854,6 +870,10 @@
     <!-- 種目別 -->
     <section class="screen" id="screen-exercise">
       <div class="card">
+        <div class="section-title">部位で絞り込む</div>
+        <div class="chip-row-scroll" id="partChips"></div>
+      </div>
+      <div class="card">
         <div id="equipList"></div>
       </div>
       <div id="exerciseContent"><div class="card"><div class="empty-msg">読み込み中…</div></div></div>
@@ -940,7 +960,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.16a";
+  var APP_VERSION = "v2026.11.16b";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   var PART_COLORS = {
@@ -975,6 +995,7 @@
     weekStart: null,
     monthCursor: null,
     selectedExercise: null,
+    selectedPart: null,
     weightPeriod: null,
     mealPeriod: null,
     goalWeight: 70,
@@ -1810,6 +1831,7 @@
     "ケーブルアームカール": "ケーブル",
     "ケーブルオーバーヘッドエクステンション": "ケーブル",
     "ケーブルプレスダウン": "ケーブル",
+    "ケーブルサイドレイズ": "ケーブル",
     "スミスマシンベンチプレス": "マシン",
     "ペックフライ": "マシン",
     "ラットプルダウン": "マシン",
@@ -1857,76 +1879,135 @@
       byExercise[name].entries.push(e);
       byExercise[name].count++;
     });
-    var equipGroups = {};
+    var partGroups = {};
     order.forEach(function (name) {
       var ex = byExercise[name];
       var equip = classifyEquipment(name, ex.entries);
       var part = ex.part || "不明";
-      if (!equipGroups[equip]) equipGroups[equip] = {};
-      if (!equipGroups[equip][part]) equipGroups[equip][part] = [];
-      equipGroups[equip][part].push({ name: name, count: ex.count });
+      if (!partGroups[part]) partGroups[part] = {};
+      if (!partGroups[part][equip]) partGroups[part][equip] = [];
+      partGroups[part][equip].push({ name: name, count: ex.count });
     });
     var partOrder = PART_DISPLAY_ORDER.concat(["不明"]);
     var structure = [];
-    EQUIP_ORDER.forEach(function (equip) {
-      var partsMap = equipGroups[equip];
-      if (!partsMap) return;
-      var parts = [];
-      partOrder.forEach(function (part) {
-        if (!partsMap[part] || !partsMap[part].length) return;
-        var list = partsMap[part].slice().sort(function (a, b) {
+    partOrder.forEach(function (part) {
+      var equipMap = partGroups[part];
+      if (!equipMap) return;
+      var equips = [];
+      EQUIP_ORDER.forEach(function (equip) {
+        if (!equipMap[equip] || !equipMap[equip].length) return;
+        var list = equipMap[equip].slice().sort(function (a, b) {
           if (b.count !== a.count) return b.count - a.count;
           return a.name.localeCompare(b.name, "ja");
         });
-        parts.push({ part: part, list: list });
+        equips.push({ equip: equip, list: list });
       });
-      if (parts.length) structure.push({ equip: equip, parts: parts });
+      if (equips.length) structure.push({ part: part, equips: equips });
     });
     return structure;
   }
   function buildExerciseList() {
     var structure = buildEquipExerciseStructure();
-    var flatOrder = [];
-    structure.forEach(function (g) {
-      g.parts.forEach(function (p) {
-        p.list.forEach(function (it) { flatOrder.push(it.name); });
-      });
-    });
-    state.exerciseOrder = flatOrder;
+    var partChipsEl = document.getElementById("partChips");
     var listEl = document.getElementById("equipList");
-    if (!flatOrder.length) {
+    if (!structure.length) {
       state.selectedExercise = null;
+      state.selectedPart = null;
+      state.exerciseOrder = [];
+      partChipsEl.innerHTML = "";
       listEl.innerHTML = '<div class="empty-msg">種目がありません</div>';
       return;
     }
-    if (!state.selectedExercise || flatOrder.indexOf(state.selectedExercise) === -1) {
-      state.selectedExercise = flatOrder[0];
+    var partsAvail = structure.map(function (g) { return g.part; });
+    function groupFor(part) {
+      var found = null;
+      structure.forEach(function (g) { if (g.part === part) found = g; });
+      return found;
     }
-    var html = "";
+    function flatOrderFor(g) {
+      var out = [];
+      g.equips.forEach(function (eq) { eq.list.forEach(function (it) { out.push(it.name); }); });
+      return out;
+    }
+    var nameToPart = {};
     structure.forEach(function (g) {
-      html += '<div class="equip-group"><div class="section-title">' + escapeHtml(g.equip) + "</div>";
-      g.parts.forEach(function (p) {
-        var label = p.part === "不明" ? "その他" : p.part;
-        var color = PART_COLORS[p.part] || "#aaa";
-        html += '<div class="equip-part-block">';
-        html += '<span class="part-chip" style="background:' + color + '">' + escapeHtml(label) + "</span>";
-        html += '<div class="chip-row">' + p.list.map(function (it) {
-          var active = it.name === state.selectedExercise ? " active" : "";
-          return '<button type="button" class="chip' + active + '" data-exercise="' + escapeHtml(it.name) + '">' + escapeHtml(it.name) + "</button>";
-        }).join("") + "</div>";
-        html += "</div>";
+      flatOrderFor(g).forEach(function (name) { nameToPart[name] = g.part; });
+    });
+    if (state.selectedExercise && nameToPart.hasOwnProperty(state.selectedExercise)) {
+      state.selectedPart = nameToPart[state.selectedExercise];
+    }
+    if (!state.selectedPart || partsAvail.indexOf(state.selectedPart) === -1) {
+      if (partsAvail.indexOf("胸") !== -1) {
+        state.selectedPart = "胸";
+      } else {
+        var bestPart = partsAvail[0], bestCount = -1;
+        structure.forEach(function (g) {
+          var total = 0;
+          g.equips.forEach(function (eq) { eq.list.forEach(function (it) { total += it.count; }); });
+          if (total > bestCount) { bestCount = total; bestPart = g.part; }
+        });
+        state.selectedPart = bestPart;
+      }
+    }
+
+    function renderGroupHtml() {
+      var g = groupFor(state.selectedPart);
+      var label = g.part === "不明" ? "その他" : g.part;
+      var color = PART_COLORS[g.part] || "#aaa";
+      var html = '<div class="part-group">';
+      html += '<span class="part-chip part-chip-lg" style="background:' + color + '">' + escapeHtml(label) + "</span>";
+      g.equips.forEach(function (eq) {
+        html += '<div class="equip-block"><div class="equip-subhead">' + escapeHtml(eq.equip) + "</div>";
+        html += '<div class="chip-row">' + eq.list.map(function (it) {
+          var activeCls = it.name === state.selectedExercise ? " active" : "";
+          return '<button type="button" class="chip' + activeCls + '" data-exercise="' + escapeHtml(it.name) + '">' + escapeHtml(it.name) + "</button>";
+        }).join("") + "</div></div>";
       });
       html += "</div>";
-    });
-    listEl.innerHTML = html;
-    Array.prototype.forEach.call(listEl.querySelectorAll(".chip"), function (btn) {
-      btn.addEventListener("click", function () {
-        var name = btn.getAttribute("data-exercise");
-        if (name === state.selectedExercise) return;
-        state.selectedExercise = name;
-        Array.prototype.forEach.call(listEl.querySelectorAll(".chip"), function (b) {
-          b.classList.toggle("active", b.getAttribute("data-exercise") === name);
+      return html;
+    }
+    function bindExerciseChips() {
+      Array.prototype.forEach.call(listEl.querySelectorAll(".chip"), function (btn) {
+        btn.addEventListener("click", function () {
+          var name = btn.getAttribute("data-exercise");
+          if (name === state.selectedExercise) return;
+          state.selectedExercise = name;
+          Array.prototype.forEach.call(listEl.querySelectorAll(".chip"), function (b) {
+            b.classList.toggle("active", b.getAttribute("data-exercise") === name);
+          });
+          renderExerciseTab();
         });
+      });
+    }
+
+    var currentGroup = groupFor(state.selectedPart);
+    state.exerciseOrder = flatOrderFor(currentGroup);
+    if (!state.selectedExercise || state.exerciseOrder.indexOf(state.selectedExercise) === -1) {
+      state.selectedExercise = state.exerciseOrder[0];
+    }
+
+    partChipsEl.innerHTML = partsAvail.map(function (part) {
+      var color = PART_COLORS[part] || "#aaa";
+      var label = part === "不明" ? "その他" : part;
+      var active = part === state.selectedPart ? " active" : "";
+      return '<button type="button" class="part-chip-btn' + active + '" style="background:' + color + '" data-part="' + escapeHtml(part) + '">' + escapeHtml(label) + "</button>";
+    }).join("");
+    listEl.innerHTML = renderGroupHtml();
+    bindExerciseChips();
+
+    Array.prototype.forEach.call(partChipsEl.querySelectorAll(".part-chip-btn"), function (btn) {
+      btn.addEventListener("click", function () {
+        var part = btn.getAttribute("data-part");
+        if (part === state.selectedPart) return;
+        state.selectedPart = part;
+        Array.prototype.forEach.call(partChipsEl.querySelectorAll(".part-chip-btn"), function (b) {
+          b.classList.toggle("active", b.getAttribute("data-part") === part);
+        });
+        var g = groupFor(part);
+        state.exerciseOrder = flatOrderFor(g);
+        state.selectedExercise = state.exerciseOrder[0];
+        listEl.innerHTML = renderGroupHtml();
+        bindExerciseChips();
         renderExerciseTab();
       });
     });
