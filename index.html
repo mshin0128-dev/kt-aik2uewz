@@ -960,7 +960,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.16b";
+  var APP_VERSION = "v2026.11.16d";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   var PART_COLORS = {
@@ -987,6 +987,8 @@
   var RECORD_PERIOD_KEY = "kintore_record_period";
   var MEAL_KCAL_TARGET = 2200;
   var MEAL_PROTEIN_TARGET = 130;
+  // 念のための表示側フィルタ：体重・筋トレ・有酸素・睡眠の行は食事項目として出さない
+  var MEAL_NOISE_RE = /^体重|体重\s*(?:は)?\s*\d|セット目|負荷量|トレッドミル|ランニング|ウォーキング|エアロバイク|睡眠/;
 
   var state = {
     data: null,
@@ -2622,10 +2624,11 @@
         html += mealBarRow("kcal", m ? m.kcal : null, MEAL_KCAL_TARGET, "#ff8a5b", "kcal");
         html += mealBarRow("P", m ? m.protein : null, MEAL_PROTEIN_TARGET, "#4ecdc4", "g");
         html += "</div>";
-        if (m && m.note) html += '<div class="meal-note">' + escapeHtml(m.note) + "</div>";
         html += '<div class="meal-items' + (open ? " open" : "") + '" id="mealItems-' + k + '">';
-        if (m && m.items && m.items.length) {
-          m.items.forEach(function (it) {
+        if (m && m.note) html += '<div class="meal-note">' + escapeHtml(m.note) + "</div>";
+        var mealItems = (m && m.items) ? m.items.filter(function (it) { return !MEAL_NOISE_RE.test(it.text); }) : [];
+        if (mealItems.length) {
+          mealItems.forEach(function (it) {
             html += '<div class="meal-item-row">' + (it.time ? '<span class="mi-time">' + escapeHtml(it.time) + "</span>" : "") + escapeHtml(it.text) + "</div>";
           });
         } else {
@@ -3562,6 +3565,28 @@
     e.preventDefault();
   }, { passive: false });
 
+  // ---------- アプリ更新チェック ----------
+  var RELOADED_VERSION_KEY = "kintore_reloaded_version";
+  function checkAppUpdate() {
+    fetch("index.html?t=" + Date.now(), { cache: "no-store" })
+      .then(function (res) {
+        if (!res.ok) throw new Error("http " + res.status);
+        return res.text();
+      })
+      .then(function (text) {
+        var m = text.match(/var\s+APP_VERSION\s*=\s*["']([^"']+)["']/);
+        if (!m) return;
+        var latest = m[1];
+        if (latest === APP_VERSION) return;
+        var already = null;
+        try { already = sessionStorage.getItem(RELOADED_VERSION_KEY); } catch (e) {}
+        if (already === latest) return;
+        try { sessionStorage.setItem(RELOADED_VERSION_KEY, latest); } catch (e) {}
+        location.replace(location.pathname + "?v=" + encodeURIComponent(latest));
+      })
+      .catch(function () {});
+  }
+
   // ---------- 初期化 ----------
   function initialTabFromHash() {
     var h = (location.hash || "").replace("#", "");
@@ -3575,11 +3600,18 @@
     switchTab(initial);
     loadData();
     initPhotos();
+    checkAppUpdate();
   }
   document.addEventListener("visibilitychange", function () {
-    if (document.visibilityState === "visible") loadData();
+    if (document.visibilityState === "visible") {
+      loadData();
+      checkAppUpdate();
+    }
   });
-  window.addEventListener("pageshow", function () { loadData(); });
+  window.addEventListener("pageshow", function () {
+    loadData();
+    checkAppUpdate();
+  });
 
   init();
 })();
