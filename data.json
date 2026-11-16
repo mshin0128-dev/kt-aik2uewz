@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-16T10:35:49+09:00",
+ "source_mtime": "2026-11-16T11:56:06+09:00",
  "parts": [
   "胸",
   "背中",
@@ -7250,13 +7250,22 @@
    "note": null
   },
   "2026-11-16": {
-   "kcal": null,
+   "kcal": 546,
    "kcal_range": null,
-   "protein": null,
-   "items": [],
+   "protein": 32,
+   "items": [
+    {
+     "time": "11:55",
+     "text": "シーチキン&たまごのサラダ 1パック(ラベル表示) 79kcal・P6.8g"
+    },
+    {
+     "time": "11:55",
+     "text": "リュウジ ガリバタチキンパスタ 1パック(ラベル表示) 467kcal・P25.2g"
+    }
+   ],
    "note": null
   }
  },
- "content_hash": "051f9a01a402",
- "generated_at": "2026-11-16T10:37:06+09:00"
+ "content_hash": "5ff5c6c4476f",
+ "generated_at": "2026-11-16T11:56:41+09:00"
 }
