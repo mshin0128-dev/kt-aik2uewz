@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-16T13:19:31+09:00",
+ "source_mtime": "2026-11-16T15:16:00+09:00",
  "parts": [
   "胸",
   "背中",
@@ -5720,6 +5720,31 @@
     }
    ],
    "summary_only": null
+  },
+  {
+   "date": "2026-11-16",
+   "entries": [
+    {
+     "date": "2026-11-16",
+     "time": "15:15",
+     "exercise": "アブローラー",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "15:15 アブローラー 10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    }
+   ],
+   "summary_only": null
   }
  ],
  "bodyweight": [
@@ -7267,9 +7292,9 @@
      "text": "ザバス プロテイン(P20g・本人申告、kcal未確認のため約105kcalと仮定) 約105kcal・P20g"
     }
    ],
-   "note": "- 10:35 体重 76.4kg- 11:55 シーチキン&たまごのサラダ 1パック(ラベル表示) 79kcal・P6.8g- 11:55 リュウジ ガリバタチキンパスタ 1パック(ラベル表示) 467kcal・P25.2g- 13:02 ザバス プロテイン(P20g・本人申告、kcal未確認のため約105kcalと仮定) 約105kcal・P20g"
+   "note": "- 10:35 体重 76.4kg- 11:55 シーチキン&たまごのサラダ 1パック(ラベル表示) 79kcal・P6.8g- 11:55 リュウジ ガリバタチキンパスタ 1パック(ラベル表示) 467kcal・P25.2g- 13:02 ザバス プロテイン(P20g・本人申告、kcal未確認のため約105kcalと仮定) 約105kcal・P20g- 15:15 アブローラー 10回(1セット目)"
   }
  },
- "content_hash": "0f5e62729043",
- "generated_at": "2026-11-16T13:20:47+09:00"
+ "content_hash": "30f613e10bc1",
+ "generated_at": "2026-11-16T15:16:56+09:00"
 }
