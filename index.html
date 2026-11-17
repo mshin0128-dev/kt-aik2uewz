@@ -67,6 +67,8 @@
     --space: 16px;
     --space-sm: 8px;
     --ctl-h: 40px;
+    --field-h: 48px; /* 入力パネル・セッションの入力欄（text/number/date/time/select）共通の高さ */
+    --select-chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237A716C' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
     --shadow-card: 0 1px 2px rgba(60,35,20,0.04), 0 6px 20px rgba(60,35,20,0.05);
     --shadow-float: 0 10px 30px rgba(60,35,20,0.16), 0 2px 6px rgba(60,35,20,0.06);
     --ease: cubic-bezier(.2,.7,.3,1);
@@ -108,6 +110,7 @@
     --tabbar-border: rgba(255,255,255,0.08);
     --tab-pill-bg: #2A2623;
     --modal-overlay: rgba(0,0,0,0.6);
+    --select-chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A89F99' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
     color-scheme: dark;
   }
   @media (prefers-color-scheme: dark) {
@@ -137,6 +140,7 @@
       --tabbar-border: rgba(255,255,255,0.08);
       --tab-pill-bg: #2A2623;
       --modal-overlay: rgba(0,0,0,0.6);
+      --select-chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A89F99' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
       color-scheme: dark;
     }
   }
@@ -592,6 +596,19 @@
   .tab-btn .icon svg { width: 21px; height: 21px; display: block; stroke-width: 2; }
   .tab-btn.active { color: var(--accent); font-weight: 700; background: var(--chip-active-bg); }
   .tab-btn.active .icon svg { stroke-width: 2.3; }
+  .tab-btn.tab-action .icon { position: relative; }
+  .tab-btn.tab-action[aria-expanded="true"] { color: var(--accent); background: var(--chip-active-bg); }
+  /* トレーニング進行中は「記録する」アイコンの右上に脈打つ点を出す */
+  .tab-btn.tab-action.live .icon::after {
+    content: ""; position: absolute; top: -2px; right: -4px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 0 2px var(--tabbar-bg);
+    animation: tabLive 1.6s ease-in-out infinite;
+  }
+  @keyframes tabLive { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  @media (max-width: 359px) {
+    .tab-btn { letter-spacing: 0; }
+  }
 
   .modal-overlay {
     position: fixed; inset: 0;
@@ -619,7 +636,7 @@
   .modal-close-btn {
     display: block; width: 100%; margin-top: 16px; height: 46px; padding: 0 12px;
     border: 1px solid var(--border-soft); border-radius: var(--radius-md);
-    background: var(--card); color: var(--text); border-color: var(--sub); font-weight: 700; font-size: 14px; letter-spacing: 0.08em;
+    background: var(--card); color: var(--text); border-color: var(--sub); font-weight: 600; font-size: 14px; letter-spacing: 0.06em;
     font-family: inherit; cursor: pointer;
     transition: transform .15s var(--ease), background .15s var(--ease);
   }
@@ -869,18 +886,16 @@
   .photo-compare-cap { font-size: 11px; color: var(--sub); margin-top: 6px; text-align: center; overflow-wrap: anywhere; }
 
   /* ---------- 手入力（端末ローカル記録） ---------- */
-  .record-section {
-    background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow-card);
-    padding: 14px; margin: 0 0 12px;
-  }
-  .record-section-title { margin: 0 0 10px; font-size: 15px; font-weight: 700; letter-spacing: 0.04em; color: var(--text); }
+  /* 「記録する」ボトムシート（タブバーの「記録する」から開く。既存の modal-overlay / modal-box と同じ型） */
+  .record-sheet .entry-title { margin-bottom: 14px; }
+  .record-sheet .modal-close-btn { margin-top: 14px; }
   .record-actions { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
   .add-record-btn {
     display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 10px;
     min-width: 0; height: 54px; padding: 0 16px;
     border: none; border-radius: var(--radius-md);
     background: linear-gradient(135deg, #E8602B, #FF8A5B);
-    color: #fff; font-family: inherit; font-size: 14px; font-weight: 700; line-height: 1.3; letter-spacing: 0.02em;
+    color: #fff; font-family: inherit; font-size: 14px; font-weight: 600; line-height: 1.3; letter-spacing: 0.02em;
     text-align: left;
     box-shadow: 0 4px 14px rgba(255,138,91,0.35);
     cursor: pointer;
@@ -890,61 +905,98 @@
   .add-record-btn svg { width: 22px; height: 22px; display: block; flex: none; }
   .add-record-btn:active { transform: scale(0.98); box-shadow: 0 2px 8px rgba(255,138,91,0.3); }
   .entry-box { max-height: 90vh; max-height: 90dvh; }
-  .entry-title { margin: 0 0 12px; font-size: 17px; font-weight: 700; letter-spacing: 0.04em; }
+  .entry-title { margin: 0 0 12px; font-size: 16px; font-weight: 700; letter-spacing: 0.02em; }
+  .entry-box .section-title { font-size: 13px; font-weight: 600; color: var(--sub); letter-spacing: 0.04em; }
+  /* 入力欄の共通寸法：入力パネル・セッションの入力欄はすべて高さ 48px。
+     border 1px×2 を除いた内側 46px を line-height にし、上下 padding は 0（対称）→ 文字は常に上下中央・同じベースライン */
   .ef-seg {
     display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr);
     gap: 4px; background: var(--border-soft); border-radius: var(--radius-md); padding: 4px;
   }
   .ef-seg-btn {
-    min-width: 0; height: 36px; border: none; border-radius: 10px; background: none;
-    color: var(--sub); font-size: 13px; font-weight: 700; letter-spacing: 0.06em; font-family: inherit; cursor: pointer;
+    min-width: 0; height: calc(var(--field-h) - 8px); padding: 0 4px; line-height: 1;
+    border: none; border-radius: 10px; background: none;
+    color: var(--sub); font-size: 13px; font-weight: 600; letter-spacing: 0.04em; font-family: inherit; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
     transition: background .18s var(--ease), color .18s var(--ease), box-shadow .18s var(--ease);
   }
   .ef-seg-btn.active { background: var(--card); color: var(--accent); box-shadow: 0 1px 2px rgba(60,35,20,0.10), 0 2px 8px rgba(60,35,20,0.06); }
-  .ef-seg.type .ef-seg-btn { height: 38px; }
-  .ef-label { display: block; font-size: 11px; color: var(--sub); margin: 12px 0 4px; }
+  .ef-label { display: block; font-size: 12px; font-weight: 500; line-height: 1.4; color: var(--sub); margin: 12px 0 4px; padding: 0; text-align: left; }
   .ef-input {
-    display: block; width: 100%; min-width: 0; max-width: 100%; height: 44px; padding: 0 10px;
+    display: block; width: 100%; min-width: 0; max-width: 100%; margin: 0;
+    height: var(--field-h); min-height: var(--field-h);
+    padding: 0 12px; line-height: calc(var(--field-h) - 2px);
     border: 1px solid var(--border); border-radius: var(--radius-sm);
     background: var(--surface-alt); color: var(--text);
-    font-size: 16px; font-family: inherit;
+    font-size: 16px; font-family: inherit; text-align: left; vertical-align: top;
     transition: border-color .15s var(--ease), box-shadow .15s var(--ease);
   }
   input.ef-input { -webkit-appearance: none; appearance: none; }
+  input.ef-input::-webkit-outer-spin-button, input.ef-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  input.ef-input[type="number"] { -moz-appearance: textfield; }
+  /* 日付・時刻：iOS Safari は中身（::-webkit-date-and-time-value）を中央寄せ＋独自の margin で描くため、
+     外枠と同じ line-height・margin 0・左寄せに揃えて、隣の数値欄と同じ位置・ベースラインに置く */
+  input.ef-input[type="date"], input.ef-input[type="time"],
+  .goal-field input[type="date"] {
+    display: block; text-align: left; white-space: nowrap;
+  }
+  input.ef-input[type="date"]::-webkit-date-and-time-value, input.ef-input[type="time"]::-webkit-date-and-time-value,
+  .goal-field input[type="date"]::-webkit-date-and-time-value {
+    display: block; margin: 0; padding: 0; min-width: 0;
+    height: calc(var(--field-h) - 2px); line-height: calc(var(--field-h) - 2px);
+    text-align: left;
+  }
+  .goal-field input[type="date"]::-webkit-date-and-time-value { height: 42px; line-height: 42px; }
+  input.ef-input[type="date"]::-webkit-datetime-edit, input.ef-input[type="time"]::-webkit-datetime-edit {
+    display: inline-flex; align-items: center;
+    height: calc(var(--field-h) - 2px); padding: 0; margin: 0;
+    line-height: calc(var(--field-h) - 2px);
+  }
+  input.ef-input[type="date"]::-webkit-datetime-edit-fields-wrapper, input.ef-input[type="time"]::-webkit-datetime-edit-fields-wrapper { padding: 0; }
+  input.ef-input[type="date"]::-webkit-calendar-picker-indicator, input.ef-input[type="time"]::-webkit-calendar-picker-indicator { margin: 0 0 0 auto; padding: 0; opacity: 0.55; }
+  /* セレクト：ネイティブ外観をやめ、同じ高さ・余白・行高＋自前の矢印で揃える */
+  select.ef-input {
+    -webkit-appearance: none; appearance: none;
+    padding-right: 36px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
+    background-image: var(--select-chev); background-repeat: no-repeat;
+    background-position: right 12px center; background-size: 14px 14px;
+  }
   .ef-input::placeholder { color: var(--sub); font-weight: 500; opacity: 0.7; }
   .ef-input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px var(--chip-active-bg); }
-  .ef-row { display: flex; gap: 10px; min-width: 0; }
-  .ef-row > div { flex: 1 1 0; min-width: 0; }
+  /* 2列の行：列ごとに「ラベル＋入力欄」を下揃えにし、ラベルが折り返しても入力欄の上端・ベースラインは一致させる */
+  .ef-row { display: flex; align-items: stretch; gap: 10px; min-width: 0; }
+  .ef-row > div { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; justify-content: flex-end; }
+  .ef-row > div > .ef-input, .ef-row > div > .ef-seg { flex: none; }
   .ef-stepper { display: flex; align-items: center; gap: 10px; }
   .ef-stepper button {
     width: 40px; height: 40px; padding: 0; border-radius: 12px;
     border: 1px solid var(--border-soft); background: var(--surface-alt); color: var(--text);
-    font-size: 20px; font-weight: 700; font-family: inherit; cursor: pointer;
+    font-size: 18px; font-weight: 500; font-family: inherit; cursor: pointer;
     transition: transform .15s var(--ease), background .15s var(--ease);
   }
   .ef-stepper button:active { transform: scale(0.94); background: var(--chip-active-bg); }
-  .ef-stepper .ef-count { min-width: 36px; text-align: center; font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .ef-stepper .ef-count { min-width: 36px; text-align: center; font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
   .ef-stepper .ef-unit { font-size: 13px; color: var(--sub); }
   .ef-reps { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 8px; margin-top: 10px; }
   .ef-rep-cell { min-width: 0; }
-  .ef-rep-cell span { display: block; font-size: 10px; color: var(--sub); margin-bottom: 2px; text-align: center; }
+  .ef-rep-cell span { display: block; font-size: 10px; line-height: 1.4; color: var(--sub); margin-bottom: 2px; text-align: center; }
   .ef-rep-cell .ef-input { text-align: center; padding: 0 4px; }
-  .ef-all { display: flex; gap: 8px; margin-top: 10px; align-items: center; }
+  .ef-all { display: flex; gap: 8px; margin-top: 10px; align-items: stretch; }
   .ef-all .ef-input { flex: 0 0 84px; width: 84px; text-align: center; }
   .ef-btn {
     display: block; width: 100%; min-height: 46px; padding: 10px 14px;
     border: 1.5px solid var(--sub); border-radius: var(--radius-md);
     background: var(--card); color: var(--text);
-    font-size: 14px; font-weight: 700; letter-spacing: 0.06em; font-family: inherit; cursor: pointer;
+    font-size: 14px; font-weight: 600; letter-spacing: 0.04em; font-family: inherit; cursor: pointer;
     transition: transform .15s var(--ease), opacity .15s var(--ease);
   }
   .ef-btn:active { transform: scale(0.98); opacity: 0.9; }
   .ef-btn.primary {
-    margin-top: 16px; border: none; color: #fff; font-size: 16px;
+    margin-top: 16px; border: none; color: #fff; font-size: 15px;
     background: linear-gradient(135deg, #E8602B, #FF8A5B);
     box-shadow: 0 4px 14px rgba(255,138,91,0.3);
   }
-  .ef-btn.inline { flex: 1 1 auto; width: auto; min-height: 44px; }
+  .ef-btn.inline { flex: 1 1 auto; width: auto; height: var(--field-h); min-height: var(--field-h); padding: 0 14px; line-height: 1.2; }
   .ef-local { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--border-soft); }
   .ef-local-empty { font-size: 13px; color: var(--sub); padding: 6px 0 10px; }
   .ef-local-list { max-height: 240px; overflow-y: auto; margin-bottom: 10px; }
@@ -952,16 +1004,16 @@
   .ef-local-row:last-child { border-bottom: none; }
   .ef-local-main { flex: 1 1 auto; min-width: 0; }
   .ef-local-date { font-size: 11px; color: var(--sub); }
-  .ef-local-text { font-size: 14px; font-weight: 700; overflow-wrap: anywhere; }
+  .ef-local-text { font-size: 14px; font-weight: 500; overflow-wrap: anywhere; }
   .ef-del {
     flex: 0 0 auto; height: 34px; padding: 0 12px; border: none; border-radius: 10px;
     background: var(--status-off-bg); color: var(--danger);
-    font-size: 12px; font-weight: 700; font-family: inherit; cursor: pointer;
+    font-size: 12px; font-weight: 600; font-family: inherit; cursor: pointer;
   }
   .ef-del:active { opacity: 0.7; }
   .local-chip {
     display: inline-block; padding: 1px 7px; border-radius: 999px;
-    font-size: 10px; font-weight: 700; color: var(--sub);
+    font-size: 10px; font-weight: 600; color: var(--sub);
     background: var(--border-soft); border: 1px solid var(--border); white-space: nowrap;
   }
   .toast {
@@ -971,7 +1023,7 @@
     max-width: calc(100% - 32px);
     padding: 10px 18px; border-radius: 999px;
     background: var(--text); color: var(--bg);
-    font-size: 13px; font-weight: 700; text-align: center;
+    font-size: 13px; font-weight: 600; text-align: center;
     box-shadow: var(--shadow-float);
     opacity: 0; pointer-events: none;
     transition: opacity .2s var(--ease), transform .2s var(--ease);
@@ -979,7 +1031,7 @@
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   /* ---------- トレーニングセッション ---------- */
-  .add-record-btn small { display: block; font-size: 11px; font-weight: 600; opacity: 0.95; font-variant-numeric: tabular-nums; }
+  .add-record-btn small { display: inline; margin-left: 6px; font-size: 11px; font-weight: 600; opacity: 0.95; font-variant-numeric: tabular-nums; }
   .add-record-btn.live { animation: sessPulse 1.9s ease-out infinite; }
   @keyframes sessPulse {
     0% { box-shadow: 0 0 0 0 rgba(255,138,91,0.55), 0 4px 14px rgba(255,138,91,0.35); }
@@ -1009,22 +1061,32 @@
   .sess-head-side.right { justify-content: flex-end; }
   .sess-head-mid { flex: 1 1 auto; min-width: 0; text-align: center; }
   .sess-head-btn {
-    min-width: 64px; height: 44px; padding: 0 12px; white-space: nowrap;
+    min-width: 60px; height: 40px; padding: 0 12px; white-space: nowrap;
     border-radius: var(--radius-sm); border: 1px solid var(--border-soft);
     background: var(--surface-alt); color: var(--sub);
-    font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
+    font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
     transition: transform .15s var(--ease), background .15s var(--ease);
   }
   .sess-head-btn:active { transform: scale(0.95); }
   .sess-head-btn.danger { background: var(--status-off-bg); color: var(--danger); border-color: transparent; }
-  .sess-title { font-size: 16px; font-weight: 700; letter-spacing: 0.04em; overflow-wrap: anywhere; line-height: 1.3; }
-  .sess-sub { font-size: 12px; color: var(--sub); }
+  .sess-title { font-size: 16px; font-weight: 700; letter-spacing: 0.02em; overflow-wrap: anywhere; line-height: 1.3; }
+  .sess-sub { font-size: 12px; font-weight: 400; color: var(--sub); font-variant-numeric: tabular-nums; }
   .sess-clock { font-size: 30px; font-weight: 800; line-height: 1.1; letter-spacing: 0.02em; color: var(--accent); font-variant-numeric: tabular-nums; }
   .sess-body {
     flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden;
     overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
-    padding: 14px 14px 20px; line-height: 1.5;
+    padding: 14px 14px 20px; line-height: 1.5; font-size: 14px; font-weight: 400;
   }
+  /* セッション内の見出し・集計は控えめに（見出し 12–13px/600・本文 14px） */
+  .sess-body .section-title { font-size: 12px; font-weight: 600; color: var(--sub); letter-spacing: 0.04em; margin-bottom: 8px; }
+  .sess-body .stat-box .stat-label { font-size: 12px; font-weight: 500; }
+  .sess-body .stat-box .stat-value { font-size: 20px; font-weight: 600; }
+  .sess-body .stat-value span { font-weight: 500; color: var(--sub); }
+  .sess-body .li-item { font-size: 14px; font-weight: 600; }
+  .sess-body .li-right { font-size: 13px; font-weight: 500; }
+  .sess-body .aerobic-row { font-size: 14px; }
+  .sess-body .aerobic-row strong { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .sess-body .part-chip { font-weight: 600; }
   .sess-foot {
     flex: 0 0 auto; display: flex; gap: 10px;
     padding: 10px 14px calc(12px + var(--safe-b));
@@ -1032,45 +1094,45 @@
     box-shadow: 0 -6px 20px rgba(60,35,20,0.06);
   }
   .sess-btn {
-    flex: 1 1 0; min-width: 0; min-height: 56px; padding: 6px 8px;
+    flex: 1 1 0; min-width: 0; min-height: 52px; padding: 6px 8px;
     border-radius: var(--radius-md); border: 1px solid var(--border);
     background: var(--surface-alt); color: var(--text);
-    font-family: inherit; font-size: 14px; font-weight: 700; letter-spacing: 0.04em; line-height: 1.3;
+    font-family: inherit; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; line-height: 1.3;
     cursor: pointer; transition: transform .15s var(--ease), opacity .15s var(--ease);
   }
   .sess-btn:active { transform: scale(0.98); opacity: 0.9; }
   .sess-btn.primary {
-    border: none; color: #fff; font-size: 16px;
+    border: none; color: #fff;
     background: linear-gradient(135deg, #E8602B, #FF8A5B);
     box-shadow: 0 4px 14px rgba(255,138,91,0.3);
   }
-  .sess-btn.inline { flex: 0 0 auto; padding: 0 18px; min-height: 52px; }
-  .sess-hint { font-size: 12px; color: var(--sub); margin-bottom: 10px; overflow-wrap: anywhere; }
+  .sess-btn.inline { flex: 0 0 auto; padding: 0 16px; min-height: var(--field-h); height: var(--field-h); font-size: 14px; line-height: 1.2; }
+  .sess-hint { font-size: 13px; font-weight: 400; line-height: 1.6; color: var(--sub); margin-bottom: 10px; overflow-wrap: anywhere; }
   .sess-chips { display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; }
   .sess-chip {
     display: inline-flex; align-items: center; gap: 8px; max-width: 100%;
-    min-height: 48px; padding: 0 16px; border-radius: 999px;
+    min-height: 44px; padding: 0 16px; border-radius: 999px;
     border: 1.5px solid var(--border); background: var(--surface-alt); color: var(--text);
-    font-family: inherit; font-size: 15px; font-weight: 600; text-align: left; overflow-wrap: anywhere;
+    font-family: inherit; font-size: 14px; font-weight: 500; text-align: left; overflow-wrap: anywhere;
     cursor: pointer; transition: transform .15s var(--ease), background .15s var(--ease), border-color .15s var(--ease);
   }
   .sess-chip:active { transform: scale(0.96); }
   .sess-chip.quick { border-color: var(--accent); background: var(--chip-active-bg); }
-  .sess-chip.on { border-color: var(--accent); background: var(--chip-active-bg); color: var(--accent); font-weight: 700; }
+  .sess-chip.on { border-color: var(--accent); background: var(--chip-active-bg); color: var(--accent); font-weight: 600; }
   .sess-chip.part .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--pc); flex: none; }
   .sess-chip.part.on { background: var(--pc); border-color: var(--pc); color: #fff; }
   .sess-chip.part.on .dot { background: #fff; }
   .sess-linkbtn {
     display: flex; align-items: center; justify-content: space-between; gap: 8px;
-    width: 100%; min-height: 56px; padding: 0 16px; margin-bottom: 12px;
+    width: 100%; min-height: 52px; padding: 0 16px; margin-bottom: 12px;
     border-radius: var(--radius-md); border: 1px solid var(--border); background: var(--card); color: var(--text);
-    font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
+    font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer;
     box-shadow: var(--shadow-card);
   }
   .sess-linkbtn svg { width: 18px; height: 18px; color: var(--sub); flex: none; }
   .sess-linkbtn:active { transform: scale(0.99); }
   .sess-free { display: flex; gap: 8px; align-items: center; }
-  .sess-free .ef-input { flex: 1 1 auto; height: 52px; }
+  .sess-free .ef-input { flex: 1 1 auto; }
   .sess-empty { text-align: center; color: var(--sub); font-size: 14px; padding: 28px 8px; line-height: 1.7; }
 
   .sess-item {
@@ -1079,14 +1141,14 @@
     padding: 12px 14px; margin-bottom: 12px; min-width: 0;
   }
   .sess-item-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-  .sess-item-name { font-size: 16px; font-weight: 700; overflow-wrap: anywhere; min-width: 0; }
-  .sess-item-sum { font-size: 15px; margin-top: 6px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+  .sess-item-name { font-size: 15px; font-weight: 600; overflow-wrap: anywhere; min-width: 0; }
+  .sess-item-sum { font-size: 14px; font-weight: 400; margin-top: 6px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
   .sess-item-note { font-size: 12px; color: var(--sub); margin-top: 4px; overflow-wrap: anywhere; }
   .sess-item-act { display: flex; gap: 8px; margin-top: 10px; }
   .sess-mini {
-    flex: 1 1 0; min-width: 0; min-height: 44px; padding: 0 12px;
+    flex: 1 1 0; min-width: 0; height: 40px; padding: 0 12px; white-space: nowrap;
     border-radius: 12px; border: 1px solid var(--border); background: var(--surface-alt); color: var(--sub);
-    font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
+    font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
   }
   .sess-mini:active { transform: scale(0.97); }
   .sess-mini.danger { background: var(--status-off-bg); color: var(--danger); border-color: transparent; }
@@ -1097,44 +1159,85 @@
     padding: 10px 12px; margin-bottom: 12px; border-radius: var(--radius-md);
     background: var(--chip-active-bg); border: 1px solid var(--accent);
   }
-  .sess-prev-t { font-size: 14px; font-weight: 700; min-width: 0; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
-  .sess-prev .sess-mini { flex: 0 0 auto; }
-  .sess-seg .ef-seg-btn { height: 48px; font-size: 15px; }
+  .sess-prev-main { min-width: 0; }
+  .sess-prev-l { font-size: 12px; font-weight: 600; color: var(--sub); letter-spacing: 0.04em; font-variant-numeric: tabular-nums; }
+  .sess-prev-t { font-size: 14px; font-weight: 500; margin-top: 2px; min-width: 0; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+  .sess-prev .sess-mini { flex: 0 0 auto; height: 36px; background: var(--card); color: var(--accent); border-color: var(--accent); }
+  .sess-seg .ef-seg-btn { font-size: 14px; }
   .sess-w-row { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
-  .sess-w-row .ef-input { flex: 1 1 auto; width: auto; height: 56px; font-size: 24px; font-weight: 700; text-align: center; }
+  .sess-w-row .ef-input { flex: 1 1 auto; width: auto; font-size: 20px; font-weight: 600; text-align: center; font-variant-numeric: tabular-nums; }
   .sess-step {
-    flex: 0 0 58px; height: 56px; padding: 0; border-radius: 14px;
+    flex: 0 0 56px; height: var(--field-h); padding: 0; line-height: 1; border-radius: var(--radius-sm);
     border: 1px solid var(--border-soft); background: var(--surface-alt); color: var(--text);
-    font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
+    font-family: inherit; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; cursor: pointer;
   }
   .sess-step:active { transform: scale(0.95); background: var(--chip-active-bg); }
   .sess-unit { flex: 0 0 auto; font-size: 13px; color: var(--sub); }
-  .sess-set { display: flex; align-items: center; gap: 4px; margin-bottom: 8px; min-width: 0; }
-  .sess-set-n {
-    flex: 0 0 26px; width: 26px; height: 26px; border-radius: 50%; background: var(--border-soft); color: var(--sub);
-    display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; margin-right: 2px;
+
+  /* セット行：番号 | 重量ステッパー | 回数ステッパー | ✓ | ×（1行・入力欄はほかと同じ高さ48pxで統一） */
+  .sess-set, .sess-set-head {
+    display: grid; grid-template-columns: 20px minmax(0, 1fr) 96px 30px 22px;
+    column-gap: 4px; align-items: center; min-width: 0;
   }
-  .sess-set .ef-input { flex: 1 1 0; width: 0; min-width: 0; height: 48px; font-size: 18px; font-weight: 700; text-align: center; padding: 0 2px; }
-  .sess-set .sess-unit { flex: 0 0 auto; font-size: 12px; margin-right: 4px; }
+  .sess-set { margin-bottom: 10px; }
+  .sess-set-head { margin-bottom: 6px; font-size: 12px; font-weight: 600; color: var(--sub); text-align: center; }
+  .sess-set-n {
+    width: 20px; height: 20px; border-radius: 50%; background: var(--border-soft); color: var(--sub);
+    display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums;
+  }
+  .sess-num {
+    display: flex; align-items: stretch; height: var(--field-h); min-width: 0;
+    border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-alt);
+    transition: border-color .15s var(--ease), box-shadow .15s var(--ease);
+  }
+  .sess-num:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--chip-active-bg); }
+  .sess-num input {
+    -webkit-appearance: none; appearance: none; -moz-appearance: textfield;
+    flex: 1 1 0; width: 0; min-width: 0; height: 100%; margin: 0; padding: 0 2px;
+    border: none; border-radius: 0; background: transparent; outline: none; color: var(--text);
+    font-family: inherit; font-size: 18px; font-weight: 600; line-height: calc(var(--field-h) - 2px); text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .sess-num input::-webkit-outer-spin-button, .sess-num input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .sess-num input::placeholder { color: var(--sub); opacity: 0.6; font-size: 13px; font-weight: 500; }
+  .sess-num button {
+    position: relative; flex: 0 0 30px; width: 30px; height: 100%; padding: 0;
+    border: none; background: none; color: var(--sub);
+    font-family: inherit; font-size: 12px; font-weight: 600; line-height: 1; letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums; cursor: pointer;
+  }
+  .sess-num button:first-child { border-radius: 11px 0 0 11px; }
+  .sess-num button:last-child { border-radius: 0 11px 11px 0; }
+  .sess-num button:active { background: var(--chip-active-bg); color: var(--accent); }
+  .sess-num.reps button { flex-basis: 28px; width: 28px; font-size: 16px; font-weight: 500; }
+  @media (max-width: 359px) {
+    .sess-set, .sess-set-head { grid-template-columns: 18px minmax(0, 1fr) 88px 28px 20px; column-gap: 3px; }
+    .sess-num button { flex-basis: 26px; width: 26px; font-size: 10px; }
+    .sess-num.reps button { flex-basis: 24px; width: 24px; }
+    .sess-num input { font-size: 18px; }
+    .sess-done { width: 28px; height: 28px; }
+  }
   .sess-done {
-    flex: 0 0 40px; width: 40px; height: 40px; padding: 0; border-radius: 50%;
-    border: 2px solid var(--accent); background: transparent; color: var(--accent);
+    position: relative; width: 30px; height: 30px; padding: 0; border-radius: 50%;
+    border: 1.5px solid var(--accent); background: transparent; color: var(--accent);
     display: flex; align-items: center; justify-content: center;
-    font-family: inherit; font-size: 18px; font-weight: 800; line-height: 1; cursor: pointer;
+    font-family: inherit; font-size: 15px; font-weight: 600; line-height: 1; cursor: pointer;
     transition: transform .15s var(--ease), background .15s var(--ease);
   }
+  .sess-done::after { content: ""; position: absolute; inset: -6px -2px; }
   .sess-done:active { transform: scale(0.92); }
   .sess-done.on { border-color: transparent; color: #fff; background: linear-gradient(135deg, #E8602B, #FF8A5B); box-shadow: 0 3px 10px rgba(255,138,91,0.35); }
   .sess-x {
-    flex: 0 0 32px; width: 32px; height: 40px; padding: 0; border: none; background: none; color: var(--sub);
-    font-family: inherit; font-size: 22px; line-height: 1; cursor: pointer;
+    position: relative; width: 22px; height: var(--field-h); padding: 0; border: none; background: none; color: var(--sub);
+    font-family: inherit; font-size: 18px; font-weight: 400; line-height: 1; cursor: pointer;
   }
+  .sess-x::after { content: ""; position: absolute; inset: -5px -2px; }
   .sess-x:active { color: var(--danger); }
   .sess-item-top > :last-child { flex: none; }
   .sess-addset {
-    width: 100%; min-height: 52px; margin-top: 4px; border-radius: 14px;
-    border: 2px dashed var(--border); background: none; color: var(--accent);
-    font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer;
+    width: 100%; height: 44px; margin-top: 2px; border-radius: var(--radius-sm);
+    border: 1.5px dashed var(--border); background: none; color: var(--accent);
+    font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;
   }
   .sess-addset:active { background: var(--chip-active-bg); }
 
@@ -1150,26 +1253,26 @@
   .sess-ring .prg { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset .3s linear; }
   .sess-ring span {
     position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-    font-size: 12px; font-weight: 800; font-variant-numeric: tabular-nums;
+    font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums;
   }
   .sess-rest-mid { flex: 1 1 auto; min-width: 0; }
-  .sess-rest-cap { font-size: 11px; color: var(--sub); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sess-rest-cap { font-size: 12px; font-weight: 500; color: var(--sub); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sess-rps { display: flex; gap: 6px; }
   .sess-rp {
-    flex: 1 1 0; min-width: 0; min-height: 44px; padding: 0; border-radius: 12px;
+    flex: 1 1 0; min-width: 0; height: 40px; padding: 0; border-radius: 12px;
     border: 1px solid var(--border); background: var(--surface-alt); color: var(--text);
-    font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
+    font-family: inherit; font-size: 14px; font-weight: 500; font-variant-numeric: tabular-nums; cursor: pointer;
   }
-  .sess-rp.on { border-color: var(--accent); background: var(--chip-active-bg); color: var(--accent); }
+  .sess-rp.on { border-color: var(--accent); background: var(--chip-active-bg); color: var(--accent); font-weight: 600; }
   .sess-skip {
-    flex: 0 0 auto; min-width: 70px; min-height: 44px; padding: 0 10px; border-radius: 12px;
+    flex: 0 0 auto; min-width: 70px; height: 40px; padding: 0 10px; border-radius: 12px;
     border: 1px solid var(--border); background: var(--surface-alt); color: var(--text);
-    font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer;
+    font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
   }
   .sess-skip[disabled] { opacity: 0.4; cursor: default; }
   .sess-rest.run .sess-skip { border-color: var(--accent); color: var(--accent); }
   .sess-rest.done { background: linear-gradient(135deg, #E8602B, #FF8A5B); animation: sessFlash .7s ease-in-out infinite alternate; }
-  .sess-rest.done .sess-rest-cap { color: #fff; font-weight: 700; }
+  .sess-rest.done .sess-rest-cap { color: #fff; font-weight: 600; }
   .sess-rest.done .sess-ring .trk { stroke: rgba(255,255,255,0.35); }
   .sess-rest.done .sess-ring .prg { stroke: #fff; }
   .sess-rest.done .sess-ring span { color: #fff; }
@@ -1180,11 +1283,11 @@
 
   .sess-mrow { display: flex; align-items: center; gap: 6px; padding: 6px 0; border-bottom: 1px solid var(--border-soft); }
   .sess-mrow:last-child { border-bottom: none; }
-  .sess-mname { flex: 1 1 auto; min-width: 0; font-size: 15px; font-weight: 600; overflow-wrap: anywhere; }
+  .sess-mname { flex: 1 1 auto; min-width: 0; font-size: 14px; font-weight: 500; overflow-wrap: anywhere; }
   .sess-ico {
-    flex: 0 0 44px; height: 44px; padding: 0; border-radius: 12px;
+    flex: 0 0 40px; height: 40px; padding: 0; border-radius: 12px;
     border: 1px solid var(--border-soft); background: var(--surface-alt); color: var(--text);
-    font-family: inherit; font-size: 18px; font-weight: 700; cursor: pointer;
+    font-family: inherit; font-size: 16px; font-weight: 500; cursor: pointer;
   }
   .sess-ico:active { transform: scale(0.94); background: var(--chip-active-bg); }
   .sess-mrow .sess-mini { flex: 0 0 auto; min-width: 60px; }
@@ -1204,24 +1307,6 @@
 
   <main>
     <div class="top-banner" id="topBanner"></div>
-
-    <section class="record-section" id="recordSection" aria-labelledby="recordSectionTitle">
-      <h2 class="record-section-title" id="recordSectionTitle">記録する</h2>
-      <div class="record-actions">
-        <button class="add-record-btn" type="button" id="sessionOpenBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8v8"/><path d="M4 9v6"/><path d="M20 9v6"/><path d="M22 8v8"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M9 8v8"/><path d="M15 8v8"/></svg>
-          <span id="sessionOpenLabel">トレーニング記録</span>
-        </button>
-        <button class="add-record-btn" type="button" data-open-entry="bw">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg>
-          <span>体重を記録する</span>
-        </button>
-        <button class="add-record-btn" type="button" data-open-entry="meal">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M12 11V4"/><path d="M8 4c0 1.4 1 2 1 3.4"/><path d="M16 4c0 1.4-1 2-1 3.4"/></svg>
-          <span>食事を記録する</span>
-        </button>
-      </div>
-    </section>
 
     <div class="record-segment show" id="recordSegment">
       <button class="record-seg-btn active" data-period="day" type="button">日</button>
@@ -1318,6 +1403,9 @@
     <button class="tab-btn" data-screen="meal" type="button" aria-label="食事">
       <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M12 11V4"/><path d="M8 4c0 1.4 1 2 1 3.4"/><path d="M16 4c0 1.4-1 2-1 3.4"/></svg></span>食事
     </button>
+    <button class="tab-btn tab-action" id="recordSheetBtn" type="button" aria-label="記録する" aria-haspopup="dialog" aria-expanded="false" aria-controls="recordSheetOverlay">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span>記録する
+    </button>
   </nav>
 </div>
 
@@ -1358,21 +1446,42 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="recordSheetOverlay">
+  <div class="modal-box record-sheet" role="dialog" aria-modal="true" aria-labelledby="recordSheetTitle">
+    <h3 class="entry-title" id="recordSheetTitle">記録する</h3>
+    <div class="record-actions">
+      <button class="add-record-btn" type="button" id="sessionOpenBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8v8"/><path d="M4 9v6"/><path d="M20 9v6"/><path d="M22 8v8"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M9 8v8"/><path d="M15 8v8"/></svg>
+        <span id="sessionOpenLabel">トレーニングを記録する</span>
+      </button>
+      <button class="add-record-btn" type="button" data-open-entry="bw">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg>
+        <span>体重を記録する</span>
+      </button>
+      <button class="add-record-btn" type="button" data-open-entry="meal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M12 11V4"/><path d="M8 4c0 1.4 1 2 1 3.4"/><path d="M16 4c0 1.4-1 2-1 3.4"/></svg>
+        <span>食事を記録する</span>
+      </button>
+    </div>
+    <button class="modal-close-btn" id="recordSheetClose" type="button">閉じる</button>
+  </div>
+</div>
+
 <div class="modal-overlay" id="entryModalOverlay">
   <div class="modal-box entry-box">
-    <h3 class="entry-title">記録する</h3>
+    <h3 class="entry-title">記録を追加</h3>
     <div class="ef-seg type" id="efTypeSeg">
       <button class="ef-seg-btn active" type="button" data-ef-type="train">トレーニング</button>
       <button class="ef-seg-btn" type="button" data-ef-type="bw">体重</button>
       <button class="ef-seg-btn" type="button" data-ef-type="meal">食事</button>
     </div>
     <div id="entryForm"></div>
-    <button class="ef-btn primary" type="button" data-ef-act="save">保存</button>
+    <button class="ef-btn primary" type="button" data-ef-act="save">記録を保存</button>
 
     <div class="ef-local">
       <div class="section-title">この端末の記録</div>
       <div id="efLocalList"></div>
-      <button class="ef-btn" type="button" data-ef-act="export">書き出し</button>
+      <button class="ef-btn" type="button" data-ef-act="export">記録を書き出し</button>
     </div>
     <button class="modal-close-btn" type="button" data-ef-act="close">閉じる</button>
   </div>
@@ -1393,7 +1502,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.18a";
+  var APP_VERSION = "v2026.11.18c";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   var PART_COLORS = {
@@ -3819,13 +3928,13 @@
       h += '<label class="ef-label" for="efPart">部位</label><select class="ef-input" id="efPart">';
       parts.forEach(function (p) { h += '<option value="' + escapeHtml(p) + '"' + (p === "不明" ? " selected" : "") + ">" + escapeHtml(p) + "</option>"; });
       h += "</select>";
-      h += '<div class="ef-row"><div><label class="ef-label" for="efWeight">重量(kg)・自重は空欄</label><input class="ef-input" id="efWeight" type="number" inputmode="decimal" step="any" min="0" placeholder="重量"></div>';
-      h += '<div><label class="ef-label">重量の種別</label><div class="ef-seg" id="efWType">';
+      h += '<div class="ef-row"><div><label class="ef-label" for="efWeight">重量（kg）※自重は空欄</label><input class="ef-input" id="efWeight" type="number" inputmode="decimal" step="any" min="0" placeholder="kg"></div>';
+      h += '<div><label class="ef-label">重量の入力方法</label><div class="ef-seg" id="efWType">';
       ["合計", "片手"].forEach(function (t) { h += '<button class="ef-seg-btn' + (ef.weightType === t ? " active" : "") + '" type="button" data-ef-wt="' + t + '">' + t + "</button>"; });
       h += "</div></div></div>";
       h += '<label class="ef-label">セット数と回数</label><div class="ef-stepper"><button type="button" data-ef-act="minus" aria-label="セットを減らす">−</button><span class="ef-count" id="efSetCount">' + ef.setCount + '</span><button type="button" data-ef-act="plus" aria-label="セットを増やす">＋</button><span class="ef-unit">セット</span></div>';
       h += '<div class="ef-reps" id="efReps"></div>';
-      h += '<div class="ef-all"><input class="ef-input" id="efAllReps" type="number" inputmode="numeric" min="0" max="999" placeholder="回数" aria-label="全セットの回数"><button class="ef-btn inline" type="button" data-ef-act="all">全セット同じ回数</button></div>';
+      h += '<div class="ef-all"><input class="ef-input" id="efAllReps" type="number" inputmode="numeric" min="0" max="999" placeholder="回数" aria-label="全セットの回数"><button class="ef-btn inline" type="button" data-ef-act="all">全セットに反映</button></div>';
       h += '<label class="ef-label" for="efNote">メモ（任意）</label><input class="ef-input" id="efNote" type="text">';
     } else if (ef.type === "bw") {
       h += '<div class="ef-row"><div><label class="ef-label" for="efDate">日付</label><input class="ef-input" id="efDate" type="date" value="' + escapeHtml(date) + '"></div>';
@@ -3860,7 +3969,7 @@
   function renderLocalList() {
     var box = efEl("efLocalList");
     var items = buildLocalItems();
-    if (!items.length) { box.innerHTML = '<div class="ef-local-empty">まだありません</div>'; return; }
+    if (!items.length) { box.innerHTML = '<div class="ef-local-empty">この端末で入力した記録はまだありません。</div>'; return; }
     var h = '<div class="ef-local-list">';
     items.forEach(function (it) {
       h += '<div class="ef-local-row"><div class="ef-local-main"><div class="ef-local-date">' + escapeHtml(formatShortDate(it.date) + (it.time ? " " + it.time : "")) + '</div>';
@@ -3906,7 +4015,7 @@
       var wk = parseNum("efWeight");
       var hasW = wk != null && wk > 0;
       if (!name) { showToast("種目を入力してください"); return; }
-      if (!reps.length && !hasW) { showToast("回数か重量を入力してください"); return; }
+      if (!reps.length && !hasW) { showToast("回数または重量を入力してください"); return; }
       var wtype = ef.weightType;
       var total = hasW ? Math.round((wtype === "片手" ? wk * 2 : wk) * 100) / 100 : null;
       var repSum = reps.reduce(function (s, r) { return s + r; }, 0);
@@ -3941,7 +4050,7 @@
       var text = efEl("efMealText").value.trim();
       var kcal = parseNum("efKcal");
       var prot = parseNum("efProtein");
-      if (!text && kcal == null) { showToast("食べたものかkcalを入力してください"); return; }
+      if (!text && kcal == null) { showToast("食べたものまたはkcalを入力してください"); return; }
       var cur = loc.meals[date];
       if (!cur) cur = loc.meals[date] = { kcal: null, protein: null, items: [], note: null };
       cur.items.push({ id: newLocalId(), time: efEl("efTime").value || nowTimeStr(), text: text || "(kcalのみ)", kcal: kcal, protein: prot });
@@ -4048,7 +4157,7 @@
       }
       b = t.closest("[data-del-id]");
       if (b) {
-        if (!window.confirm("この記録を削除しますか。")) return;
+        if (!window.confirm("この記録を削除しますか？")) return;
         deleteLocal(b.getAttribute("data-del-kind"), b.getAttribute("data-del-id"), b.getAttribute("data-del-date"));
         return;
       }
@@ -4250,8 +4359,7 @@
     }
     function prevText(p, cardio) {
       var e = p.entry;
-      var body = cardio ? fmtNum(e.minutes) + "分" : weightText(e.weight_kg, e.weight_type) + " × " + e.reps.join("・");
-      return "前回（" + mdText(p.date) + "）: " + body;
+      return cardio ? fmtNum(e.minutes) + "分" : weightText(e.weight_kg, e.weight_type) + " × " + e.reps.join("・") + "回";
     }
 
     // ---------- 計算・変換 ----------
@@ -4366,7 +4474,7 @@
       var frac = total > 0 ? Math.min(1, remain / total) : 0;
       $("sessRing").setAttribute("stroke-dashoffset", (RING_C * (1 - frac)).toFixed(2));
       bar.className = "sess-rest" + (rest.running ? " run" : "") + (rest.done ? " done" : "");
-      $("sessRestCap").textContent = rest.done ? "休憩終了！次のセットへ" : (rest.running ? "休憩中" : "休憩タイマー（秒）");
+      $("sessRestCap").textContent = rest.done ? "休憩終了。次のセットへ" : (rest.running ? "休憩中" : "休憩タイマー（秒）");
       var skip = $("sessSkipBtn");
       skip.textContent = rest.done ? "OK" : "スキップ";
       skip.disabled = !(rest.running || rest.done);
@@ -4382,13 +4490,15 @@
         txt = "トレーニング中（経過 " + c + "）";
         html = "トレーニング中<small>（経過 " + c + "）</small>";
       } else {
-        txt = "トレーニング記録";
+        txt = "トレーニングを記録する";
         html = txt;
       }
       if (txt === entryBtnText) return;
       entryBtnText = txt;
       lab.innerHTML = html;
       btn.classList.toggle("live", !!sess);
+      var tabBtn = $("recordSheetBtn");
+      if (tabBtn) tabBtn.classList.toggle("live", !!sess);
     }
     function tick() {
       if (sess) {
@@ -4420,7 +4530,7 @@
       return '<div class="sess-title">' + escapeHtml(title) + "</div>" + (sub ? '<div class="sess-sub">' + escapeHtml(sub) + "</div>" : "");
     }
     function menuLink() {
-      return '<button type="button" class="sess-linkbtn" data-sact="menus"><span>部位メニューの設定</span>' + ICON_CHEVRON_RIGHT + "</button>";
+      return '<button type="button" class="sess-linkbtn" data-sact="menus"><span>部位ごとのメニューを編集</span>' + ICON_CHEVRON_RIGHT + "</button>";
     }
     function freeRow(act, id, val) {
       return '<div class="sess-free"><input class="ef-input" id="' + id + '" type="text" placeholder="種目名を入力" data-sin="' + (id === "sessFree" ? "free" : "mfree") + '" value="' + escapeHtml(val) + '" autocomplete="off"><button type="button" class="sess-btn inline" data-sact="' + act + '">追加</button></div>';
@@ -4430,8 +4540,8 @@
     function viewStart() {
       var chips = allParts().map(function (p) { return partChip(p, sv.startParts.indexOf(p) !== -1, "start-part"); }).join("");
       return {
-        head: headHtml(headBtn("閉じる", "close"), titleMid("トレーニングを開始", formatDateLabel(todayStr()))),
-        body: '<div class="card"><div class="section-title">今日鍛える部位</div><div class="sess-hint">タップして選択（複数OK）。種目の追加時は他の部位も選べます。</div><div class="sess-chips">' + chips + "</div></div>" + menuLink(),
+        head: headHtml(headBtn("閉じる", "close"), titleMid("新しいトレーニング", formatDateLabel(todayStr()))),
+        body: '<div class="card"><div class="section-title">今日鍛える部位</div><div class="sess-hint">複数選べます。種目を追加するときは、ほかの部位も選べます。</div><div class="sess-chips">' + chips + "</div></div>" + menuLink(),
         foot: '<button type="button" class="sess-btn primary" data-sact="start">トレーニングを開始</button>'
       };
     }
@@ -4450,7 +4560,7 @@
       if (sess.items.length) body += sess.items.map(itemCard).join("");
       else body += '<div class="sess-empty">まだ種目がありません。<br>「種目を追加」から記録を始めましょう。</div>';
       return {
-        head: headHtml(headBtn("閉じる", "close"), mid, headBtn("破棄する", "discard", "danger")),
+        head: headHtml(headBtn("閉じる", "close"), mid, headBtn("破棄", "discard", "danger")),
         body: body,
         foot: '<button type="button" class="sess-btn primary" data-sact="add">種目を追加</button><button type="button" class="sess-btn" data-sact="end">トレーニングを終了</button>'
       };
@@ -4461,44 +4571,64 @@
       var past = namesForPart(part).filter(function (n) { return menu.indexOf(n) === -1; }).slice(0, 60);
       var body = '<div class="card"><div class="section-title">部位</div><div class="sess-chips">' + allParts().map(function (p) { return partChip(p, p === part, "add-part"); }).join("") + "</div></div>";
       body += '<div class="card"><div class="section-title">' + escapeHtml(part) + "のメニュー</div>";
-      body += menu.length ? '<div class="sess-chips">' + menu.map(function (n) { return nameChip(n, "pick", true); }).join("") + "</div>" : '<div class="sess-hint" style="margin:0">メニュー未設定です。下の「部位メニューの設定」から登録できます。</div>';
+      body += menu.length ? '<div class="sess-chips">' + menu.map(function (n) { return nameChip(n, "pick", true); }).join("") + "</div>" : '<div class="sess-hint" style="margin:0">メニューに種目が登録されていません。下の「部位ごとのメニューを編集」から登録できます。</div>';
       body += "</div>";
-      body += '<div class="card"><div class="section-title">過去にやった種目</div>';
-      body += past.length ? '<div class="sess-chips">' + past.map(function (n) { return nameChip(n, "pick", false); }).join("") + "</div>" : '<div class="sess-hint" style="margin:0">ほかの過去種目はありません。</div>';
+      body += '<div class="card"><div class="section-title">過去の種目</div>';
+      body += past.length ? '<div class="sess-chips">' + past.map(function (n) { return nameChip(n, "pick", false); }).join("") + "</div>" : '<div class="sess-hint" style="margin:0">ほかに過去の種目はありません。</div>';
       body += "</div>";
       body += '<div class="card"><div class="section-title">新しい種目</div>' + freeRow("pick-free", "sessFree", sv.freeText) + "</div>";
       body += menuLink();
       return { head: headHtml(headBtn("‹ 戻る", "add-back"), titleMid("種目を追加", part)), body: body, foot: "" };
     }
+    // 重量の刻み（kg）と回数の刻み
+    var W_STEP = 2.5, R_STEP = 1, R_MAX = 999;
+    function stepBtn(k, i, delta, label, aria) {
+      return '<button type="button" data-sact="nstep" data-k="' + k + '" data-i="' + i + '" data-d="' + delta + '" aria-label="' + aria + '">' + label + "</button>";
+    }
     function setsHtml(d) {
-      return d.sets.map(function (s, i) {
-        return '<div class="sess-set"><span class="sess-set-n">' + (i + 1) + "</span>" +
-          '<input class="ef-input" type="number" inputmode="decimal" step="any" min="0" placeholder="重量" aria-label="' + (i + 1) + 'セット目の重量（kg）" data-sin="w" data-i="' + i + '" value="' + escapeHtml(s.w) + '">' +
-          '<span class="sess-unit">kg</span>' +
-          '<input class="ef-input" type="number" inputmode="numeric" min="0" max="999" placeholder="回数" aria-label="' + (i + 1) + 'セット目の回数" data-sin="reps" data-i="' + i + '" value="' + escapeHtml(s.r) + '">' +
-          '<span class="sess-unit">回</span>' +
-          '<button type="button" class="sess-done' + (s.done ? " on" : "") + '" data-sact="setdone" data-i="' + i + '" aria-pressed="' + (s.done ? "true" : "false") + '" aria-label="' + (i + 1) + 'セット目を完了">✓</button>' +
-          '<button type="button" class="sess-x" data-sact="delset" data-i="' + i + '" aria-label="' + (i + 1) + 'セット目を削除">×</button></div>';
+      var head = '<div class="sess-set-head" aria-hidden="true"><span></span><span>重量（kg）</span><span>回数</span><span></span><span></span></div>';
+      return head + d.sets.map(function (s, i) {
+        var n = i + 1;
+        return '<div class="sess-set"><span class="sess-set-n">' + n + "</span>" +
+          '<div class="sess-num">' +
+            stepBtn("w", i, -W_STEP, "−2.5", n + "セット目の重量を2.5kg減らす") +
+            '<input type="number" inputmode="decimal" step="any" min="0" placeholder="kg" aria-label="' + n + 'セット目の重量（kg）" data-sin="w" data-i="' + i + '" value="' + escapeHtml(s.w) + '">' +
+            stepBtn("w", i, W_STEP, "+2.5", n + "セット目の重量を2.5kg増やす") +
+          "</div>" +
+          '<div class="sess-num reps">' +
+            stepBtn("r", i, -R_STEP, "−", n + "セット目の回数を1回減らす") +
+            '<input type="number" inputmode="numeric" min="0" max="' + R_MAX + '" placeholder="回" aria-label="' + n + 'セット目の回数" data-sin="reps" data-i="' + i + '" value="' + escapeHtml(s.r) + '">' +
+            stepBtn("r", i, R_STEP, "+", n + "セット目の回数を1回増やす") +
+          "</div>" +
+          '<button type="button" class="sess-done' + (s.done ? " on" : "") + '" data-sact="setdone" data-i="' + i + '" aria-pressed="' + (s.done ? "true" : "false") + '" aria-label="' + n + 'セット目を完了">✓</button>' +
+          '<button type="button" class="sess-x" data-sact="delset" data-i="' + i + '" aria-label="' + n + 'セット目を削除">×</button></div>';
       }).join("");
+    }
+    // ステッパー：空欄は0とみなし、0以下になったら空欄に戻す（負の値にはしない）
+    function stepValue(raw, delta, isReps) {
+      var cur = isReps ? parseInt(raw, 10) : parseFloat(raw);
+      if (!isFinite(cur) || cur < 0) cur = 0;
+      var nv = isReps ? Math.min(R_MAX, cur + delta) : round2(cur + delta);
+      return nv > 0 ? String(nv) : "";
     }
     function viewEditor() {
       var d = sess.draft, cardio = d.part === "有酸素";
       var body = "";
       var prev = findPrevious(d.exercise, cardio);
-      if (prev) body += '<div class="sess-prev"><div class="sess-prev-t">' + escapeHtml(prevText(prev, cardio)) + '</div><button type="button" class="sess-mini" data-sact="copyprev">前回をコピー</button></div>';
+      if (prev) body += '<div class="sess-prev"><div class="sess-prev-main"><div class="sess-prev-l">前回の記録 ・ ' + escapeHtml(mdText(prev.date)) + '</div><div class="sess-prev-t">' + escapeHtml(prevText(prev, cardio)) + '</div></div><button type="button" class="sess-mini" data-sact="copyprev">前回を貼り付け</button></div>';
       if (cardio) {
         body += '<div class="card"><div class="section-title">時間</div><div class="sess-w-row"><button type="button" class="sess-step" data-sact="wstep" data-t="minutes" data-d="-5">−5</button><input class="ef-input" id="sessMinutes" type="number" inputmode="numeric" min="0" step="any" placeholder="分" aria-label="時間（分）" data-sin="minutes" value="' + escapeHtml(d.minutes) + '"><span class="sess-unit">分</span><button type="button" class="sess-step" data-sact="wstep" data-t="minutes" data-d="5">+5</button></div></div>';
       } else {
-        body += '<div class="card"><div class="section-title">重量の種類</div><div class="ef-seg sess-seg" id="sessWt">' +
+        body += '<div class="card"><div class="section-title">重量の入力方法</div><div class="ef-seg sess-seg" id="sessWt">' +
           ["合計", "片手"].map(function (t) { return '<button type="button" class="ef-seg-btn' + (d.wtype === t ? " active" : "") + '" data-sact="wt" data-w="' + t + '">' + t + "</button>"; }).join("") +
-          '</div><div class="sess-hint" style="margin:8px 0 0">合計／片手は全セット共通。自重の種目は重量を空欄に。「片手」は片手あたりの重量で、合計は×2で集計します。</div></div>';
-        body += '<div class="card"><div class="section-title">セット</div><div id="sessSets">' + setsHtml(d) + '</div><button type="button" class="sess-addset" data-sact="addset">+セット</button></div>';
+          '</div><div class="sess-hint" style="margin:8px 0 0">「片手」は片手あたりの重量で、合計は2倍で計算します。自重の種目は、重量を空欄にしてください。</div></div>';
+        body += '<div class="card"><div class="section-title">セット</div><div id="sessSets">' + setsHtml(d) + '</div><button type="button" class="sess-addset" data-sact="addset">＋ セットを追加</button></div>';
       }
-      body += '<div class="card"><div class="section-title">メモ（任意）</div><input class="ef-input" id="sessNote" type="text" placeholder="メモ" aria-label="メモ" data-sin="note" value="' + escapeHtml(d.note) + '"></div>';
+      body += '<div class="card"><div class="section-title">メモ（任意）</div><input class="ef-input" id="sessNote" type="text" placeholder="フォームや体調など" aria-label="メモ" data-sin="note" value="' + escapeHtml(d.note) + '"></div>';
       return {
         head: headHtml(headBtn("‹ 戻る", "ed-back"), titleMid(d.exercise, d.part)),
         body: body,
-        foot: '<button type="button" class="sess-btn primary" data-sact="commit">' + (d.editIdx != null ? "更新する" : "追加する") + "</button>"
+        foot: '<button type="button" class="sess-btn primary" data-sact="commit">' + (d.editIdx != null ? "変更を保存" : "トレーニングに追加") + "</button>"
       };
     }
     function viewSummary() {
@@ -4514,9 +4644,9 @@
         return '<div class="list-item"><div class="li-left"><span class="li-item">' + escapeHtml(it.exercise) + '</span><span class="li-meta">' + escapeHtml(it.part) + '</span></div><div class="li-right" style="white-space:normal">' + escapeHtml(itemSummary(it)) + "</div></div>";
       }).join("") + "</div>";
       return {
-        head: headHtml(headBtn("‹ 戻る", "sum-back"), titleMid("トレーニング終了", formatDateLabel(sess.date))),
+        head: headHtml(headBtn("‹ 戻る", "sum-back"), titleMid("トレーニングのまとめ", formatDateLabel(sess.date))),
         body: body,
-        foot: '<button type="button" class="sess-btn" data-sact="sum-back">戻る</button><button type="button" class="sess-btn primary" data-sact="save">保存する</button>'
+        foot: '<button type="button" class="sess-btn" data-sact="sum-back">トレーニングを再開</button><button type="button" class="sess-btn primary" data-sact="save">記録を保存</button>'
       };
     }
     function viewMenus() {
@@ -4532,13 +4662,13 @@
             '<button type="button" class="sess-ico" data-sact="m-down" data-i="' + i + '" aria-label="下へ"' + (i === menu.length - 1 ? " disabled" : "") + ">↓</button>" +
             '<button type="button" class="sess-mini danger" data-sact="m-del" data-i="' + i + '">削除</button></div>';
         }).join("");
-      } else body += '<div class="sess-hint" style="margin:0">メニューは空です。下から追加してください。</div>';
+      } else body += '<div class="sess-hint" style="margin:0">メニューに種目がありません。下から追加してください。</div>';
       body += "</div>";
       body += '<div class="card"><div class="section-title">過去の種目から追加</div>';
-      body += past.length ? '<div class="sess-chips">' + past.map(function (n) { return nameChip(n, "m-add", false); }).join("") + "</div>" : '<div class="sess-hint" style="margin:0">追加できる過去種目はありません。</div>';
+      body += past.length ? '<div class="sess-chips">' + past.map(function (n) { return nameChip(n, "m-add", false); }).join("") + "</div>" : '<div class="sess-hint" style="margin:0">追加できる過去の種目はありません。</div>';
       body += "</div>";
-      body += '<div class="card"><div class="section-title">自由入力で追加</div>' + freeRow("m-free", "sessMFree", sv.menuFree) + "</div>";
-      return { head: headHtml(headBtn("‹ 戻る", "menus-back"), titleMid("部位メニューの設定", part)), body: body, foot: "" };
+      body += '<div class="card"><div class="section-title">種目名を入力して追加</div>' + freeRow("m-free", "sessMFree", sv.menuFree) + "</div>";
+      return { head: headHtml(headBtn("‹ 戻る", "menus-back"), titleMid("メニューの編集", part)), body: body, foot: "" };
     }
 
     function render() {
@@ -4610,7 +4740,7 @@
     }
     function endSession() {
       if (!sess.items.length) {
-        if (window.confirm("記録する種目がありません。このトレーニングを破棄しますか？")) { sess = null; writeSession(); resetAfterEnd(); }
+        if (window.confirm("種目が1つもありません。このトレーニングを破棄しますか？")) { sess = null; writeSession(); resetAfterEnd(); }
         return;
       }
       sv.summaryAt = Date.now();
@@ -4666,7 +4796,7 @@
         var doneRows = rows.filter(function (s) { return s.done; });
         if (!rows.length) { showToast("回数を入力してください"); return; }
         if (doneRows.length && doneRows.length < rows.length) {
-          if (!window.confirm("未完了のセットが" + (rows.length - doneRows.length) + "つあります。\n完了済みの" + doneRows.length + "セットだけ追加しますか？\n（キャンセルで編集に戻ります）")) return;
+          if (!window.confirm("未完了のセットが" + (rows.length - doneRows.length) + "セットあります。\n完了した" + doneRows.length + "セットだけを追加しますか？\n（キャンセルすると編集に戻ります）")) return;
           rows = doneRows;
         }
         item = {
@@ -4736,7 +4866,7 @@
         case "m-free": {
           var fn = (sv.menuFree || "").trim(), l4 = menuFor(sv.menuPart);
           if (!fn) { var f1 = $("sessMFree"); if (f1) f1.focus(); break; }
-          if (l4.indexOf(fn) !== -1) { showToast("すでに登録されています"); break; }
+          if (l4.indexOf(fn) !== -1) { showToast("すでにメニューにあります"); break; }
           l4.push(fn);
           sv.menuFree = "";
           setMenuAndRender(sv.menuPart, l4);
@@ -4765,7 +4895,7 @@
           break;
         case "del":
           if (!sess.items[i]) break;
-          if (!window.confirm("「" + sess.items[i].exercise + "」を削除しますか。")) break;
+          if (!window.confirm("「" + sess.items[i].exercise + "」を削除しますか？")) break;
           sess.items.splice(i, 1);
           writeSession();
           render();
@@ -4798,6 +4928,18 @@
           writeSession();
           break;
         }
+        case "nstep": {
+          if (!d || !d.sets[i]) break;
+          var isReps = el.getAttribute("data-k") === "r";
+          var st = d.sets[i];
+          var stepped = stepValue(isReps ? st.r : st.w, parseFloat(el.getAttribute("data-d")), isReps);
+          if (isReps) st.r = stepped; else st.w = stepped;
+          var box = el.parentNode;
+          var field = box && box.querySelector("input");
+          if (field) field.value = stepped;
+          writeSession();
+          break;
+        }
         case "setdone": {
           if (!d || !d.sets[i]) break;
           var s = d.sets[i];
@@ -4819,7 +4961,7 @@
         }
         case "addset": {
           if (!d) break;
-          if (d.sets.length >= MAX_SETS) { showToast("セット数が上限です"); break; }
+          if (d.sets.length >= MAX_SETS) { showToast("これ以上セットを追加できません"); break; }
           var last = d.sets[d.sets.length - 1];
           d.sets.push({ w: last ? last.w : "", r: last ? last.r : "", done: false });
           $("sessSets").innerHTML = setsHtml(d);
@@ -4850,7 +4992,7 @@
           }
           writeSession();
           render();
-          showToast("前回をコピーしました");
+          showToast("前回の記録を貼り付けました");
           break;
         }
         case "commit": commitDraft(); break;
@@ -5020,11 +5162,31 @@
     return true;
   }
 
-  Array.prototype.forEach.call(document.querySelectorAll(".tab-btn"), function (btn) {
+  Array.prototype.forEach.call(document.querySelectorAll(".tab-btn[data-screen]"), function (btn) {
     btn.addEventListener("click", function () {
       var screen = btn.getAttribute("data-screen");
       switchTab(screen === "record" ? getRecordPeriod() : screen);
     });
+  });
+
+  // ---------- 「記録する」ボトムシート（タブバーが唯一の入口） ----------
+  function openRecordSheet() {
+    document.getElementById("recordSheetOverlay").classList.add("show");
+    document.getElementById("recordSheetBtn").setAttribute("aria-expanded", "true");
+  }
+  function closeRecordSheet() {
+    document.getElementById("recordSheetOverlay").classList.remove("show");
+    document.getElementById("recordSheetBtn").setAttribute("aria-expanded", "false");
+  }
+  document.getElementById("recordSheetBtn").addEventListener("click", function () {
+    if (document.getElementById("recordSheetOverlay").classList.contains("show")) closeRecordSheet();
+    else openRecordSheet();
+  });
+  document.getElementById("recordSheetClose").addEventListener("click", closeRecordSheet);
+  document.getElementById("recordSheetOverlay").addEventListener("click", function (e) {
+    if (e.target === this) { closeRecordSheet(); return; }
+    // 3つのボタンはそれぞれ既存の処理（セッション／入力パネル）を開く。シートはここで閉じる
+    if (e.target.closest && e.target.closest(".add-record-btn")) closeRecordSheet();
   });
   Array.prototype.forEach.call(document.querySelectorAll(".record-seg-btn"), function (btn) {
     btn.addEventListener("click", function () { setRecordPeriod(btn.getAttribute("data-period")); });
