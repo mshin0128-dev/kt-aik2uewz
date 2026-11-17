@@ -619,7 +619,7 @@
   .modal-close-btn {
     display: block; width: 100%; margin-top: 16px; height: 46px; padding: 0 12px;
     border: 1px solid var(--border-soft); border-radius: var(--radius-md);
-    background: var(--surface-alt); color: var(--sub); font-weight: 600; font-size: 14px; letter-spacing: 0.08em;
+    background: var(--card); color: var(--text); border-color: var(--sub); font-weight: 700; font-size: 14px; letter-spacing: 0.08em;
     font-family: inherit; cursor: pointer;
     transition: transform .15s var(--ease), background .15s var(--ease);
   }
@@ -874,18 +874,19 @@
     padding: 14px; margin: 0 0 12px;
   }
   .record-section-title { margin: 0 0 10px; font-size: 15px; font-weight: 700; letter-spacing: 0.04em; color: var(--text); }
-  .record-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .record-actions { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
   .add-record-btn {
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
-    min-width: 0; min-height: 76px; padding: 10px 4px;
+    display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 10px;
+    min-width: 0; height: 54px; padding: 0 16px;
     border: none; border-radius: var(--radius-md);
     background: linear-gradient(135deg, #E8602B, #FF8A5B);
-    color: #fff; font-family: inherit; font-size: 12px; font-weight: 700; line-height: 1.3; letter-spacing: 0.02em;
-    text-align: center; overflow-wrap: anywhere;
+    color: #fff; font-family: inherit; font-size: 14px; font-weight: 700; line-height: 1.3; letter-spacing: 0.02em;
+    text-align: left;
     box-shadow: 0 4px 14px rgba(255,138,91,0.35);
     cursor: pointer;
     transition: transform .15s var(--ease), box-shadow .15s var(--ease);
   }
+  .add-record-btn > span { white-space: nowrap; max-width: 100%; }
   .add-record-btn svg { width: 22px; height: 22px; display: block; flex: none; }
   .add-record-btn:active { transform: scale(0.98); box-shadow: 0 2px 8px rgba(255,138,91,0.3); }
   .entry-box { max-height: 90vh; max-height: 90dvh; }
@@ -931,8 +932,8 @@
   .ef-all .ef-input { flex: 0 0 84px; width: 84px; text-align: center; }
   .ef-btn {
     display: block; width: 100%; min-height: 46px; padding: 10px 14px;
-    border: 1px solid var(--border); border-radius: var(--radius-md);
-    background: var(--surface-alt); color: var(--sub);
+    border: 1.5px solid var(--sub); border-radius: var(--radius-md);
+    background: var(--card); color: var(--text);
     font-size: 14px; font-weight: 700; letter-spacing: 0.06em; font-family: inherit; cursor: pointer;
     transition: transform .15s var(--ease), opacity .15s var(--ease);
   }
@@ -986,17 +987,20 @@
   }
   body.sess-open { overflow: hidden; }
   body.sess-open .toast { bottom: calc(190px + var(--safe-b)); }
-  .sess-overlay { position: fixed; inset: 0; z-index: 40; display: none; background: var(--bg); color: var(--text); }
-  .sess-overlay.show { display: block; }
+  .sess-overlay { position: fixed; inset: 0; z-index: 40; display: none; background: var(--modal-overlay); color: var(--text); }
+  .sess-overlay.show { display: flex; align-items: flex-end; justify-content: center; }
   .sess-overlay input { -webkit-user-select: text; user-select: text; }
   .sess-shell {
-    height: 100%; max-width: 480px; margin: 0 auto; min-width: 0;
+    width: 100%; height: auto; max-height: 92vh; max-height: 92dvh;
+    max-width: 480px; margin: 0 auto; min-width: 0;
     display: flex; flex-direction: column;
+    background: var(--bg); border-radius: 24px 24px 0 0; overflow: hidden;
+    box-shadow: 0 -8px 30px rgba(0,0,0,0.12);
     padding-left: var(--safe-l); padding-right: var(--safe-r);
   }
   .sess-head {
     flex: 0 0 auto; display: flex; align-items: center; gap: 6px;
-    padding: calc(8px + var(--safe-t)) 12px 8px; min-height: 64px;
+    padding: 8px 12px; min-height: 64px;
     background: linear-gradient(180deg, var(--card), var(--bg));
     border-bottom: 1px solid var(--border-soft);
   }
@@ -1104,25 +1108,28 @@
   }
   .sess-step:active { transform: scale(0.95); background: var(--chip-active-bg); }
   .sess-unit { flex: 0 0 auto; font-size: 13px; color: var(--sub); }
-  .sess-set { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .sess-set { display: flex; align-items: center; gap: 4px; margin-bottom: 8px; min-width: 0; }
   .sess-set-n {
-    flex: 0 0 30px; height: 30px; border-radius: 50%; background: var(--border-soft); color: var(--sub);
-    display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700;
+    flex: 0 0 26px; width: 26px; height: 26px; border-radius: 50%; background: var(--border-soft); color: var(--sub);
+    display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; margin-right: 2px;
   }
-  .sess-set .ef-input { flex: 1 1 auto; width: auto; height: 56px; font-size: 24px; font-weight: 700; text-align: center; padding: 0 4px; }
+  .sess-set .ef-input { flex: 1 1 0; width: 0; min-width: 0; height: 48px; font-size: 18px; font-weight: 700; text-align: center; padding: 0 2px; }
+  .sess-set .sess-unit { flex: 0 0 auto; font-size: 12px; margin-right: 4px; }
   .sess-done {
-    flex: 0 0 92px; height: 56px; padding: 0; border-radius: 14px;
+    flex: 0 0 40px; width: 40px; height: 40px; padding: 0; border-radius: 50%;
     border: 2px solid var(--accent); background: transparent; color: var(--accent);
-    font-family: inherit; font-size: 15px; font-weight: 800; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-family: inherit; font-size: 18px; font-weight: 800; line-height: 1; cursor: pointer;
     transition: transform .15s var(--ease), background .15s var(--ease);
   }
-  .sess-done:active { transform: scale(0.95); }
+  .sess-done:active { transform: scale(0.92); }
   .sess-done.on { border-color: transparent; color: #fff; background: linear-gradient(135deg, #E8602B, #FF8A5B); box-shadow: 0 3px 10px rgba(255,138,91,0.35); }
   .sess-x {
-    flex: 0 0 40px; height: 56px; padding: 0; border: none; background: none; color: var(--sub);
-    font-family: inherit; font-size: 22px; cursor: pointer;
+    flex: 0 0 32px; width: 32px; height: 40px; padding: 0; border: none; background: none; color: var(--sub);
+    font-family: inherit; font-size: 22px; line-height: 1; cursor: pointer;
   }
   .sess-x:active { color: var(--danger); }
+  .sess-item-top > :last-child { flex: none; }
   .sess-addset {
     width: 100%; min-height: 52px; margin-top: 4px; border-radius: 14px;
     border: 2px dashed var(--border); background: none; color: var(--accent);
@@ -1148,13 +1155,13 @@
   .sess-rest-cap { font-size: 11px; color: var(--sub); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sess-rps { display: flex; gap: 6px; }
   .sess-rp {
-    flex: 1 1 0; min-width: 0; min-height: 40px; padding: 0; border-radius: 12px;
+    flex: 1 1 0; min-width: 0; min-height: 44px; padding: 0; border-radius: 12px;
     border: 1px solid var(--border); background: var(--surface-alt); color: var(--text);
     font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
   }
   .sess-rp.on { border-color: var(--accent); background: var(--chip-active-bg); color: var(--accent); }
   .sess-skip {
-    flex: 0 0 auto; min-width: 70px; min-height: 48px; padding: 0 10px; border-radius: 14px;
+    flex: 0 0 auto; min-width: 70px; min-height: 44px; padding: 0 10px; border-radius: 12px;
     border: 1px solid var(--border); background: var(--surface-alt); color: var(--text);
     font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer;
   }
@@ -1202,7 +1209,7 @@
       <div class="record-actions">
         <button class="add-record-btn" type="button" id="sessionOpenBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8v8"/><path d="M4 9v6"/><path d="M20 9v6"/><path d="M22 8v8"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M9 8v8"/><path d="M15 8v8"/></svg>
-          <span id="sessionOpenLabel">トレーニングを記録する</span>
+          <span id="sessionOpenLabel">トレーニング記録</span>
         </button>
         <button class="add-record-btn" type="button" data-open-entry="bw">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg>
@@ -3918,6 +3925,8 @@
         volume_kg: (hasW && reps.length) ? Math.round(total * repSum * 100) / 100 : null,
         total_kg: total,
         unknown: [],
+        load_kg: null,
+        load_reps: null,
         hands: (hasW && wtype === "片手") ? "両手" : null
       };
       entry.raw = m + " " + time + ": " + entrySummary(entry) + "（端末入力）";
@@ -4115,20 +4124,34 @@
     // ---------- 永続化 ----------
     function cleanItem(it) {
       if (!it || typeof it !== "object" || !it.exercise) return null;
-      var reps = Array.isArray(it.reps) ? it.reps.map(function (r) { return parseInt(r, 10); }).filter(function (r) { return isFinite(r) && r > 0; }) : [];
-      var w = parseFloat(it.weight_kg);
+      // 種目は sets:[{w, r}]（w は kg または null=自重、r は回数）で保持。旧形式（weight_kg + reps[]）も読み込める
+      var sets = [];
+      var pw = function (v) { var n = parseFloat(v); return (isFinite(n) && n > 0) ? n : null; };
+      if (Array.isArray(it.sets)) {
+        it.sets.forEach(function (s) {
+          var r = parseInt(s && s.r, 10);
+          if (isFinite(r) && r > 0) sets.push({ w: pw(s.w), r: r });
+        });
+      } else if (Array.isArray(it.reps)) {
+        var lw = pw(it.weight_kg);
+        it.reps.forEach(function (v) { var r = parseInt(v, 10); if (isFinite(r) && r > 0) sets.push({ w: lw, r: r }); });
+      }
       var mi = parseFloat(it.minutes);
-      var out = { exercise: String(it.exercise), part: String(it.part || "不明"), weight_kg: (isFinite(w) && w > 0) ? w : null, weight_type: "自重", reps: reps, note: it.note ? String(it.note) : "" };
-      if (isFinite(mi) && mi > 0) { out.minutes = mi; out.weight_kg = null; out.weight_type = "-"; out.reps = []; }
-      else if (out.weight_kg != null) out.weight_type = it.weight_type === "片手" ? "片手" : "合計";
+      var out = { exercise: String(it.exercise), part: String(it.part || "不明"), weight_type: it.weight_type === "片手" ? "片手" : "合計", sets: sets, note: it.note ? String(it.note) : "" };
+      if (isFinite(mi) && mi > 0) { out.minutes = mi; out.weight_type = "-"; out.sets = []; }
       return out;
     }
     function cleanDraft(d) {
       if (!d || typeof d !== "object" || !d.exercise) return null;
-      var sets = Array.isArray(d.sets) ? d.sets.map(function (s) { return { reps: s && s.reps != null ? String(s.reps) : "", done: !!(s && s.done) }; }) : [];
-      if (!sets.length) sets = [{ reps: "", done: false }];
+      var legacyW = d.weight != null ? String(d.weight) : ""; // 旧形式：種目全体で1つの重量
+      var sets = Array.isArray(d.sets) ? d.sets.map(function (s) {
+        s = s || {};
+        var r = s.r != null ? s.r : s.reps;
+        return { w: s.w != null ? String(s.w) : legacyW, r: r != null ? String(r) : "", done: !!s.done };
+      }) : [];
+      if (!sets.length) sets = [{ w: legacyW, r: "", done: false }];
       var ei = (typeof d.editIdx === "number" && d.editIdx >= 0) ? d.editIdx : null;
-      return { exercise: String(d.exercise), part: String(d.part || "不明"), weight: d.weight != null ? String(d.weight) : "", wtype: d.wtype === "片手" ? "片手" : "合計", sets: sets, minutes: d.minutes != null ? String(d.minutes) : "", note: d.note != null ? String(d.note) : "", editIdx: ei };
+      return { exercise: String(d.exercise), part: String(d.part || "不明"), wtype: d.wtype === "片手" ? "片手" : "合計", sets: sets, minutes: d.minutes != null ? String(d.minutes) : "", note: d.note != null ? String(d.note) : "", editIdx: ei };
     }
     function readSession() {
       var o = null;
@@ -4231,45 +4254,64 @@
     }
 
     // ---------- 計算・変換 ----------
-    function itemTotalKg(it) {
-      return (it.weight_kg != null && it.weight_kg > 0) ? round2(it.weight_type === "片手" ? it.weight_kg * 2 : it.weight_kg) : null;
+    function totalKgOf(it, w) {
+      return (w != null && w > 0) ? round2(it.weight_type === "片手" ? w * 2 : w) : null;
     }
-    function repSum(it) { return it.reps.reduce(function (s, r) { return s + r; }, 0); }
+    // 連続する同重量のセットをまとめる → [{ w, reps:[] }]
+    function groupSets(it) {
+      var groups = [];
+      it.sets.forEach(function (s) {
+        var w = (s.w != null && s.w > 0) ? s.w : null;
+        var g = groups[groups.length - 1];
+        if (g && g.w === w) g.reps.push(s.r);
+        else groups.push({ w: w, reps: [s.r] });
+      });
+      return groups;
+    }
     function itemSummary(it) {
       if (isCardioItem(it)) return fmtNum(it.minutes || 0) + "分";
-      var t = weightText(it.weight_kg, it.weight_type);
-      if (it.reps.length) t += " × " + it.reps.join("・") + "（" + it.reps.length + "セット）";
-      return t;
+      if (!it.sets.length) return "自重";
+      return groupSets(it).map(function (g) { return weightText(g.w, it.weight_type) + " × " + g.reps.join("・"); }).join(" / ") + "（" + it.sets.length + "セット）";
     }
     function sessionStats(endMs) {
       var sets = 0, vol = 0, cardio = 0;
       sess.items.forEach(function (it) {
         if (isCardioItem(it)) { cardio += it.minutes || 0; return; }
-        sets += it.reps.length;
-        var tot = itemTotalKg(it);
-        if (tot != null && it.reps.length) vol += tot * repSum(it);
+        sets += it.sets.length;
+        it.sets.forEach(function (s) {
+          var tot = totalKgOf(it, s.w);
+          if (tot != null) vol += tot * s.r;
+        });
       });
       return { ms: Math.max(0, endMs - startMs()), count: sess.items.length, sets: sets, volume: round2(vol), cardio: round2(cardio) };
     }
-    function itemToEntry(it, date, time, durMin) {
-      var entry;
+    // 1種目 → 保存用エントリ配列（連続する同重量ごとに1エントリ。data.json と同じ weight_kg + reps[] 形）
+    function itemToEntries(it, date, time, durMin) {
+      var list = [];
       if (isCardioItem(it)) {
         // data.json の有酸素と同じ形（minutes、reps/sets は null、weight_type は "-"）
-        entry = { id: newLocalId(), date: date, time: time, exercise: it.exercise, part: "有酸素", weight_kg: null, weight_type: "-", reps: null, sets: null, minutes: it.minutes, unknown: [], note: it.note || null, raw: "", load_kg: null, load_reps: null, volume_kg: null, hands: null };
+        list.push({ id: newLocalId(), date: date, time: time, exercise: it.exercise, part: "有酸素", weight_kg: null, weight_type: "-", reps: null, sets: null, minutes: it.minutes, unknown: [], note: it.note || null, raw: "", load_kg: null, load_reps: null, volume_kg: null, hands: null });
       } else {
-        var hasW = it.weight_kg != null && it.weight_kg > 0;
-        var total = itemTotalKg(it);
-        entry = {
-          id: newLocalId(), date: date, time: time, exercise: it.exercise, part: it.part || "不明",
-          weight_kg: hasW ? it.weight_kg : null, weight_type: hasW ? it.weight_type : "自重",
-          reps: it.reps.slice(), sets: it.reps.length || null, note: it.note || null, raw: "",
-          volume_kg: (hasW && it.reps.length) ? round2(total * repSum(it)) : null,
-          total_kg: total, unknown: [], load_kg: null, load_reps: null,
-          hands: (hasW && it.weight_type === "片手") ? "両手" : null
-        };
+        var groups = groupSets(it);
+        if (!groups.length) groups = [{ w: null, reps: [] }];
+        groups.forEach(function (g, gi) {
+          var hasW = g.w != null;
+          var total = totalKgOf(it, g.w);
+          var sum = g.reps.reduce(function (a, r) { return a + r; }, 0);
+          list.push({
+            id: newLocalId(), date: date, time: time, exercise: it.exercise, part: it.part || "不明",
+            weight_kg: hasW ? g.w : null, weight_type: hasW ? it.weight_type : "自重",
+            reps: g.reps.slice(), sets: g.reps.length || null, note: gi === 0 ? (it.note || null) : null, raw: "",
+            volume_kg: (hasW && g.reps.length) ? round2(total * sum) : null,
+            total_kg: total, unknown: [], load_kg: null, load_reps: null,
+            hands: (hasW && it.weight_type === "片手") ? "両手" : null
+          });
+        });
       }
-      entry.raw = pad2(+date.slice(5, 7)) + "/" + pad2(+date.slice(8, 10)) + " " + time + ": " + entrySummary(entry) + "（セッション記録・所要時間 約" + durMin + "分）";
-      return entry;
+      list.forEach(function (entry) {
+        entry.raw = pad2(+date.slice(5, 7)) + "/" + pad2(+date.slice(8, 10)) + " " + time + ": " + entrySummary(entry) + "（セッション記録・所要時間 約" + durMin + "分）";
+      });
+      return list;
     }
 
     // ---------- 休憩タイマー ----------
@@ -4339,7 +4381,7 @@
         txt = "トレーニング中（経過 " + c + "）";
         html = "トレーニング中<small>（経過 " + c + "）</small>";
       } else {
-        txt = "トレーニングを記録する";
+        txt = "トレーニング記録";
         html = txt;
       }
       if (txt === entryBtnText) return;
@@ -4430,9 +4472,11 @@
     function setsHtml(d) {
       return d.sets.map(function (s, i) {
         return '<div class="sess-set"><span class="sess-set-n">' + (i + 1) + "</span>" +
-          '<input class="ef-input" type="number" inputmode="numeric" min="0" max="999" placeholder="回数" aria-label="' + (i + 1) + 'セット目の回数" data-sin="reps" data-i="' + i + '" value="' + escapeHtml(s.reps) + '">' +
+          '<input class="ef-input" type="number" inputmode="decimal" step="any" min="0" placeholder="自重" aria-label="' + (i + 1) + 'セット目の重量（kg）" data-sin="w" data-i="' + i + '" value="' + escapeHtml(s.w) + '">' +
+          '<span class="sess-unit">kg</span>' +
+          '<input class="ef-input" type="number" inputmode="numeric" min="0" max="999" placeholder="回数" aria-label="' + (i + 1) + 'セット目の回数" data-sin="reps" data-i="' + i + '" value="' + escapeHtml(s.r) + '">' +
           '<span class="sess-unit">回</span>' +
-          '<button type="button" class="sess-done' + (s.done ? " on" : "") + '" data-sact="setdone" data-i="' + i + '" aria-pressed="' + (s.done ? "true" : "false") + '">✓完了</button>' +
+          '<button type="button" class="sess-done' + (s.done ? " on" : "") + '" data-sact="setdone" data-i="' + i + '" aria-pressed="' + (s.done ? "true" : "false") + '" aria-label="' + (i + 1) + 'セット目を完了">✓</button>' +
           '<button type="button" class="sess-x" data-sact="delset" data-i="' + i + '" aria-label="' + (i + 1) + 'セット目を削除">×</button></div>';
       }).join("");
     }
@@ -4444,10 +4488,9 @@
       if (cardio) {
         body += '<div class="card"><div class="section-title">時間</div><div class="sess-w-row"><button type="button" class="sess-step" data-sact="wstep" data-t="minutes" data-d="-5">−5</button><input class="ef-input" id="sessMinutes" type="number" inputmode="numeric" min="0" step="any" placeholder="分" aria-label="時間（分）" data-sin="minutes" value="' + escapeHtml(d.minutes) + '"><span class="sess-unit">分</span><button type="button" class="sess-step" data-sact="wstep" data-t="minutes" data-d="5">+5</button></div></div>';
       } else {
-        body += '<div class="card"><div class="section-title">重量</div><div class="ef-seg sess-seg" id="sessWt">' +
+        body += '<div class="card"><div class="section-title">重量の種類</div><div class="ef-seg sess-seg" id="sessWt">' +
           ["合計", "片手"].map(function (t) { return '<button type="button" class="ef-seg-btn' + (d.wtype === t ? " active" : "") + '" data-sact="wt" data-w="' + t + '">' + t + "</button>"; }).join("") +
-          '</div><div class="sess-w-row"><button type="button" class="sess-step" data-sact="wstep" data-t="weight" data-d="-2.5">−2.5</button><input class="ef-input" id="sessWeight" type="number" inputmode="decimal" step="any" min="0" placeholder="自重" aria-label="重量（kg）" data-sin="weight" value="' + escapeHtml(d.weight) + '"><span class="sess-unit">kg</span><button type="button" class="sess-step" data-sact="wstep" data-t="weight" data-d="2.5">+2.5</button></div>' +
-          '<div class="sess-hint" style="margin:8px 0 0">自重は空欄。「片手」は片手あたりの重量で、合計は×2で集計します。</div></div>';
+          '</div><div class="sess-hint" style="margin:8px 0 0">全セット共通。自重は重量を空欄に。「片手」は片手あたりの重量で、合計は×2で集計します。</div></div>';
         body += '<div class="card"><div class="section-title">セット</div><div id="sessSets">' + setsHtml(d) + '</div><button type="button" class="sess-addset" data-sact="addset">+セット</button></div>';
       }
       body += '<div class="card"><div class="section-title">メモ（任意）</div><input class="ef-input" id="sessNote" type="text" placeholder="メモ" aria-label="メモ" data-sin="note" value="' + escapeHtml(d.note) + '"></div>';
@@ -4578,7 +4621,7 @@
       var durMin = Math.max(1, Math.round((endMs - startMs()) / 60000));
       var date = sess.date, time = startHHMM();
       var loc = readLocal();
-      sess.items.forEach(function (it) { loc.entries.push(itemToEntry(it, date, time, durMin)); });
+      sess.items.forEach(function (it) { itemToEntries(it, date, time, durMin).forEach(function (en) { loc.entries.push(en); }); });
       if (!writeLocal(loc)) { showToast("保存できませんでした（端末の容量を確認）"); return; }
       sess = null;
       writeSession();
@@ -4589,18 +4632,18 @@
     }
     function newDraft(name, part) {
       var prev = findPrevious(name, part === "有酸素");
-      return { exercise: name, part: part, weight: "", wtype: (prev && prev.entry.weight_type === "片手") ? "片手" : "合計", sets: [{ reps: "", done: false }], minutes: "", note: "", editIdx: null };
+      return { exercise: name, part: part, wtype: (prev && prev.entry.weight_type === "片手") ? "片手" : "合計", sets: [{ w: "", r: "", done: false }], minutes: "", note: "", editIdx: null };
     }
     function draftFromItem(it, idx) {
       return {
         exercise: it.exercise, part: it.part,
-        weight: it.weight_kg != null ? String(it.weight_kg) : "", wtype: it.weight_type === "片手" ? "片手" : "合計",
-        sets: it.reps.length ? it.reps.map(function (r) { return { reps: String(r), done: true }; }) : [{ reps: "", done: false }],
+        wtype: it.weight_type === "片手" ? "片手" : "合計",
+        sets: it.sets.length ? it.sets.map(function (s) { return { w: s.w != null ? String(s.w) : "", r: String(s.r), done: true }; }) : [{ w: "", r: "", done: false }],
         minutes: it.minutes != null ? String(it.minutes) : "", note: it.note || "", editIdx: idx
       };
     }
     function draftDirty(d) {
-      return !!(d.weight || d.minutes || d.note || d.sets.some(function (s) { return s.reps || s.done; }));
+      return !!(d.minutes || d.note || d.sets.some(function (s) { return s.r || s.done; }));
     }
     function openEditor(name) {
       sess.draft = newDraft(name, sv.addPart);
@@ -4616,21 +4659,22 @@
       if (d.part === "有酸素") {
         var mi = parseFloat(d.minutes);
         if (!isFinite(mi) || mi <= 0) { showToast("時間（分）を入力してください"); return; }
-        item = { exercise: d.exercise, part: d.part, weight_kg: null, weight_type: "-", reps: [], minutes: Math.round(mi * 10) / 10, note: note };
+        item = { exercise: d.exercise, part: d.part, weight_type: "-", sets: [], minutes: Math.round(mi * 10) / 10, note: note };
       } else {
-        var wk = parseFloat(d.weight);
-        var hasW = isFinite(wk) && wk > 0;
-        var rows = d.sets.filter(function (s) { return parseInt(s.reps, 10) > 0; });
+        var rows = d.sets.filter(function (s) { return parseInt(s.r, 10) > 0; });
         var doneRows = rows.filter(function (s) { return s.done; });
-        if (!rows.length && !hasW) { showToast("回数か重量を入力してください"); return; }
+        if (!rows.length) { showToast("回数を入力してください"); return; }
         if (doneRows.length && doneRows.length < rows.length) {
           if (!window.confirm("未完了のセットが" + (rows.length - doneRows.length) + "つあります。\n完了済みの" + doneRows.length + "セットだけ追加しますか？\n（キャンセルで編集に戻ります）")) return;
           rows = doneRows;
         }
         item = {
-          exercise: d.exercise, part: d.part,
-          weight_kg: hasW ? wk : null, weight_type: hasW ? d.wtype : "自重",
-          reps: rows.map(function (s) { return parseInt(s.reps, 10); }), note: note
+          exercise: d.exercise, part: d.part, weight_type: d.wtype === "片手" ? "片手" : "合計",
+          sets: rows.map(function (s) {
+            var w = parseFloat(s.w);
+            return { w: (isFinite(w) && w > 0) ? w : null, r: parseInt(s.r, 10) };
+          }),
+          note: note
         };
       }
       if (d.editIdx != null && sess.items[d.editIdx]) sess.items[d.editIdx] = item;
@@ -4744,13 +4788,12 @@
           break;
         case "wstep": {
           if (!d) break;
-          var key = el.getAttribute("data-t") === "minutes" ? "minutes" : "weight";
-          var cur = parseFloat(d[key]);
+          var cur = parseFloat(d.minutes);
           if (!isFinite(cur)) cur = 0;
           var nv = Math.max(0, round2(cur + parseFloat(el.getAttribute("data-d"))));
-          d[key] = nv > 0 ? String(nv) : "";
-          var inp = $(key === "minutes" ? "sessMinutes" : "sessWeight");
-          if (inp) inp.value = d[key];
+          d.minutes = nv > 0 ? String(nv) : "";
+          var inp = $("sessMinutes");
+          if (inp) inp.value = d.minutes;
           writeSession();
           break;
         }
@@ -4759,7 +4802,7 @@
           var s = d.sets[i];
           if (s.done) s.done = false;
           else {
-            if (!(parseInt(s.reps, 10) > 0)) {
+            if (!(parseInt(s.r, 10) > 0)) {
               showToast("回数を入力してください");
               var ri = $("sessSets").querySelectorAll('input[data-sin="reps"]')[i];
               if (ri) ri.focus();
@@ -4777,17 +4820,17 @@
           if (!d) break;
           if (d.sets.length >= MAX_SETS) { showToast("セット数が上限です"); break; }
           var last = d.sets[d.sets.length - 1];
-          d.sets.push({ reps: last ? last.reps : "", done: false });
+          d.sets.push({ w: last ? last.w : "", r: last ? last.r : "", done: false });
           $("sessSets").innerHTML = setsHtml(d);
-          var rows = $("sessSets").querySelectorAll(".sess-set");
-          if (rows.length && rows[rows.length - 1].scrollIntoView) rows[rows.length - 1].scrollIntoView({ block: "nearest" });
+          var setRows = $("sessSets").querySelectorAll(".sess-set");
+          if (setRows.length && setRows[setRows.length - 1].scrollIntoView) setRows[setRows.length - 1].scrollIntoView({ block: "nearest" });
           writeSession();
           break;
         }
         case "delset":
           if (!d || !d.sets[i]) break;
           if (d.sets.length > 1) d.sets.splice(i, 1);
-          else d.sets[0] = { reps: "", done: false };
+          else d.sets[0] = { w: d.sets[0].w, r: "", done: false };
           $("sessSets").innerHTML = setsHtml(d);
           writeSession();
           break;
@@ -4799,9 +4842,10 @@
           var pe = pv.entry;
           if (cardio) d.minutes = String(pe.minutes);
           else {
-            d.weight = (pe.weight_kg != null && pe.weight_kg > 0) ? String(pe.weight_kg) : "";
+            var pw = (pe.weight_kg != null && pe.weight_kg > 0) ? String(pe.weight_kg) : "";
             d.wtype = pe.weight_type === "片手" ? "片手" : "合計";
-            d.sets = pe.reps.map(function (r) { return { reps: String(r), done: false }; });
+            d.sets = pe.reps.map(function (r) { return { w: pw, r: String(r), done: false }; });
+            if (!d.sets.length) d.sets = [{ w: pw, r: "", done: false }];
           }
           writeSession();
           render();
@@ -4834,9 +4878,11 @@
       if (!d) return;
       if (key === "reps") {
         var i = parseInt(el.getAttribute("data-i"), 10);
-        if (d.sets[i]) d.sets[i].reps = el.value;
-      } else if (key === "weight") d.weight = el.value;
-      else if (key === "minutes") d.minutes = el.value;
+        if (d.sets[i]) d.sets[i].r = el.value;
+      } else if (key === "w") {
+        var wi = parseInt(el.getAttribute("data-i"), 10);
+        if (d.sets[wi]) d.sets[wi].w = el.value;
+      } else if (key === "minutes") d.minutes = el.value;
       else if (key === "note") d.note = el.value;
       else return;
       writeSession();
