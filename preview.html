@@ -619,7 +619,7 @@
   .modal-close-btn {
     display: block; width: 100%; margin-top: 16px; height: 46px; padding: 0 12px;
     border: 1px solid var(--border-soft); border-radius: var(--radius-md);
-    background: var(--surface-alt); color: var(--sub); font-weight: 600; font-size: 14px; letter-spacing: 0.08em;
+    background: var(--card); color: var(--text); border-color: var(--sub); font-weight: 700; font-size: 14px; letter-spacing: 0.08em;
     font-family: inherit; cursor: pointer;
     transition: transform .15s var(--ease), background .15s var(--ease);
   }
@@ -886,6 +886,8 @@
     cursor: pointer;
     transition: transform .15s var(--ease), box-shadow .15s var(--ease);
   }
+  .add-record-btn { height: 76px; padding-left: 2px; padding-right: 2px; font-size: 11.5px; letter-spacing: 0; }
+  .add-record-btn > span { white-space: nowrap; max-width: 100%; }
   .add-record-btn svg { width: 22px; height: 22px; display: block; flex: none; }
   .add-record-btn:active { transform: scale(0.98); box-shadow: 0 2px 8px rgba(255,138,91,0.3); }
   .entry-box { max-height: 90vh; max-height: 90dvh; }
@@ -931,8 +933,8 @@
   .ef-all .ef-input { flex: 0 0 84px; width: 84px; text-align: center; }
   .ef-btn {
     display: block; width: 100%; min-height: 46px; padding: 10px 14px;
-    border: 1px solid var(--border); border-radius: var(--radius-md);
-    background: var(--surface-alt); color: var(--sub);
+    border: 1.5px solid var(--sub); border-radius: var(--radius-md);
+    background: var(--card); color: var(--text);
     font-size: 14px; font-weight: 700; letter-spacing: 0.06em; font-family: inherit; cursor: pointer;
     transition: transform .15s var(--ease), opacity .15s var(--ease);
   }
@@ -986,17 +988,20 @@
   }
   body.sess-open { overflow: hidden; }
   body.sess-open .toast { bottom: calc(190px + var(--safe-b)); }
-  .sess-overlay { position: fixed; inset: 0; z-index: 40; display: none; background: var(--bg); color: var(--text); }
-  .sess-overlay.show { display: block; }
+  .sess-overlay { position: fixed; inset: 0; z-index: 40; display: none; background: var(--modal-overlay); color: var(--text); }
+  .sess-overlay.show { display: flex; align-items: flex-end; justify-content: center; }
   .sess-overlay input { -webkit-user-select: text; user-select: text; }
   .sess-shell {
-    height: 100%; max-width: 480px; margin: 0 auto; min-width: 0;
+    width: 100%; height: auto; max-height: 92vh; max-height: 92dvh;
+    max-width: 480px; margin: 0 auto; min-width: 0;
     display: flex; flex-direction: column;
+    background: var(--bg); border-radius: 24px 24px 0 0; overflow: hidden;
+    box-shadow: 0 -8px 30px rgba(0,0,0,0.12);
     padding-left: var(--safe-l); padding-right: var(--safe-r);
   }
   .sess-head {
     flex: 0 0 auto; display: flex; align-items: center; gap: 6px;
-    padding: calc(8px + var(--safe-t)) 12px 8px; min-height: 64px;
+    padding: 8px 12px; min-height: 64px;
     background: linear-gradient(180deg, var(--card), var(--bg));
     border-bottom: 1px solid var(--border-soft);
   }
@@ -1205,7 +1210,7 @@
       <div class="record-actions">
         <button class="add-record-btn" type="button" id="sessionOpenBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8v8"/><path d="M4 9v6"/><path d="M20 9v6"/><path d="M22 8v8"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M9 8v8"/><path d="M15 8v8"/></svg>
-          <span id="sessionOpenLabel">トレーニングを記録する</span>
+          <span id="sessionOpenLabel">トレーニング記録</span>
         </button>
         <button class="add-record-btn" type="button" data-open-entry="bw">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg>
@@ -4377,7 +4382,7 @@
         txt = "トレーニング中（経過 " + c + "）";
         html = "トレーニング中<small>（経過 " + c + "）</small>";
       } else {
-        txt = "トレーニングを記録する";
+        txt = "トレーニング記録";
         html = txt;
       }
       if (txt === entryBtnText) return;
