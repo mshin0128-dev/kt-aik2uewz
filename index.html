@@ -886,10 +886,23 @@
   .photo-compare-cap { font-size: 11px; color: var(--sub); margin-top: 6px; text-align: center; overflow-wrap: anywhere; }
 
   /* ---------- 手入力（端末ローカル記録） ---------- */
-  /* 「記録する」ボトムシート（タブバーの「記録する」から開く。既存の modal-overlay / modal-box と同じ型） */
-  .record-sheet .entry-title { margin-bottom: 14px; }
-  .record-sheet .modal-close-btn { margin-top: 14px; }
-  .record-actions { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  /* 「記録する」全画面ビュー（タブバー左端の「記録する」から開く。ヘッダーはセッション画面と同じ sess-head 系） */
+  body.rec-open { overflow: hidden; }
+  .rec-overlay { position: fixed; inset: 0; z-index: 30; display: none; background: var(--bg); color: var(--text); }
+  .rec-overlay.show { display: flex; justify-content: center; animation: recIn .2s var(--ease); }
+  @keyframes recIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  .rec-shell {
+    width: 100%; max-width: 480px; height: 100%; min-width: 0;
+    display: flex; flex-direction: column; background: var(--bg);
+    padding-left: var(--safe-l); padding-right: var(--safe-r);
+  }
+  .sess-head.rec-head { padding-top: calc(8px + var(--safe-t)); min-height: calc(64px + var(--safe-t)); }
+  .rec-body {
+    flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden;
+    overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+    padding: 16px 14px calc(20px + var(--safe-b));
+  }
+  .record-actions { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
   .add-record-btn {
     display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 10px;
     min-width: 0; height: 54px; padding: 0 16px;
@@ -1174,47 +1187,65 @@
   .sess-step:active { transform: scale(0.95); background: var(--chip-active-bg); }
   .sess-unit { flex: 0 0 auto; font-size: 13px; color: var(--sub); }
 
-  /* セット行：番号 | 重量ステッパー | 回数ステッパー | ✓ | ×（1行・入力欄はほかと同じ高さ48pxで統一） */
+  /* セット行：番号 | 重量ステッパー | 回数ステッパー | ✓ | ×（1行・高さ52px）
+     幅の内訳（390px幅・中身328px）：番号18 + 重量(44+入力52+44+枠2) + 回数(38+入力26+38+枠2) + ✓30 + ×22 + 隙間3×4
+     --sn 番号列 / --sw 重量ステッパー幅 / --sr 回数ステッパー幅 / --ri 回数入力幅 / --cd ✓列 / --cx ×列 */
   .sess-set, .sess-set-head {
-    display: grid; grid-template-columns: 20px minmax(0, 1fr) 96px 30px 22px;
-    column-gap: 4px; align-items: center; min-width: 0;
+    --set-h: 52px; --sn: 18px; --sw: 44px; --sr: 38px; --ri: 26px; --cd: 30px; --cx: 22px;
+    display: grid;
+    grid-template-columns: var(--sn) minmax(0, 1fr) calc(var(--sr) * 2 + var(--ri) + 2px) var(--cd) var(--cx);
+    column-gap: 3px; align-items: center; min-width: 0;
   }
   .sess-set { margin-bottom: 10px; }
   .sess-set-head { margin-bottom: 6px; font-size: 12px; font-weight: 600; color: var(--sub); text-align: center; }
   .sess-set-n {
-    width: 20px; height: 20px; border-radius: 50%; background: var(--border-soft); color: var(--sub);
+    width: var(--sn); height: var(--sn); border-radius: 50%; background: var(--border-soft); color: var(--sub);
     display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums;
   }
   .sess-num {
-    display: flex; align-items: stretch; height: var(--field-h); min-width: 0;
-    border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-alt);
+    display: flex; align-items: stretch; height: var(--set-h); min-width: 0;
+    border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--card);
     transition: border-color .15s var(--ease), box-shadow .15s var(--ease);
   }
   .sess-num:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--chip-active-bg); }
   .sess-num input {
     -webkit-appearance: none; appearance: none; -moz-appearance: textfield;
-    flex: 1 1 0; width: 0; min-width: 0; height: 100%; margin: 0; padding: 0 2px;
+    flex: 1 1 0; width: 0; min-width: 0; height: 100%; margin: 0; padding: 0 1px;
     border: none; border-radius: 0; background: transparent; outline: none; color: var(--text);
-    font-family: inherit; font-size: 18px; font-weight: 600; line-height: calc(var(--field-h) - 2px); text-align: center;
-    font-variant-numeric: tabular-nums;
+    font-family: inherit; font-size: 18px; font-weight: 600; line-height: calc(var(--set-h) - 2px); text-align: center;
+    font-variant-numeric: tabular-nums; letter-spacing: -0.01em;
   }
+  .sess-num.reps input { flex: 0 0 var(--ri); width: var(--ri); padding: 0; }
   .sess-num input::-webkit-outer-spin-button, .sess-num input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-  .sess-num input::placeholder { color: var(--sub); opacity: 0.6; font-size: 13px; font-weight: 500; }
+  .sess-num input::placeholder { color: var(--sub); opacity: 0.6; font-size: 13px; font-weight: 500; letter-spacing: 0; }
+  /* ステッパー：入力部（白）と区切った独立ボタン。文字は本文色・太字 */
   .sess-num button {
-    position: relative; flex: 0 0 30px; width: 30px; height: 100%; padding: 0;
-    border: none; background: none; color: var(--sub);
-    font-family: inherit; font-size: 12px; font-weight: 600; line-height: 1; letter-spacing: -0.02em;
+    position: relative; flex: 0 0 var(--sw); width: var(--sw); height: 100%; padding: 0;
+    border: none; background: var(--border-soft); color: var(--text);
+    font-family: inherit; font-size: 14px; font-weight: 600; line-height: 1; letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums; cursor: pointer;
+    -webkit-user-select: none; user-select: none;
+    transition: background .12s var(--ease), color .12s var(--ease), transform .12s var(--ease);
   }
-  .sess-num button:first-child { border-radius: 11px 0 0 11px; }
-  .sess-num button:last-child { border-radius: 0 11px 11px 0; }
-  .sess-num button:active { background: var(--chip-active-bg); color: var(--accent); }
-  .sess-num.reps button { flex-basis: 28px; width: 28px; font-size: 16px; font-weight: 500; }
+  .sess-num button:first-child { border-radius: 11px 0 0 11px; border-right: 1px solid var(--border); }
+  .sess-num button:last-child { border-radius: 0 11px 11px 0; border-left: 1px solid var(--border); }
+  .sess-num button:active {
+    background: var(--accent); color: var(--card); border-color: var(--accent);
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.18); transition-duration: 0s;
+  }
+  .sess-num.reps button { flex-basis: var(--sr); width: var(--sr); font-size: 17px; font-weight: 600; letter-spacing: 0; }
+  /* 390px 未満（375px など）：ステッパーを少し詰める */
+  @media (max-width: 389px) {
+    .sess-set, .sess-set-head { --sw: 40px; --sr: 36px; --ri: 24px; }
+  }
+  /* 375px 未満（360px など）：重量 38 / 回数 36（下限 36px）、隙間と番号列も詰める */
+  @media (max-width: 374px) {
+    .sess-set, .sess-set-head { --sn: 16px; --sw: 38px; --sr: 36px; --ri: 22px; column-gap: 2px; }
+    .sess-num button { font-size: 13px; }
+    .sess-num input { padding: 0; }
+  }
   @media (max-width: 359px) {
-    .sess-set, .sess-set-head { grid-template-columns: 18px minmax(0, 1fr) 88px 28px 20px; column-gap: 3px; }
-    .sess-num button { flex-basis: 26px; width: 26px; font-size: 10px; }
-    .sess-num.reps button { flex-basis: 24px; width: 24px; }
-    .sess-num input { font-size: 18px; }
+    .sess-set, .sess-set-head { --sw: 36px; --cd: 28px; --cx: 20px; }
     .sess-done { width: 28px; height: 28px; }
   }
   .sess-done {
@@ -1388,6 +1419,9 @@
   <input type="file" id="photoFileInput" class="photo-file-input" accept="image/*" aria-hidden="true" tabindex="-1">
 
   <nav class="tabbar">
+    <button class="tab-btn tab-action" id="recordSheetBtn" type="button" aria-label="記録する" aria-haspopup="dialog" aria-expanded="false" aria-controls="recordSheetOverlay">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span>記録する
+    </button>
     <button class="tab-btn active" data-screen="record" type="button" aria-label="記録">
       <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>記録
     </button>
@@ -1402,9 +1436,6 @@
     </button>
     <button class="tab-btn" data-screen="meal" type="button" aria-label="食事">
       <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M12 11V4"/><path d="M8 4c0 1.4 1 2 1 3.4"/><path d="M16 4c0 1.4-1 2-1 3.4"/></svg></span>食事
-    </button>
-    <button class="tab-btn tab-action" id="recordSheetBtn" type="button" aria-label="記録する" aria-haspopup="dialog" aria-expanded="false" aria-controls="recordSheetOverlay">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></span>記録する
     </button>
   </nav>
 </div>
@@ -1446,9 +1477,14 @@
   </div>
 </div>
 
-<div class="modal-overlay" id="recordSheetOverlay">
-  <div class="modal-box record-sheet" role="dialog" aria-modal="true" aria-labelledby="recordSheetTitle">
-    <h3 class="entry-title" id="recordSheetTitle">記録する</h3>
+<div class="rec-overlay" id="recordSheetOverlay" role="dialog" aria-modal="true" aria-labelledby="recordSheetTitle">
+  <div class="rec-shell">
+    <header class="sess-head rec-head">
+      <div class="sess-head-side"><button class="sess-head-btn" id="recordSheetClose" type="button">閉じる</button></div>
+      <div class="sess-head-mid"><div class="sess-title" id="recordSheetTitle">記録する</div></div>
+      <div class="sess-head-side right"></div>
+    </header>
+    <div class="rec-body">
     <div class="record-actions">
       <button class="add-record-btn" type="button" id="sessionOpenBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8v8"/><path d="M4 9v6"/><path d="M20 9v6"/><path d="M22 8v8"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M9 8v8"/><path d="M15 8v8"/></svg>
@@ -1463,7 +1499,7 @@
         <span>食事を記録する</span>
       </button>
     </div>
-    <button class="modal-close-btn" id="recordSheetClose" type="button">閉じる</button>
+    </div>
   </div>
 </div>
 
@@ -1502,7 +1538,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.18c";
+  var APP_VERSION = "v2026.11.18g";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   var PART_COLORS = {
@@ -4211,6 +4247,8 @@
     var sv = { open: false, view: "start", lastView: null, startParts: [], addPart: null, menuPart: null, menuBack: "start", freeText: "", menuFree: "", summaryAt: null };
     var rest = { running: false, done: false, startAt: 0, endAt: 0, total: 90, doneTimer: null };
     var entryBtnText = null;
+    // 種目エディタを開いた時点の下書き内容（draftSig）。エディタ表示中だけ保持し、ほかの画面へ移ると消す（保存しない）
+    var edSnap = null;
 
     function $(id) { return document.getElementById(id); }
     function round2(n) { return Math.round(n * 100) / 100; }
@@ -4688,6 +4726,8 @@
       foot.style.display = r.foot ? "" : "none";
       body.scrollTop = sv.lastView === v ? top : 0;
       sv.lastView = v;
+      if (v !== "editor") edSnap = null;
+      else if (edSnap == null && sess && sess.draft) edSnap = draftSig(sess.draft);
       renderRestBar(!!sess && (v === "session" || v === "add" || v === "editor"));
     }
     function go(view) { sv.view = view; render(); }
@@ -4698,6 +4738,8 @@
       sv.open = true;
       sv.lastView = null;
       sv.summaryAt = null;
+      edSnap = null; // 保存済みの下書きを復元した場合も、この時点の内容を基準にする
+      if (sess && sess.draft && !sv.addPart) sv.addPart = sess.draft.part || sess.parts[0];
       sv.view = sess ? (sess.draft ? "editor" : "session") : "start";
       $("sessOverlay").classList.add("show");
       document.body.classList.add("sess-open");
@@ -4773,11 +4815,20 @@
         minutes: it.minutes != null ? String(it.minutes) : "", note: it.note || "", editIdx: idx
       };
     }
+    // 下書きの編集可能な内容（セットの重量・回数・完了、時間、メモ、重量の入力方法、部位）
+    function draftSig(d) {
+      return JSON.stringify({
+        part: d.part, wtype: d.wtype, minutes: d.minutes, note: d.note,
+        sets: d.sets.map(function (s) { return [s.w, s.r, !!s.done]; })
+      });
+    }
+    // エディタを開いた時点から内容が変わっていれば true
     function draftDirty(d) {
-      return !!(d.minutes || d.note || d.sets.some(function (s) { return s.r || s.done; }));
+      return edSnap == null || draftSig(d) !== edSnap;
     }
     function openEditor(name) {
-      sess.draft = newDraft(name, sv.addPart);
+      sess.draft = newDraft(name, sv.addPart); // 残っていた下書きは丸ごと置き換える（値を引き継がない）
+      edSnap = null; // 新しい下書きの内容をこのあと基準にする
       sv.freeText = "";
       writeSession();
       go("editor");
@@ -4811,6 +4862,7 @@
       if (d.editIdx != null && sess.items[d.editIdx]) sess.items[d.editIdx] = item;
       else sess.items.push(item);
       sess.draft = null;
+      edSnap = null;
       if (!writeSession()) return;
       go("session");
     }
@@ -4897,6 +4949,11 @@
           if (!sess.items[i]) break;
           if (!window.confirm("「" + sess.items[i].exercise + "」を削除しますか？")) break;
           sess.items.splice(i, 1);
+          // 残してある編集中の下書きの対象を合わせる（対象が消えたら下書きも消す。前の種目が消えたら番号を詰める）
+          if (sess.draft && sess.draft.editIdx != null) {
+            if (sess.draft.editIdx === i) sess.draft = null;
+            else if (sess.draft.editIdx > i) sess.draft.editIdx--;
+          }
           writeSession();
           render();
           break;
@@ -4906,8 +4963,11 @@
         // 種目エディタ
         case "ed-back":
           if (!d) { go("session"); break; }
-          if (d.editIdx == null && draftDirty(d) && !window.confirm("入力中の内容を破棄して戻りますか？")) break;
+          // 変更なし：下書きは残したまま戻るだけ（復元した入力途中の下書きも消さない。次に開くとエディタで再開）
+          if (!draftDirty(d)) { go(d.editIdx == null ? "add" : "session"); break; }
+          if (d.editIdx == null && !window.confirm("入力中の内容を破棄して戻りますか？")) break;
           sess.draft = null;
+          edSnap = null;
           writeSession();
           go(d.editIdx == null ? "add" : "session");
           break;
@@ -5169,24 +5229,35 @@
     });
   });
 
-  // ---------- 「記録する」ボトムシート（タブバーが唯一の入口） ----------
+  // ---------- 「記録する」全画面ビュー（タブバー左端が唯一の入口） ----------
+  // スクロールロックは body.rec-open（セッションの body.sess-open とは独立）。開く／閉じるで必ず対で付け外しする
+  function isRecordSheetOpen() {
+    return document.getElementById("recordSheetOverlay").classList.contains("show");
+  }
   function openRecordSheet() {
     document.getElementById("recordSheetOverlay").classList.add("show");
+    document.body.classList.add("rec-open");
     document.getElementById("recordSheetBtn").setAttribute("aria-expanded", "true");
   }
   function closeRecordSheet() {
+    var ae = document.activeElement;
+    if (ae && ae.blur && document.getElementById("recordSheetOverlay").contains(ae)) ae.blur();
     document.getElementById("recordSheetOverlay").classList.remove("show");
+    document.body.classList.remove("rec-open");
     document.getElementById("recordSheetBtn").setAttribute("aria-expanded", "false");
   }
   document.getElementById("recordSheetBtn").addEventListener("click", function () {
-    if (document.getElementById("recordSheetOverlay").classList.contains("show")) closeRecordSheet();
+    if (isRecordSheetOpen()) closeRecordSheet();
     else openRecordSheet();
   });
   document.getElementById("recordSheetClose").addEventListener("click", closeRecordSheet);
+  // 3つのボタンはそれぞれ既存の処理（セッション／入力パネル）を開く。
+  // キャプチャ段階で先に全画面ビューを閉じてから各フローを開くので、オーバーレイが二重に残らない
   document.getElementById("recordSheetOverlay").addEventListener("click", function (e) {
-    if (e.target === this) { closeRecordSheet(); return; }
-    // 3つのボタンはそれぞれ既存の処理（セッション／入力パネル）を開く。シートはここで閉じる
     if (e.target.closest && e.target.closest(".add-record-btn")) closeRecordSheet();
+  }, true);
+  document.addEventListener("keydown", function (e) {
+    if ((e.key === "Escape" || e.key === "Esc") && isRecordSheetOpen()) closeRecordSheet();
   });
   Array.prototype.forEach.call(document.querySelectorAll(".record-seg-btn"), function (btn) {
     btn.addEventListener("click", function () { setRecordPeriod(btn.getAttribute("data-period")); });
@@ -5309,7 +5380,7 @@
   }
   function isSwipeEligibleTarget(target, tab) {
     if (isFormTarget(target) || scrollableAncestorX(target)) return false;
-    if (target.closest && (target.closest(".tabbar") || target.closest(".sess-overlay"))) return false;
+    if (target.closest && (target.closest(".tabbar") || target.closest(".sess-overlay") || target.closest(".rec-overlay"))) return false;
     if (tab === "day" || tab === "week" || tab === "month" || tab === "photo") return true;
     if (tab === "weight" || tab === "meal") {
       return !!(target.closest && target.closest(".period-swipe-zone"));
