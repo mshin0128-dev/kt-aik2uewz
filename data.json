@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-17T12:29:22+09:00",
+ "source_mtime": "2026-11-17T12:44:17+09:00",
  "parts": [
   "胸",
   "背中",
@@ -8257,13 +8257,26 @@
    "note": null
   },
   "2026-11-17": {
-   "kcal": null,
+   "kcal": 680,
    "kcal_range": null,
-   "protein": null,
-   "items": [],
+   "protein": 20,
+   "items": [
+    {
+     "time": "12:44",
+     "text": "丸亀製麺 ぶっかけうどん並(天かす・わかめ・ねぎ入り)(概算)約360kcal・P約9g"
+    },
+    {
+     "time": "12:44",
+     "text": "半熟卵天(概算)約120kcal・P約6g"
+    },
+    {
+     "time": "12:44",
+     "text": "しゃけむすび(概算)約200kcal・P約5g"
+    }
+   ],
    "note": null
   }
  },
- "content_hash": "d67a27ba9b0d",
- "generated_at": "2026-11-17T12:30:07+09:00"
+ "content_hash": "f9fbb8cfbde8",
+ "generated_at": "2026-11-17T12:45:15+09:00"
 }
