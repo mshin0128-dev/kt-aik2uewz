@@ -8,17 +8,17 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="筋トレ">
-<meta name="theme-color" content="#FF8A5B">
+<meta name="theme-color" content="#000000">
 <script>
 (function () {
   try {
     var KEY = "kintore_theme_pref";
     var pref = localStorage.getItem(KEY);
-    if (pref !== "light" && pref !== "dark" && pref !== "auto") pref = "auto";
+    if (pref !== "light" && pref !== "dark" && pref !== "auto") pref = "dark"; // 未設定の既定はダーク
     document.documentElement.setAttribute("data-theme", pref);
     var dark = pref === "dark" || (pref === "auto" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
     var tc = document.querySelector('meta[name="theme-color"]');
-    if (tc) tc.setAttribute("content", dark ? "#C45A2E" : "#FF8A5B");
+    if (tc) tc.setAttribute("content", dark ? "#000000" : "#F2F2F7");
     var sb = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
     if (sb) sb.setAttribute("content", dark ? "black-translucent" : "default");
     document.documentElement.style.colorScheme = dark ? "dark" : "light";
@@ -32,45 +32,56 @@
 <link rel="manifest" href="manifest.webmanifest?v=2026110301">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
+  /* テーマ：既定はダーク（ほぼ黒の背景・濃いグレーの角丸カード・明るい青のアクセント）。
+     ライトは同じ青系の明るい版。設定の「自動/ライト/ダーク」（kintore_theme_pref）はそのまま有効 */
   :root {
-    --bg: #F7F4F2;
-    --card: #FFFFFF;
-    --accent: #FF8A5B;
-    --accent2: #4ecdc4;
-    --header-grad-1: #FF8A5B;
-    --header-grad-2: #FFB07A;
-    --text: #2A2420;
-    --sub: #7A716C;
-    --danger: #E05555;
-    --teal: #2a9d8f;
-    --border: #EDE7E3;
-    --border-soft: #F1ECE9;
-    --border-softer: #F6F2F0;
-    --surface-alt: #FAF7F5;
-    --chip-active-bg: #fff1e8;
-    --banner-error-bg: #fff0f0;
-    --banner-error-border: #ffd6d6;
-    --banner-warn-bg: #fff8f0;
-    --banner-warn-border: #ffe3c6;
-    --banner-warn-text: #a56b1f;
-    --bw-pill-bg: #eafaf7;
-    --status-on-bg: #e5f7f0;
-    --status-off-bg: #fff0ec;
-    --tabbar-bg: #FFFFFF;
-    --tabbar-border: #EDE7E3;
-    --tab-pill-bg: #F0EBE8;
-    --modal-overlay: rgba(0,0,0,0.4);
-    --radius-lg: 20px;
-    --radius: 18px;
-    --radius-md: 14px;
+    --bg: #000000;
+    --card: #1C1E22;
+    --card-2: #22242A;
+    --accent: #0A84FF;
+    --accent-strong: #0A84FF;
+    --accent2: #64B5F6;
+    --grad-primary: linear-gradient(135deg, #35A7FF, #0A84FF);
+    --accent-shadow: 0 6px 18px rgba(10,132,255,0.35);
+    --accent-shadow-sm: 0 3px 10px rgba(10,132,255,0.30);
+    --accent-glow: rgba(10,132,255,0.55);
+    --success: #30D158;
+    --success-shadow: 0 3px 10px rgba(48,209,88,0.35);
+    --header-grad-1: #0A84FF;
+    --header-grad-2: #35A7FF;
+    --text: #F5F7FA;
+    --sub: #9AA3AD;
+    --danger: #FF453A;
+    --teal: #64B5F6;
+    --border: rgba(255,255,255,0.12);
+    --border-soft: rgba(255,255,255,0.08);
+    --border-softer: rgba(255,255,255,0.06);
+    --surface-alt: #2A2D33;
+    --chip-active-bg: rgba(10,132,255,0.18);
+    --seg-bg: #1C1E22;
+    --banner-error-bg: rgba(255,69,58,0.12);
+    --banner-error-border: rgba(255,69,58,0.35);
+    --banner-warn-bg: rgba(255,214,10,0.10);
+    --banner-warn-border: rgba(255,214,10,0.30);
+    --banner-warn-text: #FFD60A;
+    --bw-pill-bg: rgba(100,181,246,0.14);
+    --status-on-bg: rgba(48,209,88,0.16);
+    --status-off-bg: rgba(255,69,58,0.15);
+    --tabbar-bg: rgba(28,30,34,0.92);
+    --tabbar-border: rgba(255,255,255,0.08);
+    --tab-pill-bg: #2A2D33;
+    --modal-overlay: rgba(0,0,0,0.65);
+    --radius-lg: 24px;
+    --radius: 22px;
+    --radius-md: 16px;
     --radius-sm: 12px;
     --space: 16px;
     --space-sm: 8px;
     --ctl-h: 40px;
     --field-h: 48px; /* 入力パネル・セッションの入力欄（text/number/date/time/select）共通の高さ */
-    --select-chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237A716C' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-    --shadow-card: 0 1px 2px rgba(60,35,20,0.04), 0 6px 20px rgba(60,35,20,0.05);
-    --shadow-float: 0 10px 30px rgba(60,35,20,0.16), 0 2px 6px rgba(60,35,20,0.06);
+    --select-chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239AA3AD' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    --shadow-card: none;
+    --shadow-float: 0 12px 34px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.35);
     --ease: cubic-bezier(.2,.7,.3,1);
     --font-label: 13px;
     --font-base: 16px;
@@ -81,67 +92,71 @@
     --safe-r: env(safe-area-inset-right, 0px);
     --nav-h: 88px; /* 浮いたピル型タブバー＋余白分の高さ。#app の padding-bottom に使う */
   }
+  :root, :root[data-theme="dark"] { color-scheme: dark; }
   :root[data-theme="light"] {
+    --bg: #F2F2F7;
+    --card: #FFFFFF;
+    --card-2: #F7F8FA;
+    --accent: #0A7AFF;
+    --text: #111418;
+    --sub: #6B7480;
+    --danger: #E5372C;
+    --teal: #0A84C8;
+    --border: rgba(0,0,0,0.10);
+    --border-soft: rgba(0,0,0,0.07);
+    --border-softer: rgba(0,0,0,0.05);
+    --surface-alt: #EEF0F3;
+    --chip-active-bg: rgba(10,132,255,0.12);
+    --seg-bg: #E4E6EB;
+    --banner-error-bg: #FFF0EF;
+    --banner-error-border: #FFD3CF;
+    --banner-warn-bg: #FFF8E6;
+    --banner-warn-border: #FFE6A8;
+    --banner-warn-text: #8A6100;
+    --bw-pill-bg: rgba(10,132,255,0.10);
+    --status-on-bg: rgba(48,209,88,0.14);
+    --status-off-bg: rgba(229,55,44,0.10);
+    --tabbar-bg: rgba(255,255,255,0.94);
+    --tabbar-border: rgba(0,0,0,0.06);
+    --tab-pill-bg: #EEF0F3;
+    --modal-overlay: rgba(0,0,0,0.4);
+    --select-chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B7480' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    --shadow-card: 0 1px 2px rgba(0,0,0,0.04), 0 6px 20px rgba(0,0,0,0.05);
+    --shadow-float: 0 10px 30px rgba(0,0,0,0.14), 0 2px 6px rgba(0,0,0,0.06);
     color-scheme: light;
   }
-  :root[data-theme="dark"] {
-    --bg: #161310;
-    --card: #221E1B;
-    --accent: #FFB07A;
-    --header-grad-1: #C45A2E;
-    --header-grad-2: #FF8A5B;
-    --text: #EDE8E4;
-    --sub: #A89F99;
-    --danger: #FF6B6B;
-    --border: #3A3430;
-    --border-soft: #332E2B;
-    --border-softer: #2C2825;
-    --surface-alt: #2A2623;
-    --chip-active-bg: rgba(255,138,91,0.18);
-    --banner-error-bg: rgba(255,107,107,0.12);
-    --banner-error-border: rgba(255,107,107,0.35);
-    --banner-warn-bg: rgba(224,169,74,0.12);
-    --banner-warn-border: rgba(224,169,74,0.35);
-    --banner-warn-text: #e0a94a;
-    --bw-pill-bg: rgba(42,157,143,0.18);
-    --status-on-bg: rgba(42,157,143,0.18);
-    --status-off-bg: rgba(255,107,107,0.15);
-    --tabbar-bg: #1C1917;
-    --tabbar-border: rgba(255,255,255,0.08);
-    --tab-pill-bg: #2A2623;
-    --modal-overlay: rgba(0,0,0,0.6);
-    --select-chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A89F99' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-    color-scheme: dark;
-  }
-  @media (prefers-color-scheme: dark) {
+  @media (prefers-color-scheme: light) {
     :root[data-theme="auto"] {
-      --bg: #161310;
-      --card: #221E1B;
-      --accent: #FFB07A;
-      --header-grad-1: #C45A2E;
-      --header-grad-2: #FF8A5B;
-      --text: #EDE8E4;
-      --sub: #A89F99;
-      --danger: #FF6B6B;
-      --border: #3A3430;
-      --border-soft: #332E2B;
-      --border-softer: #2C2825;
-      --surface-alt: #2A2623;
-      --chip-active-bg: rgba(255,138,91,0.18);
-      --banner-error-bg: rgba(255,107,107,0.12);
-      --banner-error-border: rgba(255,107,107,0.35);
-      --banner-warn-bg: rgba(224,169,74,0.12);
-      --banner-warn-border: rgba(224,169,74,0.35);
-      --banner-warn-text: #e0a94a;
-      --bw-pill-bg: rgba(42,157,143,0.18);
-      --status-on-bg: rgba(42,157,143,0.18);
-      --status-off-bg: rgba(255,107,107,0.15);
-      --tabbar-bg: #1C1917;
-      --tabbar-border: rgba(255,255,255,0.08);
-      --tab-pill-bg: #2A2623;
-      --modal-overlay: rgba(0,0,0,0.6);
-      --select-chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A89F99' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-      color-scheme: dark;
+      --bg: #F2F2F7;
+      --card: #FFFFFF;
+      --card-2: #F7F8FA;
+      --accent: #0A7AFF;
+      --text: #111418;
+      --sub: #6B7480;
+      --danger: #E5372C;
+      --teal: #0A84C8;
+      --border: rgba(0,0,0,0.10);
+      --border-soft: rgba(0,0,0,0.07);
+      --border-softer: rgba(0,0,0,0.05);
+      --surface-alt: #EEF0F3;
+      --chip-active-bg: rgba(10,132,255,0.12);
+      --seg-bg: #E4E6EB;
+      --banner-error-bg: #FFF0EF;
+      --banner-error-border: #FFD3CF;
+      --banner-warn-bg: #FFF8E6;
+      --banner-warn-border: #FFE6A8;
+      --banner-warn-text: #8A6100;
+      --bw-pill-bg: rgba(10,132,255,0.10);
+      --status-on-bg: rgba(48,209,88,0.14);
+      --status-off-bg: rgba(229,55,44,0.10);
+      --tabbar-bg: rgba(255,255,255,0.94);
+      --tabbar-border: rgba(0,0,0,0.06);
+      --tab-pill-bg: #EEF0F3;
+      --modal-overlay: rgba(0,0,0,0.4);
+      --select-chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B7480' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      --shadow-card: 0 1px 2px rgba(0,0,0,0.04), 0 6px 20px rgba(0,0,0,0.05);
+      --shadow-float: 0 10px 30px rgba(0,0,0,0.14), 0 2px 6px rgba(0,0,0,0.06);
+      color-scheme: light;
     }
   }
   *, *::before, *::after { box-sizing: border-box; }
@@ -155,7 +170,8 @@
     touch-action: manipulation;
     background: var(--bg);
     color: var(--text);
-    font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+    -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
   }
@@ -176,21 +192,21 @@
   }
   header.topbar {
     position: sticky; top: 0; z-index: 10;
-    background: linear-gradient(180deg, var(--card), var(--bg));
+    background: var(--bg);
     color: var(--text);
     padding: calc(10px + var(--safe-t)) 14px 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
-    border-bottom: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-softer);
   }
   header.topbar .title-wrap {
     flex: 1 1 auto; min-width: 0;
     display: flex; flex-direction: column; align-items: center; gap: 2px;
   }
   header.topbar .title {
-    text-align: center; font-size: 15px; font-weight: 700; letter-spacing: 0.08em;
+    text-align: center; font-size: 16px; font-weight: 800; letter-spacing: 0.06em;
     line-height: 1.25; overflow-wrap: anywhere;
   }
   header.topbar .title-cap {
@@ -199,9 +215,9 @@
   }
   header.topbar .reload-btn, header.topbar .settings-btn {
     flex: 0 0 auto;
-    width: 36px; height: 36px;
-    background: var(--surface-alt); border: 1px solid var(--border-soft); color: var(--sub);
-    border-radius: 12px;
+    width: 38px; height: 38px;
+    background: var(--card); border: 1px solid var(--border-softer); color: var(--sub);
+    border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     cursor: pointer; padding: 0;
     transition: background .15s var(--ease), color .15s var(--ease), transform .15s var(--ease);
@@ -230,7 +246,7 @@
     min-width: 0;
   }
 
-  .section-title { font-size: 14px; font-weight: 700; letter-spacing: 0.03em; margin-bottom: 10px; }
+  .section-title { font-size: 15px; font-weight: 700; letter-spacing: 0.02em; margin-bottom: 12px; }
 
   .nav-switch {
     display: flex;
@@ -241,8 +257,8 @@
   }
   .nav-switch button {
     background: var(--surface-alt);
-    border: 1px solid var(--border-soft);
-    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-softer);
+    border-radius: 50%;
     width: var(--ctl-h); height: var(--ctl-h);
     padding: 0;
     cursor: pointer;
@@ -255,8 +271,8 @@
   .nav-switch button[disabled] { opacity: 0.35; cursor: default; }
   .nav-switch button svg { width: 16px; height: 16px; display: block; }
   .nav-switch .nav-label {
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 17px;
+    font-weight: 800;
     letter-spacing: 0.02em;
     font-variant-numeric: tabular-nums;
     text-align: center;
@@ -264,12 +280,13 @@
     min-width: 0;
     overflow-wrap: anywhere;
   }
-  #dayLabel, #photoLabel {
+  #photoLabel {
     cursor: pointer;
     text-decoration: underline;
     text-decoration-style: dotted;
     text-underline-offset: 3px;
   }
+  #dayLabel { cursor: pointer; }
   #dayLabel:active, #photoLabel:active { opacity: 0.6; }
   #photoLabel { white-space: nowrap; font-size: 15px; }
   @media (max-width: 340px) {
@@ -288,18 +305,20 @@
   .record-segment {
     display: none;
     gap: 4px;
-    margin: 0 0 12px;
-    background: var(--border-soft);
-    border-radius: var(--radius-md);
+    margin: 0 0 14px;
+    background: var(--seg-bg);
+    border: 1px solid var(--border-softer);
+    border-radius: 999px;
     padding: 4px;
   }
   .record-segment.show { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .record-segment.body-segment.show { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .record-seg-btn {
     min-width: 0;
     height: 38px;
     min-height: 38px;
     border: none;
-    border-radius: 10px;
+    border-radius: 999px;
     background: none;
     color: var(--sub);
     font-size: 13px;
@@ -310,10 +329,81 @@
     transition: background .18s var(--ease), color .18s var(--ease), box-shadow .18s var(--ease);
   }
   .record-seg-btn.active {
-    background: var(--card);
-    color: var(--accent);
-    box-shadow: 0 1px 2px rgba(60,35,20,0.10), 0 2px 8px rgba(60,35,20,0.06);
+    background: var(--grad-primary);
+    color: #fff;
+    box-shadow: var(--accent-shadow-sm);
   }
+
+  /* ---------- 記録タブ：月カレンダー＋選んだ日の詳細 ---------- */
+  .cal-card { padding: 16px 12px 12px; }
+  .cal-head { display: flex; align-items: center; gap: 6px; padding: 0 4px; margin-bottom: 12px; min-width: 0; }
+  .cal-title {
+    flex: 1 1 auto; min-width: 0;
+    font-size: 22px; font-weight: 800; letter-spacing: 0.01em; line-height: 1.2;
+    font-variant-numeric: tabular-nums; overflow-wrap: anywhere;
+  }
+  .cal-title:active { opacity: 0.6; }
+  .cal-nav {
+    flex: 0 0 auto; width: 36px; height: 36px; padding: 0; border-radius: 50%;
+    border: none; background: var(--surface-alt); color: var(--text);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    transition: transform .15s var(--ease), background .15s var(--ease);
+  }
+  .cal-nav svg { width: 16px; height: 16px; display: block; }
+  .cal-nav:active { transform: scale(0.92); background: var(--chip-active-bg); }
+  .cal-today {
+    flex: 0 0 auto; height: 36px; padding: 0 14px; border-radius: 999px;
+    border: 1px solid var(--accent); background: transparent; color: var(--accent);
+    font-family: inherit; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer;
+    transition: transform .15s var(--ease), background .15s var(--ease);
+  }
+  .cal-today:active { transform: scale(0.95); background: var(--chip-active-bg); }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); row-gap: 6px; column-gap: 2px; }
+  .cal-dow { text-align: center; font-size: 12px; font-weight: 600; color: var(--sub); padding-bottom: 4px; }
+  .cal-dow.sun { color: #FF6961; }
+  .cal-dow.sat { color: #64B5F6; }
+  .cal-cell { display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 44px; }
+  .cal-day {
+    -webkit-appearance: none; appearance: none;
+    width: 40px; height: 40px; max-width: 100%; padding: 0; margin: 0;
+    border-radius: 50%; border: none; background: transparent; color: var(--text);
+    font-family: inherit; font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    transition: transform .12s var(--ease), background .15s var(--ease), box-shadow .15s var(--ease);
+  }
+  .cal-day:active { transform: scale(0.9); }
+  .cal-day.trained { background: var(--accent); color: #fff; font-weight: 700; }
+  .cal-day.today { box-shadow: inset 0 0 0 2px var(--accent); color: var(--accent); font-weight: 800; }
+  .cal-day.today.trained { color: #fff; box-shadow: inset 0 0 0 2px var(--accent), inset 0 0 0 4px var(--bg); }
+  .cal-day.selected, .cal-day.selected.today, .cal-day.selected.today.trained {
+    background: var(--grad-primary); color: #fff; font-weight: 800;
+    box-shadow: 0 0 0 2px var(--card), 0 0 0 4px var(--accent), var(--accent-shadow-sm);
+  }
+  @media (max-width: 359px) { .cal-day { width: 36px; height: 36px; font-size: 15px; } }
+
+  .day-head {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 8px;
+    margin: 18px 4px 10px;
+  }
+  .day-head-date { font-size: 22px; font-weight: 800; letter-spacing: 0.01em; font-variant-numeric: tabular-nums; }
+  .day-head-sub { font-size: 12px; font-weight: 600; color: var(--sub); white-space: nowrap; }
+  .day-photo-card { cursor: pointer; }
+  .day-photo-card .photo-stage { max-height: 360px; }
+  .day-photo-card .photo-stage img { max-height: 360px; object-fit: cover; }
+  .day-photo-link { font-size: 12px; color: var(--accent); margin-top: 8px; font-weight: 600; }
+
+  .cta-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin: 16px 0 14px; }
+  .cta-btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; min-height: 58px; padding: 0 20px;
+    border-radius: 999px; border: 1px solid var(--border-soft);
+    background: var(--card); color: var(--text);
+    font-family: inherit; font-size: 17px; font-weight: 800; letter-spacing: 0.04em;
+    cursor: pointer; transition: transform .15s var(--ease), box-shadow .15s var(--ease), opacity .15s var(--ease);
+  }
+  .cta-btn:active { transform: scale(0.98); opacity: 0.92; }
+  .cta-btn.primary { border-color: transparent; background: var(--grad-primary); color: #fff; box-shadow: var(--accent-shadow); }
+  .cta-btn .cta-ico { font-size: 15px; line-height: 1; }
 
   .top-banner {
     display: none;
@@ -337,13 +427,15 @@
   .empty-day svg { width: 40px; height: 40px; display: block; margin: 0 auto 10px; }
   .empty-day .empty-day-text { font-size: 14px; }
 
+  /* 部位チップ：色分けせず、通常はグレー地＋明るい文字、選択中はアクセントの青＋白文字 */
   .part-chip {
     display: inline-block;
     padding: 3px 10px;
     border-radius: 999px;
     font-size: 11px;
     font-weight: bold;
-    color: #fff;
+    background: var(--surface-alt);
+    color: var(--text);
     white-space: nowrap;
   }
   .part-chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
@@ -358,14 +450,14 @@
     border: none;
     font-size: 13px;
     font-weight: 700;
-    color: #fff;
-    opacity: 0.45;
+    background: var(--surface-alt);
+    color: var(--text);
     cursor: pointer;
     white-space: nowrap;
-    transition: opacity .15s var(--ease), transform .15s var(--ease);
+    transition: background .15s var(--ease), color .15s var(--ease), transform .15s var(--ease);
   }
   .part-chip-btn:active { transform: scale(0.96); }
-  .part-chip-btn.active { opacity: 1; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.85); }
+  .part-chip-btn.active { background: var(--accent); color: #fff; }
 
   .part-group { min-width: 0; }
   .part-chip-lg { font-size: 14px; padding: 5px 14px; margin-bottom: 10px; }
@@ -461,15 +553,15 @@
   }
 
   .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .stat-box { background: var(--surface-alt); border: 1px solid var(--border-softer); border-radius: var(--radius-md); padding: 12px 10px; text-align: center; min-width: 0; }
+  .stat-box { background: var(--surface-alt); border: 1px solid var(--border-softer); border-radius: var(--radius-md); padding: 14px 10px; text-align: center; min-width: 0; }
   .stat-box .stat-label { font-size: 11px; color: var(--sub); letter-spacing: 0.06em; }
-  .stat-box .stat-value { font-size: 22px; font-weight: 700; margin-top: 4px; line-height: 1.2; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+  .stat-box .stat-value { font-size: 24px; font-weight: 800; margin-top: 4px; line-height: 1.2; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 
   .trained-days-box {
     text-align: center;
     margin-bottom: 16px;
   }
-  .trained-days-box .num { font-size: 36px; font-weight: 700; line-height: 1.15; color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+  .trained-days-box .num { font-size: 44px; font-weight: 800; line-height: 1.15; color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
   .trained-days-box .lbl { font-size: 11px; color: var(--sub); letter-spacing: 0.08em; }
 
   .week-dots { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 1px; }
@@ -494,7 +586,7 @@
     align-items: center;
     justify-content: center;
     gap: 2px;
-    border-radius: 8px;
+    border-radius: 12px;
     background: var(--surface-alt);
     font-size: 11px;
     color: var(--text);
@@ -532,6 +624,42 @@
 
   .chart-wrap { position: relative; height: 230px; margin: 12px auto 4px; }
 
+  /* 種目別：進捗リスト（種目名・最新の最大重量・3か月の変化・スパークライン） */
+  .exr-card { padding: 4px 14px; }
+  .exr-list { display: flex; flex-direction: column; min-width: 0; }
+  .exr {
+    display: flex; align-items: center; gap: 12px; width: 100%; min-width: 0;
+    padding: 14px 2px; border: none; border-bottom: 1px solid var(--border-soft);
+    background: none; color: var(--text); font-family: inherit; text-align: left; cursor: pointer;
+    transition: opacity .15s var(--ease);
+  }
+  .exr:last-child { border-bottom: none; }
+  .exr:active { opacity: 0.6; }
+  .exr-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .exr-name {
+    font-size: 14px; font-weight: 700; line-height: 1.35; overflow-wrap: anywhere;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .exr-val { font-size: 30px; font-weight: 800; line-height: 1.15; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+  .exr-val small { font-size: 13px; font-weight: 600; color: var(--sub); margin-left: 3px; letter-spacing: 0; }
+  .exr-val.none { font-size: 15px; font-weight: 600; color: var(--sub); }
+  .exr-delta { font-size: 12px; color: var(--sub); font-variant-numeric: tabular-nums; }
+  .exr-delta b { font-weight: 700; }
+  .exr-delta.up b { color: var(--success); }
+  .exr-spark-wrap { flex: 0 0 104px; width: 104px; }
+  .exr-spark { display: block; overflow: visible; }
+  .exr-line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .exr-dot { fill: var(--accent); }
+  .exr-axis, .exr-tick { stroke: var(--border); stroke-width: 1; }
+  .exr-tl { fill: var(--sub); font-size: 9px; text-anchor: middle; font-family: inherit; }
+  .ex-back {
+    display: inline-flex; align-items: center; gap: 4px; height: 38px; padding: 0 16px 0 10px; margin: 0 0 12px;
+    border-radius: 999px; border: 1px solid var(--border-softer); background: var(--card); color: var(--accent);
+    font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
+  }
+  .ex-back svg { width: 16px; height: 16px; display: block; }
+  .ex-back:active { transform: scale(0.96); }
+
   .list-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 11px 4px; border-bottom: 1px solid var(--border-soft); min-width: 0; }
   .list-item:last-child { border-bottom: none; }
   .li-left { display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; }
@@ -562,6 +690,8 @@
     display: flex;
     gap: 2px;
     background: var(--tabbar-bg);
+    -webkit-backdrop-filter: saturate(160%) blur(18px);
+    backdrop-filter: saturate(160%) blur(18px);
     border: 1px solid var(--tabbar-border);
     border-radius: 30px;
     box-shadow: var(--shadow-float);
@@ -623,10 +753,11 @@
     background: var(--card);
     width: 100%;
     max-width: 480px;
-    border-radius: 24px 24px 0 0;
+    border-radius: 28px 28px 0 0;
+    border-top: 1px solid var(--border-soft);
     padding: 20px 18px;
     padding-bottom: calc(20px + var(--safe-b));
-    box-shadow: 0 -8px 30px rgba(0,0,0,0.12);
+    box-shadow: 0 -8px 30px rgba(0,0,0,0.35);
     max-height: 70vh;
     overflow-y: auto;
     user-select: text;
@@ -634,9 +765,9 @@
   .modal-box h4 { margin: 0 0 8px; font-size: 13px; color: var(--sub); font-weight: bold; }
   .modal-box p { font-size: 14px; line-height: 1.7; white-space: pre-wrap; word-break: break-word; margin: 0; }
   .modal-close-btn {
-    display: block; width: 100%; margin-top: 16px; height: 46px; padding: 0 12px;
-    border: 1px solid var(--border-soft); border-radius: var(--radius-md);
-    background: var(--card); color: var(--text); border-color: var(--sub); font-weight: 600; font-size: 14px; letter-spacing: 0.06em;
+    display: block; width: 100%; margin-top: 16px; height: 50px; padding: 0 12px;
+    border: 1px solid var(--border-soft); border-radius: 999px;
+    background: var(--surface-alt); color: var(--text); font-weight: 700; font-size: 15px; letter-spacing: 0.06em;
     font-family: inherit; cursor: pointer;
     transition: transform .15s var(--ease), background .15s var(--ease);
   }
@@ -693,7 +824,7 @@
   .pace-row .pace-value { font-size: 15px; font-weight: bold; white-space: nowrap; text-align: right; }
   .status-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: bold; white-space: nowrap; }
   .status-badge svg { width: 14px; height: 14px; display: block; }
-  .status-badge.on { background: var(--status-on-bg); color: var(--teal); }
+  .status-badge.on { background: var(--status-on-bg); color: var(--success); }
   .status-badge.off { background: var(--status-off-bg); color: var(--danger); }
   .status-badge.neutral { background: var(--border-soft); color: var(--sub); }
   .goal-note { font-size: 12px; color: var(--sub); margin-top: 2px; }
@@ -776,8 +907,8 @@
     min-height: 44px;
     padding: 10px 12px;
     border: none;
-    border-radius: var(--radius-md);
-    background: var(--accent);
+    border-radius: 999px;
+    background: var(--grad-primary);
     color: #fff;
     font-weight: 700;
     font-size: 14px;
@@ -786,7 +917,7 @@
     cursor: pointer;
     text-align: center;
     overflow-wrap: anywhere;
-    box-shadow: 0 2px 8px rgba(255,138,91,0.28);
+    box-shadow: var(--accent-shadow-sm);
     transition: transform .15s var(--ease), opacity .15s var(--ease);
   }
   .photo-btn:active { transform: scale(0.97); opacity: 0.9; }
@@ -811,7 +942,8 @@
     width: 100%;
     box-sizing: border-box;
     font-size: 16px;
-    padding: 10px 12px;
+    height: var(--field-h);
+    padding: 0 12px;
     border-radius: var(--radius-sm);
     border: 1px solid var(--border);
     background: var(--surface-alt);
@@ -903,20 +1035,61 @@
     padding: 16px 14px calc(20px + var(--safe-b));
   }
   .record-actions { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  /* 記録する画面のボタン：既定は濃いカード色のピル、.primary は青グラデーション */
   .add-record-btn {
-    display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 10px;
-    min-width: 0; height: 54px; padding: 0 16px;
-    border: none; border-radius: var(--radius-md);
-    background: linear-gradient(135deg, #E8602B, #FF8A5B);
-    color: #fff; font-family: inherit; font-size: 14px; font-weight: 600; line-height: 1.3; letter-spacing: 0.02em;
-    text-align: left;
-    box-shadow: 0 4px 14px rgba(255,138,91,0.35);
+    display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; min-width: 0; min-height: 56px; padding: 0 20px;
+    border: 1px solid var(--border-soft); border-radius: 999px;
+    background: var(--card);
+    color: var(--text); font-family: inherit; font-size: 16px; font-weight: 700; line-height: 1.3; letter-spacing: 0.03em;
+    text-align: center;
     cursor: pointer;
-    transition: transform .15s var(--ease), box-shadow .15s var(--ease);
+    transition: transform .15s var(--ease), box-shadow .15s var(--ease), opacity .15s var(--ease);
   }
-  .add-record-btn > span { white-space: nowrap; max-width: 100%; }
+  .add-record-btn[hidden] { display: none; }
+  .add-record-btn.primary { border-color: transparent; background: var(--grad-primary); color: #fff; box-shadow: var(--accent-shadow); }
+  .add-record-btn > span { white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
   .add-record-btn svg { width: 22px; height: 22px; display: block; flex: none; }
-  .add-record-btn:active { transform: scale(0.98); box-shadow: 0 2px 8px rgba(255,138,91,0.3); }
+  .add-record-btn:not(.primary) svg { color: var(--accent); }
+  .add-record-btn:active { transform: scale(0.98); opacity: 0.92; }
+  .rec-title-big { font-size: 30px; font-weight: 800; letter-spacing: 0.01em; line-height: 1.2; margin: 4px 4px 4px; }
+  .rec-lead { font-size: 13px; color: var(--sub); margin: 0 4px 16px; }
+  .rec-label { font-size: 13px; font-weight: 700; color: var(--sub); letter-spacing: 0.06em; margin: 22px 4px 10px; }
+  .rec-resume { margin-bottom: 6px; }
+  .rec-menu-list { display: flex; flex-direction: column; gap: 18px; margin-bottom: 18px; padding-bottom: 6px; }
+  .rec-empty {
+    font-size: 13px; line-height: 1.7; color: var(--sub); text-align: center;
+    padding: 22px 16px; border-radius: var(--radius); border: 1.5px dashed var(--border);
+  }
+  /* メニューカード：後ろに2枚重なって見える「積み重ね」表現 */
+  .menu-card {
+    position: relative; z-index: 0; isolation: isolate;
+    display: flex; align-items: center; gap: 12px; min-width: 0;
+    padding: 18px 16px 18px 20px; border-radius: var(--radius);
+    background: var(--card-2); border: 1px solid var(--border-soft);
+  }
+  .menu-card::before, .menu-card::after {
+    content: ""; position: absolute; z-index: -1; border-radius: var(--radius);
+    background: var(--card); border: 1px solid var(--border-softer);
+  }
+  .menu-card::before { left: 10px; right: 10px; bottom: -7px; height: 40px; opacity: 0.85; }
+  .menu-card::after { left: 20px; right: 20px; bottom: -13px; height: 40px; opacity: 0.5; }
+  .menu-card-bar { position: absolute; left: 0; top: 18px; bottom: 18px; width: 4px; border-radius: 0 4px 4px 0; background: var(--pc, var(--accent)); }
+  .menu-card-main { flex: 1 1 auto; min-width: 0; }
+  .menu-card-title { font-size: 20px; font-weight: 800; letter-spacing: 0.02em; line-height: 1.3; overflow-wrap: anywhere; }
+  .menu-card-sub {
+    font-size: 12px; line-height: 1.55; color: var(--sub); margin-top: 4px; overflow-wrap: anywhere;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .menu-card-count { font-size: 11px; font-weight: 600; color: var(--sub); margin-top: 6px; }
+  .menu-card-go {
+    flex: 0 0 auto; min-width: 76px; height: 44px; padding: 0 18px; border-radius: 999px; border: none;
+    background: var(--grad-primary); color: #fff; box-shadow: var(--accent-shadow-sm);
+    font-family: inherit; font-size: 15px; font-weight: 800; letter-spacing: 0.06em; cursor: pointer;
+    transition: transform .15s var(--ease);
+  }
+  .menu-card-go:active { transform: scale(0.95); }
+  .rec-btn-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .entry-box { max-height: 90vh; max-height: 90dvh; }
   .entry-title { margin: 0 0 12px; font-size: 16px; font-weight: 700; letter-spacing: 0.02em; }
   .entry-box .section-title { font-size: 13px; font-weight: 600; color: var(--sub); letter-spacing: 0.04em; }
@@ -924,7 +1097,7 @@
      border 1px×2 を除いた内側 46px を line-height にし、上下 padding は 0（対称）→ 文字は常に上下中央・同じベースライン */
   .ef-seg {
     display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr);
-    gap: 4px; background: var(--border-soft); border-radius: var(--radius-md); padding: 4px;
+    gap: 4px; background: var(--surface-alt); border-radius: var(--radius-md); padding: 4px;
   }
   .ef-seg-btn {
     min-width: 0; height: calc(var(--field-h) - 8px); padding: 0 4px; line-height: 1;
@@ -933,7 +1106,7 @@
     display: flex; align-items: center; justify-content: center;
     transition: background .18s var(--ease), color .18s var(--ease), box-shadow .18s var(--ease);
   }
-  .ef-seg-btn.active { background: var(--card); color: var(--accent); box-shadow: 0 1px 2px rgba(60,35,20,0.10), 0 2px 8px rgba(60,35,20,0.06); }
+  .ef-seg-btn.active { background: var(--accent); color: #fff; box-shadow: var(--accent-shadow-sm); }
   .ef-label { display: block; font-size: 12px; font-weight: 500; line-height: 1.4; color: var(--sub); margin: 12px 0 4px; padding: 0; text-align: left; }
   .ef-input {
     display: block; width: 100%; min-width: 0; max-width: 100%; margin: 0;
@@ -997,17 +1170,17 @@
   .ef-all { display: flex; gap: 8px; margin-top: 10px; align-items: stretch; }
   .ef-all .ef-input { flex: 0 0 84px; width: 84px; text-align: center; }
   .ef-btn {
-    display: block; width: 100%; min-height: 46px; padding: 10px 14px;
-    border: 1.5px solid var(--sub); border-radius: var(--radius-md);
-    background: var(--card); color: var(--text);
+    display: block; width: 100%; min-height: 48px; padding: 10px 14px;
+    border: 1px solid var(--border); border-radius: 999px;
+    background: var(--surface-alt); color: var(--text);
     font-size: 14px; font-weight: 600; letter-spacing: 0.04em; font-family: inherit; cursor: pointer;
     transition: transform .15s var(--ease), opacity .15s var(--ease);
   }
   .ef-btn:active { transform: scale(0.98); opacity: 0.9; }
   .ef-btn.primary {
-    margin-top: 16px; border: none; color: #fff; font-size: 15px;
-    background: linear-gradient(135deg, #E8602B, #FF8A5B);
-    box-shadow: 0 4px 14px rgba(255,138,91,0.3);
+    margin-top: 16px; border: none; color: #fff; font-size: 16px; font-weight: 700; min-height: 54px;
+    background: var(--grad-primary);
+    box-shadow: var(--accent-shadow);
   }
   .ef-btn.inline { flex: 1 1 auto; width: auto; height: var(--field-h); min-height: var(--field-h); padding: 0 14px; line-height: 1.2; }
   .ef-local { margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--border-soft); }
@@ -1047,9 +1220,9 @@
   .add-record-btn small { display: inline; margin-left: 6px; font-size: 11px; font-weight: 600; opacity: 0.95; font-variant-numeric: tabular-nums; }
   .add-record-btn.live { animation: sessPulse 1.9s ease-out infinite; }
   @keyframes sessPulse {
-    0% { box-shadow: 0 0 0 0 rgba(255,138,91,0.55), 0 4px 14px rgba(255,138,91,0.35); }
-    70% { box-shadow: 0 0 0 10px rgba(255,138,91,0), 0 4px 14px rgba(255,138,91,0.35); }
-    100% { box-shadow: 0 0 0 0 rgba(255,138,91,0), 0 4px 14px rgba(255,138,91,0.35); }
+    0% { box-shadow: 0 0 0 0 var(--accent-glow), var(--accent-shadow); }
+    70% { box-shadow: 0 0 0 10px rgba(10,132,255,0), var(--accent-shadow); }
+    100% { box-shadow: 0 0 0 0 rgba(10,132,255,0), var(--accent-shadow); }
   }
   body.sess-open { overflow: hidden; }
   body.sess-open .toast { bottom: calc(190px + var(--safe-b)); }
@@ -1060,31 +1233,32 @@
     width: 100%; height: auto; max-height: 92vh; max-height: 92dvh;
     max-width: 480px; margin: 0 auto; min-width: 0;
     display: flex; flex-direction: column;
-    background: var(--bg); border-radius: 24px 24px 0 0; overflow: hidden;
-    box-shadow: 0 -8px 30px rgba(0,0,0,0.12);
+    background: var(--bg); border-radius: 28px 28px 0 0; overflow: hidden;
+    border-top: 1px solid var(--border-soft);
+    box-shadow: 0 -8px 30px rgba(0,0,0,0.35);
     padding-left: var(--safe-l); padding-right: var(--safe-r);
   }
   .sess-head {
     flex: 0 0 auto; display: flex; align-items: center; gap: 6px;
     padding: 8px 12px; min-height: 64px;
-    background: linear-gradient(180deg, var(--card), var(--bg));
-    border-bottom: 1px solid var(--border-soft);
+    background: var(--bg);
+    border-bottom: 1px solid var(--border-softer);
   }
   .sess-head-side { flex: 0 0 84px; display: flex; min-width: 0; }
   .sess-head-side.right { justify-content: flex-end; }
   .sess-head-mid { flex: 1 1 auto; min-width: 0; text-align: center; }
   .sess-head-btn {
-    min-width: 60px; height: 40px; padding: 0 12px; white-space: nowrap;
-    border-radius: var(--radius-sm); border: 1px solid var(--border-soft);
-    background: var(--surface-alt); color: var(--sub);
+    min-width: 60px; height: 40px; padding: 0 14px; white-space: nowrap;
+    border-radius: 999px; border: 1px solid var(--border-softer);
+    background: var(--card); color: var(--text);
     font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
     transition: transform .15s var(--ease), background .15s var(--ease);
   }
   .sess-head-btn:active { transform: scale(0.95); }
   .sess-head-btn.danger { background: var(--status-off-bg); color: var(--danger); border-color: transparent; }
-  .sess-title { font-size: 16px; font-weight: 700; letter-spacing: 0.02em; overflow-wrap: anywhere; line-height: 1.3; }
+  .sess-title { font-size: 17px; font-weight: 800; letter-spacing: 0.02em; overflow-wrap: anywhere; line-height: 1.3; }
   .sess-sub { font-size: 12px; font-weight: 400; color: var(--sub); font-variant-numeric: tabular-nums; }
-  .sess-clock { font-size: 30px; font-weight: 800; line-height: 1.1; letter-spacing: 0.02em; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .sess-clock { font-size: 32px; font-weight: 800; line-height: 1.1; letter-spacing: 0.02em; color: var(--accent); font-variant-numeric: tabular-nums; }
   .sess-body {
     flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden;
     overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
@@ -1103,21 +1277,20 @@
   .sess-foot {
     flex: 0 0 auto; display: flex; gap: 10px;
     padding: 10px 14px calc(12px + var(--safe-b));
-    background: var(--card); border-top: 1px solid var(--border-soft);
-    box-shadow: 0 -6px 20px rgba(60,35,20,0.06);
+    background: var(--bg); border-top: 1px solid var(--border-softer);
   }
   .sess-btn {
-    flex: 1 1 0; min-width: 0; min-height: 52px; padding: 6px 8px;
-    border-radius: var(--radius-md); border: 1px solid var(--border);
-    background: var(--surface-alt); color: var(--text);
-    font-family: inherit; font-size: 15px; font-weight: 600; letter-spacing: 0.02em; line-height: 1.3;
+    flex: 1 1 0; min-width: 0; min-height: 54px; padding: 6px 8px;
+    border-radius: 999px; border: 1px solid var(--border-soft);
+    background: var(--card); color: var(--text);
+    font-family: inherit; font-size: 15px; font-weight: 700; letter-spacing: 0.02em; line-height: 1.3;
     cursor: pointer; transition: transform .15s var(--ease), opacity .15s var(--ease);
   }
   .sess-btn:active { transform: scale(0.98); opacity: 0.9; }
   .sess-btn.primary {
     border: none; color: #fff;
-    background: linear-gradient(135deg, #E8602B, #FF8A5B);
-    box-shadow: 0 4px 14px rgba(255,138,91,0.3);
+    background: var(--grad-primary);
+    box-shadow: var(--accent-shadow);
   }
   .sess-btn.inline { flex: 0 0 auto; padding: 0 16px; min-height: var(--field-h); height: var(--field-h); font-size: 14px; line-height: 1.2; }
   .sess-hint { font-size: 13px; font-weight: 400; line-height: 1.6; color: var(--sub); margin-bottom: 10px; overflow-wrap: anywhere; }
@@ -1132,14 +1305,14 @@
   .sess-chip:active { transform: scale(0.96); }
   .sess-chip.quick { border-color: var(--accent); background: var(--chip-active-bg); }
   .sess-chip.on { border-color: var(--accent); background: var(--chip-active-bg); color: var(--accent); font-weight: 600; }
-  .sess-chip.part .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--pc); flex: none; }
-  .sess-chip.part.on { background: var(--pc); border-color: var(--pc); color: #fff; }
+  .sess-chip.part .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--sub); flex: none; }
+  .sess-chip.part.on { background: var(--accent); border-color: var(--accent); color: #fff; }
   .sess-chip.part.on .dot { background: #fff; }
   .sess-linkbtn {
     display: flex; align-items: center; justify-content: space-between; gap: 8px;
-    width: 100%; min-height: 52px; padding: 0 16px; margin-bottom: 12px;
-    border-radius: var(--radius-md); border: 1px solid var(--border); background: var(--card); color: var(--text);
-    font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer;
+    width: 100%; min-height: 54px; padding: 0 18px; margin-bottom: 12px;
+    border-radius: 999px; border: 1px solid var(--border-soft); background: var(--card); color: var(--text);
+    font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer;
     box-shadow: var(--shadow-card);
   }
   .sess-linkbtn svg { width: 18px; height: 18px; color: var(--sub); flex: none; }
@@ -1154,13 +1327,17 @@
     padding: 12px 14px; margin-bottom: 12px; min-width: 0;
   }
   .sess-item-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-  .sess-item-name { font-size: 15px; font-weight: 600; overflow-wrap: anywhere; min-width: 0; }
+  .sess-item-name { font-size: 16px; font-weight: 700; overflow-wrap: anywhere; min-width: 0; }
+  /* メニューから読み込んだ未入力の種目 */
+  .sess-item.pending { background: transparent; border-style: dashed; border-color: var(--border); border-left: 5px solid var(--pc, var(--accent)); }
+  .sess-item.pending .sess-item-sum { color: var(--sub); }
+  .sess-mini.primary { background: var(--grad-primary); color: #fff; border-color: transparent; box-shadow: var(--accent-shadow-sm); }
   .sess-item-sum { font-size: 14px; font-weight: 400; margin-top: 6px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
   .sess-item-note { font-size: 12px; color: var(--sub); margin-top: 4px; overflow-wrap: anywhere; }
   .sess-item-act { display: flex; gap: 8px; margin-top: 10px; }
   .sess-mini {
     flex: 1 1 0; min-width: 0; height: 40px; padding: 0 12px; white-space: nowrap;
-    border-radius: 12px; border: 1px solid var(--border); background: var(--surface-alt); color: var(--sub);
+    border-radius: 999px; border: 1px solid var(--border-soft); background: var(--surface-alt); color: var(--text);
     font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
   }
   .sess-mini:active { transform: scale(0.97); }
@@ -1207,6 +1384,7 @@
     border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--card);
     transition: border-color .15s var(--ease), box-shadow .15s var(--ease);
   }
+  .sess-num { background: var(--surface-alt); }
   .sess-num:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--chip-active-bg); }
   .sess-num input {
     -webkit-appearance: none; appearance: none; -moz-appearance: textfield;
@@ -1230,7 +1408,7 @@
   .sess-num button:first-child { border-radius: 11px 0 0 11px; border-right: 1px solid var(--border); }
   .sess-num button:last-child { border-radius: 0 11px 11px 0; border-left: 1px solid var(--border); }
   .sess-num button:active {
-    background: var(--accent); color: var(--card); border-color: var(--accent);
+    background: var(--accent); color: #fff; border-color: var(--accent);
     box-shadow: inset 0 2px 6px rgba(0,0,0,0.18); transition-duration: 0s;
   }
   .sess-num.reps button { flex-basis: var(--sr); width: var(--sr); font-size: 17px; font-weight: 600; letter-spacing: 0; }
@@ -1250,14 +1428,14 @@
   }
   .sess-done {
     position: relative; width: 30px; height: 30px; padding: 0; border-radius: 50%;
-    border: 1.5px solid var(--accent); background: transparent; color: var(--accent);
+    border: 1.5px solid var(--border); background: transparent; color: var(--sub);
     display: flex; align-items: center; justify-content: center;
-    font-family: inherit; font-size: 15px; font-weight: 600; line-height: 1; cursor: pointer;
+    font-family: inherit; font-size: 15px; font-weight: 700; line-height: 1; cursor: pointer;
     transition: transform .15s var(--ease), background .15s var(--ease);
   }
   .sess-done::after { content: ""; position: absolute; inset: -6px -2px; }
   .sess-done:active { transform: scale(0.92); }
-  .sess-done.on { border-color: transparent; color: #fff; background: linear-gradient(135deg, #E8602B, #FF8A5B); box-shadow: 0 3px 10px rgba(255,138,91,0.35); }
+  .sess-done.on { border-color: transparent; color: #fff; background: var(--success); box-shadow: var(--success-shadow); }
   .sess-x {
     position: relative; width: 22px; height: var(--field-h); padding: 0; border: none; background: none; color: var(--sub);
     font-family: inherit; font-size: 18px; font-weight: 400; line-height: 1; cursor: pointer;
@@ -1272,45 +1450,153 @@
   }
   .sess-addset:active { background: var(--chip-active-bg); }
 
-  .sess-rest-wrap { flex: 0 0 auto; }
+  /* 休憩タイマー：動作中（＋終了直後）だけ、画面下中央（フッターの上）に浮かぶピルで表示 */
+  .sess-rest-wrap { flex: 0 0 0px; height: 0; position: relative; z-index: 3; }
   .sess-rest {
-    display: flex; align-items: center; gap: 10px; padding: 8px 14px;
-    background: var(--card); border-top: 1px solid var(--border-soft);
-    transition: background .2s var(--ease);
+    position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%);
+    display: none; align-items: center; gap: 8px;
+    width: max-content; max-width: calc(100% - 24px);
+    padding: 8px 8px 8px 22px; border-radius: 999px; overflow: hidden;
+    background: var(--surface-alt); border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow-float);
   }
-  .sess-ring { position: relative; flex: 0 0 52px; width: 52px; height: 52px; }
-  .sess-ring svg { display: block; width: 100%; height: 100%; }
-  .sess-ring .trk { fill: none; stroke: var(--border); stroke-width: 5; }
-  .sess-ring .prg { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset .3s linear; }
-  .sess-ring span {
-    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-    font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums;
+  .sess-rest.run, .sess-rest.done { display: flex; animation: restPillIn .22s var(--ease); }
+  @keyframes restPillIn { from { opacity: 0; transform: translate(-50%, 14px); } to { opacity: 1; transform: translate(-50%, 0); } }
+  .sess-rest-time { display: flex; flex-direction: column; line-height: 1.1; margin-right: 8px; min-width: 0; }
+  .sess-rest-time b { font-size: 30px; font-weight: 800; letter-spacing: 0.01em; font-variant-numeric: tabular-nums; color: var(--text); }
+  .sess-rest-cap { font-size: 11px; font-weight: 600; color: var(--sub); white-space: nowrap; }
+  .sess-rbtn {
+    flex: 0 0 46px; width: 46px; height: 46px; padding: 0; border-radius: 50%;
+    border: none; background: var(--card); color: var(--text);
+    display: flex; align-items: center; justify-content: center;
+    font-family: inherit; font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; cursor: pointer;
+    transition: transform .12s var(--ease);
   }
-  .sess-rest-mid { flex: 1 1 auto; min-width: 0; }
-  .sess-rest-cap { font-size: 12px; font-weight: 500; color: var(--sub); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sess-rps { display: flex; gap: 6px; }
-  .sess-rp {
-    flex: 1 1 0; min-width: 0; height: 40px; padding: 0; border-radius: 12px;
-    border: 1px solid var(--border); background: var(--surface-alt); color: var(--text);
-    font-family: inherit; font-size: 14px; font-weight: 500; font-variant-numeric: tabular-nums; cursor: pointer;
-  }
-  .sess-rp.on { border-color: var(--accent); background: var(--chip-active-bg); color: var(--accent); font-weight: 600; }
-  .sess-skip {
-    flex: 0 0 auto; min-width: 70px; height: 40px; padding: 0 10px; border-radius: 12px;
-    border: 1px solid var(--border); background: var(--surface-alt); color: var(--text);
-    font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
-  }
-  .sess-skip[disabled] { opacity: 0.4; cursor: default; }
-  .sess-rest.run .sess-skip { border-color: var(--accent); color: var(--accent); }
-  .sess-rest.done { background: linear-gradient(135deg, #E8602B, #FF8A5B); animation: sessFlash .7s ease-in-out infinite alternate; }
-  .sess-rest.done .sess-rest-cap { color: #fff; font-weight: 600; }
-  .sess-rest.done .sess-ring .trk { stroke: rgba(255,255,255,0.35); }
-  .sess-rest.done .sess-ring .prg { stroke: #fff; }
-  .sess-rest.done .sess-ring span { color: #fff; }
-  .sess-rest.done .sess-rp { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.5); color: #fff; }
-  .sess-rest.done .sess-rp.on { background: #fff; color: #E8602B; }
-  .sess-rest.done .sess-skip { background: #fff; color: #E8602B; border-color: #fff; }
+  .sess-rbtn svg { width: 20px; height: 20px; display: block; }
+  .sess-rbtn:active { transform: scale(0.9); }
+  .sess-rest-prog { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--accent); transition: width .3s linear; }
+  .sess-rest.done { background: var(--grad-primary); border-color: transparent; animation: sessFlash .7s ease-in-out infinite alternate; }
+  .sess-rest.done .sess-rest-time b, .sess-rest.done .sess-rest-cap { color: #fff; }
+  .sess-rest.done .sess-rbtn { background: rgba(255,255,255,0.22); color: #fff; }
+  .sess-rest.done .sess-rbtn.close { background: #fff; color: #0A84FF; }
+  .sess-rest.done .sess-rest-prog { display: none; }
   @keyframes sessFlash { from { filter: brightness(1); } to { filter: brightness(1.15); } }
+  .sess-overlay.rest-on .sess-body { padding-bottom: 100px; }
+
+  /* セッション画面の種目カード：種目名 → セット行（番号・重量・回数・完了の丸） → ＋セットを追加 */
+  .sx-card {
+    background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-softer);
+    padding: 14px 10px 6px; margin-bottom: 12px; min-width: 0;
+  }
+  .sx-card.pending { background: transparent; border: 1.5px dashed var(--border); }
+  .sx-head { display: flex; align-items: center; gap: 8px; padding: 0 4px 10px; min-width: 0; }
+  .sx-dot { flex: none; width: 9px; height: 9px; border-radius: 50%; background: var(--pc, var(--accent)); }
+  .sx-name { flex: 1 1 auto; min-width: 0; font-size: 17px; font-weight: 800; line-height: 1.3; overflow-wrap: anywhere; }
+  .sx-tag { flex: none; font-size: 11px; font-weight: 600; color: var(--sub); background: var(--surface-alt); border-radius: 999px; padding: 2px 8px; }
+  .sx-hbtn {
+    flex: none; height: 32px; padding: 0 12px; border-radius: 999px; border: none;
+    background: var(--surface-alt); color: var(--sub);
+    display: flex; align-items: center; justify-content: center;
+    font-family: inherit; font-size: 12px; font-weight: 600; cursor: pointer;
+  }
+  .sx-hbtn svg { width: 16px; height: 16px; display: block; }
+  .sx-hbtn.danger { width: 32px; padding: 0; color: var(--danger); background: var(--status-off-bg); }
+  .sx-hbtn:active { transform: scale(0.94); }
+  .sx-row {
+    display: grid; grid-template-columns: 24px minmax(0, 1fr) minmax(0, 1fr) 44px;
+    align-items: center; column-gap: 8px;
+    min-height: 60px; padding: 6px 6px 6px 8px; margin-bottom: 4px;
+    border-radius: 14px; cursor: pointer;
+    transition: background .15s var(--ease);
+  }
+  .sx-row:active { background: var(--surface-alt); }
+  .sx-row.done { background: rgba(48,209,88,0.11); }
+  .sx-n { font-size: 14px; font-weight: 700; color: var(--sub); text-align: center; font-variant-numeric: tabular-nums; }
+  .sx-v {
+    min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    font-size: 25px; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; font-variant-numeric: tabular-nums;
+  }
+  .sx-v small { font-size: 12px; font-weight: 600; color: var(--sub); margin-left: 3px; letter-spacing: 0; }
+  .sx-v.empty { font-size: 16px; font-weight: 500; color: var(--sub); }
+  .sx-check {
+    width: 44px; height: 44px; padding: 0; border-radius: 50%;
+    border: 2.5px solid rgba(154,163,173,0.55); background: transparent; color: transparent;
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    transition: transform .12s var(--ease), background .15s var(--ease), border-color .15s var(--ease);
+  }
+  .sx-check svg { width: 22px; height: 22px; display: block; }
+  .sx-check:active { transform: scale(0.88); }
+  .sx-check.on { background: #30d158; border-color: #30d158; color: #fff; box-shadow: var(--success-shadow); }
+  .sx-add {
+    display: block; margin: 2px auto 4px; padding: 10px 18px; border: none; background: none;
+    color: var(--accent); font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer;
+  }
+  .sx-add:active { opacity: 0.6; }
+  .sx-note { font-size: 12px; color: var(--sub); padding: 0 6px 8px; overflow-wrap: anywhere; }
+
+  /* セット編集シート（セット行をタップで開く） */
+  .sx-sheet-ov {
+    position: fixed; inset: 0; z-index: 5;
+    display: flex; align-items: flex-end; justify-content: center;
+    background: rgba(0,0,0,0.55);
+  }
+  .sx-sheet {
+    width: 100%; max-width: 480px; max-height: 90vh; max-height: 90dvh; overflow-y: auto;
+    background: var(--card); border-radius: 28px 28px 0 0; border-top: 1px solid var(--border-soft);
+    padding: 10px 18px calc(18px + var(--safe-b));
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.4);
+    animation: sxUp .22s var(--ease);
+  }
+  @keyframes sxUp { from { transform: translateY(40px); opacity: 0.6; } to { transform: none; opacity: 1; } }
+  .sx-grab { width: 40px; height: 5px; border-radius: 3px; background: var(--border); margin: 0 auto 14px; }
+  .sx-sh-head { display: flex; align-items: flex-start; gap: 10px; }
+  .sx-sh-title { flex: 1 1 auto; min-width: 0; font-size: 20px; font-weight: 800; line-height: 1.35; overflow-wrap: anywhere; }
+  .sx-sh-title span { color: var(--sub); font-weight: 700; white-space: nowrap; }
+  .sx-sh-x {
+    flex: 0 0 36px; width: 36px; height: 36px; padding: 0; border-radius: 50%; border: none;
+    background: var(--surface-alt); color: var(--sub); display: flex; align-items: center; justify-content: center; cursor: pointer;
+  }
+  .sx-sh-x svg { width: 18px; height: 18px; display: block; }
+  .sx-sh-step { font-size: 13px; color: var(--sub); margin: 4px 0 16px; font-variant-numeric: tabular-nums; }
+  .sx-sh-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .sx-rb {
+    flex: 0 0 58px; width: 58px; height: 58px; padding: 0; border-radius: 50%; border: none;
+    background: var(--surface-alt); color: var(--text);
+    display: flex; align-items: center; justify-content: center;
+    font-family: inherit; font-size: 30px; font-weight: 400; line-height: 1; cursor: pointer;
+    transition: transform .12s var(--ease), background .12s var(--ease);
+  }
+  .sx-rb:active { transform: scale(0.9); background: var(--chip-active-bg); }
+  .sx-field {
+    flex: 1 1 auto; min-width: 0; height: 66px; padding: 0 12px;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    border-radius: 20px; background: var(--surface-alt); cursor: text;
+  }
+  .sx-field:focus-within { box-shadow: 0 0 0 2px var(--accent); }
+  .sx-field input {
+    -webkit-appearance: none; appearance: none; -moz-appearance: textfield;
+    flex: 0 1 auto; width: 5.4ch; min-width: 0; margin: 0; padding: 0;
+    border: none; background: transparent; outline: none; color: var(--text);
+    font-family: inherit; font-size: 32px; font-weight: 800; text-align: right; font-variant-numeric: tabular-nums;
+  }
+  .sx-field input::-webkit-outer-spin-button, .sx-field input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .sx-field input::placeholder { color: var(--sub); opacity: 0.45; }
+  .sx-field span { flex: 0 0 auto; font-size: 15px; font-weight: 600; color: var(--sub); }
+  .sx-sheet .sess-prev { margin: 4px 0 14px; }
+  .sx-done-btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; height: 58px; margin-top: 6px; border: none; border-radius: 999px;
+    background: #30d158; color: #fff; box-shadow: var(--success-shadow);
+    font-family: inherit; font-size: 17px; font-weight: 800; letter-spacing: 0.04em; cursor: pointer;
+    transition: transform .12s var(--ease), opacity .12s var(--ease);
+  }
+  .sx-done-btn svg { width: 22px; height: 22px; display: block; }
+  .sx-done-btn:active { transform: scale(0.98); opacity: 0.92; }
+  .sx-sh-del {
+    display: block; margin: 10px auto 0; padding: 8px 14px; border: none; background: none;
+    color: var(--danger); font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+  }
 
   .sess-mrow { display: flex; align-items: center; gap: 6px; padding: 6px 0; border-bottom: 1px solid var(--border-soft); }
   .sess-mrow:last-child { border-bottom: none; }
@@ -1340,22 +1626,35 @@
     <div class="top-banner" id="topBanner"></div>
 
     <div class="record-segment show" id="recordSegment">
-      <button class="record-seg-btn active" data-period="day" type="button">日</button>
+      <button class="record-seg-btn active" data-period="day" type="button">カレンダー</button>
       <button class="record-seg-btn" data-period="week" type="button">週</button>
       <button class="record-seg-btn" data-period="month" type="button">月</button>
     </div>
 
-    <!-- 日別 -->
+    <!-- 体重・写真タブの切り替え（中身は既存の体重／写真画面） -->
+    <div class="record-segment body-segment" id="bodySegment" role="tablist" aria-label="体重・写真の切り替え">
+      <button class="record-seg-btn" data-body="weight" type="button" role="tab">体重</button>
+      <button class="record-seg-btn" data-body="photo" type="button" role="tab">写真</button>
+    </div>
+
+    <!-- カレンダー（選んだ日の記録） -->
     <section class="screen active" id="screen-day">
-      <div class="card">
-        <div class="nav-switch">
-          <button id="dayPrevBtn" type="button" aria-label="前の日"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-          <span class="nav-label" id="dayLabel"></span>
-          <button id="dayNextBtn" type="button" aria-label="次の日"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+      <div class="card cal-card">
+        <div class="cal-head">
+          <span class="cal-title" id="dayLabel" role="button" tabindex="0" aria-label="日付を選択"></span>
+          <button class="cal-today" id="calTodayBtn" type="button">今日</button>
+          <button class="cal-nav" id="dayPrevBtn" type="button" aria-label="前の月"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <button class="cal-nav" id="dayNextBtn" type="button" aria-label="次の月"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
         </div>
         <input type="date" id="dayDateInput" class="day-date-input" aria-label="日付を選択" tabindex="-1">
+        <div class="cal-grid" id="calGrid"></div>
       </div>
+      <div class="day-head"><span class="day-head-date" id="daySelLabel"></span><span class="day-head-sub" id="daySelSub"></span></div>
       <div id="dayContent"><div class="card"><div class="empty-msg">読み込み中…</div></div></div>
+      <div class="cta-stack">
+        <button class="cta-btn primary" id="dayStartBtn" type="button"><span class="cta-ico" aria-hidden="true">▶</span>トレーニングを開始</button>
+        <button class="cta-btn" id="dayAddBtn" type="button"><span class="cta-ico" aria-hidden="true">＋</span>記録を追加</button>
+      </div>
       <div class="app-footer" id="footerDay"></div>
     </section>
 
@@ -1387,11 +1686,11 @@
 
     <!-- 種目別 -->
     <section class="screen" id="screen-exercise">
-      <div class="card">
+      <div class="card" id="exPartCard">
         <div class="section-title">部位で絞り込む</div>
         <div class="chip-row-scroll" id="partChips"></div>
       </div>
-      <div class="card">
+      <div class="card exr-card" id="exListCard">
         <div id="equipList"></div>
       </div>
       <div id="exerciseContent"><div class="card"><div class="empty-msg">読み込み中…</div></div></div>
@@ -1428,11 +1727,8 @@
     <button class="tab-btn" data-screen="exercise" type="button" aria-label="種目別">
       <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8v8"/><path d="M4 9v6"/><path d="M20 9v6"/><path d="M22 8v8"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M9 8v8"/><path d="M15 8v8"/></svg></span>種目別
     </button>
-    <button class="tab-btn" data-screen="weight" type="button" aria-label="体重">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg></span>体重
-    </button>
-    <button class="tab-btn" data-screen="photo" type="button" aria-label="写真">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>写真
+    <button class="tab-btn" data-screen="body" type="button" aria-label="体重・写真">
+      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg></span>体重・写真
     </button>
     <button class="tab-btn" data-screen="meal" type="button" aria-label="食事">
       <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M12 11V4"/><path d="M8 4c0 1.4 1 2 1 3.4"/><path d="M16 4c0 1.4-1 2-1 3.4"/></svg></span>食事
@@ -1481,15 +1777,28 @@
   <div class="rec-shell">
     <header class="sess-head rec-head">
       <div class="sess-head-side"><button class="sess-head-btn" id="recordSheetClose" type="button">閉じる</button></div>
-      <div class="sess-head-mid"><div class="sess-title" id="recordSheetTitle">記録する</div></div>
+      <div class="sess-head-mid"></div>
       <div class="sess-head-side right"></div>
     </header>
     <div class="rec-body">
-    <div class="record-actions">
-      <button class="add-record-btn" type="button" id="sessionOpenBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8v8"/><path d="M4 9v6"/><path d="M20 9v6"/><path d="M22 8v8"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M9 8v8"/><path d="M15 8v8"/></svg>
-        <span id="sessionOpenLabel">トレーニングを記録する</span>
+    <h2 class="rec-title-big" id="recordSheetTitle">トレーニングを開始</h2>
+    <p class="rec-lead">メニューを選ぶと、種目が入った状態で始められます。</p>
+    <!-- 進行中のトレーニングがあるときだけ表示（再開ボタン） -->
+    <button class="add-record-btn primary rec-resume" type="button" id="sessionOpenBtn" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8v8"/><path d="M4 9v6"/><path d="M20 9v6"/><path d="M22 8v8"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M9 8v8"/><path d="M15 8v8"/></svg>
+      <span id="sessionOpenLabel">トレーニングを記録する</span>
+    </button>
+    <div class="rec-label">メニュー</div>
+    <div class="rec-menu-list" id="recMenuList"></div>
+    <div class="rec-btn-stack">
+      <button class="add-record-btn primary" type="button" id="recMenuEditBtn">＋ メニューを作成・編集</button>
+      <button class="add-record-btn" type="button" id="recFreeBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="7 4 20 12 7 20 7 4"/></svg>
+        <span>フリーで開始</span>
       </button>
+    </div>
+    <div class="rec-label">ほかの記録</div>
+    <div class="record-actions">
       <button class="add-record-btn" type="button" data-open-entry="bw">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg>
         <span>体重を記録する</span>
@@ -1530,6 +1839,7 @@
     <div class="sess-rest-wrap" id="sessRest"></div>
     <div class="sess-foot" id="sessFoot"></div>
   </div>
+  <div id="sessSheet"></div>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -1538,19 +1848,22 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.18g";
+  var APP_VERSION = "v2026.11.19d";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
+  // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
+  // 部位チップ自体は CSS（.part-chip / .part-chip-btn / .sess-chip.part）で「通常はグレー・選択中は青」
+  var PART_ACCENT = "#0A84FF";
   var PART_COLORS = {
-    "胸": "#ff8a5b",
-    "背中": "#4ecdc4",
-    "肩": "#7b9acc",
-    "二頭": "#f4b942",
-    "三頭": "#c97bdb",
-    "脚": "#5bbf72",
-    "腹筋": "#ff6b8a",
-    "有酸素": "#8aa0b0",
-    "不明": "#aaaaaa"
+    "胸": PART_ACCENT,
+    "背中": PART_ACCENT,
+    "肩": PART_ACCENT,
+    "二頭": PART_ACCENT,
+    "三頭": PART_ACCENT,
+    "脚": PART_ACCENT,
+    "腹筋": PART_ACCENT,
+    "有酸素": PART_ACCENT,
+    "不明": PART_ACCENT
   };
   var WEEKDAY_JP = ["日", "月", "火", "水", "木", "金", "土"];
   var WEEKDAY_JP_MON = ["月", "火", "水", "木", "金", "土", "日"];
@@ -1581,6 +1894,8 @@
     goalWeight: 70,
     goalDate: "",
     currentTab: "day",
+    calMonth: null,
+    bodySub: "weight",
     photoKey: null,
     photoMonth: null,
     photoCompare: [],
@@ -1629,7 +1944,7 @@
   function getThemePref() {
     var p = null;
     try { p = localStorage.getItem(THEME_KEY); } catch (e) {}
-    return (p === "light" || p === "dark" || p === "auto") ? p : "auto";
+    return (p === "light" || p === "dark" || p === "auto") ? p : "dark";
   }
   function isDarkActive() {
     var pref = getThemePref();
@@ -1638,7 +1953,7 @@
   function updateThemeMeta() {
     var dark = isDarkActive();
     var tc = document.querySelector('meta[name="theme-color"]');
-    if (tc) tc.setAttribute("content", dark ? "#C45A2E" : "#FF8A5B");
+    if (tc) tc.setAttribute("content", dark ? "#000000" : "#F2F2F7");
     var sb = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
     if (sb) sb.setAttribute("content", dark ? "black-translucent" : "default");
     document.documentElement.style.colorScheme = dark ? "dark" : "light";
@@ -1907,12 +2222,11 @@
     return order.map(function (name) { return map[name]; });
   }
   function partChipHtml(part) {
-    var color = PART_COLORS[part] || "#aaa";
-    return '<span class="part-chip" style="background:' + color + '">' + escapeHtml(part) + "</span>";
+    return '<span class="part-chip">' + escapeHtml(part) + "</span>";
   }
   function exBlockHtml(group, opts) {
     opts = opts || {};
-    var color = PART_COLORS[group.part] || "#aaa";
+    var color = PART_COLORS[group.part] || PART_ACCENT;
     var html = '<div class="ex-block" style="border-left:4px solid ' + color + ';">';
     html += '<div class="ex-head"><span class="ex-name">' + escapeHtml(group.exercise) + "</span>" + partChipHtml(group.part) + "</div>";
     group.entries.forEach(function (entry) {
@@ -1989,7 +2303,9 @@
         computeBestBadges();
         if (isInitial) {
           var latestKey = computeLatestDateKey();
-          state.dayKey = latestKey || dateToKey(new Date());
+          // カレンダーの初期選択は今日（月も今日の月）
+          if (!state.dayKey) state.dayKey = todayKey();
+          state.calMonth = monthFromKey(state.dayKey);
           state.weekStart = latestKey ? mondayOf(dkToDate(latestKey)) : mondayOf(new Date());
           state.monthCursor = monthFromKey(latestKey ? latestKey : dateToKey(new Date()));
           state.weightPeriod = periodFromKey(latestKey ? latestKey : dateToKey(new Date()));
@@ -2000,6 +2316,7 @@
         renderFooters();
         renderCurrentTab();
         sessionApi.onData();
+        if (isRecordSheetOpen()) renderRecMenus();
       })
       .catch(function (err) {
         if (state.loaded) {
@@ -2054,9 +2371,8 @@
       if (so.sets != null) html0 += "（合計 " + so.sets + " セット（部位別は不明））";
       html0 += "</div>";
       partsList.forEach(function (p) {
-        var color0 = PART_COLORS[p] || "#aaa";
         html0 += '<div class="bar-row">';
-        html0 += '<span class="part-chip" style="background:' + color0 + '">' + escapeHtml(p) + "</span>";
+        html0 += partChipHtml(p);
         html0 += '<span class="part-tag-value">セット数不明</span>';
         html0 += "</div>";
       });
@@ -2088,7 +2404,7 @@
         var pct = val === 0 ? 0 : Math.max(4, Math.round((val / maxVal) * 100));
         html += '<div class="bar-row">';
         html += '<div class="bar-label">' + escapeHtml(p) + "</div>";
-        html += '<div class="bar-track"><div class="bar-fill" style="width:' + pct + "%;background:" + (PART_COLORS[p] || "#aaa") + '"></div></div>';
+        html += '<div class="bar-track"><div class="bar-fill" style="width:' + pct + "%;background:" + (PART_COLORS[p] || PART_ACCENT) + '"></div></div>';
         html += '<div class="bar-value">' + val + "セット" + (approxParts[p] ? "(概算)" : "") + "</div>";
         html += "</div>";
       });
@@ -2099,39 +2415,99 @@
     }
     return html;
   }
+  // 「11月18日（水）」形式（今年以外は年を付ける）
+  function formatDayHeading(key) {
+    var d = dkToDate(key);
+    var y = d.getFullYear() === new Date().getFullYear() ? "" : d.getFullYear() + "年";
+    return y + (d.getMonth() + 1) + "月" + d.getDate() + "日（" + weekdayJp(d) + "）";
+  }
+  function dayHasTraining(day) {
+    return !!(day && (day.summary_only || (day.entries && day.entries.length)));
+  }
+  // 月カレンダー（日曜はじまり）。トレーニングした日は青い丸、今日は輪、選択中の日は青＋外側の輪
+  function calendarGridHtml(m, dayMap) {
+    var today = todayKey();
+    var html = "";
+    WEEKDAY_JP.forEach(function (w, i) {
+      html += '<div class="cal-dow' + (i === 0 ? " sun" : (i === 6 ? " sat" : "")) + '">' + w + "</div>";
+    });
+    var first = new Date(m.year, m.month - 1, 1, 12, 0, 0);
+    var lead = first.getDay();
+    var dim = daysInMonth(m.year, m.month);
+    for (var i = 0; i < lead; i++) html += '<div class="cal-cell" aria-hidden="true"></div>';
+    for (var day = 1; day <= dim; day++) {
+      var key = m.year + "-" + pad2(m.month) + "-" + pad2(day);
+      var trained = dayHasTraining(dayMap[key]);
+      var sel = key === state.dayKey;
+      var cls = "cal-day" + (trained ? " trained" : "") + (key === today ? " today" : "") + (sel ? " selected" : "");
+      var aria = m.month + "月" + day + "日" + (trained ? "（トレーニングあり）" : "") + (key === today ? "（今日）" : "");
+      html += '<div class="cal-cell"><button type="button" class="' + cls + '" data-cal-key="' + key + '" aria-pressed="' + (sel ? "true" : "false") + '" aria-label="' + aria + '">' + day + "</button></div>";
+    }
+    return html;
+  }
+  // 選んだ日の食事（食事タブと同じ集計・同じ除外ルール）
+  function dayMealCardHtml(key) {
+    var m = state.data && state.data.meals && state.data.meals[key];
+    if (!m) return "";
+    var items = (m.items || []).filter(function (it) { return !MEAL_NOISE_RE.test(it.text); });
+    if (m.kcal == null && m.protein == null && !items.length && !m.note) return "";
+    var html = '<div class="card"><div class="section-title">食事</div><div class="meal-bars" style="margin-top:0">';
+    html += mealBarRow("kcal", m.kcal, MEAL_KCAL_TARGET, "#0A84FF", "kcal");
+    html += mealBarRow("P", m.protein, MEAL_PROTEIN_TARGET, "#64B5F6", "g");
+    html += "</div>";
+    if (m.note) html += '<div class="meal-note">' + escapeHtml(m.note) + "</div>";
+    if (items.length) {
+      html += '<div class="meal-items open">';
+      items.forEach(function (it) {
+        html += '<div class="meal-item-row">' + (it.time ? '<span class="mi-time">' + escapeHtml(it.time) + "</span>" : "") + escapeHtml(it.text) + "</div>";
+      });
+      html += "</div>";
+    }
+    return html + "</div>";
+  }
+  // 選んだ日の写真（写真タブと同じ表示。タップで写真画面を開く）
+  function dayPhotoCardHtml(key) {
+    if (!state.photoReady || !state.photoCache[key]) return "";
+    return '<div class="card day-photo-card" data-open-photo="' + key + '"><div class="section-title">写真</div>' +
+      photoStageHtml(key, false) + '<div class="day-photo-link">写真の画面で開く ›</div></div>';
+  }
+  function changeCalMonth(delta) {
+    if (!state.calMonth) state.calMonth = monthFromKey(state.dayKey || todayKey());
+    state.calMonth = shiftMonthBy(state.calMonth, delta);
+    renderDayTab();
+    return true;
+  }
+  function selectCalDay(key) {
+    state.dayKey = key;
+    state.calMonth = monthFromKey(key);
+    renderDayTab();
+  }
   function renderDayTab() {
     var days = (state.data && state.data.days) || [];
     var dayMap = {};
     days.forEach(function (d) { dayMap[d.date] = d; });
-    var labelEl = document.getElementById("dayLabel");
-    var prevBtn = document.getElementById("dayPrevBtn");
-    var nextBtn = document.getElementById("dayNextBtn");
     var content = document.getElementById("dayContent");
-    var range = dayNavRange();
 
-    if (!range) {
-      labelEl.textContent = "記録なし";
-      prevBtn.disabled = true;
-      nextBtn.disabled = true;
-      content.innerHTML = '<div class="card"><div class="empty-msg">記録がありません</div></div>';
-      return;
-    }
-    if (!state.dayKey) state.dayKey = computeLatestDateKey() || dateToKey(range.end);
-    var curDate = dkToDate(state.dayKey);
-    labelEl.textContent = formatDateLabel(state.dayKey);
-    prevBtn.disabled = curDate.getTime() <= range.start.getTime();
-    nextBtn.disabled = curDate.getTime() >= range.end.getTime();
+    if (!state.dayKey) state.dayKey = todayKey();
+    if (!state.calMonth) state.calMonth = monthFromKey(state.dayKey);
+    document.getElementById("dayLabel").textContent = monthLabel(state.calMonth);
+    document.getElementById("calGrid").innerHTML = calendarGridHtml(state.calMonth, dayMap);
+    document.getElementById("daySelLabel").textContent = formatDayHeading(state.dayKey);
+    document.getElementById("daySelSub").textContent = state.dayKey === todayKey() ? "今日" : "";
 
     var day = dayMap[state.dayKey];
     var html = "";
-    var bw = state.bwMap[state.dayKey];
+    var bw = state.bwMap ? state.bwMap[state.dayKey] : null;
     if (bw != null) {
-      html += '<div class="card"><span class="bw-pill">体重 ' + formatWeight(bw) + "kg</span></div>";
+      html += '<div class="card"><span class="bw-pill" style="margin-bottom:0">体重 ' + formatWeight(bw) + "kg</span></div>";
     }
+    var extras = dayMealCardHtml(state.dayKey) + dayPhotoCardHtml(state.dayKey);
 
     if (!day) {
-      html += '<div class="card"><div class="empty-day">' + ICON_CALENDAR_EMPTY + '<div class="empty-day-text">記録なし</div></div></div>';
-      content.innerHTML = html;
+      if (!html && !extras) {
+        html += '<div class="card"><div class="empty-day">' + ICON_CALENDAR_EMPTY + '<div class="empty-day-text">この日の記録はありません</div></div></div>';
+      }
+      content.innerHTML = html + extras;
       return;
     }
 
@@ -2165,7 +2541,7 @@
       html += groups.map(function (g) { return exBlockHtml(g, { showBest: true }); }).join("");
       html += "</div>";
     }
-    content.innerHTML = html;
+    content.innerHTML = html + extras;
   }
 
   // ---------- 週別タブ ----------
@@ -2233,7 +2609,7 @@
       var pct = val === 0 ? 0 : Math.max(4, Math.round((val / maxVal) * 100));
       html += '<div class="bar-row">';
       html += '<div class="bar-label">' + escapeHtml(p) + "</div>";
-      html += '<div class="bar-track"><div class="bar-fill" style="width:' + pct + "%;background:" + (PART_COLORS[p] || "#aaa") + '"></div></div>';
+      html += '<div class="bar-track"><div class="bar-fill" style="width:' + pct + "%;background:" + (PART_COLORS[p] || PART_ACCENT) + '"></div></div>';
       html += '<div class="bar-value">' + val + "セット" + (cur.approxParts[p] ? "(概算)" : "") + "</div>";
       html += "</div>";
     });
@@ -2301,10 +2677,10 @@
   function monthCalendarHtml(m, cur) {
     var daysCount = daysInMonth(m.year, m.month);
     var firstDate = new Date(m.year, m.month - 1, 1, 12, 0, 0);
-    var firstWeekday = (firstDate.getDay() + 6) % 7;
+    var firstWeekday = firstDate.getDay();
     var todayKey = dateToKey(new Date());
     var html = '<div class="section-title">カレンダー</div><div class="month-cal">';
-    WEEKDAY_JP_MON.forEach(function (w) { html += '<div class="month-cal-dow">' + w + "</div>"; });
+    WEEKDAY_JP.forEach(function (w) { html += '<div class="month-cal-dow">' + w + "</div>"; });
     for (var i = 0; i < firstWeekday; i++) html += '<div class="month-day empty"></div>';
     for (var day = 1; day <= daysCount; day++) {
       var key = m.year + "-" + pad2(m.month) + "-" + pad2(day);
@@ -2313,7 +2689,7 @@
       html += '<div class="' + cls + '" data-day-key="' + key + '"><span>' + day + "</span>";
       if (info.status === "full" && info.parts && info.parts.length) {
         html += '<div class="md-dots">' + info.parts.map(function (p) {
-          return '<span class="md-dot" style="background:' + (PART_COLORS[p] || "#aaa") + '"></span>';
+          return '<span class="md-dot" style="background:' + (PART_COLORS[p] || PART_ACCENT) + '"></span>';
         }).join("") + "</div>";
       } else if (info.status === "summary") {
         html += '<div class="md-dots"><span class="md-dot summary-dot"></span></div>';
@@ -2349,7 +2725,7 @@
       var pct = val === 0 ? 0 : Math.max(4, Math.round((val / maxVal) * 100));
       html += '<div class="bar-row">';
       html += '<div class="bar-label">' + escapeHtml(p) + "</div>";
-      html += '<div class="bar-track"><div class="bar-fill" style="width:' + pct + "%;background:" + (PART_COLORS[p] || "#aaa") + '"></div></div>';
+      html += '<div class="bar-track"><div class="bar-fill" style="width:' + pct + "%;background:" + (PART_COLORS[p] || PART_ACCENT) + '"></div></div>';
       html += '<div class="bar-value">' + val + "セット" + (cur.approxParts[p] ? "(概算)" : "") + "</div>";
       html += "</div>";
     });
@@ -2533,32 +2909,21 @@
       }
     }
 
+    var progMap = exerciseDatesMap();
+    // 進捗リスト（部位内の並びは従来どおり：器具グループ順 → 回数の多い順）
     function renderGroupHtml() {
       var g = groupFor(state.selectedPart);
-      var label = g.part === "不明" ? "その他" : g.part;
-      var color = PART_COLORS[g.part] || "#aaa";
-      var html = '<div class="part-group">';
-      html += '<span class="part-chip part-chip-lg" style="background:' + color + '">' + escapeHtml(label) + "</span>";
-      g.equips.forEach(function (eq) {
-        html += '<div class="equip-block"><div class="equip-subhead">' + escapeHtml(eq.equip) + "</div>";
-        html += '<div class="chip-row">' + eq.list.map(function (it) {
-          var activeCls = it.name === state.selectedExercise ? " active" : "";
-          return '<button type="button" class="chip' + activeCls + '" data-exercise="' + escapeHtml(it.name) + '">' + escapeHtml(it.name) + "</button>";
-        }).join("") + "</div></div>";
-      });
-      html += "</div>";
-      return html;
+      return '<div class="exr-list">' + flatOrderFor(g).map(function (name) {
+        return exerciseRowHtml(name, progMap[name] || {});
+      }).join("") + "</div>";
     }
     function bindExerciseChips() {
-      Array.prototype.forEach.call(listEl.querySelectorAll(".chip"), function (btn) {
+      Array.prototype.forEach.call(listEl.querySelectorAll(".exr"), function (btn) {
         btn.addEventListener("click", function () {
-          var name = btn.getAttribute("data-exercise");
-          if (name === state.selectedExercise) return;
-          state.selectedExercise = name;
-          Array.prototype.forEach.call(listEl.querySelectorAll(".chip"), function (b) {
-            b.classList.toggle("active", b.getAttribute("data-exercise") === name);
-          });
+          state.selectedExercise = btn.getAttribute("data-exercise");
+          state.exerciseDetail = true; // 既存の種目詳細（グラフ・自己ベスト・履歴）を開く
           renderExerciseTab();
+          try { window.scrollTo(0, 0); } catch (e) {}
         });
       });
     }
@@ -2570,10 +2935,9 @@
     }
 
     partChipsEl.innerHTML = partsAvail.map(function (part) {
-      var color = PART_COLORS[part] || "#aaa";
       var label = part === "不明" ? "その他" : part;
       var active = part === state.selectedPart ? " active" : "";
-      return '<button type="button" class="part-chip-btn' + active + '" style="background:' + color + '" data-part="' + escapeHtml(part) + '">' + escapeHtml(label) + "</button>";
+      return '<button type="button" class="part-chip-btn' + active + '" data-part="' + escapeHtml(part) + '">' + escapeHtml(label) + "</button>";
     }).join("");
     listEl.innerHTML = renderGroupHtml();
     bindExerciseChips();
@@ -2589,11 +2953,125 @@
         var g = groupFor(part);
         state.exerciseOrder = flatOrderFor(g);
         state.selectedExercise = state.exerciseOrder[0];
+        state.exerciseDetail = false;
         listEl.innerHTML = renderGroupHtml();
         bindExerciseChips();
         renderExerciseTab();
       });
     });
+  }
+  // ---------- 種目別：進捗リスト ----------
+  // 種目名 → { 日付: [エントリ…] }（state.data＝data.json＋端末記録のマージ済みデータ）
+  function exerciseDatesMap() {
+    var map = {};
+    ((state.data && state.data.days) || []).forEach(function (day) {
+      (day.entries || []).forEach(function (e) {
+        if (!e || !e.exercise) return;
+        var m = map[e.exercise] || (map[e.exercise] = {});
+        (m[day.date] || (m[day.date] = [])).push(e);
+      });
+    });
+    return map;
+  }
+  // 各回（日）の代表値：重量のある種目は最大重量（chartWeightValue＝片手は合計×2）、
+  // 重量のない種目は有酸素なら合計分数、自重なら最大回数（自己ベストと同じ優先順）。kg を作り出さない。
+  // 比較の基準：直近3か月の中で最も古い回（最新の回以外）。窓内に最新の1回しかなければ、窓の直前の回。
+  function exerciseProgress(perDate) {
+    var keys = Object.keys(perDate).sort();
+    var sessions = keys.map(function (k) {
+      var w = null, r = null, mi = null;
+      perDate[k].forEach(function (e) {
+        if (e.minutes != null) mi = (mi || 0) + e.minutes;
+        var v = chartWeightValue(e);
+        if (v != null) w = w == null ? v : Math.max(w, v);
+        if (e.reps && e.reps.length) {
+          var mr = Math.max.apply(null, e.reps);
+          if (isFinite(mr)) r = r == null ? mr : Math.max(r, mr);
+        }
+      });
+      return { date: k, w: w, mi: mi, r: r };
+    });
+    var has = function (f) { return sessions.some(function (s) { return s[f] != null; }); };
+    var mode = has("w") ? "w" : (has("mi") ? "mi" : (has("r") ? "r" : null));
+    var out = { mode: mode, count: keys.length, lastDate: keys.length ? keys[keys.length - 1] : null };
+    if (!mode) return out;
+    var pts = sessions.filter(function (s) { return s[mode] != null; }).map(function (s) { return { date: s.date, v: s[mode] }; });
+    var today = todayKey();
+    var td = dkToDate(today);
+    var cutKey = dateToKey(new Date(td.getFullYear(), td.getMonth() - 3, td.getDate(), 12, 0, 0));
+    var latest = pts[pts.length - 1];
+    var inWin = pts.filter(function (p) { return p.date >= cutKey; });
+    var before = pts.filter(function (p) { return p.date < cutKey; });
+    var base = null;
+    if (latest.date >= cutKey) {
+      if (inWin.length >= 2) base = inWin[0];
+      else if (before.length) base = before[before.length - 1];
+    }
+    var spark = inWin.slice();
+    if (base && base.date < cutKey) spark.unshift({ date: cutKey, v: base.v }); // 窓の直前の値を左端に置く
+    out.unit = mode === "w" ? "kg" : (mode === "mi" ? "分" : "回");
+    out.latest = latest;
+    out.base = base;
+    out.delta = base ? Math.round((latest.v - base.v) * 100) / 100 : null;
+    out.stale = latest.date < cutKey;
+    out.spark = spark;
+    out.cutKey = cutKey;
+    out.todayKey = today;
+    return out;
+  }
+  function sparklineSvg(pr) {
+    var W = 104, H = 34, PY = 4, TH = 14;
+    var t0 = dkToDate(pr.cutKey).getTime(), t1 = dkToDate(pr.todayKey).getTime();
+    var span = Math.max(1, t1 - t0);
+    var xOf = function (ms) { return Math.min(W - 2, Math.max(2, 2 + (ms - t0) / span * (W - 4))); };
+    var svg = '<svg class="exr-spark" width="' + W + '" height="' + (H + TH) + '" viewBox="0 0 ' + W + " " + (H + TH) + '" aria-hidden="true">';
+    svg += '<line class="exr-axis" x1="0" y1="' + H + '" x2="' + W + '" y2="' + H + '"/>';
+    var cut = dkToDate(pr.cutKey);
+    var m = new Date(cut.getFullYear(), cut.getMonth() + 1, 1, 12, 0, 0);
+    while (m.getTime() <= t1) {
+      var x = xOf(m.getTime());
+      var tx = Math.min(W - 8, Math.max(8, x));
+      svg += '<line class="exr-tick" x1="' + x.toFixed(1) + '" y1="' + H + '" x2="' + x.toFixed(1) + '" y2="' + (H + 3) + '"/>';
+      svg += '<text class="exr-tl" x="' + tx.toFixed(1) + '" y="' + (H + 12) + '">' + (m.getMonth() + 1) + "月</text>";
+      m = new Date(m.getFullYear(), m.getMonth() + 1, 1, 12, 0, 0);
+    }
+    var pts = pr.spark || [];
+    if (pts.length) {
+      var vals = pts.map(function (p) { return p.v; });
+      var min = Math.min.apply(null, vals), max = Math.max.apply(null, vals);
+      if (max === min) { min -= 1; max += 1; }
+      var xy = pts.map(function (p) {
+        var px = xOf(dkToDate(p.date).getTime());
+        var py = PY + (1 - (p.v - min) / (max - min)) * (H - PY * 2);
+        return px.toFixed(1) + "," + py.toFixed(1);
+      });
+      if (xy.length >= 2) svg += '<polyline class="exr-line" points="' + xy.join(" ") + '"/>';
+      var last = xy[xy.length - 1].split(",");
+      svg += '<circle class="exr-dot" cx="' + last[0] + '" cy="' + last[1] + '" r="2.6"/>';
+    }
+    return svg + "</svg>";
+  }
+  function exerciseRowHtml(name, perDate) {
+    var pr = exerciseProgress(perDate);
+    var h = '<button type="button" class="exr" data-exercise="' + escapeHtml(name) + '"><span class="exr-main">';
+    h += '<span class="exr-name">' + escapeHtml(name) + "</span>";
+    if (!pr.mode) {
+      h += '<span class="exr-val none">記録 ' + pr.count + "回</span>";
+      if (pr.lastDate) h += '<span class="exr-delta">最終 ' + escapeHtml(formatDateLabel(pr.lastDate)) + "</span>";
+      return h + "</span></button>";
+    }
+    h += '<span class="exr-val">' + escapeHtml(fmtNum(pr.latest.v)) + "<small>" + pr.unit + "</small></span>";
+    if (pr.stale) {
+      h += '<span class="exr-delta">最終 ' + escapeHtml(formatDateLabel(pr.latest.date)) + "</span>";
+    } else if (pr.delta == null) {
+      h += '<span class="exr-delta">3か月前との比較なし</span>';
+    } else if (pr.delta === 0) {
+      h += '<span class="exr-delta">3か月前から <b>変化なし</b></span>';
+    } else {
+      h += '<span class="exr-delta' + (pr.delta > 0 ? " up" : "") + '">3か月前から <b>' + (pr.delta > 0 ? "+" : "") + escapeHtml(fmtNum(pr.delta)) + pr.unit + "</b></span>";
+    }
+    h += '</span><span class="exr-spark-wrap">' + sparklineSvg(pr) + "</span></button>";
+    return h;
   }
   function computeExerciseBestInfo(name, dateKeys, perDate) {
     var sessions = dateKeys.map(function (k) {
@@ -2655,6 +3133,17 @@
   function renderExerciseTab() {
     var content = document.getElementById("exerciseContent");
     var name = state.selectedExercise;
+    // 一覧（部位チップ＋進捗リスト）と、行をタップしたときの種目詳細（従来の画面）を切り替える
+    var detail = !!state.exerciseDetail && !!name;
+    var partCard = document.getElementById("exPartCard"), listCard = document.getElementById("exListCard");
+    if (partCard) partCard.style.display = detail ? "none" : "";
+    if (listCard) listCard.style.display = detail ? "none" : "";
+    if (!detail) {
+      content.innerHTML = "";
+      if (charts.exercise) { charts.exercise.destroy(); charts.exercise = null; }
+      if (charts.exerciseVolume) { charts.exerciseVolume.destroy(); charts.exerciseVolume = null; }
+      return;
+    }
     if (!name) {
       content.innerHTML = '<div class="card"><div class="empty-msg">種目がありません</div></div>';
       if (charts.exercise) { charts.exercise.destroy(); charts.exercise = null; }
@@ -2678,7 +3167,8 @@
     });
     dateKeys.sort();
 
-    var html = '<div class="card">';
+    var html = '<button type="button" class="ex-back" data-ex-back>' + ICON_CHEVRON_LEFT + "種目一覧</button>";
+    html += '<div class="card">';
     html += '<div class="section-title">' + escapeHtml(name) + "の推移</div>";
     if (!dateKeys.length) {
       html += '<div class="empty-msg">記録なし</div>';
@@ -2745,8 +3235,8 @@
         data: { labels: labels, datasets: [{
           label: "分",
           data: minutesData,
-          borderColor: "#8aa0b0",
-          backgroundColor: "#8aa0b0",
+          borderColor: "#0A84FF",
+          backgroundColor: "#0A84FF",
           spanGaps: true,
           tension: 0.25
         }] },
@@ -2777,14 +3267,15 @@
         }
       });
     });
+    // 系列は青系の濃淡だけで区別（総回数は淡い青の破線）
     var typeColors = {
-      "片手": "#ff8a5b",
-      "片側": "#c97bdb",
-      "合計": "#7b9acc",
-      "不明": "#aaaaaa",
-      "合計(両手)": "#2a9d8f",
-      "マシン": "#9d6b53",
-      "バー": "#5fb47c"
+      "片手": "#0A84FF",
+      "片側": "#3D9BFF",
+      "合計": "#0A84FF",
+      "不明": "#8FB8E0",
+      "合計(両手)": "#3D9BFF",
+      "マシン": "#1E6FD9",
+      "バー": "#5AA9FF"
     };
     var datasets = [];
     seriesKeys.forEach(function (key) {
@@ -2802,8 +3293,8 @@
           });
           return max;
         }),
-        borderColor: typeColors[key] || "#ff8a5b",
-        backgroundColor: typeColors[key] || "#ff8a5b",
+        borderColor: typeColors[key] || "#0A84FF",
+        backgroundColor: typeColors[key] || "#0A84FF",
         spanGaps: true,
         tension: 0.25,
         yAxisID: "yWeight"
@@ -2818,8 +3309,8 @@
         list.forEach(function (e) { if (e.reps) e.reps.forEach(function (r) { total += r; }); });
         return total;
       }),
-      borderColor: "#4ecdc4",
-      backgroundColor: "#4ecdc4",
+      borderColor: "#64B5F6",
+      backgroundColor: "#64B5F6",
       borderDash: [4, 3],
       spanGaps: true,
       tension: 0.25,
@@ -2867,8 +3358,8 @@
       data: { labels: labels, datasets: [{
         label: "負荷量(kg)",
         data: data,
-        backgroundColor: "#c97bdb",
-        borderColor: "#c97bdb",
+        backgroundColor: "#0A84FF",
+        borderColor: "#0A84FF",
         borderRadius: 4,
         maxBarThickness: 28
       }] },
@@ -3083,15 +3574,15 @@
           {
             label: "体重(kg)",
             data: periodVals,
-            borderColor: "#ff8a5b",
-            backgroundColor: "#ff8a5b",
+            borderColor: "#0A84FF",
+            backgroundColor: "#0A84FF",
             spanGaps: true,
             tension: 0.3,
             pointRadius: function (c) { return (c.dataIndex === minIdx || c.dataIndex === maxIdx) ? 6 : 3; },
+            // 最大・最小は上下の増減ではなく期間内の端点なので、青系（淡い青＋大きい点）で示す
             pointBackgroundColor: function (c) {
-              if (c.dataIndex === maxIdx) return "#ff5a5a";
-              if (c.dataIndex === minIdx) return "#2a9d8f";
-              return "#ff8a5b";
+              if (c.dataIndex === maxIdx || c.dataIndex === minIdx) return "#64B5F6";
+              return "#0A84FF";
             }
           },
           {
@@ -3108,8 +3599,8 @@
           {
             label: "目標体重",
             data: periodKeys.map(function () { return state.goalWeight; }),
-            borderColor: "#2a9d8f",
-            backgroundColor: "#2a9d8f",
+            borderColor: "#64B5F6",
+            backgroundColor: "#64B5F6",
             borderDash: [4, 3],
             borderWidth: 2,
             pointRadius: 0,
@@ -3202,8 +3693,8 @@
         html += '<div class="card meal-day-card">';
         html += '<div class="meal-day-head" data-meal-toggle="' + k + '"><span class="md-date">' + formatDateLabel(k) + '</span><span class="meal-day-toggle' + (open ? " open" : "") + '">' + ICON_CHEVRON_DOWN + "</span></div>";
         html += '<div class="meal-bars">';
-        html += mealBarRow("kcal", m ? m.kcal : null, MEAL_KCAL_TARGET, "#ff8a5b", "kcal");
-        html += mealBarRow("P", m ? m.protein : null, MEAL_PROTEIN_TARGET, "#4ecdc4", "g");
+        html += mealBarRow("kcal", m ? m.kcal : null, MEAL_KCAL_TARGET, "#0A84FF", "kcal");
+        html += mealBarRow("P", m ? m.protein : null, MEAL_PROTEIN_TARGET, "#64B5F6", "g");
         html += "</div>";
         html += '<div class="meal-items' + (open ? " open" : "") + '" id="mealItems-' + k + '">';
         if (m && m.note) html += '<div class="meal-note">' + escapeHtml(m.note) + "</div>";
@@ -3575,11 +4066,12 @@
     html += '<button id="photoMonthNextBtn" type="button" aria-label="次の月">' + ICON_CHEVRON_RIGHT + "</button>";
     html += "</div>";
     html += '<div class="month-cal">';
-    WEEKDAY_JP_MON.forEach(function (dow) {
+    // 記録タブのカレンダーと同じ日曜はじまり
+    WEEKDAY_JP.forEach(function (dow) {
       html += '<div class="month-cal-dow">' + dow + "</div>";
     });
     var first = new Date(month.year, month.month - 1, 1, 12, 0, 0);
-    var startPad = (first.getDay() + 6) % 7;
+    var startPad = first.getDay();
     var dim = daysInMonth(month.year, month.month);
     var i;
     for (i = 0; i < startPad; i++) html += '<div class="month-day empty"></div>';
@@ -3767,6 +4259,7 @@
       state.photoError = false;
       ensurePhotoCursor();
       if (state.currentTab === "photo") renderPhotoTab();
+      else if (state.currentTab === "day" && state.loaded) renderDayTab();
     }).catch(function () {
       state.photoReady = true;
       state.photoError = true;
@@ -4028,6 +4521,7 @@
   function focusDateAfterSave(date) {
     if (!state.loaded) return;
     state.dayKey = date;
+    state.calMonth = monthFromKey(date);
     state.weekStart = mondayOf(dkToDate(date));
     state.monthCursor = monthFromKey(date);
     state.weightPeriod = periodFromKey(date);
@@ -4244,7 +4738,11 @@
     var MAX_SETS = 30;
 
     var sess = null; // 進行中セッション（常に localStorage と同期）
-    var sv = { open: false, view: "start", lastView: null, startParts: [], addPart: null, menuPart: null, menuBack: "start", freeText: "", menuFree: "", summaryAt: null };
+    var sv = { open: false, view: "start", lastView: null, startParts: [], addPart: null, menuPart: null, menuBack: "start", freeText: "", menuFree: "", summaryAt: null, sheet: null };
+    var ICON_TICK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17.5 19 7"/></svg>';
+    var ICON_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>';
+    var ICON_RESET = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>';
+    var ICON_TRASH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>';
     var rest = { running: false, done: false, startAt: 0, endAt: 0, total: 90, doneTimer: null };
     var entryBtnText = null;
     // 種目エディタを開いた時点の下書き内容（draftSig）。エディタ表示中だけ保持し、ほかの画面へ移ると消す（保存しない）
@@ -4268,6 +4766,15 @@
     function startHHMM() { var d = new Date(startMs()); return pad2(d.getHours()) + ":" + pad2(d.getMinutes()); }
     function mdText(key) { return (+key.slice(5, 7)) + "/" + (+key.slice(8, 10)); }
     function isCardioItem(it) { return it.part === "有酸素" || it.minutes != null; }
+    // 未入力（メニューから読み込んだだけ）の種目
+    function isPendingItem(it) {
+      if (isCardioItem(it)) return !(it.minutes > 0);
+      return !it.sets.some(function (s) { return s.r > 0; });
+    }
+    // セットの完了：回数があり done が false でないもの（done の無い以前の確定済みセットは完了扱い）
+    function isDone(s) { return !!s && s.r > 0 && s.done !== false; }
+    // 編集の前に done を明示値にそろえる（回数を入れただけで完了扱いにならないように）
+    function normSet(s) { if (typeof s.done !== "boolean") s.done = isDone(s); return s; }
 
     // ---------- 永続化 ----------
     function cleanItem(it) {
@@ -4275,15 +4782,21 @@
       // 種目は sets:[{w, r}]（w は kg または null=自重、r は回数）で保持。旧形式（weight_kg + reps[]）も読み込める
       var sets = [];
       var pw = function (v) { var n = parseFloat(v); return (isFinite(n) && n > 0) ? n : null; };
+      // セッション画面で追加した未入力のセット（r なし）もそのまま保持する。
+      // done（完了の丸）は任意項目：無いもの（以前の版で確定した種目）は回数があれば完了扱い
       if (Array.isArray(it.sets)) {
         it.sets.forEach(function (s) {
-          var r = parseInt(s && s.r, 10);
-          if (isFinite(r) && r > 0) sets.push({ w: pw(s.w), r: r });
+          if (!s || typeof s !== "object") return;
+          var r = parseInt(s.r, 10);
+          var ok = isFinite(r) && r > 0;
+          sets.push({ w: pw(s.w), r: ok ? r : null, done: ok && s.done !== false });
         });
       } else if (Array.isArray(it.reps)) {
         var lw = pw(it.weight_kg);
-        it.reps.forEach(function (v) { var r = parseInt(v, 10); if (isFinite(r) && r > 0) sets.push({ w: lw, r: r }); });
+        it.reps.forEach(function (v) { var r = parseInt(v, 10); if (isFinite(r) && r > 0) sets.push({ w: lw, r: r, done: true }); });
       }
+      // メニューから読み込んだ未入力の種目は「空のセット1つ」で保持する
+      if (!sets.length && Array.isArray(it.sets) && it.sets.length) sets.push({ w: null, r: null, done: false });
       var mi = parseFloat(it.minutes);
       var out = { exercise: String(it.exercise), part: String(it.part || "不明"), weight_type: it.weight_type === "片手" ? "片手" : "合計", sets: sets, note: it.note ? String(it.note) : "" };
       if (isFinite(mi) && mi > 0) { out.minutes = mi; out.weight_type = "-"; out.sets = []; }
@@ -4408,6 +4921,7 @@
     function groupSets(it) {
       var groups = [];
       it.sets.forEach(function (s) {
+        if (!(s.r > 0)) return; // 未入力のセットは記録しない
         var w = (s.w != null && s.w > 0) ? s.w : null;
         var g = groups[groups.length - 1];
         if (g && g.w === w) g.reps.push(s.r);
@@ -4416,6 +4930,7 @@
       return groups;
     }
     function itemSummary(it) {
+      if (isPendingItem(it)) return "未入力";
       if (isCardioItem(it)) return fmtNum(it.minutes || 0) + "分";
       if (!it.sets.length) return "自重";
       return groupSets(it).map(function (g) { return weightText(g.w, it.weight_type) + " × " + g.reps.join("・"); }).join(" / ") + "（" + it.sets.length + "セット）";
@@ -4424,8 +4939,9 @@
       var sets = 0, vol = 0, cardio = 0;
       sess.items.forEach(function (it) {
         if (isCardioItem(it)) { cardio += it.minutes || 0; return; }
-        sets += it.sets.length;
         it.sets.forEach(function (s) {
+          if (!(s.r > 0)) return;
+          sets++;
           var tot = totalKgOf(it, s.w);
           if (tot != null) vol += tot * s.r;
         });
@@ -4490,14 +5006,15 @@
       vibrate();
       updateRestUi();
     }
+    // 浮かぶピル：残り時間 ｜ 休憩時間の切り替え（60→90→120→180秒）｜ リセット ｜ 閉じる（スキップ）
+    // 動作中・終了直後だけ表示（CSS で .run / .done のときのみ display:flex）
     function restBarHtml() {
-      var presets = REST_PRESETS.map(function (p) {
-        return '<button type="button" class="sess-rp' + (p === sess.restSec ? " on" : "") + '" data-sact="rest-preset" data-sec="' + p + '" aria-label="休憩' + p + '秒">' + p + "</button>";
-      }).join("");
-      return '<div class="sess-rest" id="sessRestBar">' +
-        '<div class="sess-ring"><svg viewBox="0 0 48 48" aria-hidden="true"><circle class="trk" cx="24" cy="24" r="20"/><circle class="prg" id="sessRing" cx="24" cy="24" r="20" stroke-dasharray="' + RING_C.toFixed(2) + '" stroke-dashoffset="0" transform="rotate(-90 24 24)"/></svg><span id="sessRestTime"></span></div>' +
-        '<div class="sess-rest-mid"><div class="sess-rest-cap" id="sessRestCap">休憩タイマー（秒）</div><div class="sess-rps">' + presets + "</div></div>" +
-        '<button type="button" class="sess-skip" id="sessSkipBtn" data-sact="rest-skip">スキップ</button></div>';
+      return '<div class="sess-rest" id="sessRestBar" role="timer">' +
+        '<div class="sess-rest-time"><b id="sessRestTime"></b><span class="sess-rest-cap" id="sessRestCap"></span></div>' +
+        '<button type="button" class="sess-rbtn" id="sessRestPreset" data-sact="rest-cycle"></button>' +
+        '<button type="button" class="sess-rbtn" data-sact="rest-reset" aria-label="休憩タイマーを最初から">' + ICON_RESET + "</button>" +
+        '<button type="button" class="sess-rbtn close" id="sessSkipBtn" data-sact="rest-skip" aria-label="休憩タイマーを閉じる">' + ICON_X + "</button>" +
+        '<span class="sess-rest-prog" id="sessRestProg" aria-hidden="true"></span></div>';
     }
     function renderRestBar(show) {
       $("sessRest").innerHTML = (show && sess) ? restBarHtml() : "";
@@ -4505,23 +5022,40 @@
     }
     function updateRestUi() {
       var bar = $("sessRestBar");
+      var on = !!bar && !!sess && (rest.running || rest.done);
+      $("sessOverlay").classList.toggle("rest-on", on);
       if (!bar || !sess) return;
       var total = (rest.running || rest.done) ? rest.total : sess.restSec;
       var remain = rest.running ? Math.max(0, (rest.endAt - Date.now()) / 1000) : (rest.done ? 0 : sess.restSec);
       $("sessRestTime").textContent = minSec(remain);
       var frac = total > 0 ? Math.min(1, remain / total) : 0;
-      $("sessRing").setAttribute("stroke-dashoffset", (RING_C * (1 - frac)).toFixed(2));
+      $("sessRestProg").style.width = (frac * 100).toFixed(1) + "%";
       bar.className = "sess-rest" + (rest.running ? " run" : "") + (rest.done ? " done" : "");
-      $("sessRestCap").textContent = rest.done ? "休憩終了。次のセットへ" : (rest.running ? "休憩中" : "休憩タイマー（秒）");
-      var skip = $("sessSkipBtn");
-      skip.textContent = rest.done ? "OK" : "スキップ";
-      skip.disabled = !(rest.running || rest.done);
+      $("sessRestCap").textContent = rest.done ? "休憩終了・次のセットへ" : "休憩中";
+      var pb = $("sessRestPreset"), pl = sess.restSec + "秒";
+      if (pb.textContent !== pl) {
+        pb.textContent = pl;
+        pb.setAttribute("aria-label", "休憩時間を切り替え（いまは" + sess.restSec + "秒）");
+      }
+    }
+    // 休憩時間の変更（動作中なら残り時間にも反映。従来のプリセット選択と同じ処理）
+    function applyRestPreset(sec) {
+      if (!sess || REST_PRESETS.indexOf(sec) === -1) return;
+      sess.restSec = sec;
+      writeSession();
+      if (rest.running) {
+        rest.total = sec;
+        rest.endAt = rest.startAt + sec * 1000;
+        if (Date.now() >= rest.endAt) { finishRest(); return; }
+      }
+      updateRestUi();
     }
 
     // ---------- 時計（1つのタイマーで経過時間・休憩を更新） ----------
     function updateEntryBtn() {
       var lab = $("sessionOpenLabel"), btn = $("sessionOpenBtn");
       if (!lab || !btn) return;
+      btn.hidden = !sess; // 再開ボタンは進行中のときだけ（メニューより先に表示）
       var txt, html;
       if (sess) {
         var c = clock(Date.now() - startMs());
@@ -4552,8 +5086,7 @@
 
     // ---------- 描画ヘルパ ----------
     function partChip(part, on, act) {
-      var c = PART_COLORS[part] || "#aaa";
-      return '<button type="button" class="sess-chip part' + (on ? " on" : "") + '" style="--pc:' + c + '" aria-pressed="' + (on ? "true" : "false") + '" data-sact="' + act + '" data-part="' + escapeHtml(part) + '"><span class="dot"></span>' + escapeHtml(part) + "</button>";
+      return '<button type="button" class="sess-chip part' + (on ? " on" : "") + '" aria-pressed="' + (on ? "true" : "false") + '" data-sact="' + act + '" data-part="' + escapeHtml(part) + '"><span class="dot"></span>' + escapeHtml(part) + "</button>";
     }
     function nameChip(name, act, quick) {
       return '<button type="button" class="sess-chip' + (quick ? " quick" : "") + '" data-sact="' + act + '" data-name="' + escapeHtml(name) + '">' + escapeHtml(name) + "</button>";
@@ -4583,13 +5116,94 @@
         foot: '<button type="button" class="sess-btn primary" data-sact="start">トレーニングを開始</button>'
       };
     }
+    // ---------- セッション画面の種目カード（セット行はタップで編集シート、右の丸で完了） ----------
+    function bigVal(v, unit, emptyText) {
+      if (v == null || !(v > 0)) return '<span class="sx-v empty">' + (emptyText || "—") + "</span>";
+      return '<span class="sx-v">' + escapeHtml(fmtNum(v)) + "<small>" + unit + "</small></span>";
+    }
+    function setRowHtml(it, i, si) {
+      var s = it.sets[si], done = isDone(s), n = si + 1;
+      var wHtml = (s.w != null && s.w > 0) ? bigVal(s.w, "kg") : bigVal(null, "", s.r > 0 ? "自重" : "—");
+      return '<div class="sx-row' + (done ? " done" : "") + '" role="button" tabindex="0" data-sact="rowopen" data-i="' + i + '" data-s="' + si + '" aria-label="' + n + 'セット目を編集">' +
+        '<span class="sx-n">' + n + "</span>" + wHtml + bigVal(s.r, "回") +
+        '<button type="button" class="sx-check' + (done ? " on" : "") + '" data-sact="rowdone" data-i="' + i + '" data-s="' + si + '" aria-pressed="' + (done ? "true" : "false") + '" aria-label="' + n + 'セット目を完了">' + ICON_TICK + "</button></div>";
+    }
     function itemCard(it, i) {
-      var c = PART_COLORS[it.part] || "#aaa";
-      var h = '<div class="sess-item" style="--pc:' + c + '"><div class="sess-item-top"><span class="sess-item-name">' + escapeHtml(it.exercise) + "</span>" + partChipHtml(it.part) + "</div>";
-      h += '<div class="sess-item-sum">' + escapeHtml(itemSummary(it)) + "</div>";
-      if (it.note) h += '<div class="sess-item-note">' + escapeHtml(it.note) + "</div>";
-      h += '<div class="sess-item-act"><button type="button" class="sess-mini" data-sact="edit" data-i="' + i + '">編集</button><button type="button" class="sess-mini danger" data-sact="del" data-i="' + i + '">削除</button></div></div>';
-      return h;
+      var c = PART_COLORS[it.part] || PART_ACCENT;
+      var pend = isPendingItem(it), cardio = isCardioItem(it);
+      var h = '<div class="sx-card' + (pend ? " pending" : "") + '" id="sxc-' + i + '" style="--pc:' + c + '">';
+      h += '<div class="sx-head"><span class="sx-dot" aria-hidden="true"></span><span class="sx-name">' + escapeHtml(it.exercise) + "</span>";
+      if (!cardio && it.weight_type === "片手") h += '<span class="sx-tag">片手</span>';
+      h += '<button type="button" class="sx-hbtn" data-sact="edit" data-i="' + i + '">編集</button>';
+      h += '<button type="button" class="sx-hbtn danger" data-sact="del" data-i="' + i + '" aria-label="「' + escapeHtml(it.exercise) + '」を削除">' + ICON_TRASH + "</button></div>";
+      if (cardio) {
+        // 有酸素は従来どおり分数で、タップすると既存のエディタ（時間 ±5分）を開く
+        h += '<div class="sx-row" role="button" tabindex="0" data-sact="edit" data-i="' + i + '" aria-label="時間を編集"><span class="sx-n"></span>' +
+          '<span class="sx-v empty">時間</span>' + bigVal(it.minutes, "分") + "<span></span></div>";
+      } else {
+        it.sets.forEach(function (s, si) { h += setRowHtml(it, i, si); });
+        h += '<button type="button" class="sx-add" data-sact="rowaddset" data-i="' + i + '">＋ セットを追加</button>';
+      }
+      if (it.note) h += '<div class="sx-note">' + escapeHtml(it.note) + "</div>";
+      return h + "</div>";
+    }
+    function refreshCard(i) {
+      var el = $("sxc-" + i);
+      if (el && sess && sess.items[i]) el.outerHTML = itemCard(sess.items[i], i);
+    }
+    // 種目をセッション画面で直接編集したら、その種目を対象にした古い下書き（エディタ）は捨てる
+    function itemTouched(i) {
+      if (sess.draft && sess.draft.editIdx === i) { sess.draft = null; edSnap = null; }
+    }
+    // シートの対象（sv.sheet = { i: 種目番号, s: セット番号 }）
+    function sheetTarget() {
+      var sh = sv.sheet;
+      if (!sh || !sess) return null;
+      var it = sess.items[sh.i];
+      if (!it || isCardioItem(it) || !it.sets[sh.s]) return null;
+      return { i: sh.i, si: sh.s, it: it, set: it.sets[sh.s] };
+    }
+    function sheetStep(k, d, label, aria) {
+      return '<button type="button" class="sx-rb" data-sact="sstep" data-k="' + k + '" data-d="' + d + '" aria-label="' + aria + '">' + label + "</button>";
+    }
+    function sheetHtml() {
+      var t = sheetTarget();
+      if (!t) return "";
+      var it = t.it, s = t.set, n = t.si + 1;
+      var prev = findPrevious(it.exercise, false);
+      var h = '<div class="sx-sheet-ov" data-sact="sheet-close"><div class="sx-sheet" data-sact="noop" role="dialog" aria-modal="true" aria-label="' + escapeHtml(it.exercise) + " " + n + 'セット目">';
+      h += '<div class="sx-grab" aria-hidden="true"></div>';
+      h += '<div class="sx-sh-head"><div class="sx-sh-title">' + escapeHtml(it.exercise) + " <span>" + n + "セット目</span></div>" +
+        '<button type="button" class="sx-sh-x" data-sact="sheet-close" aria-label="閉じる">' + ICON_X + "</button></div>";
+      h += '<div class="sx-sh-step">重量の増減： ' + fmtNum(W_STEP) + "kg" + (it.weight_type === "片手" ? "（片手あたり）" : "") + "</div>";
+      h += '<div class="sx-sh-row">' + sheetStep("w", -W_STEP, "−", "重量を" + W_STEP + "kg減らす") +
+        '<label class="sx-field"><input id="sxW" type="number" inputmode="decimal" step="any" min="0" placeholder="0" aria-label="重量（kg）" data-sin="sw" value="' + (s.w > 0 ? escapeHtml(fmtNum(s.w)) : "") + '"><span>kg</span></label>' +
+        sheetStep("w", W_STEP, "+", "重量を" + W_STEP + "kg増やす") + "</div>";
+      h += '<div class="sx-sh-row">' + sheetStep("r", -R_STEP, "−", "回数を1回減らす") +
+        '<label class="sx-field"><input id="sxR" type="number" inputmode="numeric" min="0" max="' + R_MAX + '" placeholder="0" aria-label="回数" data-sin="sr" value="' + (s.r > 0 ? String(s.r) : "") + '"><span>回</span></label>' +
+        sheetStep("r", R_STEP, "+", "回数を1回増やす") + "</div>";
+      if (prev) h += '<div class="sess-prev"><div class="sess-prev-main"><div class="sess-prev-l">前回の記録 ・ ' + escapeHtml(mdText(prev.date)) + '</div><div class="sess-prev-t">' + escapeHtml(prevText(prev, false)) + '</div></div><button type="button" class="sess-mini" data-sact="rowcopyprev">前回を貼り付け</button></div>';
+      h += '<button type="button" class="sx-done-btn" data-sact="sheet-done">' + ICON_TICK + "セットを完了</button>";
+      h += '<button type="button" class="sx-sh-del" data-sact="rowdelset">このセットを削除</button>';
+      return h + "</div></div>";
+    }
+    function renderSheet() {
+      var box = $("sessSheet");
+      if (box) box.innerHTML = sv.open ? sheetHtml() : "";
+    }
+    function openSheet(i, si) { sv.sheet = { i: i, s: si }; renderSheet(); }
+    function closeSheet() {
+      var ae = document.activeElement;
+      if (ae && ae.blur && $("sessSheet").contains(ae)) ae.blur();
+      sv.sheet = null;
+      renderSheet();
+    }
+    // シートでセットを変えたあと：回数が空なら未完了に戻し、カードを描き直して保存
+    function afterSetEdit(t) {
+      if (!(t.set.r > 0)) t.set.done = false;
+      itemTouched(t.i);
+      refreshCard(t.i);
+      writeSession();
     }
     function viewSession() {
       var mid = '<div class="sess-clock" id="sessElapsed">' + clock(Date.now() - startMs()) + '</div><div class="sess-sub">' + escapeHtml(formatDateLabel(sess.date)) + " ・ 開始 " + startHHMM() + "</div>";
@@ -4729,6 +5343,8 @@
       if (v !== "editor") edSnap = null;
       else if (edSnap == null && sess && sess.draft) edSnap = draftSig(sess.draft);
       renderRestBar(!!sess && (v === "session" || v === "add" || v === "editor"));
+      if (v !== "session") sv.sheet = null; // セット編集シートはセッション画面の上だけ
+      renderSheet();
     }
     function go(view) { sv.view = view; render(); }
 
@@ -4748,7 +5364,9 @@
     }
     function closeUi() {
       sv.open = false;
+      sv.sheet = null;
       if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+      renderSheet();
       $("sessOverlay").classList.remove("show");
       document.body.classList.remove("sess-open");
     }
@@ -4781,6 +5399,29 @@
       showToast("破棄しました");
     }
     function endSession() {
+      var pending = sess.items.filter(isPendingItem).length;
+      if (pending && pending === sess.items.length) {
+        if (window.confirm("まだ1つも入力されていません。このトレーニングを破棄しますか？")) { sess = null; writeSession(); resetAfterEnd(); }
+        return;
+      }
+      // 完了の丸を1つ以上付けた種目にある、丸の付いていないセット（回数あり）の数
+      var undone = 0;
+      sess.items.forEach(function (it) {
+        if (isPendingItem(it) || isCardioItem(it) || !it.sets.some(isDone)) return;
+        it.sets.forEach(function (s) { if (s.r > 0 && !isDone(s)) undone++; });
+      });
+      if (pending && !window.confirm("未入力の種目が" + pending + "件あります。\n未入力の種目は記録せずに終了しますか？")) return;
+      if (undone && !window.confirm("未完了のセットが" + undone + "セットあります。\n完了したセットだけを記録しますか？\n（キャンセルするとトレーニングに戻ります）")) return;
+      if (pending) sess.items = sess.items.filter(function (it) { return !isPendingItem(it); });
+      // 未入力のセットと（丸を付けた種目の）未完了セットを外す。丸を1つも付けていない種目は従来どおり全セットを記録
+      sess.items.forEach(function (it) {
+        if (isCardioItem(it)) return;
+        var anyDone = it.sets.some(isDone);
+        it.sets = it.sets.filter(function (s) { return s.r > 0 && (!anyDone || isDone(s)); });
+      });
+      if (sess.draft && sess.draft.editIdx != null) sess.draft = null;
+      sv.sheet = null;
+      writeSession();
       if (!sess.items.length) {
         if (window.confirm("種目が1つもありません。このトレーニングを破棄しますか？")) { sess = null; writeSession(); resetAfterEnd(); }
         return;
@@ -4794,7 +5435,7 @@
       var durMin = Math.max(1, Math.round((endMs - startMs()) / 60000));
       var date = sess.date, time = startHHMM();
       var loc = readLocal();
-      sess.items.forEach(function (it) { itemToEntries(it, date, time, durMin).forEach(function (en) { loc.entries.push(en); }); });
+      sess.items.forEach(function (it) { if (isPendingItem(it)) return; itemToEntries(it, date, time, durMin).forEach(function (en) { loc.entries.push(en); }); });
       if (!writeLocal(loc)) { showToast("保存できませんでした（端末の容量を確認）"); return; }
       sess = null;
       writeSession();
@@ -4808,10 +5449,11 @@
       return { exercise: name, part: part, wtype: (prev && prev.entry.weight_type === "片手") ? "片手" : "合計", sets: [{ w: "", r: "", done: false }], minutes: "", note: "", editIdx: null };
     }
     function draftFromItem(it, idx) {
+      if (isPendingItem(it)) { var nd = newDraft(it.exercise, it.part); nd.note = it.note || ""; nd.editIdx = idx; return nd; }
       return {
         exercise: it.exercise, part: it.part,
         wtype: it.weight_type === "片手" ? "片手" : "合計",
-        sets: it.sets.length ? it.sets.map(function (s) { return { w: s.w != null ? String(s.w) : "", r: String(s.r), done: true }; }) : [{ w: "", r: "", done: false }],
+        sets: it.sets.length ? it.sets.map(function (s) { return { w: s.w != null ? String(s.w) : "", r: s.r > 0 ? String(s.r) : "", done: isDone(s) }; }) : [{ w: "", r: "", done: false }],
         minutes: it.minutes != null ? String(it.minutes) : "", note: it.note || "", editIdx: idx
       };
     }
@@ -4844,17 +5486,14 @@
         item = { exercise: d.exercise, part: d.part, weight_type: "-", sets: [], minutes: Math.round(mi * 10) / 10, note: note };
       } else {
         var rows = d.sets.filter(function (s) { return parseInt(s.r, 10) > 0; });
-        var doneRows = rows.filter(function (s) { return s.done; });
         if (!rows.length) { showToast("回数を入力してください"); return; }
-        if (doneRows.length && doneRows.length < rows.length) {
-          if (!window.confirm("未完了のセットが" + (rows.length - doneRows.length) + "セットあります。\n完了した" + doneRows.length + "セットだけを追加しますか？\n（キャンセルすると編集に戻ります）")) return;
-          rows = doneRows;
-        }
+        // 完了の丸はそのまま種目に持たせる。未完了のセットはセッション画面で続けて完了でき、
+        // 終了時に「完了したセットだけを記録しますか？」で整理する
         item = {
           exercise: d.exercise, part: d.part, weight_type: d.wtype === "片手" ? "片手" : "合計",
           sets: rows.map(function (s) {
             var w = parseFloat(s.w);
-            return { w: (isFinite(w) && w > 0) ? w : null, r: parseInt(s.r, 10) };
+            return { w: (isFinite(w) && w > 0) ? w : null, r: Math.min(R_MAX, parseInt(s.r, 10)), done: !!s.done };
           }),
           note: note
         };
@@ -4949,6 +5588,7 @@
           if (!sess.items[i]) break;
           if (!window.confirm("「" + sess.items[i].exercise + "」を削除しますか？")) break;
           sess.items.splice(i, 1);
+          sv.sheet = null;
           // 残してある編集中の下書きの対象を合わせる（対象が消えたら下書きも消す。前の種目が消えたら番号を詰める）
           if (sess.draft && sess.draft.editIdx != null) {
             if (sess.draft.editIdx === i) sess.draft = null;
@@ -5057,20 +5697,114 @@
         }
         case "commit": commitDraft(); break;
         // 休憩タイマー
-        case "rest-preset": {
-          var sec = parseInt(el.getAttribute("data-sec"), 10);
-          if (!sess || REST_PRESETS.indexOf(sec) === -1) break;
-          sess.restSec = sec;
-          writeSession();
-          if (rest.running) {
-            rest.total = sec;
-            rest.endAt = rest.startAt + sec * 1000;
-            if (Date.now() >= rest.endAt) finishRest();
-          }
-          renderRestBar(true);
+        case "rest-preset": applyRestPreset(parseInt(el.getAttribute("data-sec"), 10)); break;
+        case "rest-cycle": {
+          if (!sess) break;
+          var pk = REST_PRESETS.indexOf(sess.restSec);
+          applyRestPreset(REST_PRESETS[(pk + 1) % REST_PRESETS.length]);
           break;
         }
+        case "rest-reset": startRest(); break;
         case "rest-skip": if (rest.running || rest.done) stopRest(); break;
+        // セッション画面のセット行・編集シート（種目 sess.items[i].sets[s] を直接編集して保存）
+        case "rowopen": {
+          var ro = parseInt(el.getAttribute("data-s"), 10);
+          if (!sess || !sess.items[i] || !sess.items[i].sets[ro]) break;
+          openSheet(i, ro);
+          break;
+        }
+        case "rowdone": {
+          var rd = parseInt(el.getAttribute("data-s"), 10);
+          var rit = sess && sess.items[i], rs = rit && rit.sets[rd];
+          if (!rs) break;
+          normSet(rs);
+          if (rs.done) rs.done = false;
+          else {
+            if (!(rs.r > 0)) {
+              showToast("回数を入力してください");
+              openSheet(i, rd);
+              var rIn = $("sxR");
+              if (rIn) rIn.focus();
+              break;
+            }
+            rs.done = true;
+            startRest();
+          }
+          itemTouched(i);
+          refreshCard(i);
+          writeSession();
+          break;
+        }
+        case "rowaddset": {
+          var ai = sess && sess.items[i];
+          if (!ai || isCardioItem(ai)) break;
+          if (ai.sets.length >= MAX_SETS) { showToast("これ以上セットを追加できません"); break; }
+          var ls = ai.sets[ai.sets.length - 1];
+          ai.sets.push({ w: ls ? ls.w : null, r: ls ? ls.r : null, done: false });
+          itemTouched(i);
+          refreshCard(i);
+          writeSession();
+          break;
+        }
+        case "sstep": {
+          var t1 = sheetTarget();
+          if (!t1) break;
+          var isR = el.getAttribute("data-k") === "r";
+          normSet(t1.set);
+          var raw = isR ? (t1.set.r > 0 ? String(t1.set.r) : "") : (t1.set.w > 0 ? String(t1.set.w) : "");
+          var stp = stepValue(raw, parseFloat(el.getAttribute("data-d")), isR);
+          if (isR) t1.set.r = stp ? parseInt(stp, 10) : null;
+          else t1.set.w = stp ? parseFloat(stp) : null;
+          var sf = $(isR ? "sxR" : "sxW");
+          if (sf) sf.value = stp;
+          afterSetEdit(t1);
+          break;
+        }
+        case "sheet-done": {
+          var t2 = sheetTarget();
+          if (!t2) { closeSheet(); break; }
+          if (!(t2.set.r > 0)) {
+            showToast("回数を入力してください");
+            var rf = $("sxR");
+            if (rf) rf.focus();
+            break;
+          }
+          t2.set.done = true;
+          closeSheet();
+          afterSetEdit(t2);
+          startRest();
+          break;
+        }
+        case "sheet-close": closeSheet(); break;
+        case "rowdelset": {
+          var t3 = sheetTarget();
+          if (!t3) break;
+          if (t3.it.sets.length > 1) t3.it.sets.splice(t3.si, 1);
+          else t3.it.sets[0] = { w: t3.it.sets[0].w, r: null, done: false };
+          closeSheet();
+          itemTouched(t3.i);
+          refreshCard(t3.i);
+          writeSession();
+          break;
+        }
+        case "rowcopyprev": {
+          var t4 = sheetTarget();
+          if (!t4) break;
+          var pv4 = findPrevious(t4.it.exercise, false);
+          if (!pv4) break;
+          if (t4.it.sets.some(isDone) && !window.confirm("完了済みのセットも前回の記録で置き換えます。よろしいですか？")) break;
+          var pe4 = pv4.entry;
+          var pw4 = (pe4.weight_kg != null && pe4.weight_kg > 0) ? pe4.weight_kg : null;
+          t4.it.weight_type = pe4.weight_type === "片手" ? "片手" : "合計";
+          t4.it.sets = pe4.reps.map(function (r) { var n4 = parseInt(r, 10); return { w: pw4, r: n4 > 0 ? Math.min(R_MAX, n4) : null, done: false }; });
+          if (!t4.it.sets.length) t4.it.sets = [{ w: pw4, r: null, done: false }];
+          sv.sheet.s = Math.min(t4.si, t4.it.sets.length - 1);
+          itemTouched(t4.i);
+          writeSession();
+          render();
+          showToast("前回の記録を貼り付けました");
+          break;
+        }
       }
     }
 
@@ -5078,6 +5812,22 @@
       var d = sess && sess.draft;
       if (key === "free") { sv.freeText = el.value; return; }
       if (key === "mfree") { sv.menuFree = el.value; return; }
+      // 編集シートの重量・回数：種目のセットを直接更新（入力中の欄はそのまま、カードだけ描き直す）
+      if (key === "sw" || key === "sr") {
+        var t = sheetTarget();
+        if (!t) return;
+        normSet(t.set);
+        if (key === "sw") {
+          var wv = parseFloat(el.value);
+          t.set.w = (isFinite(wv) && wv > 0) ? round2(wv) : null;
+        } else {
+          var rv = parseInt(el.value, 10);
+          if (isFinite(rv) && rv > R_MAX) { rv = R_MAX; el.value = String(R_MAX); }
+          t.set.r = (isFinite(rv) && rv > 0) ? rv : null;
+        }
+        afterSetEdit(t);
+        return;
+      }
       if (!d) return;
       if (key === "reps") {
         var i = parseInt(el.getAttribute("data-i"), 10);
@@ -5103,7 +5853,15 @@
         if (k) onInput(k, e.target);
       });
       overlay.addEventListener("keydown", function (e) {
-        if (e.key !== "Enter" || !e.target.getAttribute) return;
+        if (!e.target.getAttribute) return;
+        if ((e.key === "Escape" || e.key === "Esc") && sv.sheet) { closeSheet(); return; }
+        // セット行（role="button"）は Enter／Space でも開く
+        if ((e.key === "Enter" || e.key === " ") && e.target.getAttribute("role") === "button" && e.target.hasAttribute("data-sact")) {
+          e.preventDefault();
+          onAct(e.target.getAttribute("data-sact"), e.target);
+          return;
+        }
+        if (e.key !== "Enter") return;
         var k = e.target.getAttribute("data-sin");
         if (k === "free") { e.preventDefault(); onAct("pick-free", e.target); }
         else if (k === "mfree") { e.preventDefault(); onAct("m-free", e.target); }
@@ -5113,7 +5871,54 @@
       setInterval(tick, 250);
     }
 
+    function showOverlay() {
+      sv.open = true;
+      sv.lastView = null;
+      sv.summaryAt = null;
+      edSnap = null;
+      $("sessOverlay").classList.add("show");
+      document.body.classList.add("sess-open");
+      updateEntryBtn();
+    }
+    // メニューカードの「開始」：その部位のセッションを、メニューの種目（空のセット1つずつ）入りで始める
+    function startFromMenu(part) {
+      sess = readSession();
+      if (sess) { openSession(); showToast("進行中のトレーニングを再開しました"); return; }
+      var names = menuFor(part);
+      var now = new Date();
+      sess = {
+        startedAt: now.toISOString(), date: dateToKey(now), restSec: 90, parts: [part],
+        items: names.map(function (n) {
+          return { exercise: n, part: part, weight_type: part === "有酸素" ? "-" : "合計", sets: [{ w: null, r: null }], note: "" };
+        })
+      };
+      if (!writeSession()) { sess = null; return; }
+      sv.startParts = [part];
+      sv.addPart = part;
+      showOverlay();
+      go("session");
+    }
+    // 「＋ メニューを作成・編集」：既存のメニュー設定画面
+    function openMenus() {
+      sess = readSession();
+      showOverlay();
+      sv.menuBack = "start";
+      sv.menuPart = (sess && sess.parts[0]) || allParts()[0];
+      sv.menuFree = "";
+      go("menus");
+    }
+    // 記録する画面のメニューカード用（保存済みの部位メニュー）
+    function menuCards() {
+      var menus = readMenus();
+      var order = allParts().slice();
+      Object.keys(menus).forEach(function (p) { if (order.indexOf(p) === -1) order.push(p); });
+      return order.filter(function (p) { return menus[p] && menus[p].length; }).map(function (p) { return { part: p, names: menus[p].slice() }; });
+    }
+
     sessionApi.open = openSession;
+    sessionApi.startFromMenu = startFromMenu;
+    sessionApi.openMenus = openMenus;
+    sessionApi.menuCards = menuCards;
     sessionApi.init = function () {
       sess = readSession();
       bind();
@@ -5142,21 +5947,36 @@
   function isRecordPeriodTab(tab) {
     return tab === "day" || tab === "week" || tab === "month";
   }
+  function isBodyTab(tab) {
+    return tab === "weight" || tab === "photo";
+  }
   function switchTab(tab) {
+    if (tab === "body") tab = state.bodySub === "photo" ? "photo" : "weight";
     state.currentTab = tab;
     var isRecord = isRecordPeriodTab(tab);
+    var isBody = isBodyTab(tab);
     if (isRecord) saveRecordPeriod(tab);
+    if (isBody) state.bodySub = tab;
     Array.prototype.forEach.call(document.querySelectorAll(".screen"), function (s) {
       s.classList.toggle("active", s.id === "screen-" + tab);
     });
     Array.prototype.forEach.call(document.querySelectorAll(".tab-btn"), function (b) {
-      b.classList.toggle("active", b.getAttribute("data-screen") === (isRecord ? "record" : tab));
+      b.classList.toggle("active", b.getAttribute("data-screen") === (isRecord ? "record" : (isBody ? "body" : tab)));
     });
     var segEl = document.getElementById("recordSegment");
     if (segEl) {
       segEl.classList.toggle("show", isRecord);
       Array.prototype.forEach.call(segEl.querySelectorAll(".record-seg-btn"), function (b) {
         b.classList.toggle("active", b.getAttribute("data-period") === tab);
+      });
+    }
+    var bodySegEl = document.getElementById("bodySegment");
+    if (bodySegEl) {
+      bodySegEl.classList.toggle("show", isBody);
+      Array.prototype.forEach.call(bodySegEl.querySelectorAll(".record-seg-btn"), function (b) {
+        var on = b.getAttribute("data-body") === tab;
+        b.classList.toggle("active", on);
+        b.setAttribute("aria-selected", on ? "true" : "false");
       });
     }
     try { history.replaceState(null, "", isRecord ? "#record" : "#" + tab); } catch (e) {}
@@ -5168,8 +5988,23 @@
 
   // ---------- イベント ----------
   document.getElementById("reloadBtn").addEventListener("click", function () { loadData(); });
-  document.getElementById("dayPrevBtn").addEventListener("click", function () { changeDay(-1); });
-  document.getElementById("dayNextBtn").addEventListener("click", function () { changeDay(1); });
+  // 記録タブ：月カレンダー（前月／次月／今日、日付タップで選択）と開始・追加ボタン
+  document.getElementById("dayPrevBtn").addEventListener("click", function () { changeCalMonth(-1); });
+  document.getElementById("dayNextBtn").addEventListener("click", function () { changeCalMonth(1); });
+  document.getElementById("calTodayBtn").addEventListener("click", function () { selectCalDay(todayKey()); });
+  document.getElementById("calGrid").addEventListener("click", function (e) {
+    var b = e.target.closest ? e.target.closest("[data-cal-key]") : null;
+    if (b) selectCalDay(b.getAttribute("data-cal-key"));
+  });
+  document.getElementById("dayContent").addEventListener("click", function (e) {
+    var card = e.target.closest ? e.target.closest("[data-open-photo]") : null;
+    if (!card) return;
+    state.photoKey = card.getAttribute("data-open-photo");
+    state.photoMonth = monthFromKey(state.photoKey);
+    switchTab("photo");
+  });
+  document.getElementById("dayStartBtn").addEventListener("click", function () { openRecordSheet(); });
+  document.getElementById("dayAddBtn").addEventListener("click", function () { openRecordSheet(); });
   var dayDateInput = document.getElementById("dayDateInput");
   document.getElementById("dayLabel").addEventListener("click", function () {
     var range = dayNavRange();
@@ -5190,8 +6025,7 @@
     var d = dkToDate(dayDateInput.value);
     if (d.getTime() < range.start.getTime()) d = range.start;
     if (d.getTime() > range.end.getTime()) d = range.end;
-    state.dayKey = dateToKey(d);
-    renderDayTab();
+    selectCalDay(dateToKey(d));
   });
   document.addEventListener("click", function (e) {
     var cell = e.target.closest ? e.target.closest("[data-day-key]") : null;
@@ -5214,6 +6048,7 @@
   }
   function goToDay(dateKey) {
     state.dayKey = dateKey;
+    state.calMonth = monthFromKey(dateKey);
     switchTab("day");
   }
   function changeWeek(delta) {
@@ -5222,11 +6057,24 @@
     return true;
   }
 
+  // 種目詳細 → 種目一覧に戻る
+  document.getElementById("exerciseContent").addEventListener("click", function (e) {
+    var b = e.target.closest ? e.target.closest("[data-ex-back]") : null;
+    if (!b) return;
+    state.exerciseDetail = false;
+    renderExerciseTab();
+    try { window.scrollTo(0, 0); } catch (err) {}
+  });
   Array.prototype.forEach.call(document.querySelectorAll(".tab-btn[data-screen]"), function (btn) {
     btn.addEventListener("click", function () {
       var screen = btn.getAttribute("data-screen");
+      if (screen === "exercise") state.exerciseDetail = false; // 種目別タブを押したら一覧から
       switchTab(screen === "record" ? getRecordPeriod() : screen);
     });
+  });
+  // 体重・写真タブの切り替え（既存の体重／写真画面をそのまま使う）
+  Array.prototype.forEach.call(document.querySelectorAll("#bodySegment .record-seg-btn"), function (btn) {
+    btn.addEventListener("click", function () { switchTab(btn.getAttribute("data-body")); });
   });
 
   // ---------- 「記録する」全画面ビュー（タブバー左端が唯一の入口） ----------
@@ -5234,7 +6082,34 @@
   function isRecordSheetOpen() {
     return document.getElementById("recordSheetOverlay").classList.contains("show");
   }
+  // メニューカード（「◯◯の日」・種目名・開始ボタン）
+  function renderRecMenus() {
+    var box = document.getElementById("recMenuList");
+    if (!box) return;
+    var cards = sessionApi.menuCards();
+    if (!cards.length) {
+      box.innerHTML = '<div class="rec-empty">' + (state.loaded ? "メニューがまだありません。<br>「＋ メニューを作成・編集」から部位ごとのメニューを作れます。" : "読み込み中…") + "</div>";
+      return;
+    }
+    box.innerHTML = cards.map(function (c) {
+      return '<div class="menu-card" style="--pc:' + (PART_COLORS[c.part] || PART_ACCENT) + '"><span class="menu-card-bar" aria-hidden="true"></span>' +
+        '<div class="menu-card-main"><div class="menu-card-title">' + escapeHtml(c.part) + "の日</div>" +
+        '<div class="menu-card-sub">' + escapeHtml(c.names.join("・")) + "</div>" +
+        '<div class="menu-card-count">' + c.names.length + "種目</div></div>" +
+        '<button type="button" class="menu-card-go" data-menu-part="' + escapeHtml(c.part) + '" aria-label="' + escapeHtml(c.part) + 'の日を開始">開始</button></div>';
+    }).join("");
+  }
+  document.getElementById("recMenuList").addEventListener("click", function (e) {
+    var b = e.target.closest ? e.target.closest("[data-menu-part]") : null;
+    if (!b) return;
+    closeRecordSheet();
+    sessionApi.startFromMenu(b.getAttribute("data-menu-part"));
+  });
+  // 下の2つは .add-record-btn なので、キャプチャ段階のハンドラで全画面ビューは先に閉じる
+  document.getElementById("recMenuEditBtn").addEventListener("click", function () { sessionApi.openMenus(); });
+  document.getElementById("recFreeBtn").addEventListener("click", function () { sessionApi.open(); });
   function openRecordSheet() {
+    renderRecMenus();
     document.getElementById("recordSheetOverlay").classList.add("show");
     document.body.classList.add("rec-open");
     document.getElementById("recordSheetBtn").setAttribute("aria-expanded", "true");
@@ -5259,7 +6134,7 @@
   document.addEventListener("keydown", function (e) {
     if ((e.key === "Escape" || e.key === "Esc") && isRecordSheetOpen()) closeRecordSheet();
   });
-  Array.prototype.forEach.call(document.querySelectorAll(".record-seg-btn"), function (btn) {
+  Array.prototype.forEach.call(document.querySelectorAll("#recordSegment .record-seg-btn"), function (btn) {
     btn.addEventListener("click", function () { setRecordPeriod(btn.getAttribute("data-period")); });
   });
 
@@ -5411,7 +6286,7 @@
     var tab = state.currentTab;
     var el = document.querySelector(".screen.active");
     var changed = false;
-    if (tab === "day") changed = changeDay(dir);
+    if (tab === "day") changed = changeCalMonth(dir);
     else if (tab === "week") changed = changeWeek(dir);
     else if (tab === "month") changed = changeMonth(dir);
     else if (tab === "weight") changed = changeWeightPeriod(dir);
@@ -5557,6 +6432,7 @@
   function initialTabFromHash() {
     var h = (location.hash || "").replace("#", "");
     if (h === "exercise" || h === "weight" || h === "meal" || h === "photo") return h;
+    if (h === "body") return "weight";
     if (h === "day" || h === "week" || h === "month") return h;
     return getRecordPeriod();
   }
