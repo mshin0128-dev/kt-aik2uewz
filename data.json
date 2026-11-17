@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-17T12:44:17+09:00",
+ "source_mtime": "2026-11-17T13:17:02+09:00",
  "parts": [
   "胸",
   "背中",
@@ -8257,9 +8257,9 @@
    "note": null
   },
   "2026-11-17": {
-   "kcal": 680,
+   "kcal": 787,
    "kcal_range": null,
-   "protein": 20,
+   "protein": 40,
    "items": [
     {
      "time": "12:44",
@@ -8272,11 +8272,15 @@
     {
      "time": "12:44",
      "text": "しゃけむすび(概算)約200kcal・P約5g"
+    },
+    {
+     "time": "13:16",
+     "text": "ザバス ミルクプロテイン 脂肪0 200ml 107kcal・P20.0g"
     }
    ],
    "note": null
   }
  },
- "content_hash": "f9fbb8cfbde8",
- "generated_at": "2026-11-17T12:45:15+09:00"
+ "content_hash": "d4f26d9b5cde",
+ "generated_at": "2026-11-17T13:18:01+09:00"
 }
