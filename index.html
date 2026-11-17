@@ -911,6 +911,7 @@
     transition: border-color .15s var(--ease), box-shadow .15s var(--ease);
   }
   input.ef-input { -webkit-appearance: none; appearance: none; }
+  .ef-input::placeholder { color: var(--sub); font-weight: 500; opacity: 0.7; }
   .ef-input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px var(--chip-active-bg); }
   .ef-row { display: flex; gap: 10px; min-width: 0; }
   .ef-row > div { flex: 1 1 0; min-width: 0; }
@@ -3818,7 +3819,7 @@
       h += '<label class="ef-label" for="efPart">部位</label><select class="ef-input" id="efPart">';
       parts.forEach(function (p) { h += '<option value="' + escapeHtml(p) + '"' + (p === "不明" ? " selected" : "") + ">" + escapeHtml(p) + "</option>"; });
       h += "</select>";
-      h += '<div class="ef-row"><div><label class="ef-label" for="efWeight">重量(kg)・自重は空欄</label><input class="ef-input" id="efWeight" type="number" inputmode="decimal" step="any" min="0" placeholder="自重"></div>';
+      h += '<div class="ef-row"><div><label class="ef-label" for="efWeight">重量(kg)・自重は空欄</label><input class="ef-input" id="efWeight" type="number" inputmode="decimal" step="any" min="0" placeholder="重量"></div>';
       h += '<div><label class="ef-label">重量の種別</label><div class="ef-seg" id="efWType">';
       ["合計", "片手"].forEach(function (t) { h += '<button class="ef-seg-btn' + (ef.weightType === t ? " active" : "") + '" type="button" data-ef-wt="' + t + '">' + t + "</button>"; });
       h += "</div></div></div>";
@@ -4472,7 +4473,7 @@
     function setsHtml(d) {
       return d.sets.map(function (s, i) {
         return '<div class="sess-set"><span class="sess-set-n">' + (i + 1) + "</span>" +
-          '<input class="ef-input" type="number" inputmode="decimal" step="any" min="0" placeholder="自重" aria-label="' + (i + 1) + 'セット目の重量（kg）" data-sin="w" data-i="' + i + '" value="' + escapeHtml(s.w) + '">' +
+          '<input class="ef-input" type="number" inputmode="decimal" step="any" min="0" placeholder="重量" aria-label="' + (i + 1) + 'セット目の重量（kg）" data-sin="w" data-i="' + i + '" value="' + escapeHtml(s.w) + '">' +
           '<span class="sess-unit">kg</span>' +
           '<input class="ef-input" type="number" inputmode="numeric" min="0" max="999" placeholder="回数" aria-label="' + (i + 1) + 'セット目の回数" data-sin="reps" data-i="' + i + '" value="' + escapeHtml(s.r) + '">' +
           '<span class="sess-unit">回</span>' +
@@ -4490,7 +4491,7 @@
       } else {
         body += '<div class="card"><div class="section-title">重量の種類</div><div class="ef-seg sess-seg" id="sessWt">' +
           ["合計", "片手"].map(function (t) { return '<button type="button" class="ef-seg-btn' + (d.wtype === t ? " active" : "") + '" data-sact="wt" data-w="' + t + '">' + t + "</button>"; }).join("") +
-          '</div><div class="sess-hint" style="margin:8px 0 0">全セット共通。自重は重量を空欄に。「片手」は片手あたりの重量で、合計は×2で集計します。</div></div>';
+          '</div><div class="sess-hint" style="margin:8px 0 0">合計／片手は全セット共通。自重の種目は重量を空欄に。「片手」は片手あたりの重量で、合計は×2で集計します。</div></div>';
         body += '<div class="card"><div class="section-title">セット</div><div id="sessSets">' + setsHtml(d) + '</div><button type="button" class="sess-addset" data-sact="addset">+セット</button></div>';
       }
       body += '<div class="card"><div class="section-title">メモ（任意）</div><input class="ef-input" id="sessNote" type="text" placeholder="メモ" aria-label="メモ" data-sin="note" value="' + escapeHtml(d.note) + '"></div>';
