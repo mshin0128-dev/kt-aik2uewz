@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-17T11:47:18+09:00",
+ "source_mtime": "2026-11-17T11:50:23+09:00",
  "parts": [
   "胸",
   "背中",
@@ -6432,6 +6432,26 @@
      "volume_kg": 300.0,
      "hands": "両手",
      "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-17",
+     "time": "11:50",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      11
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "11:50 ダンベルベンチプレス 片手15kg×11(2セット目) /負荷量 30kg×11=330kg",
+     "load_kg": 30.0,
+     "load_reps": 11,
+     "volume_kg": 330.0,
+     "hands": "両手",
+     "total_kg": 30.0
     }
    ],
    "summary_only": null
@@ -8144,6 +8164,6 @@
    "note": null
   }
  },
- "content_hash": "f70e25fa41a8",
- "generated_at": "2026-11-17T11:48:11+09:00"
+ "content_hash": "3195725c16ad",
+ "generated_at": "2026-11-17T11:51:34+09:00"
 }
