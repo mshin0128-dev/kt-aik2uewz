@@ -1018,9 +1018,15 @@
   .photo-compare-cap { font-size: 11px; color: var(--sub); margin-top: 6px; text-align: center; overflow-wrap: anywhere; }
 
   /* ---------- 手入力（端末ローカル記録） ---------- */
-  /* 「記録する」全画面ビュー（タブバー左端の「記録する」から開く。ヘッダーはセッション画面と同じ sess-head 系） */
+  /* 「記録する」ビュー（タブバー左端の「記録する」から開く。ヘッダーはセッション画面と同じ sess-head 系）。
+     タブバー（z-index 20）より下（15）に置き、タブバーは常に見えて押せる。中身はほかのタブと同じく
+     浮いたタブバーの裏までスクロールし、最後の要素はタブバーの上で止まる（rec-body の padding-bottom） */
   body.rec-open { overflow: hidden; }
-  .rec-overlay { position: fixed; inset: 0; z-index: 30; display: none; background: var(--bg); color: var(--text); }
+  .rec-overlay { position: fixed; inset: 0; z-index: 15; display: none; background: var(--bg); color: var(--text); }
+  .rec-overlay input { -webkit-user-select: text; user-select: text; }
+  /* 記録するビューを開いている間は、タブバーの「記録する」だけを選択中の見た目にする */
+  body.rec-open .tab-btn[data-screen].active { color: var(--sub); background: none; font-weight: inherit; }
+  body.rec-open .tab-btn[data-screen].active .icon svg { stroke-width: 2; }
   .rec-overlay.show { display: flex; justify-content: center; animation: recIn .2s var(--ease); }
   @keyframes recIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
   .rec-shell {
@@ -1032,7 +1038,7 @@
   .rec-body {
     flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden;
     overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
-    padding: 16px 14px calc(20px + var(--safe-b));
+    padding: 16px 14px calc(var(--nav-h) + var(--safe-b) + 16px);
   }
   .record-actions { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
   /* 記録する画面のボタン：既定は濃いカード色のピル、.primary は青グラデーション */
@@ -1056,39 +1062,146 @@
   .rec-lead { font-size: 13px; color: var(--sub); margin: 0 4px 16px; }
   .rec-label { font-size: 13px; font-weight: 700; color: var(--sub); letter-spacing: 0.06em; margin: 22px 4px 10px; }
   .rec-resume { margin-bottom: 6px; }
-  .rec-menu-list { display: flex; flex-direction: column; gap: 18px; margin-bottom: 18px; padding-bottom: 6px; }
+  .rec-menu-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
   .rec-empty {
     font-size: 13px; line-height: 1.7; color: var(--sub); text-align: center;
     padding: 22px 16px; border-radius: var(--radius); border: 1.5px dashed var(--border);
   }
-  /* メニューカード：後ろに2枚重なって見える「積み重ね」表現 */
+  /* メニューカード：大きなメニュー名・種目名（グレー）・セット内容の決め方、右上に「開始」ピル。
+     カード本体のタップでメニューの編集、編集モードでは「開始」の代わりにゴミ箱 */
   .menu-card {
-    position: relative; z-index: 0; isolation: isolate;
-    display: flex; align-items: center; gap: 12px; min-width: 0;
-    padding: 18px 16px 18px 20px; border-radius: var(--radius);
-    background: var(--card-2); border: 1px solid var(--border-soft);
+    position: relative; display: block; min-width: 0;
+    padding: 16px 14px 14px 18px; border-radius: var(--radius);
+    background: var(--card); border: 1px solid var(--border-softer); box-shadow: var(--shadow-card);
+    cursor: pointer; transition: transform .15s var(--ease), border-color .15s var(--ease);
   }
-  .menu-card::before, .menu-card::after {
-    content: ""; position: absolute; z-index: -1; border-radius: var(--radius);
-    background: var(--card); border: 1px solid var(--border-softer);
-  }
-  .menu-card::before { left: 10px; right: 10px; bottom: -7px; height: 40px; opacity: 0.85; }
-  .menu-card::after { left: 20px; right: 20px; bottom: -13px; height: 40px; opacity: 0.5; }
-  .menu-card-bar { position: absolute; left: 0; top: 18px; bottom: 18px; width: 4px; border-radius: 0 4px 4px 0; background: var(--pc, var(--accent)); }
-  .menu-card-main { flex: 1 1 auto; min-width: 0; }
-  .menu-card-title { font-size: 20px; font-weight: 800; letter-spacing: 0.02em; line-height: 1.3; overflow-wrap: anywhere; }
+  .menu-card:active { transform: scale(0.99); }
+  .menu-card:focus-visible { outline: none; border-color: var(--accent); }
+  .menu-card.editing { border-color: var(--border); }
+  .menu-card-top { display: flex; align-items: flex-start; gap: 12px; min-width: 0; }
+  .menu-card-title { flex: 1 1 auto; min-width: 0; padding-top: 2px; font-size: 22px; font-weight: 800; letter-spacing: 0.01em; line-height: 1.3; overflow-wrap: anywhere; }
   .menu-card-sub {
-    font-size: 12px; line-height: 1.55; color: var(--sub); margin-top: 4px; overflow-wrap: anywhere;
+    font-size: 13px; line-height: 1.55; color: var(--sub); margin-top: 6px; overflow-wrap: anywhere;
     display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
   }
-  .menu-card-count { font-size: 11px; font-weight: 600; color: var(--sub); margin-top: 6px; }
+  .menu-card-rule { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; color: var(--sub); margin-top: 10px; opacity: 0.85; }
+  .menu-card-rule svg { width: 13px; height: 13px; display: block; flex: none; color: var(--accent); }
   .menu-card-go {
-    flex: 0 0 auto; min-width: 76px; height: 44px; padding: 0 18px; border-radius: 999px; border: none;
+    flex: 0 0 auto; min-width: 72px; height: 38px; padding: 0 18px; border-radius: 999px; border: none;
     background: var(--grad-primary); color: #fff; box-shadow: var(--accent-shadow-sm);
-    font-family: inherit; font-size: 15px; font-weight: 800; letter-spacing: 0.06em; cursor: pointer;
+    font-family: inherit; font-size: 14px; font-weight: 800; letter-spacing: 0.06em; cursor: pointer;
     transition: transform .15s var(--ease);
   }
   .menu-card-go:active { transform: scale(0.95); }
+  .menu-card-del, .rec-trash {
+    flex: 0 0 38px; width: 38px; height: 38px; padding: 0; border-radius: 50%; border: none;
+    background: var(--status-off-bg); color: var(--danger);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    transition: transform .15s var(--ease);
+  }
+  .menu-card-del svg, .rec-trash svg { width: 18px; height: 18px; display: block; }
+  .menu-card-del:active, .rec-trash:active { transform: scale(0.92); }
+  .rec-trash { flex-basis: 36px; width: 36px; height: 36px; }
+
+  /* 記録するビューのヘッダー部品：丸い ✕、青いピル（保存・追加）、編集／完了 */
+  .rec-x {
+    flex: 0 0 40px; width: 40px; height: 40px; padding: 0; border-radius: 50%;
+    border: 1px solid var(--border-softer); background: var(--card); color: var(--text);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    transition: transform .15s var(--ease);
+  }
+  .rec-x svg { width: 18px; height: 18px; display: block; }
+  .rec-x:active { transform: scale(0.92); }
+  .rec-pill {
+    min-width: 64px; height: 38px; padding: 0 18px; border-radius: 999px; border: none; white-space: nowrap;
+    background: var(--grad-primary); color: #fff; box-shadow: var(--accent-shadow-sm);
+    font-family: inherit; font-size: 14px; font-weight: 800; letter-spacing: 0.06em; cursor: pointer;
+    transition: transform .15s var(--ease), opacity .15s var(--ease);
+  }
+  .rec-pill:active { transform: scale(0.95); }
+  .rec-pill small { font-size: 12px; font-weight: 700; margin-left: 4px; font-variant-numeric: tabular-nums; }
+  .rec-pill.lg { flex: 0 0 auto; height: var(--field-h); min-width: 76px; }
+  .sess-head-btn.accent { background: var(--chip-active-bg); color: var(--accent); border-color: transparent; font-weight: 700; }
+
+  /* メニューの作成・編集 */
+  .rec-field-label { display: block; font-size: 13px; font-weight: 700; color: var(--sub); letter-spacing: 0.06em; margin: 4px 4px 10px; }
+  .rec-rule-card {
+    display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-radius: var(--radius-md);
+    background: var(--card); border: 1.5px solid var(--accent);
+  }
+  .rec-rule-ico { flex: none; width: 22px; height: 22px; color: var(--accent); }
+  .rec-rule-ico svg { width: 22px; height: 22px; display: block; }
+  .rec-rule-main { flex: 1 1 auto; min-width: 0; }
+  .rec-rule-title { font-size: 15px; font-weight: 700; line-height: 1.4; }
+  .rec-rule-desc { font-size: 12px; line-height: 1.65; color: var(--sub); margin-top: 4px; overflow-wrap: anywhere; }
+  .rec-ex-list { display: flex; flex-direction: column; gap: 8px; }
+  .rec-ex-card {
+    display: flex; align-items: center; gap: 6px; min-width: 0;
+    padding: 12px 10px 12px 16px; border-radius: var(--radius-md);
+    background: var(--card); border: 1px solid var(--border-softer);
+  }
+  .rec-ex-main { flex: 1 1 auto; min-width: 0; margin-right: 4px; }
+  .rec-ex-name { font-size: 15px; font-weight: 700; line-height: 1.35; overflow-wrap: anywhere; }
+  .rec-ex-note { font-size: 11px; line-height: 1.5; color: var(--sub); margin-top: 3px; }
+  .rec-mv {
+    flex: 0 0 30px; width: 30px; height: 36px; padding: 0; border: none; border-radius: 10px;
+    background: none; color: var(--sub); font-family: inherit; font-size: 15px; cursor: pointer;
+  }
+  .rec-mv:active { background: var(--surface-alt); }
+  .rec-mv[disabled] { opacity: 0.25; cursor: default; }
+  .rec-add-ex {
+    display: flex; align-items: center; justify-content: center; width: 100%; min-height: 56px; margin-top: 10px; padding: 0 16px;
+    border-radius: var(--radius-md); border: 1.5px dashed var(--accent); background: var(--chip-active-bg); color: var(--accent);
+    font-family: inherit; font-size: 15px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer;
+    transition: transform .15s var(--ease);
+  }
+  .rec-add-ex:active { transform: scale(0.98); }
+  .cta-btn.rec-go { margin-top: 28px; }
+
+  /* 種目を追加（ピッカー） */
+  input.ef-input.rec-search {
+    padding-left: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239AA3AD' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cline x1='20' y1='20' x2='16.5' y2='16.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: 13px center; background-size: 18px 18px;
+  }
+  .rec-search::-webkit-search-decoration { -webkit-appearance: none; }
+  .rec-chips { margin: 12px 0 0; }
+  .rec-create-btn {
+    display: flex; align-items: center; justify-content: center; width: 100%; height: 50px; margin: 12px 0 0; padding: 0 16px;
+    border-radius: var(--radius-md); border: 1.5px dashed var(--border); background: none; color: var(--accent);
+    font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer;
+  }
+  .rec-create-btn:active { background: var(--chip-active-bg); }
+  .rec-create-row { display: flex; gap: 8px; margin-top: 12px; min-width: 0; }
+  .rec-create-row .ef-input { flex: 1 1 auto; width: auto; }
+  .rec-create-hint { font-size: 12px; color: var(--sub); margin: 6px 4px 0; }
+  .rec-pick-list {
+    margin-top: 12px; padding: 0 14px; border-radius: var(--radius);
+    background: var(--card); border: 1px solid var(--border-softer);
+  }
+  .rec-pick-row {
+    display: flex; align-items: center; gap: 12px; width: 100%; min-height: 62px; padding: 10px 2px;
+    border: none; border-bottom: 1px solid var(--border-soft); background: none; color: var(--text);
+    font-family: inherit; text-align: left; cursor: pointer;
+  }
+  .rec-pick-row:last-child { border-bottom: none; }
+  .rec-pick-row:active { opacity: 0.7; }
+  .rec-pick-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .rec-pick-name { font-size: 15px; font-weight: 700; line-height: 1.35; overflow-wrap: anywhere; }
+  .rec-pick-sub { font-size: 12px; color: var(--sub); }
+  .rec-pick-circle {
+    flex: 0 0 28px; width: 28px; height: 28px; border-radius: 50%;
+    border: 2px solid rgba(154,163,173,0.55); color: transparent;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .15s var(--ease), border-color .15s var(--ease);
+  }
+  .rec-pick-circle svg { width: 16px; height: 16px; display: block; }
+  .rec-pick-row.on .rec-pick-circle { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .rec-pick-row.added { cursor: default; }
+  .rec-pick-row.added:active { opacity: 1; }
+  .rec-pick-row.added .rec-pick-name { color: var(--sub); }
+  .rec-pick-row.added .rec-pick-circle { background: var(--surface-alt); border-color: transparent; color: var(--sub); }
+  .rec-pick-empty { padding: 26px 4px; text-align: center; font-size: 13px; line-height: 1.7; color: var(--sub); }
   .rec-btn-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .entry-box { max-height: 90vh; max-height: 90dvh; }
   .entry-title { margin: 0 0 12px; font-size: 16px; font-weight: 700; letter-spacing: 0.02em; }
@@ -1773,16 +1886,14 @@
   </div>
 </div>
 
-<div class="rec-overlay" id="recordSheetOverlay" role="dialog" aria-modal="true" aria-labelledby="recordSheetTitle">
+<div class="rec-overlay" id="recordSheetOverlay" role="region" aria-label="記録する">
   <div class="rec-shell">
-    <header class="sess-head rec-head">
-      <div class="sess-head-side"><button class="sess-head-btn" id="recordSheetClose" type="button">閉じる</button></div>
-      <div class="sess-head-mid"></div>
-      <div class="sess-head-side right"></div>
-    </header>
-    <div class="rec-body">
+    <!-- ヘッダーは画面ごとに描き直す（開始：閉じる／編集、作成・編集・種目追加：✕／タイトル／保存・追加） -->
+    <header class="sess-head rec-head" id="recHead"></header>
+    <div class="rec-body" id="recBody">
+    <div id="recStartView">
     <h2 class="rec-title-big" id="recordSheetTitle">トレーニングを開始</h2>
-    <p class="rec-lead">メニューを選ぶと、種目が入った状態で始められます。</p>
+    <p class="rec-lead">メニューを選ぶと、直近の記録が入った状態で始められます。</p>
     <!-- 進行中のトレーニングがあるときだけ表示（再開ボタン） -->
     <button class="add-record-btn primary rec-resume" type="button" id="sessionOpenBtn" hidden>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8v8"/><path d="M4 9v6"/><path d="M20 9v6"/><path d="M22 8v8"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M9 8v8"/><path d="M15 8v8"/></svg>
@@ -1791,7 +1902,7 @@
     <div class="rec-label">メニュー</div>
     <div class="rec-menu-list" id="recMenuList"></div>
     <div class="rec-btn-stack">
-      <button class="add-record-btn primary" type="button" id="recMenuEditBtn">＋ メニューを作成・編集</button>
+      <button class="add-record-btn primary" type="button" id="recMenuEditBtn" data-rec-stay>＋ メニューを作成</button>
       <button class="add-record-btn" type="button" id="recFreeBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="7 4 20 12 7 20 7 4"/></svg>
         <span>フリーで開始</span>
@@ -1808,6 +1919,9 @@
         <span>食事を記録する</span>
       </button>
     </div>
+    </div>
+    <!-- メニューを作成／メニューを編集／種目を追加 -->
+    <div id="recSubView" hidden></div>
     </div>
   </div>
 </div>
@@ -1848,7 +1962,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.19d";
+  var APP_VERSION = "v2026.11.19e";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -2316,7 +2430,7 @@
         renderFooters();
         renderCurrentTab();
         sessionApi.onData();
-        if (isRecordSheetOpen()) renderRecMenus();
+        refreshRecordSheet();
       })
       .catch(function (err) {
         if (state.loaded) {
@@ -4727,7 +4841,9 @@
   })();
 
   // ---------- トレーニングセッション（開始 → 種目追加 → 終了 → 保存） ----------
-  // 進行中セッションは localStorage "kintore_session_v1"、部位メニューは "kintore_menus_v1"。
+  // 進行中セッションは localStorage "kintore_session_v1"、名前付きメニューは "kintore_menus_v1"
+  // （形式 { version: 2, menus: [{ id, name, exercises: [種目名] }], exParts: { 種目名: 部位 } }。
+  //  旧形式 { 部位: [種目名…] } は読み込み時に「部位名のメニュー」へ移行して書き戻す）。
   // 保存時に既存の kintore_local_v1（entries）へ変換し、reapplyLocal() の既存マージ経路で表示する。
   var sessionApi = { init: function () {}, open: function () {}, onData: function () {} };
   (function () {
@@ -4766,10 +4882,16 @@
     function startHHMM() { var d = new Date(startMs()); return pad2(d.getHours()) + ":" + pad2(d.getMinutes()); }
     function mdText(key) { return (+key.slice(5, 7)) + "/" + (+key.slice(8, 10)); }
     function isCardioItem(it) { return it.part === "有酸素" || it.minutes != null; }
-    // 未入力（メニューから読み込んだだけ）の種目
-    function isPendingItem(it) {
+    // 中身が空（回数・時間が1つも無い）の種目
+    function isEmptyItem(it) {
       if (isCardioItem(it)) return !(it.minutes > 0);
       return !it.sets.some(function (s) { return s.r > 0; });
+    }
+    // 未入力の種目：空の種目、またはメニューで直近の記録をコピーしただけで完了の丸が1つも無い種目（copied）。
+    // コピーした値をそのまま「やった」ことにしないため、終了時は未入力として扱う
+    function isPendingItem(it) {
+      if (isEmptyItem(it)) return true;
+      return !!it.copied && !isCardioItem(it) && !it.sets.some(isDone);
     }
     // セットの完了：回数があり done が false でないもの（done の無い以前の確定済みセットは完了扱い）
     function isDone(s) { return !!s && s.r > 0 && s.done !== false; }
@@ -4800,6 +4922,7 @@
       var mi = parseFloat(it.minutes);
       var out = { exercise: String(it.exercise), part: String(it.part || "不明"), weight_type: it.weight_type === "片手" ? "片手" : "合計", sets: sets, note: it.note ? String(it.note) : "" };
       if (isFinite(mi) && mi > 0) { out.minutes = mi; out.weight_type = "-"; out.sets = []; }
+      else if (it.copied === true) out.copied = true;
       return out;
     }
     function cleanDraft(d) {
@@ -4855,38 +4978,147 @@
       names.sort(function (a, b) { return counts[b] - counts[a] || a.localeCompare(b, "ja"); });
       return names;
     }
-    function seedMenus() {
+    // ---------- 名前付きメニュー（kintore_menus_v1） ----------
+    var OTHER_PART = "その他";
+    function newMenuId() { return "m" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+    function cleanNames(a) {
+      var out = [];
+      (Array.isArray(a) ? a : []).forEach(function (n) {
+        if (typeof n !== "string") return;
+        n = n.trim();
+        if (n && out.indexOf(n) === -1) out.push(n);
+      });
+      return out;
+    }
+    function emptyStore() { return { menus: [], exParts: {} }; }
+    // 初回：データから部位ごとに上位6種目のメニューを作る（種目の無い部位は作らない）
+    function seedStore() {
       var parts = allParts().slice();
       allEntriesFlat().forEach(function (e) { var p = e.part || "不明"; if (parts.indexOf(p) === -1) parts.push(p); });
-      var menus = {};
-      parts.forEach(function (p) { menus[p] = namesForPart(p).slice(0, 6); });
-      return menus;
+      var store = emptyStore();
+      parts.forEach(function (p) {
+        var names = namesForPart(p).slice(0, 6);
+        if (names.length) store.menus.push({ id: newMenuId(), name: p, exercises: names });
+      });
+      return store;
     }
-    function writeMenus(m) {
-      try { localStorage.setItem(MENUS_KEY, JSON.stringify(m)); return true; }
-      catch (e) { showToast("メニューを保存できませんでした"); return false; }
+    // 旧形式 { 部位: [種目…] } → 部位ごとに「部位名のメニュー」。種目の順番はそのまま、
+    // 種目の部位は exParts に控える（履歴に無い種目でも部位が分かるように）。空の部位は移行しない
+    function migrateOldMenus(o) {
+      var order = allParts().slice();
+      Object.keys(o).forEach(function (p) { if (order.indexOf(p) === -1) order.push(p); });
+      var store = emptyStore();
+      order.forEach(function (p) {
+        if (!Object.prototype.hasOwnProperty.call(o, p)) return;
+        var names = cleanNames(o[p]);
+        if (!names.length) return;
+        store.menus.push({ id: newMenuId(), name: p, exercises: names });
+        names.forEach(function (n) { if (!store.exParts[n]) store.exParts[n] = p; });
+      });
+      return store;
     }
-    function readMenus() {
+    function writeMenuStore(store, quiet) {
+      try {
+        localStorage.setItem(MENUS_KEY, JSON.stringify({ version: 2, menus: store.menus, exParts: store.exParts }));
+        return true;
+      } catch (e) {
+        if (!quiet) showToast("メニューを保存できませんでした");
+        return false;
+      }
+    }
+    function readMenuStore() {
       var raw = null;
       try { raw = localStorage.getItem(MENUS_KEY); } catch (e) {}
-      if (raw == null) { // 初回：データから上位6種目ずつをシード（データ未取得の間は保存しない）
-        if (!state.data) return {};
-        var seeded = seedMenus();
-        writeMenus(seeded);
+      if (raw == null) { // 初回：データ未取得の間はシードも保存もしない
+        if (!state.data) return emptyStore();
+        var seeded = seedStore();
+        writeMenuStore(seeded, true);
         return seeded;
       }
       var o = null;
       try { o = JSON.parse(raw); } catch (e) { o = null; }
-      var out = {};
-      if (o && typeof o === "object" && !Array.isArray(o)) {
-        Object.keys(o).forEach(function (p) {
-          if (Array.isArray(o[p])) out[p] = o[p].filter(function (n) { return typeof n === "string" && n; });
+      // 読めない値は上書きしない（そのまま残す）
+      if (!o || typeof o !== "object" || Array.isArray(o)) return emptyStore();
+      if (Array.isArray(o.menus)) {
+        var store = emptyStore(), seen = {}, fixed = false;
+        o.menus.forEach(function (m) {
+          if (!m || typeof m !== "object") return;
+          var id = (typeof m.id === "string" && m.id && !seen[m.id]) ? m.id : null;
+          if (!id) { id = newMenuId(); fixed = true; }
+          seen[id] = true;
+          var name = typeof m.name === "string" ? m.name.trim() : "";
+          store.menus.push({ id: id, name: name || "メニュー", exercises: cleanNames(m.exercises) });
         });
+        var ep = o.exParts;
+        if (ep && typeof ep === "object" && !Array.isArray(ep)) {
+          Object.keys(ep).forEach(function (n) { if (typeof ep[n] === "string" && ep[n]) store.exParts[n] = ep[n]; });
+        }
+        if (fixed) writeMenuStore(store, true); // id の無いメニューに id を振って保存（以後は同じ id）
+        return store;
       }
+      var migrated = migrateOldMenus(o);
+      writeMenuStore(migrated, true);
+      return migrated;
+    }
+    function listMenus() { return readMenuStore().menus; }
+    function findMenu(id) {
+      var list = listMenus();
+      for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+      return null;
+    }
+    // メニューを保存（id が無ければ新規）。newParts は新しく作った種目の部位 { 種目名: 部位 }。保存した id を返す
+    function saveMenu(m, newParts) {
+      var store = readMenuStore();
+      var rec = { id: m.id || newMenuId(), name: String(m.name || "").trim() || "メニュー", exercises: cleanNames(m.exercises) };
+      Object.keys(newParts || {}).forEach(function (n) {
+        if (newParts[n] && rec.exercises.indexOf(n) !== -1) store.exParts[n] = newParts[n];
+      });
+      var k = -1;
+      store.menus.forEach(function (x, i) { if (x.id === rec.id) k = i; });
+      if (k === -1) store.menus.push(rec); else store.menus[k] = rec;
+      return writeMenuStore(store) ? rec.id : null;
+    }
+    function deleteMenu(id) {
+      var store = readMenuStore();
+      store.menus = store.menus.filter(function (m) { return m.id !== id; });
+      return writeMenuStore(store);
+    }
+    // 種目の一覧（履歴での回数順）と部位：部位は履歴の部位（いちばん多いもの・「不明」より具体的な部位を優先）
+    function exerciseIndex() {
+      var counts = Object.create(null), pc = Object.create(null), names = [];
+      (state.data ? allEntriesFlat() : []).forEach(function (e) {
+        if (!e || !e.exercise) return;
+        var n = e.exercise, p = e.part || "不明";
+        if (counts[n] == null) { counts[n] = 0; pc[n] = Object.create(null); names.push(n); }
+        counts[n]++;
+        pc[n][p] = (pc[n][p] || 0) + 1;
+      });
+      names.sort(function (a, b) { return counts[b] - counts[a] || a.localeCompare(b, "ja"); });
+      var part = Object.create(null);
+      names.forEach(function (n) {
+        var best = null, bc = 0;
+        Object.keys(pc[n]).forEach(function (p) {
+          if (p === "不明") return;
+          if (pc[n][p] > bc) { bc = pc[n][p]; best = p; }
+        });
+        part[n] = best || "不明";
+      });
+      var store = readMenuStore();
+      return { names: names, part: part, exParts: store.exParts, menus: store.menus };
+    }
+    // 種目 → 部位：履歴 → （新しく作った種目の）指定 → メニューに控えた部位 → その他
+    function partOf(name, idx, override) {
+      idx = idx || exerciseIndex();
+      return idx.part[name] || override || idx.exParts[name] || OTHER_PART;
+    }
+    // セッションの「種目を追加」画面の「◯◯のメニュー」：その部位に当たるメニューの種目（重複なし）
+    function menuFor(part) {
+      var idx = exerciseIndex(), out = [];
+      idx.menus.forEach(function (m) {
+        m.exercises.forEach(function (n) { if (out.indexOf(n) === -1 && partOf(n, idx) === part) out.push(n); });
+      });
       return out;
     }
-    function menuFor(part) { return (readMenus()[part] || []).slice(); }
-    function setMenu(part, list) { var m = readMenus(); m[part] = list; return writeMenus(m); }
 
     // ---------- 前回の記録（data.json の days ＋ 端末記録。開始日より前で最新のもの） ----------
     function findPrevious(name, cardio) {
@@ -4911,6 +5143,32 @@
     function prevText(p, cardio) {
       var e = p.entry;
       return cardio ? fmtNum(e.minutes) + "分" : weightText(e.weight_kg, e.weight_type) + " × " + e.reps.join("・") + "回";
+    }
+    // メニュー開始用：直近の記録（findPrevious で見つけた日）のその種目のセットを、記録の順にすべて写す。
+    // 重量の違うセットは別エントリになっているので同じ日のエントリをまとめる（同じ出どころ＝data.json か端末記録の
+    // どちらか一方だけ。両方に同じ記録がある場合に二重にならないように）。完了の丸はすべて外す
+    function lastSetsFor(name) {
+      var prev = findPrevious(name, false);
+      if (!prev) return null;
+      var local = !!prev.entry.__local;
+      var entries = [];
+      (state.data.days || []).forEach(function (d) {
+        if (!d || d.date !== prev.date || !Array.isArray(d.entries)) return;
+        d.entries.forEach(function (e) {
+          if (e.exercise === name && e.minutes == null && e.reps && e.reps.length && !!e.__local === local) entries.push(e);
+        });
+      });
+      if (!entries.length) entries = [prev.entry];
+      var sets = [];
+      entries.forEach(function (e) {
+        var w = (e.weight_kg != null && e.weight_kg > 0) ? e.weight_kg : null;
+        e.reps.forEach(function (v) {
+          var r = parseInt(v, 10);
+          if (isFinite(r) && r > 0 && sets.length < MAX_SETS) sets.push({ w: w, r: Math.min(R_MAX, r), done: false });
+        });
+      });
+      if (!sets.length) return null;
+      return { wtype: entries[0].weight_type === "片手" ? "片手" : "合計", sets: sets };
     }
 
     // ---------- 計算・変換 ----------
@@ -5100,9 +5358,6 @@
     function titleMid(title, sub) {
       return '<div class="sess-title">' + escapeHtml(title) + "</div>" + (sub ? '<div class="sess-sub">' + escapeHtml(sub) + "</div>" : "");
     }
-    function menuLink() {
-      return '<button type="button" class="sess-linkbtn" data-sact="menus"><span>部位ごとのメニューを編集</span>' + ICON_CHEVRON_RIGHT + "</button>";
-    }
     function freeRow(act, id, val) {
       return '<div class="sess-free"><input class="ef-input" id="' + id + '" type="text" placeholder="種目名を入力" data-sin="' + (id === "sessFree" ? "free" : "mfree") + '" value="' + escapeHtml(val) + '" autocomplete="off"><button type="button" class="sess-btn inline" data-sact="' + act + '">追加</button></div>';
     }
@@ -5112,7 +5367,7 @@
       var chips = allParts().map(function (p) { return partChip(p, sv.startParts.indexOf(p) !== -1, "start-part"); }).join("");
       return {
         head: headHtml(headBtn("閉じる", "close"), titleMid("新しいトレーニング", formatDateLabel(todayStr()))),
-        body: '<div class="card"><div class="section-title">今日鍛える部位</div><div class="sess-hint">複数選べます。種目を追加するときは、ほかの部位も選べます。</div><div class="sess-chips">' + chips + "</div></div>" + menuLink(),
+        body: '<div class="card"><div class="section-title">今日鍛える部位</div><div class="sess-hint">複数選べます。種目を追加するときは、ほかの部位も選べます。</div><div class="sess-chips">' + chips + "</div></div>",
         foot: '<button type="button" class="sess-btn primary" data-sact="start">トレーニングを開始</button>'
       };
     }
@@ -5223,13 +5478,12 @@
       var past = namesForPart(part).filter(function (n) { return menu.indexOf(n) === -1; }).slice(0, 60);
       var body = '<div class="card"><div class="section-title">部位</div><div class="sess-chips">' + allParts().map(function (p) { return partChip(p, p === part, "add-part"); }).join("") + "</div></div>";
       body += '<div class="card"><div class="section-title">' + escapeHtml(part) + "のメニュー</div>";
-      body += menu.length ? '<div class="sess-chips">' + menu.map(function (n) { return nameChip(n, "pick", true); }).join("") + "</div>" : '<div class="sess-hint" style="margin:0">メニューに種目が登録されていません。下の「部位ごとのメニューを編集」から登録できます。</div>';
+      body += menu.length ? '<div class="sess-chips">' + menu.map(function (n) { return nameChip(n, "pick", true); }).join("") + "</div>" : '<div class="sess-hint" style="margin:0">この部位の種目はメニューにありません。メニューは「記録する」の画面で作成・編集できます。</div>';
       body += "</div>";
       body += '<div class="card"><div class="section-title">過去の種目</div>';
       body += past.length ? '<div class="sess-chips">' + past.map(function (n) { return nameChip(n, "pick", false); }).join("") + "</div>" : '<div class="sess-hint" style="margin:0">ほかに過去の種目はありません。</div>';
       body += "</div>";
       body += '<div class="card"><div class="section-title">新しい種目</div>' + freeRow("pick-free", "sessFree", sv.freeText) + "</div>";
-      body += menuLink();
       return { head: headHtml(headBtn("‹ 戻る", "add-back"), titleMid("種目を追加", part)), body: body, foot: "" };
     }
     // 重量の刻み（kg）と回数の刻み
@@ -5301,28 +5555,6 @@
         foot: '<button type="button" class="sess-btn" data-sact="sum-back">トレーニングを再開</button><button type="button" class="sess-btn primary" data-sact="save">記録を保存</button>'
       };
     }
-    function viewMenus() {
-      var part = sv.menuPart;
-      var menu = menuFor(part);
-      var past = namesForPart(part).filter(function (n) { return menu.indexOf(n) === -1; }).slice(0, 60);
-      var body = '<div class="card"><div class="section-title">部位</div><div class="sess-chips">' + allParts().map(function (p) { return partChip(p, p === part, "m-part"); }).join("") + "</div></div>";
-      body += '<div class="card"><div class="section-title">' + escapeHtml(part) + "のメニュー</div>";
-      if (menu.length) {
-        body += menu.map(function (n, i) {
-          return '<div class="sess-mrow"><span class="sess-mname">' + escapeHtml(n) + "</span>" +
-            '<button type="button" class="sess-ico" data-sact="m-up" data-i="' + i + '" aria-label="上へ"' + (i === 0 ? " disabled" : "") + ">↑</button>" +
-            '<button type="button" class="sess-ico" data-sact="m-down" data-i="' + i + '" aria-label="下へ"' + (i === menu.length - 1 ? " disabled" : "") + ">↓</button>" +
-            '<button type="button" class="sess-mini danger" data-sact="m-del" data-i="' + i + '">削除</button></div>';
-        }).join("");
-      } else body += '<div class="sess-hint" style="margin:0">メニューに種目がありません。下から追加してください。</div>';
-      body += "</div>";
-      body += '<div class="card"><div class="section-title">過去の種目から追加</div>';
-      body += past.length ? '<div class="sess-chips">' + past.map(function (n) { return nameChip(n, "m-add", false); }).join("") + "</div>" : '<div class="sess-hint" style="margin:0">追加できる過去の種目はありません。</div>';
-      body += "</div>";
-      body += '<div class="card"><div class="section-title">種目名を入力して追加</div>' + freeRow("m-free", "sessMFree", sv.menuFree) + "</div>";
-      return { head: headHtml(headBtn("‹ 戻る", "menus-back"), titleMid("メニューの編集", part)), body: body, foot: "" };
-    }
-
     function render() {
       if (!sv.open) return;
       var v = sv.view, r;
@@ -5331,7 +5563,7 @@
       else if (v === "add") r = viewAdd();
       else if (v === "editor") r = viewEditor();
       else if (v === "summary") r = viewSummary();
-      else r = viewMenus();
+      else r = viewStart(); // メニューの編集は「記録する」ビューへ移動（旧 "menus" 画面は無い）
       var body = $("sessBody"), foot = $("sessFoot");
       var top = body.scrollTop;
       $("sessHead").innerHTML = r.head;
@@ -5401,7 +5633,7 @@
     function endSession() {
       var pending = sess.items.filter(isPendingItem).length;
       if (pending && pending === sess.items.length) {
-        if (window.confirm("まだ1つも入力されていません。このトレーニングを破棄しますか？")) { sess = null; writeSession(); resetAfterEnd(); }
+        if (window.confirm("まだ記録した種目がありません。このトレーニングを破棄しますか？")) { sess = null; writeSession(); resetAfterEnd(); }
         return;
       }
       // 完了の丸を1つ以上付けた種目にある、丸の付いていないセット（回数あり）の数
@@ -5410,7 +5642,7 @@
         if (isPendingItem(it) || isCardioItem(it) || !it.sets.some(isDone)) return;
         it.sets.forEach(function (s) { if (s.r > 0 && !isDone(s)) undone++; });
       });
-      if (pending && !window.confirm("未入力の種目が" + pending + "件あります。\n未入力の種目は記録せずに終了しますか？")) return;
+      if (pending && !window.confirm("未入力（完了の丸が無い）の種目が" + pending + "件あります。\nこれらの種目は記録せずに終了しますか？")) return;
       if (undone && !window.confirm("未完了のセットが" + undone + "セットあります。\n完了したセットだけを記録しますか？\n（キャンセルするとトレーニングに戻ります）")) return;
       if (pending) sess.items = sess.items.filter(function (it) { return !isPendingItem(it); });
       // 未入力のセットと（丸を付けた種目の）未完了セットを外す。丸を1つも付けていない種目は従来どおり全セットを記録
@@ -5449,7 +5681,8 @@
       return { exercise: name, part: part, wtype: (prev && prev.entry.weight_type === "片手") ? "片手" : "合計", sets: [{ w: "", r: "", done: false }], minutes: "", note: "", editIdx: null };
     }
     function draftFromItem(it, idx) {
-      if (isPendingItem(it)) { var nd = newDraft(it.exercise, it.part); nd.note = it.note || ""; nd.editIdx = idx; return nd; }
+      // 空の種目だけ新しい下書きにする（直近の記録をコピーした種目は、そのセットを引き継いで編集する）
+      if (isEmptyItem(it)) { var nd = newDraft(it.exercise, it.part); nd.note = it.note || ""; nd.editIdx = idx; return nd; }
       return {
         exercise: it.exercise, part: it.part,
         wtype: it.weight_type === "片手" ? "片手" : "合計",
@@ -5498,17 +5731,16 @@
           note: note
         };
       }
-      if (d.editIdx != null && sess.items[d.editIdx]) sess.items[d.editIdx] = item;
-      else sess.items.push(item);
+      if (d.editIdx != null && sess.items[d.editIdx]) {
+        // コピーした種目は、エディタで保存しても「完了の丸が付くまで未入力」の扱いを続ける
+        if (sess.items[d.editIdx].copied && d.part !== "有酸素") item.copied = true;
+        sess.items[d.editIdx] = item;
+      } else sess.items.push(item);
       sess.draft = null;
       edSnap = null;
       if (!writeSession()) return;
       go("session");
     }
-    function setMenuAndRender(part, list) {
-      if (setMenu(part, list)) render();
-    }
-
     function onAct(act, el) {
       var d = sess && sess.draft;
       var i = parseInt(el.getAttribute("data-i"), 10);
@@ -5523,46 +5755,6 @@
           break;
         }
         case "start": startSession(); break;
-        // メニュー設定
-        case "menus":
-          sv.menuBack = sv.view === "add" ? "add" : "start";
-          sv.menuPart = (sv.menuBack === "add" ? sv.addPart : sv.startParts[0]) || allParts()[0];
-          sv.menuFree = "";
-          go("menus");
-          break;
-        case "menus-back":
-          if (sv.menuBack === "add" && sess) { sv.addPart = sv.menuPart; sv.freeText = ""; go("add"); }
-          else go(sess ? "session" : "start");
-          break;
-        case "m-part": sv.menuPart = el.getAttribute("data-part"); sv.menuFree = ""; render(); break;
-        case "m-up": case "m-down": {
-          var list = menuFor(sv.menuPart), j = act === "m-up" ? i - 1 : i + 1;
-          if (j < 0 || j >= list.length || !isFinite(i)) break;
-          var tmp = list[i]; list[i] = list[j]; list[j] = tmp;
-          setMenuAndRender(sv.menuPart, list);
-          break;
-        }
-        case "m-del": {
-          var l2 = menuFor(sv.menuPart);
-          if (!isFinite(i) || i < 0 || i >= l2.length) break;
-          l2.splice(i, 1);
-          setMenuAndRender(sv.menuPart, l2);
-          break;
-        }
-        case "m-add": {
-          var nm = el.getAttribute("data-name"), l3 = menuFor(sv.menuPart);
-          if (nm && l3.indexOf(nm) === -1) { l3.push(nm); setMenuAndRender(sv.menuPart, l3); }
-          break;
-        }
-        case "m-free": {
-          var fn = (sv.menuFree || "").trim(), l4 = menuFor(sv.menuPart);
-          if (!fn) { var f1 = $("sessMFree"); if (f1) f1.focus(); break; }
-          if (l4.indexOf(fn) !== -1) { showToast("すでにメニューにあります"); break; }
-          l4.push(fn);
-          sv.menuFree = "";
-          setMenuAndRender(sv.menuPart, l4);
-          break;
-        }
         // セッション画面
         case "add":
           if (!sv.addPart) sv.addPart = (sess.parts[0]) || allParts()[0];
@@ -5811,7 +6003,6 @@
     function onInput(key, el) {
       var d = sess && sess.draft;
       if (key === "free") { sv.freeText = el.value; return; }
-      if (key === "mfree") { sv.menuFree = el.value; return; }
       // 編集シートの重量・回数：種目のセットを直接更新（入力中の欄はそのまま、カードだけ描き直す）
       if (key === "sw" || key === "sr") {
         var t = sheetTarget();
@@ -5864,7 +6055,6 @@
         if (e.key !== "Enter") return;
         var k = e.target.getAttribute("data-sin");
         if (k === "free") { e.preventDefault(); onAct("pick-free", e.target); }
-        else if (k === "mfree") { e.preventDefault(); onAct("m-free", e.target); }
       });
       $("sessionOpenBtn").addEventListener("click", openSession);
       document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible") tick(); });
@@ -5880,45 +6070,47 @@
       document.body.classList.add("sess-open");
       updateEntryBtn();
     }
-    // メニューカードの「開始」：その部位のセッションを、メニューの種目（空のセット1つずつ）入りで始める
-    function startFromMenu(part) {
-      sess = readSession();
-      if (sess) { openSession(); showToast("進行中のトレーニングを再開しました"); return; }
-      var names = menuFor(part);
+    // メニューの「開始」：部位はメニューの種目の部位（重複なし）、種目はメニューの順番どおり。
+    // 各種目には直近の記録のセット（セット数・重量・回数、完了の丸はなし）をコピーし、記録の無い種目は空のセット1つ。
+    // 有酸素は従来どおり時間（分）の形（空のまま。エディタで前回の時間を貼り付けられる）
+    function startMenu(id) {
+      if (readSession()) {
+        if (!window.confirm("進行中のトレーニングがあります。\n破棄して、このメニューで新しく始めますか？")) return;
+        sess = null;
+        writeSession();
+      }
+      var menu = findMenu(id);
+      if (!menu || !menu.exercises.length) { showToast("メニューに種目がありません"); return; }
+      var idx = exerciseIndex();
       var now = new Date();
-      sess = {
-        startedAt: now.toISOString(), date: dateToKey(now), restSec: 90, parts: [part],
-        items: names.map(function (n) {
-          return { exercise: n, part: part, weight_type: part === "有酸素" ? "-" : "合計", sets: [{ w: null, r: null }], note: "" };
-        })
-      };
+      sess = { startedAt: now.toISOString(), date: dateToKey(now), restSec: 90, parts: [], items: [] };
+      menu.exercises.forEach(function (n) {
+        var part = partOf(n, idx);
+        if (sess.parts.indexOf(part) === -1) sess.parts.push(part);
+        if (part === "有酸素") {
+          sess.items.push({ exercise: n, part: part, weight_type: "-", sets: [{ w: null, r: null, done: false }], note: "" });
+          return;
+        }
+        var last = lastSetsFor(n);
+        if (last) sess.items.push({ exercise: n, part: part, weight_type: last.wtype, sets: last.sets, note: "", copied: true });
+        else sess.items.push({ exercise: n, part: part, weight_type: "合計", sets: [{ w: null, r: null, done: false }], note: "" });
+      });
       if (!writeSession()) { sess = null; return; }
-      sv.startParts = [part];
-      sv.addPart = part;
+      sv.startParts = sess.parts.slice();
+      sv.addPart = sess.parts[0];
       showOverlay();
       go("session");
     }
-    // 「＋ メニューを作成・編集」：既存のメニュー設定画面
-    function openMenus() {
-      sess = readSession();
-      showOverlay();
-      sv.menuBack = "start";
-      sv.menuPart = (sess && sess.parts[0]) || allParts()[0];
-      sv.menuFree = "";
-      go("menus");
-    }
-    // 記録する画面のメニューカード用（保存済みの部位メニュー）
-    function menuCards() {
-      var menus = readMenus();
-      var order = allParts().slice();
-      Object.keys(menus).forEach(function (p) { if (order.indexOf(p) === -1) order.push(p); });
-      return order.filter(function (p) { return menus[p] && menus[p].length; }).map(function (p) { return { part: p, names: menus[p].slice() }; });
-    }
 
     sessionApi.open = openSession;
-    sessionApi.startFromMenu = startFromMenu;
-    sessionApi.openMenus = openMenus;
-    sessionApi.menuCards = menuCards;
+    sessionApi.startMenu = startMenu;
+    sessionApi.menus = listMenus;
+    sessionApi.findMenu = findMenu;
+    sessionApi.saveMenu = saveMenu;
+    sessionApi.deleteMenu = deleteMenu;
+    sessionApi.exIndex = exerciseIndex;
+    sessionApi.partOf = partOf;
+    sessionApi.parts = allParts;
     sessionApi.init = function () {
       sess = readSession();
       bind();
@@ -5929,7 +6121,7 @@
       if (!sv.open) return;
       var ae = document.activeElement;
       if (ae && (ae.tagName === "INPUT" || ae.tagName === "TEXTAREA")) return;
-      if (sv.view === "start" || sv.view === "add" || sv.view === "menus") render();
+      if (sv.view === "start" || sv.view === "add") render();
     };
   })();
 
@@ -6068,6 +6260,8 @@
   Array.prototype.forEach.call(document.querySelectorAll(".tab-btn[data-screen]"), function (btn) {
     btn.addEventListener("click", function () {
       var screen = btn.getAttribute("data-screen");
+      // 記録するビューはタブバーの上の領域に出しているだけなので、ほかのタブを押したら閉じてそのタブへ
+      if (isRecordSheetOpen()) closeRecordSheet();
       if (screen === "exercise") state.exerciseDetail = false; // 種目別タブを押したら一覧から
       switchTab(screen === "record" ? getRecordPeriod() : screen);
     });
@@ -6077,60 +6271,388 @@
     btn.addEventListener("click", function () { switchTab(btn.getAttribute("data-body")); });
   });
 
-  // ---------- 「記録する」全画面ビュー（タブバー左端が唯一の入口） ----------
-  // スクロールロックは body.rec-open（セッションの body.sess-open とは独立）。開く／閉じるで必ず対で付け外しする
+  // ---------- 「記録する」ビュー（タブバー左端が入口。タブバーの上の領域に表示し、タブバーは隠さない） ----------
+  // スクロールロックは body.rec-open（セッションの body.sess-open とは独立）。開く／閉じるで必ず対で付け外しする。
+  // 画面：start（トレーニングを開始）→ create（メニューを作成）/ edit（メニューを編集）→ picker（種目を追加）
+  var REC_ICON_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>';
+  var REC_ICON_TRASH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>';
+  var REC_ICON_TICK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="5 12.5 10 17.5 19 7"/></svg>';
+  var REC_ICON_COPY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>';
+  var REC_RULE_TEXT = "始めるときに、種目ごとに直近の記録からセット数・重量・回数をコピーします。ここでは種目だけを設定します。";
+  // draft = { id|null, name, exercises:[], newParts:{種目名:部位} }、snap = 開いた時点の内容（変更確認用）
+  // picker = { q, part, sel:[], createdParts:{}, creating, newName, idx, cands:[{name, part}] }
+  var rv = { view: "start", lastView: null, editMode: false, editorView: "create", draft: null, snap: null, picker: null };
+
+  function recEl(id) { return document.getElementById(id); }
   function isRecordSheetOpen() {
-    return document.getElementById("recordSheetOverlay").classList.contains("show");
+    return recEl("recordSheetOverlay").classList.contains("show");
   }
-  // メニューカード（「◯◯の日」・種目名・開始ボタン）
+  function resetRecView() {
+    rv.view = "start";
+    rv.lastView = null;
+    rv.editMode = false;
+    rv.draft = null;
+    rv.snap = null;
+    rv.picker = null;
+  }
+  function recHeadHtml(left, mid, right) {
+    return '<div class="sess-head-side">' + (left || "") + '</div><div class="sess-head-mid">' + (mid || "") + '</div><div class="sess-head-side right">' + (right || "") + "</div>";
+  }
+  function recXBtn(act, label) {
+    return '<button type="button" class="rec-x" data-ract="' + act + '" aria-label="' + label + '">' + REC_ICON_X + "</button>";
+  }
+  function recTitle(t) { return '<div class="sess-title">' + escapeHtml(t) + "</div>"; }
+
+  // ---- 開始画面：メニューカード（メニュー名・種目名・セット内容、右上に「開始」／編集モードではゴミ箱） ----
   function renderRecMenus() {
-    var box = document.getElementById("recMenuList");
-    if (!box) return;
-    var cards = sessionApi.menuCards();
-    if (!cards.length) {
-      box.innerHTML = '<div class="rec-empty">' + (state.loaded ? "メニューがまだありません。<br>「＋ メニューを作成・編集」から部位ごとのメニューを作れます。" : "読み込み中…") + "</div>";
-      return;
+    var box = recEl("recMenuList");
+    if (!box) return 0;
+    var menus = sessionApi.menus();
+    if (!menus.length) {
+      rv.editMode = false;
+      box.innerHTML = '<div class="rec-empty">' + (state.loaded ? "メニューがまだありません。<br>「＋ メニューを作成」から作れます。" : "読み込み中…") + "</div>";
+      return 0;
     }
-    box.innerHTML = cards.map(function (c) {
-      return '<div class="menu-card" style="--pc:' + (PART_COLORS[c.part] || PART_ACCENT) + '"><span class="menu-card-bar" aria-hidden="true"></span>' +
-        '<div class="menu-card-main"><div class="menu-card-title">' + escapeHtml(c.part) + "の日</div>" +
-        '<div class="menu-card-sub">' + escapeHtml(c.names.join("・")) + "</div>" +
-        '<div class="menu-card-count">' + c.names.length + "種目</div></div>" +
-        '<button type="button" class="menu-card-go" data-menu-part="' + escapeHtml(c.part) + '" aria-label="' + escapeHtml(c.part) + 'の日を開始">開始</button></div>';
+    box.innerHTML = menus.map(function (m) {
+      var id = escapeHtml(m.id), nm = escapeHtml(m.name);
+      var act = rv.editMode
+        ? '<button type="button" class="menu-card-del" data-menu-del="' + id + '" aria-label="「' + nm + '」を削除">' + REC_ICON_TRASH + "</button>"
+        : '<button type="button" class="menu-card-go" data-menu-start="' + id + '" aria-label="「' + nm + '」を開始">開始</button>';
+      return '<div class="menu-card' + (rv.editMode ? " editing" : "") + '" role="button" tabindex="0" data-menu-open="' + id + '" aria-label="「' + nm + '」を編集">' +
+        '<div class="menu-card-top"><div class="menu-card-title">' + nm + "</div>" + act + "</div>" +
+        '<div class="menu-card-sub">' + escapeHtml(m.exercises.join("、")) + "</div>" +
+        '<div class="menu-card-rule">' + REC_ICON_COPY + "セット内容：直近の記録からコピー</div></div>";
+    }).join("");
+    return menus.length;
+  }
+
+  // ---- メニューを作成／編集 ----
+  function recEditorHtml() {
+    var d = rv.draft, isEdit = rv.view === "edit";
+    var h = '<label class="rec-field-label" for="recMenuName">メニュー名</label>';
+    h += '<input class="ef-input" id="recMenuName" type="text" placeholder="例：脚の日" autocomplete="off" maxlength="40" enterkeyhint="done" data-rin="name" value="' + escapeHtml(d.name) + '">';
+    h += '<div class="rec-label">セット内容の決め方</div>';
+    h += '<div class="rec-rule-card"><span class="rec-rule-ico">' + ICON_CHECK + '</span><div class="rec-rule-main"><div class="rec-rule-title">直近の記録からコピー</div><div class="rec-rule-desc">' + REC_RULE_TEXT + "</div></div></div>";
+    h += '<div class="rec-label">トレーニング内容</div>';
+    if (d.exercises.length) {
+      var last = d.exercises.length - 1;
+      h += '<div class="rec-ex-list">' + d.exercises.map(function (n, i) {
+        var en = escapeHtml(n);
+        return '<div class="rec-ex-card"><div class="rec-ex-main"><div class="rec-ex-name">' + en + '</div><div class="rec-ex-note">開始時に直近の記録からセット内容をコピーします。</div></div>' +
+          '<button type="button" class="rec-mv" data-ract="ex-up" data-i="' + i + '" aria-label="「' + en + '」を上へ"' + (i === 0 ? " disabled" : "") + ">↑</button>" +
+          '<button type="button" class="rec-mv" data-ract="ex-down" data-i="' + i + '" aria-label="「' + en + '」を下へ"' + (i === last ? " disabled" : "") + ">↓</button>" +
+          '<button type="button" class="rec-trash" data-ract="ex-del" data-i="' + i + '" aria-label="「' + en + '」をメニューから外す">' + REC_ICON_TRASH + "</button></div>";
+      }).join("") + "</div>";
+    } else {
+      h += '<div class="rec-empty">まだ種目がありません。<br>下のボタンから種目を追加してください。</div>';
+    }
+    h += '<button type="button" class="rec-add-ex" data-ract="picker">' + (isEdit ? "＋ 種目を追加" : "＋ 種目をまとめて追加") + "</button>";
+    if (isEdit) h += '<button type="button" class="cta-btn primary rec-go" data-ract="ed-start">トレーニングを開始</button>';
+    return h;
+  }
+  function recDraftSig(d) { return JSON.stringify([d.name.trim(), d.exercises]); }
+  function recOpenEditor(menu) {
+    rv.draft = menu
+      ? { id: menu.id, name: menu.name, exercises: menu.exercises.slice(), newParts: {} }
+      : { id: null, name: "", exercises: [], newParts: {} };
+    rv.snap = recDraftSig(rv.draft);
+    rv.editorView = menu ? "edit" : "create";
+    rv.picker = null;
+    rv.view = rv.editorView;
+    renderRec();
+  }
+  // 保存：種目が無ければトースト、名前が空なら最初の種目の部位を名前にする。保存した id（失敗時 null）を返す
+  function recSaveDraft() {
+    var d = rv.draft;
+    if (!d) return null;
+    if (!d.exercises.length) { showToast("種目を追加してください"); return null; }
+    var name = d.name.trim();
+    if (!name) name = sessionApi.partOf(d.exercises[0], null, d.newParts[d.exercises[0]]);
+    return sessionApi.saveMenu({ id: d.id, name: name, exercises: d.exercises.slice() }, d.newParts);
+  }
+  function recBackToStart() {
+    rv.draft = null;
+    rv.snap = null;
+    rv.picker = null;
+    rv.view = "start";
+    renderRec();
+  }
+
+  // ---- 種目を追加（ピッカー） ----
+  function recPickPartOf(n) {
+    var pk = rv.picker;
+    return sessionApi.partOf(n, pk.idx, pk.createdParts[n] || rv.draft.newParts[n]);
+  }
+  // 候補：履歴に出てくる種目（回数順）＋ いずれかのメニューにある種目 ＋ 編集中の種目 ＋ ここで作った種目（重複なし）
+  function recPickCandidates() {
+    var pk = rv.picker, names = pk.idx.names.slice();
+    function add(n) { if (n && names.indexOf(n) === -1) names.push(n); }
+    pk.idx.menus.forEach(function (m) { m.exercises.forEach(add); });
+    rv.draft.exercises.forEach(add);
+    Object.keys(pk.createdParts).forEach(add);
+    return names.map(function (n) { return { name: n, part: recPickPartOf(n) }; });
+  }
+  function recPickParts() {
+    var list = sessionApi.parts().slice();
+    rv.picker.cands.forEach(function (c) { if (list.indexOf(c.part) === -1) list.push(c.part); });
+    return list;
+  }
+  function recPickListHtml() {
+    var pk = rv.picker, q = pk.q.trim().toLowerCase();
+    var rows = pk.cands.filter(function (c) {
+      return (!pk.part || c.part === pk.part) && (!q || c.name.toLowerCase().indexOf(q) !== -1);
+    });
+    if (!rows.length) {
+      return '<div class="rec-pick-empty">' + (q ? "「" + escapeHtml(pk.q.trim()) + "」に当てはまる種目がありません。<br>「＋ 種目を作成」から追加できます。" : "この部位の種目はまだありません。<br>「＋ 種目を作成」から追加できます。") + "</div>";
+    }
+    return rows.map(function (c) {
+      var added = rv.draft.exercises.indexOf(c.name) !== -1;
+      var on = !added && pk.sel.indexOf(c.name) !== -1;
+      return '<button type="button" class="rec-pick-row' + (on ? " on" : "") + (added ? " added" : "") + '" data-ract="pk-toggle" data-name="' + escapeHtml(c.name) + '" aria-pressed="' + (on || added ? "true" : "false") + '"' + (added ? " disabled" : "") + ">" +
+        '<span class="rec-pick-main"><span class="rec-pick-name">' + escapeHtml(c.name) + '</span><span class="rec-pick-sub">' + escapeHtml(c.part) + (added ? " ・ 追加済み" : "") + "</span></span>" +
+        '<span class="rec-pick-circle" aria-hidden="true">' + REC_ICON_TICK + "</span></button>";
     }).join("");
   }
-  document.getElementById("recMenuList").addEventListener("click", function (e) {
-    var b = e.target.closest ? e.target.closest("[data-menu-part]") : null;
-    if (!b) return;
-    closeRecordSheet();
-    sessionApi.startFromMenu(b.getAttribute("data-menu-part"));
-  });
-  // 下の2つは .add-record-btn なので、キャプチャ段階のハンドラで全画面ビューは先に閉じる
-  document.getElementById("recMenuEditBtn").addEventListener("click", function () { sessionApi.openMenus(); });
-  document.getElementById("recFreeBtn").addEventListener("click", function () { sessionApi.open(); });
+  function recPickerHtml() {
+    var pk = rv.picker;
+    var h = '<input class="ef-input rec-search" id="recSearch" type="search" placeholder="種目名で検索" aria-label="種目名で検索" autocomplete="off" enterkeyhint="search" data-rin="q" value="' + escapeHtml(pk.q) + '">';
+    h += '<div class="chip-row-scroll rec-chips">' +
+      '<button type="button" class="part-chip-btn' + (!pk.part ? " active" : "") + '" data-ract="pk-part" data-part="">全て</button>' +
+      recPickParts().map(function (p) {
+        return '<button type="button" class="part-chip-btn' + (pk.part === p ? " active" : "") + '" data-ract="pk-part" data-part="' + escapeHtml(p) + '">' + escapeHtml(p) + "</button>";
+      }).join("") + "</div>";
+    if (pk.creating) {
+      h += '<div class="rec-create-row"><input class="ef-input" id="recNewName" type="text" placeholder="新しい種目名" aria-label="新しい種目名" autocomplete="off" maxlength="40" enterkeyhint="done" data-rin="newname" value="' + escapeHtml(pk.newName) + '">' +
+        '<button type="button" class="rec-pill lg" data-ract="pk-create-add">追加</button></div>';
+      h += '<div class="rec-create-hint">部位：' + escapeHtml(pk.part || "その他") + "（上の部位を選ぶと、その部位で作成します）</div>";
+    } else {
+      h += '<button type="button" class="rec-create-btn" data-ract="pk-create">＋ 種目を作成</button>';
+    }
+    h += '<div class="rec-pick-list" id="recPickList">' + recPickListHtml() + "</div>";
+    return h;
+  }
+  function recPickAddLabel() {
+    var n = rv.picker ? rv.picker.sel.length : 0;
+    return "追加" + (n ? "<small>" + n + "</small>" : "");
+  }
+  function recOpenPicker() {
+    var idx = sessionApi.exIndex();
+    rv.picker = { q: "", part: null, sel: [], createdParts: {}, creating: false, newName: "", idx: idx, cands: [] };
+    rv.picker.cands = recPickCandidates();
+    rv.view = "picker";
+    renderRec();
+  }
+  function recPickerDone() {
+    var pk = rv.picker, d = rv.draft;
+    if (!pk.sel.length) { showToast("種目を選んでください"); return; }
+    var n = 0;
+    pk.sel.forEach(function (name) {
+      if (d.exercises.indexOf(name) !== -1) return;
+      d.exercises.push(name);
+      if (pk.createdParts[name]) d.newParts[name] = pk.createdParts[name];
+      n++;
+    });
+    rv.picker = null;
+    rv.view = rv.editorView;
+    renderRec();
+    if (n) showToast(n + "種目を追加しました");
+  }
+  function recCreateExercise() {
+    var pk = rv.picker;
+    var name = (pk.newName || "").trim();
+    if (!name) { var f = recEl("recNewName"); if (f) f.focus(); return; }
+    pk.newName = "";
+    pk.creating = false;
+    if (rv.draft.exercises.indexOf(name) !== -1) { showToast("すでにメニューにあります"); renderRec(); return; }
+    var exists = pk.cands.some(function (c) { return c.name === name; });
+    if (!exists) {
+      pk.createdParts[name] = pk.part || "その他";
+      pk.cands = recPickCandidates();
+    } else {
+      showToast("同じ名前の種目を選びました");
+    }
+    if (pk.sel.indexOf(name) === -1) pk.sel.push(name);
+    renderRec();
+  }
+
+  // ---- 描画 ----
+  function renderRec() {
+    var head = recEl("recHead"), start = recEl("recStartView"), sub = recEl("recSubView"), body = recEl("recBody");
+    if (!head || !start || !sub) return;
+    var v = rv.view;
+    if (v === "start") {
+      var count = renderRecMenus();
+      head.innerHTML = recHeadHtml(
+        '<button type="button" class="sess-head-btn" data-ract="close">閉じる</button>', "",
+        count ? '<button type="button" class="sess-head-btn' + (rv.editMode ? " accent" : "") + '" data-ract="edit-toggle" aria-pressed="' + (rv.editMode ? "true" : "false") + '">' + (rv.editMode ? "完了" : "編集") + "</button>" : "");
+      sub.innerHTML = "";
+      sub.hidden = true;
+      start.hidden = false;
+    } else if (v === "create" || v === "edit") {
+      head.innerHTML = recHeadHtml(recXBtn("ed-cancel", "閉じる"), recTitle(v === "edit" ? "メニューを編集" : "メニューを作成"),
+        '<button type="button" class="rec-pill" data-ract="ed-save">保存</button>');
+      sub.innerHTML = recEditorHtml();
+      start.hidden = true;
+      sub.hidden = false;
+    } else {
+      head.innerHTML = recHeadHtml(recXBtn("pk-cancel", "追加せずに戻る"), recTitle("種目を追加"),
+        '<button type="button" class="rec-pill" id="recPickAddBtn" data-ract="pk-add">' + recPickAddLabel() + "</button>");
+      sub.innerHTML = recPickerHtml();
+      start.hidden = true;
+      sub.hidden = false;
+    }
+    if (body && rv.lastView !== v) body.scrollTop = 0;
+    rv.lastView = v;
+  }
+  // データ取得後：開始画面を開いているときだけ描き直す（作成・編集・種目追加の入力中は邪魔しない）
+  function refreshRecordSheet() {
+    if (isRecordSheetOpen() && rv.view === "start") renderRec();
+  }
+
   function openRecordSheet() {
-    renderRecMenus();
-    document.getElementById("recordSheetOverlay").classList.add("show");
+    resetRecView();
+    renderRec();
+    recEl("recordSheetOverlay").classList.add("show");
     document.body.classList.add("rec-open");
-    document.getElementById("recordSheetBtn").setAttribute("aria-expanded", "true");
+    recEl("recordSheetBtn").setAttribute("aria-expanded", "true");
   }
   function closeRecordSheet() {
     var ae = document.activeElement;
-    if (ae && ae.blur && document.getElementById("recordSheetOverlay").contains(ae)) ae.blur();
-    document.getElementById("recordSheetOverlay").classList.remove("show");
+    if (ae && ae.blur && recEl("recordSheetOverlay").contains(ae)) ae.blur();
+    recEl("recordSheetOverlay").classList.remove("show");
     document.body.classList.remove("rec-open");
-    document.getElementById("recordSheetBtn").setAttribute("aria-expanded", "false");
+    recEl("recordSheetBtn").setAttribute("aria-expanded", "false");
+    resetRecView();
   }
+  function recStartMenu(id) {
+    closeRecordSheet();
+    sessionApi.startMenu(id);
+  }
+
+  // ---- 操作 ----
+  function onRecAct(act, el) {
+    var d = rv.draft, pk = rv.picker;
+    var i = parseInt(el.getAttribute("data-i"), 10);
+    switch (act) {
+      case "close": closeRecordSheet(); break;
+      case "edit-toggle": rv.editMode = !rv.editMode; renderRec(); break;
+      // メニューを作成／編集
+      case "ed-cancel":
+        if (d && recDraftSig(d) !== rv.snap && !window.confirm("変更を保存せずに戻りますか？")) break;
+        recBackToStart();
+        break;
+      case "ed-save":
+        if (!recSaveDraft()) break;
+        recBackToStart();
+        showToast("メニューを保存しました");
+        break;
+      case "ed-start": {
+        var sid = recSaveDraft();
+        if (sid) recStartMenu(sid);
+        break;
+      }
+      case "ex-del":
+        if (!d || !isFinite(i) || !d.exercises[i]) break;
+        d.exercises.splice(i, 1);
+        renderRec();
+        break;
+      case "ex-up": case "ex-down": {
+        if (!d || !isFinite(i)) break;
+        var j = act === "ex-up" ? i - 1 : i + 1;
+        if (j < 0 || j >= d.exercises.length) break;
+        var tmp = d.exercises[i]; d.exercises[i] = d.exercises[j]; d.exercises[j] = tmp;
+        renderRec();
+        break;
+      }
+      case "picker": if (d) recOpenPicker(); break;
+      // 種目を追加
+      case "pk-cancel": rv.picker = null; rv.view = rv.editorView; renderRec(); break;
+      case "pk-add": if (pk) recPickerDone(); break;
+      case "pk-part": if (pk) { pk.part = el.getAttribute("data-part") || null; renderRec(); } break;
+      case "pk-toggle": {
+        if (!pk) break;
+        var nm = el.getAttribute("data-name"), k = pk.sel.indexOf(nm);
+        if (!nm || d.exercises.indexOf(nm) !== -1) break;
+        if (k === -1) pk.sel.push(nm); else pk.sel.splice(k, 1);
+        el.classList.toggle("on", k === -1);
+        el.setAttribute("aria-pressed", k === -1 ? "true" : "false");
+        var ab = recEl("recPickAddBtn");
+        if (ab) ab.innerHTML = recPickAddLabel();
+        break;
+      }
+      case "pk-create": {
+        if (!pk) break;
+        pk.creating = true;
+        pk.newName = pk.q.trim(); // 検索中の文字をそのまま種目名の候補に
+        renderRec();
+        var ni = recEl("recNewName");
+        if (ni) ni.focus();
+        break;
+      }
+      case "pk-create-add": if (pk) recCreateExercise(); break;
+    }
+  }
+  (function () {
+    var ov = recEl("recordSheetOverlay");
+    // 「フリーで開始」「体重・食事を記録」は .add-record-btn。キャプチャ段階で先にこのビューを閉じてから
+    // 各フロー（セッション／入力パネル）を開くので、重なって残らない（data-rec-stay のボタンは閉じない）
+    ov.addEventListener("click", function (e) {
+      var b = e.target.closest ? e.target.closest(".add-record-btn") : null;
+      if (b && !b.hasAttribute("data-rec-stay")) closeRecordSheet();
+    }, true);
+    ov.addEventListener("click", function (e) {
+      if (!e.target.closest) return;
+      var b = e.target.closest("[data-menu-start]");
+      if (b) { recStartMenu(b.getAttribute("data-menu-start")); return; }
+      b = e.target.closest("[data-menu-del]");
+      if (b) {
+        var dm = sessionApi.findMenu(b.getAttribute("data-menu-del"));
+        if (!dm || !window.confirm("メニュー「" + dm.name + "」を削除しますか？")) return;
+        if (sessionApi.deleteMenu(dm.id)) { renderRec(); showToast("メニューを削除しました"); }
+        return;
+      }
+      b = e.target.closest("[data-menu-open]");
+      if (b) {
+        var om = sessionApi.findMenu(b.getAttribute("data-menu-open"));
+        if (om) recOpenEditor(om);
+        return;
+      }
+      b = e.target.closest("[data-ract]");
+      if (b && !b.disabled) onRecAct(b.getAttribute("data-ract"), b);
+    });
+    ov.addEventListener("input", function (e) {
+      var k = e.target.getAttribute ? e.target.getAttribute("data-rin") : null;
+      if (!k) return;
+      if (k === "name" && rv.draft) rv.draft.name = e.target.value;
+      else if (k === "newname" && rv.picker) rv.picker.newName = e.target.value;
+      else if (k === "q" && rv.picker) {
+        // 検索は一覧だけ描き直す（入力欄のフォーカスを保つ）
+        rv.picker.q = e.target.value;
+        var list = recEl("recPickList");
+        if (list) list.innerHTML = recPickListHtml();
+      }
+    });
+    ov.addEventListener("keydown", function (e) {
+      var t = e.target;
+      if (!t.getAttribute) return;
+      if ((e.key === "Enter" || e.key === " ") && t.hasAttribute("data-menu-open") && t.getAttribute("role") === "button") {
+        e.preventDefault();
+        var om = sessionApi.findMenu(t.getAttribute("data-menu-open"));
+        if (om) recOpenEditor(om);
+        return;
+      }
+      if (e.key !== "Enter") return;
+      var k = t.getAttribute("data-rin");
+      if (k === "newname") { e.preventDefault(); recCreateExercise(); }
+      else if (k === "q" || k === "name") { e.preventDefault(); t.blur(); }
+    });
+  })();
+  document.getElementById("recMenuEditBtn").addEventListener("click", function () { recOpenEditor(null); });
+  document.getElementById("recFreeBtn").addEventListener("click", function () { sessionApi.open(); });
   document.getElementById("recordSheetBtn").addEventListener("click", function () {
     if (isRecordSheetOpen()) closeRecordSheet();
     else openRecordSheet();
   });
-  document.getElementById("recordSheetClose").addEventListener("click", closeRecordSheet);
-  // 3つのボタンはそれぞれ既存の処理（セッション／入力パネル）を開く。
-  // キャプチャ段階で先に全画面ビューを閉じてから各フローを開くので、オーバーレイが二重に残らない
-  document.getElementById("recordSheetOverlay").addEventListener("click", function (e) {
-    if (e.target.closest && e.target.closest(".add-record-btn")) closeRecordSheet();
-  }, true);
   document.addEventListener("keydown", function (e) {
     if ((e.key === "Escape" || e.key === "Esc") && isRecordSheetOpen()) closeRecordSheet();
   });
