@@ -975,6 +975,211 @@
     transition: opacity .2s var(--ease), transform .2s var(--ease);
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ---------- トレーニングセッション ---------- */
+  .add-record-btn small { display: block; font-size: 11px; font-weight: 600; opacity: 0.95; font-variant-numeric: tabular-nums; }
+  .add-record-btn.live { animation: sessPulse 1.9s ease-out infinite; }
+  @keyframes sessPulse {
+    0% { box-shadow: 0 0 0 0 rgba(255,138,91,0.55), 0 4px 14px rgba(255,138,91,0.35); }
+    70% { box-shadow: 0 0 0 10px rgba(255,138,91,0), 0 4px 14px rgba(255,138,91,0.35); }
+    100% { box-shadow: 0 0 0 0 rgba(255,138,91,0), 0 4px 14px rgba(255,138,91,0.35); }
+  }
+  body.sess-open { overflow: hidden; }
+  body.sess-open .toast { bottom: calc(190px + var(--safe-b)); }
+  .sess-overlay { position: fixed; inset: 0; z-index: 40; display: none; background: var(--bg); color: var(--text); }
+  .sess-overlay.show { display: block; }
+  .sess-overlay input { -webkit-user-select: text; user-select: text; }
+  .sess-shell {
+    height: 100%; max-width: 480px; margin: 0 auto; min-width: 0;
+    display: flex; flex-direction: column;
+    padding-left: var(--safe-l); padding-right: var(--safe-r);
+  }
+  .sess-head {
+    flex: 0 0 auto; display: flex; align-items: center; gap: 6px;
+    padding: calc(8px + var(--safe-t)) 12px 8px; min-height: 64px;
+    background: linear-gradient(180deg, var(--card), var(--bg));
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .sess-head-side { flex: 0 0 84px; display: flex; min-width: 0; }
+  .sess-head-side.right { justify-content: flex-end; }
+  .sess-head-mid { flex: 1 1 auto; min-width: 0; text-align: center; }
+  .sess-head-btn {
+    min-width: 64px; height: 44px; padding: 0 12px; white-space: nowrap;
+    border-radius: var(--radius-sm); border: 1px solid var(--border-soft);
+    background: var(--surface-alt); color: var(--sub);
+    font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
+    transition: transform .15s var(--ease), background .15s var(--ease);
+  }
+  .sess-head-btn:active { transform: scale(0.95); }
+  .sess-head-btn.danger { background: var(--status-off-bg); color: var(--danger); border-color: transparent; }
+  .sess-title { font-size: 16px; font-weight: 700; letter-spacing: 0.04em; overflow-wrap: anywhere; line-height: 1.3; }
+  .sess-sub { font-size: 12px; color: var(--sub); }
+  .sess-clock { font-size: 30px; font-weight: 800; line-height: 1.1; letter-spacing: 0.02em; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .sess-body {
+    flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden;
+    overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+    padding: 14px 14px 20px; line-height: 1.5;
+  }
+  .sess-foot {
+    flex: 0 0 auto; display: flex; gap: 10px;
+    padding: 10px 14px calc(12px + var(--safe-b));
+    background: var(--card); border-top: 1px solid var(--border-soft);
+    box-shadow: 0 -6px 20px rgba(60,35,20,0.06);
+  }
+  .sess-btn {
+    flex: 1 1 0; min-width: 0; min-height: 56px; padding: 6px 8px;
+    border-radius: var(--radius-md); border: 1px solid var(--border);
+    background: var(--surface-alt); color: var(--text);
+    font-family: inherit; font-size: 14px; font-weight: 700; letter-spacing: 0.04em; line-height: 1.3;
+    cursor: pointer; transition: transform .15s var(--ease), opacity .15s var(--ease);
+  }
+  .sess-btn:active { transform: scale(0.98); opacity: 0.9; }
+  .sess-btn.primary {
+    border: none; color: #fff; font-size: 16px;
+    background: linear-gradient(135deg, #E8602B, #FF8A5B);
+    box-shadow: 0 4px 14px rgba(255,138,91,0.3);
+  }
+  .sess-btn.inline { flex: 0 0 auto; padding: 0 18px; min-height: 52px; }
+  .sess-hint { font-size: 12px; color: var(--sub); margin-bottom: 10px; overflow-wrap: anywhere; }
+  .sess-chips { display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; }
+  .sess-chip {
+    display: inline-flex; align-items: center; gap: 8px; max-width: 100%;
+    min-height: 48px; padding: 0 16px; border-radius: 999px;
+    border: 1.5px solid var(--border); background: var(--surface-alt); color: var(--text);
+    font-family: inherit; font-size: 15px; font-weight: 600; text-align: left; overflow-wrap: anywhere;
+    cursor: pointer; transition: transform .15s var(--ease), background .15s var(--ease), border-color .15s var(--ease);
+  }
+  .sess-chip:active { transform: scale(0.96); }
+  .sess-chip.quick { border-color: var(--accent); background: var(--chip-active-bg); }
+  .sess-chip.on { border-color: var(--accent); background: var(--chip-active-bg); color: var(--accent); font-weight: 700; }
+  .sess-chip.part .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--pc); flex: none; }
+  .sess-chip.part.on { background: var(--pc); border-color: var(--pc); color: #fff; }
+  .sess-chip.part.on .dot { background: #fff; }
+  .sess-linkbtn {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    width: 100%; min-height: 56px; padding: 0 16px; margin-bottom: 12px;
+    border-radius: var(--radius-md); border: 1px solid var(--border); background: var(--card); color: var(--text);
+    font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
+    box-shadow: var(--shadow-card);
+  }
+  .sess-linkbtn svg { width: 18px; height: 18px; color: var(--sub); flex: none; }
+  .sess-linkbtn:active { transform: scale(0.99); }
+  .sess-free { display: flex; gap: 8px; align-items: center; }
+  .sess-free .ef-input { flex: 1 1 auto; height: 52px; }
+  .sess-empty { text-align: center; color: var(--sub); font-size: 14px; padding: 28px 8px; line-height: 1.7; }
+
+  .sess-item {
+    background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-softer); border-left: 5px solid var(--pc, var(--accent));
+    padding: 12px 14px; margin-bottom: 12px; min-width: 0;
+  }
+  .sess-item-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .sess-item-name { font-size: 16px; font-weight: 700; overflow-wrap: anywhere; min-width: 0; }
+  .sess-item-sum { font-size: 15px; margin-top: 6px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+  .sess-item-note { font-size: 12px; color: var(--sub); margin-top: 4px; overflow-wrap: anywhere; }
+  .sess-item-act { display: flex; gap: 8px; margin-top: 10px; }
+  .sess-mini {
+    flex: 1 1 0; min-width: 0; min-height: 44px; padding: 0 12px;
+    border-radius: 12px; border: 1px solid var(--border); background: var(--surface-alt); color: var(--sub);
+    font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
+  }
+  .sess-mini:active { transform: scale(0.97); }
+  .sess-mini.danger { background: var(--status-off-bg); color: var(--danger); border-color: transparent; }
+  .sess-mini[disabled], .sess-ico[disabled] { opacity: 0.35; cursor: default; }
+
+  .sess-prev {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 10px 12px; margin-bottom: 12px; border-radius: var(--radius-md);
+    background: var(--chip-active-bg); border: 1px solid var(--accent);
+  }
+  .sess-prev-t { font-size: 14px; font-weight: 700; min-width: 0; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+  .sess-prev .sess-mini { flex: 0 0 auto; }
+  .sess-seg .ef-seg-btn { height: 48px; font-size: 15px; }
+  .sess-w-row { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+  .sess-w-row .ef-input { flex: 1 1 auto; width: auto; height: 56px; font-size: 24px; font-weight: 700; text-align: center; }
+  .sess-step {
+    flex: 0 0 58px; height: 56px; padding: 0; border-radius: 14px;
+    border: 1px solid var(--border-soft); background: var(--surface-alt); color: var(--text);
+    font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
+  }
+  .sess-step:active { transform: scale(0.95); background: var(--chip-active-bg); }
+  .sess-unit { flex: 0 0 auto; font-size: 13px; color: var(--sub); }
+  .sess-set { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .sess-set-n {
+    flex: 0 0 30px; height: 30px; border-radius: 50%; background: var(--border-soft); color: var(--sub);
+    display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700;
+  }
+  .sess-set .ef-input { flex: 1 1 auto; width: auto; height: 56px; font-size: 24px; font-weight: 700; text-align: center; padding: 0 4px; }
+  .sess-done {
+    flex: 0 0 92px; height: 56px; padding: 0; border-radius: 14px;
+    border: 2px solid var(--accent); background: transparent; color: var(--accent);
+    font-family: inherit; font-size: 15px; font-weight: 800; cursor: pointer;
+    transition: transform .15s var(--ease), background .15s var(--ease);
+  }
+  .sess-done:active { transform: scale(0.95); }
+  .sess-done.on { border-color: transparent; color: #fff; background: linear-gradient(135deg, #E8602B, #FF8A5B); box-shadow: 0 3px 10px rgba(255,138,91,0.35); }
+  .sess-x {
+    flex: 0 0 40px; height: 56px; padding: 0; border: none; background: none; color: var(--sub);
+    font-family: inherit; font-size: 22px; cursor: pointer;
+  }
+  .sess-x:active { color: var(--danger); }
+  .sess-addset {
+    width: 100%; min-height: 52px; margin-top: 4px; border-radius: 14px;
+    border: 2px dashed var(--border); background: none; color: var(--accent);
+    font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer;
+  }
+  .sess-addset:active { background: var(--chip-active-bg); }
+
+  .sess-rest-wrap { flex: 0 0 auto; }
+  .sess-rest {
+    display: flex; align-items: center; gap: 10px; padding: 8px 14px;
+    background: var(--card); border-top: 1px solid var(--border-soft);
+    transition: background .2s var(--ease);
+  }
+  .sess-ring { position: relative; flex: 0 0 52px; width: 52px; height: 52px; }
+  .sess-ring svg { display: block; width: 100%; height: 100%; }
+  .sess-ring .trk { fill: none; stroke: var(--border); stroke-width: 5; }
+  .sess-ring .prg { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; transition: stroke-dashoffset .3s linear; }
+  .sess-ring span {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800; font-variant-numeric: tabular-nums;
+  }
+  .sess-rest-mid { flex: 1 1 auto; min-width: 0; }
+  .sess-rest-cap { font-size: 11px; color: var(--sub); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sess-rps { display: flex; gap: 6px; }
+  .sess-rp {
+    flex: 1 1 0; min-width: 0; min-height: 40px; padding: 0; border-radius: 12px;
+    border: 1px solid var(--border); background: var(--surface-alt); color: var(--text);
+    font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
+  }
+  .sess-rp.on { border-color: var(--accent); background: var(--chip-active-bg); color: var(--accent); }
+  .sess-skip {
+    flex: 0 0 auto; min-width: 70px; min-height: 48px; padding: 0 10px; border-radius: 14px;
+    border: 1px solid var(--border); background: var(--surface-alt); color: var(--text);
+    font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer;
+  }
+  .sess-skip[disabled] { opacity: 0.4; cursor: default; }
+  .sess-rest.run .sess-skip { border-color: var(--accent); color: var(--accent); }
+  .sess-rest.done { background: linear-gradient(135deg, #E8602B, #FF8A5B); animation: sessFlash .7s ease-in-out infinite alternate; }
+  .sess-rest.done .sess-rest-cap { color: #fff; font-weight: 700; }
+  .sess-rest.done .sess-ring .trk { stroke: rgba(255,255,255,0.35); }
+  .sess-rest.done .sess-ring .prg { stroke: #fff; }
+  .sess-rest.done .sess-ring span { color: #fff; }
+  .sess-rest.done .sess-rp { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.5); color: #fff; }
+  .sess-rest.done .sess-rp.on { background: #fff; color: #E8602B; }
+  .sess-rest.done .sess-skip { background: #fff; color: #E8602B; border-color: #fff; }
+  @keyframes sessFlash { from { filter: brightness(1); } to { filter: brightness(1.15); } }
+
+  .sess-mrow { display: flex; align-items: center; gap: 6px; padding: 6px 0; border-bottom: 1px solid var(--border-soft); }
+  .sess-mrow:last-child { border-bottom: none; }
+  .sess-mname { flex: 1 1 auto; min-width: 0; font-size: 15px; font-weight: 600; overflow-wrap: anywhere; }
+  .sess-ico {
+    flex: 0 0 44px; height: 44px; padding: 0; border-radius: 12px;
+    border: 1px solid var(--border-soft); background: var(--surface-alt); color: var(--text);
+    font-family: inherit; font-size: 18px; font-weight: 700; cursor: pointer;
+  }
+  .sess-ico:active { transform: scale(0.94); background: var(--chip-active-bg); }
+  .sess-mrow .sess-mini { flex: 0 0 auto; min-width: 60px; }
 </style>
 </head>
 <body>
@@ -995,9 +1200,9 @@
     <section class="record-section" id="recordSection" aria-labelledby="recordSectionTitle">
       <h2 class="record-section-title" id="recordSectionTitle">記録する</h2>
       <div class="record-actions">
-        <button class="add-record-btn" type="button" data-open-entry="train">
+        <button class="add-record-btn" type="button" id="sessionOpenBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8v8"/><path d="M4 9v6"/><path d="M20 9v6"/><path d="M22 8v8"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M9 8v8"/><path d="M15 8v8"/></svg>
-          <span>トレーニングを記録する</span>
+          <span id="sessionOpenLabel">トレーニングを記録する</span>
         </button>
         <button class="add-record-btn" type="button" data-open-entry="bw">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg>
@@ -1165,13 +1370,22 @@
   </div>
 </div>
 
+<div class="sess-overlay" id="sessOverlay" role="dialog" aria-modal="true" aria-label="トレーニングセッション">
+  <div class="sess-shell">
+    <header class="sess-head" id="sessHead"></header>
+    <div class="sess-body" id="sessBody"></div>
+    <div class="sess-rest-wrap" id="sessRest"></div>
+    <div class="sess-foot" id="sessFoot"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.16d";
+  var APP_VERSION = "v2026.11.18a";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   var PART_COLORS = {
@@ -1632,6 +1846,7 @@
         buildExerciseList();
         renderFooters();
         renderCurrentTab();
+        sessionApi.onData();
       })
       .catch(function (err) {
         if (state.loaded) {
@@ -3500,6 +3715,7 @@
     return same ? reps[0] + "×" + reps.length : reps.join("/") + "回";
   }
   function entrySummary(e) {
+    if (e.minutes != null) return e.exercise + " " + fmtNum(e.minutes) + "分";
     var w = (e.weight_kg != null && e.weight_kg > 0) ? (e.weight_type === "片手" ? "片手" : "") + fmtNum(e.weight_kg) + "kg" : "自重";
     return [e.exercise, w, repsText(e.reps)].filter(Boolean).join(" ");
   }
@@ -3808,7 +4024,10 @@
       var t = e.target;
       if (!t.closest) return;
       var b = t.closest("[data-ef-type]");
-      if (b) { ef.type = b.getAttribute("data-ef-type"); renderEntryForm(); return; }
+      if (b) {
+        if (b.getAttribute("data-ef-type") === "train") { closeEntryModal(); sessionApi.open(); return; }
+        ef.type = b.getAttribute("data-ef-type"); renderEntryForm(); return;
+      }
       b = t.closest("[data-ef-wt]");
       if (b) {
         ef.weightType = b.getAttribute("data-ef-wt");
@@ -3856,6 +4075,808 @@
         if (s) setPartSelect(s);
       }
     });
+  })();
+
+  // ---------- トレーニングセッション（開始 → 種目追加 → 終了 → 保存） ----------
+  // 進行中セッションは localStorage "kintore_session_v1"、部位メニューは "kintore_menus_v1"。
+  // 保存時に既存の kintore_local_v1（entries）へ変換し、reapplyLocal() の既存マージ経路で表示する。
+  var sessionApi = { init: function () {}, open: function () {}, onData: function () {} };
+  (function () {
+    var SESSION_KEY = "kintore_session_v1";
+    var MENUS_KEY = "kintore_menus_v1";
+    var REST_PRESETS = [60, 90, 120, 180];
+    var RING_C = 2 * Math.PI * 20;
+    var MAX_SETS = 30;
+
+    var sess = null; // 進行中セッション（常に localStorage と同期）
+    var sv = { open: false, view: "start", lastView: null, startParts: [], addPart: null, menuPart: null, menuBack: "start", freeText: "", menuFree: "", summaryAt: null };
+    var rest = { running: false, done: false, startAt: 0, endAt: 0, total: 90, doneTimer: null };
+    var entryBtnText = null;
+
+    function $(id) { return document.getElementById(id); }
+    function round2(n) { return Math.round(n * 100) / 100; }
+    function clock(ms) {
+      var s = Math.max(0, Math.floor(ms / 1000));
+      var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), r = s % 60;
+      return (h > 0 ? h + ":" + pad2(m) : pad2(m)) + ":" + pad2(r);
+    }
+    function minSec(s) { s = Math.max(0, Math.ceil(s)); return Math.floor(s / 60) + ":" + pad2(s % 60); }
+    function durationText(ms) {
+      if (ms >= 3600000) return clock(ms);
+      var m = Math.floor(ms / 60000);
+      return m > 0 ? m + "分" : "1分未満";
+    }
+    function todayStr() { return dateToKey(new Date()); }
+    function startMs() { return Date.parse(sess.startedAt); }
+    function startHHMM() { var d = new Date(startMs()); return pad2(d.getHours()) + ":" + pad2(d.getMinutes()); }
+    function mdText(key) { return (+key.slice(5, 7)) + "/" + (+key.slice(8, 10)); }
+    function isCardioItem(it) { return it.part === "有酸素" || it.minutes != null; }
+
+    // ---------- 永続化 ----------
+    function cleanItem(it) {
+      if (!it || typeof it !== "object" || !it.exercise) return null;
+      var reps = Array.isArray(it.reps) ? it.reps.map(function (r) { return parseInt(r, 10); }).filter(function (r) { return isFinite(r) && r > 0; }) : [];
+      var w = parseFloat(it.weight_kg);
+      var mi = parseFloat(it.minutes);
+      var out = { exercise: String(it.exercise), part: String(it.part || "不明"), weight_kg: (isFinite(w) && w > 0) ? w : null, weight_type: "自重", reps: reps, note: it.note ? String(it.note) : "" };
+      if (isFinite(mi) && mi > 0) { out.minutes = mi; out.weight_kg = null; out.weight_type = "-"; out.reps = []; }
+      else if (out.weight_kg != null) out.weight_type = it.weight_type === "片手" ? "片手" : "合計";
+      return out;
+    }
+    function cleanDraft(d) {
+      if (!d || typeof d !== "object" || !d.exercise) return null;
+      var sets = Array.isArray(d.sets) ? d.sets.map(function (s) { return { reps: s && s.reps != null ? String(s.reps) : "", done: !!(s && s.done) }; }) : [];
+      if (!sets.length) sets = [{ reps: "", done: false }];
+      var ei = (typeof d.editIdx === "number" && d.editIdx >= 0) ? d.editIdx : null;
+      return { exercise: String(d.exercise), part: String(d.part || "不明"), weight: d.weight != null ? String(d.weight) : "", wtype: d.wtype === "片手" ? "片手" : "合計", sets: sets, minutes: d.minutes != null ? String(d.minutes) : "", note: d.note != null ? String(d.note) : "", editIdx: ei };
+    }
+    function readSession() {
+      var o = null;
+      try { o = JSON.parse(localStorage.getItem(SESSION_KEY) || "null"); } catch (e) { o = null; }
+      if (!o || typeof o !== "object" || !o.startedAt || isNaN(Date.parse(o.startedAt))) return null;
+      var out = { startedAt: o.startedAt, date: o.date, items: [], restSec: 90, parts: [] };
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(out.date || "")) out.date = dateToKey(new Date(o.startedAt));
+      if (Array.isArray(o.items)) o.items.forEach(function (it) { var c = cleanItem(it); if (c) out.items.push(c); });
+      var rs = parseInt(o.restSec, 10);
+      if (isFinite(rs) && rs >= 5 && rs <= 3600) out.restSec = rs;
+      if (Array.isArray(o.parts)) out.parts = o.parts.filter(function (p) { return typeof p === "string"; });
+      var dr = cleanDraft(o.draft);
+      if (dr) out.draft = dr;
+      return out;
+    }
+    function writeSession() {
+      try {
+        if (sess) localStorage.setItem(SESSION_KEY, JSON.stringify(sess));
+        else localStorage.removeItem(SESSION_KEY);
+        return true;
+      } catch (e) {
+        showToast("セッションを保存できませんでした（端末の容量を確認）");
+        return false;
+      }
+    }
+
+    // ---------- 部位・種目・メニュー ----------
+    function allParts() {
+      var list = ((state.data && state.data.parts) || []).slice();
+      if (!list.length) list = PART_DISPLAY_ORDER.concat(["不明"]);
+      return list;
+    }
+    function namesForPart(part) {
+      var counts = Object.create(null), names = [];
+      allEntriesFlat().forEach(function (e) {
+        if (!e.exercise || (e.part || "不明") !== part) return;
+        if (counts[e.exercise] == null) { counts[e.exercise] = 0; names.push(e.exercise); }
+        counts[e.exercise]++;
+      });
+      names.sort(function (a, b) { return counts[b] - counts[a] || a.localeCompare(b, "ja"); });
+      return names;
+    }
+    function seedMenus() {
+      var parts = allParts().slice();
+      allEntriesFlat().forEach(function (e) { var p = e.part || "不明"; if (parts.indexOf(p) === -1) parts.push(p); });
+      var menus = {};
+      parts.forEach(function (p) { menus[p] = namesForPart(p).slice(0, 6); });
+      return menus;
+    }
+    function writeMenus(m) {
+      try { localStorage.setItem(MENUS_KEY, JSON.stringify(m)); return true; }
+      catch (e) { showToast("メニューを保存できませんでした"); return false; }
+    }
+    function readMenus() {
+      var raw = null;
+      try { raw = localStorage.getItem(MENUS_KEY); } catch (e) {}
+      if (raw == null) { // 初回：データから上位6種目ずつをシード（データ未取得の間は保存しない）
+        if (!state.data) return {};
+        var seeded = seedMenus();
+        writeMenus(seeded);
+        return seeded;
+      }
+      var o = null;
+      try { o = JSON.parse(raw); } catch (e) { o = null; }
+      var out = {};
+      if (o && typeof o === "object" && !Array.isArray(o)) {
+        Object.keys(o).forEach(function (p) {
+          if (Array.isArray(o[p])) out[p] = o[p].filter(function (n) { return typeof n === "string" && n; });
+        });
+      }
+      return out;
+    }
+    function menuFor(part) { return (readMenus()[part] || []).slice(); }
+    function setMenu(part, list) { var m = readMenus(); m[part] = list; return writeMenus(m); }
+
+    // ---------- 前回の記録（data.json の days ＋ 端末記録。開始日より前で最新のもの） ----------
+    function findPrevious(name, cardio) {
+      if (!state.data || !sess) return null;
+      var days = (state.data.days || []).filter(function (d) { return d && d.date && d.date < sess.date && Array.isArray(d.entries); });
+      days.sort(function (a, b) { return a.date < b.date ? 1 : (a.date > b.date ? -1 : 0); });
+      for (var i = 0; i < days.length; i++) {
+        var best = null;
+        days[i].entries.forEach(function (e) {
+          if (e.exercise !== name) return;
+          if (cardio) { if (e.minutes != null) best = e; return; }
+          if (!e.reps || !e.reps.length) return;
+          if (!best || e.reps.length >= best.reps.length) best = e;
+        });
+        if (best) return { date: days[i].date, entry: best };
+      }
+      return null;
+    }
+    function weightText(kg, type) {
+      return (kg != null && kg > 0) ? (type === "片手" ? "片手" : "") + fmtNum(kg) + "kg" : "自重";
+    }
+    function prevText(p, cardio) {
+      var e = p.entry;
+      var body = cardio ? fmtNum(e.minutes) + "分" : weightText(e.weight_kg, e.weight_type) + " × " + e.reps.join("・");
+      return "前回（" + mdText(p.date) + "）: " + body;
+    }
+
+    // ---------- 計算・変換 ----------
+    function itemTotalKg(it) {
+      return (it.weight_kg != null && it.weight_kg > 0) ? round2(it.weight_type === "片手" ? it.weight_kg * 2 : it.weight_kg) : null;
+    }
+    function repSum(it) { return it.reps.reduce(function (s, r) { return s + r; }, 0); }
+    function itemSummary(it) {
+      if (isCardioItem(it)) return fmtNum(it.minutes || 0) + "分";
+      var t = weightText(it.weight_kg, it.weight_type);
+      if (it.reps.length) t += " × " + it.reps.join("・") + "（" + it.reps.length + "セット）";
+      return t;
+    }
+    function sessionStats(endMs) {
+      var sets = 0, vol = 0, cardio = 0;
+      sess.items.forEach(function (it) {
+        if (isCardioItem(it)) { cardio += it.minutes || 0; return; }
+        sets += it.reps.length;
+        var tot = itemTotalKg(it);
+        if (tot != null && it.reps.length) vol += tot * repSum(it);
+      });
+      return { ms: Math.max(0, endMs - startMs()), count: sess.items.length, sets: sets, volume: round2(vol), cardio: round2(cardio) };
+    }
+    function itemToEntry(it, date, time, durMin) {
+      var entry;
+      if (isCardioItem(it)) {
+        // data.json の有酸素と同じ形（minutes、reps/sets は null、weight_type は "-"）
+        entry = { id: newLocalId(), date: date, time: time, exercise: it.exercise, part: "有酸素", weight_kg: null, weight_type: "-", reps: null, sets: null, minutes: it.minutes, unknown: [], note: it.note || null, raw: "", load_kg: null, load_reps: null, volume_kg: null, hands: null };
+      } else {
+        var hasW = it.weight_kg != null && it.weight_kg > 0;
+        var total = itemTotalKg(it);
+        entry = {
+          id: newLocalId(), date: date, time: time, exercise: it.exercise, part: it.part || "不明",
+          weight_kg: hasW ? it.weight_kg : null, weight_type: hasW ? it.weight_type : "自重",
+          reps: it.reps.slice(), sets: it.reps.length || null, note: it.note || null, raw: "",
+          volume_kg: (hasW && it.reps.length) ? round2(total * repSum(it)) : null,
+          total_kg: total, unknown: [], load_kg: null, load_reps: null,
+          hands: (hasW && it.weight_type === "片手") ? "両手" : null
+        };
+      }
+      entry.raw = pad2(+date.slice(5, 7)) + "/" + pad2(+date.slice(8, 10)) + " " + time + ": " + entrySummary(entry) + "（セッション記録・所要時間 約" + durMin + "分）";
+      return entry;
+    }
+
+    // ---------- 休憩タイマー ----------
+    function vibrate() {
+      try { if (navigator.vibrate) navigator.vibrate([250, 120, 250, 120, 500]); } catch (e) {}
+    }
+    function clearDoneTimer() { if (rest.doneTimer) { clearTimeout(rest.doneTimer); rest.doneTimer = null; } }
+    function startRest() {
+      if (!sess) return;
+      clearDoneTimer();
+      rest.total = sess.restSec;
+      rest.startAt = Date.now();
+      rest.endAt = rest.startAt + rest.total * 1000;
+      rest.running = true;
+      rest.done = false;
+      updateRestUi();
+    }
+    function stopRest() {
+      clearDoneTimer();
+      rest.running = false;
+      rest.done = false;
+      updateRestUi();
+    }
+    function finishRest() {
+      rest.running = false;
+      rest.done = true;
+      clearDoneTimer();
+      rest.doneTimer = setTimeout(stopRest, 10000);
+      vibrate();
+      updateRestUi();
+    }
+    function restBarHtml() {
+      var presets = REST_PRESETS.map(function (p) {
+        return '<button type="button" class="sess-rp' + (p === sess.restSec ? " on" : "") + '" data-sact="rest-preset" data-sec="' + p + '" aria-label="休憩' + p + '秒">' + p + "</button>";
+      }).join("");
+      return '<div class="sess-rest" id="sessRestBar">' +
+        '<div class="sess-ring"><svg viewBox="0 0 48 48" aria-hidden="true"><circle class="trk" cx="24" cy="24" r="20"/><circle class="prg" id="sessRing" cx="24" cy="24" r="20" stroke-dasharray="' + RING_C.toFixed(2) + '" stroke-dashoffset="0" transform="rotate(-90 24 24)"/></svg><span id="sessRestTime"></span></div>' +
+        '<div class="sess-rest-mid"><div class="sess-rest-cap" id="sessRestCap">休憩タイマー（秒）</div><div class="sess-rps">' + presets + "</div></div>" +
+        '<button type="button" class="sess-skip" id="sessSkipBtn" data-sact="rest-skip">スキップ</button></div>';
+    }
+    function renderRestBar(show) {
+      $("sessRest").innerHTML = (show && sess) ? restBarHtml() : "";
+      updateRestUi();
+    }
+    function updateRestUi() {
+      var bar = $("sessRestBar");
+      if (!bar || !sess) return;
+      var total = (rest.running || rest.done) ? rest.total : sess.restSec;
+      var remain = rest.running ? Math.max(0, (rest.endAt - Date.now()) / 1000) : (rest.done ? 0 : sess.restSec);
+      $("sessRestTime").textContent = minSec(remain);
+      var frac = total > 0 ? Math.min(1, remain / total) : 0;
+      $("sessRing").setAttribute("stroke-dashoffset", (RING_C * (1 - frac)).toFixed(2));
+      bar.className = "sess-rest" + (rest.running ? " run" : "") + (rest.done ? " done" : "");
+      $("sessRestCap").textContent = rest.done ? "休憩終了！次のセットへ" : (rest.running ? "休憩中" : "休憩タイマー（秒）");
+      var skip = $("sessSkipBtn");
+      skip.textContent = rest.done ? "OK" : "スキップ";
+      skip.disabled = !(rest.running || rest.done);
+    }
+
+    // ---------- 時計（1つのタイマーで経過時間・休憩を更新） ----------
+    function updateEntryBtn() {
+      var lab = $("sessionOpenLabel"), btn = $("sessionOpenBtn");
+      if (!lab || !btn) return;
+      var txt, html;
+      if (sess) {
+        var c = clock(Date.now() - startMs());
+        txt = "トレーニング中（経過 " + c + "）";
+        html = "トレーニング中<small>（経過 " + c + "）</small>";
+      } else {
+        txt = "トレーニングを記録する";
+        html = txt;
+      }
+      if (txt === entryBtnText) return;
+      entryBtnText = txt;
+      lab.innerHTML = html;
+      btn.classList.toggle("live", !!sess);
+    }
+    function tick() {
+      if (sess) {
+        updateEntryBtn();
+        var el = $("sessElapsed");
+        if (el && sv.open && sv.view === "session") el.textContent = clock(Date.now() - startMs());
+      }
+      if (rest.running) {
+        if (Date.now() >= rest.endAt) finishRest();
+        else updateRestUi();
+      }
+    }
+
+    // ---------- 描画ヘルパ ----------
+    function partChip(part, on, act) {
+      var c = PART_COLORS[part] || "#aaa";
+      return '<button type="button" class="sess-chip part' + (on ? " on" : "") + '" style="--pc:' + c + '" aria-pressed="' + (on ? "true" : "false") + '" data-sact="' + act + '" data-part="' + escapeHtml(part) + '"><span class="dot"></span>' + escapeHtml(part) + "</button>";
+    }
+    function nameChip(name, act, quick) {
+      return '<button type="button" class="sess-chip' + (quick ? " quick" : "") + '" data-sact="' + act + '" data-name="' + escapeHtml(name) + '">' + escapeHtml(name) + "</button>";
+    }
+    function headBtn(label, act, cls) {
+      return '<button type="button" class="sess-head-btn' + (cls ? " " + cls : "") + '" data-sact="' + act + '">' + label + "</button>";
+    }
+    function headHtml(left, mid, right) {
+      return '<div class="sess-head-side">' + (left || "") + '</div><div class="sess-head-mid">' + mid + '</div><div class="sess-head-side right">' + (right || "") + "</div>";
+    }
+    function titleMid(title, sub) {
+      return '<div class="sess-title">' + escapeHtml(title) + "</div>" + (sub ? '<div class="sess-sub">' + escapeHtml(sub) + "</div>" : "");
+    }
+    function menuLink() {
+      return '<button type="button" class="sess-linkbtn" data-sact="menus"><span>部位メニューの設定</span>' + ICON_CHEVRON_RIGHT + "</button>";
+    }
+    function freeRow(act, id, val) {
+      return '<div class="sess-free"><input class="ef-input" id="' + id + '" type="text" placeholder="種目名を入力" data-sin="' + (id === "sessFree" ? "free" : "mfree") + '" value="' + escapeHtml(val) + '" autocomplete="off"><button type="button" class="sess-btn inline" data-sact="' + act + '">追加</button></div>';
+    }
+
+    // ---------- 各画面 ----------
+    function viewStart() {
+      var chips = allParts().map(function (p) { return partChip(p, sv.startParts.indexOf(p) !== -1, "start-part"); }).join("");
+      return {
+        head: headHtml(headBtn("閉じる", "close"), titleMid("トレーニングを開始", formatDateLabel(todayStr()))),
+        body: '<div class="card"><div class="section-title">今日鍛える部位</div><div class="sess-hint">タップして選択（複数OK）。種目の追加時は他の部位も選べます。</div><div class="sess-chips">' + chips + "</div></div>" + menuLink(),
+        foot: '<button type="button" class="sess-btn primary" data-sact="start">トレーニングを開始</button>'
+      };
+    }
+    function itemCard(it, i) {
+      var c = PART_COLORS[it.part] || "#aaa";
+      var h = '<div class="sess-item" style="--pc:' + c + '"><div class="sess-item-top"><span class="sess-item-name">' + escapeHtml(it.exercise) + "</span>" + partChipHtml(it.part) + "</div>";
+      h += '<div class="sess-item-sum">' + escapeHtml(itemSummary(it)) + "</div>";
+      if (it.note) h += '<div class="sess-item-note">' + escapeHtml(it.note) + "</div>";
+      h += '<div class="sess-item-act"><button type="button" class="sess-mini" data-sact="edit" data-i="' + i + '">編集</button><button type="button" class="sess-mini danger" data-sact="del" data-i="' + i + '">削除</button></div></div>';
+      return h;
+    }
+    function viewSession() {
+      var mid = '<div class="sess-clock" id="sessElapsed">' + clock(Date.now() - startMs()) + '</div><div class="sess-sub">' + escapeHtml(formatDateLabel(sess.date)) + " ・ 開始 " + startHHMM() + "</div>";
+      var body = "";
+      if (sess.parts.length) body += '<div class="part-chip-row">' + sess.parts.map(partChipHtml).join("") + "</div>";
+      if (sess.items.length) body += sess.items.map(itemCard).join("");
+      else body += '<div class="sess-empty">まだ種目がありません。<br>「種目を追加」から記録を始めましょう。</div>';
+      return {
+        head: headHtml(headBtn("閉じる", "close"), mid, headBtn("破棄する", "discard", "danger")),
+        body: body,
+        foot: '<button type="button" class="sess-btn primary" data-sact="add">種目を追加</button><button type="button" class="sess-btn" data-sact="end">トレーニングを終了</button>'
+      };
+    }
+    function viewAdd() {
+      var part = sv.addPart;
+      var menu = menuFor(part);
+      var past = namesForPart(part).filter(function (n) { return menu.indexOf(n) === -1; }).slice(0, 60);
+      var body = '<div class="card"><div class="section-title">部位</div><div class="sess-chips">' + allParts().map(function (p) { return partChip(p, p === part, "add-part"); }).join("") + "</div></div>";
+      body += '<div class="card"><div class="section-title">' + escapeHtml(part) + "のメニュー</div>";
+      body += menu.length ? '<div class="sess-chips">' + menu.map(function (n) { return nameChip(n, "pick", true); }).join("") + "</div>" : '<div class="sess-hint" style="margin:0">メニュー未設定です。下の「部位メニューの設定」から登録できます。</div>';
+      body += "</div>";
+      body += '<div class="card"><div class="section-title">過去にやった種目</div>';
+      body += past.length ? '<div class="sess-chips">' + past.map(function (n) { return nameChip(n, "pick", false); }).join("") + "</div>" : '<div class="sess-hint" style="margin:0">ほかの過去種目はありません。</div>';
+      body += "</div>";
+      body += '<div class="card"><div class="section-title">新しい種目</div>' + freeRow("pick-free", "sessFree", sv.freeText) + "</div>";
+      body += menuLink();
+      return { head: headHtml(headBtn("‹ 戻る", "add-back"), titleMid("種目を追加", part)), body: body, foot: "" };
+    }
+    function setsHtml(d) {
+      return d.sets.map(function (s, i) {
+        return '<div class="sess-set"><span class="sess-set-n">' + (i + 1) + "</span>" +
+          '<input class="ef-input" type="number" inputmode="numeric" min="0" max="999" placeholder="回数" aria-label="' + (i + 1) + 'セット目の回数" data-sin="reps" data-i="' + i + '" value="' + escapeHtml(s.reps) + '">' +
+          '<span class="sess-unit">回</span>' +
+          '<button type="button" class="sess-done' + (s.done ? " on" : "") + '" data-sact="setdone" data-i="' + i + '" aria-pressed="' + (s.done ? "true" : "false") + '">✓完了</button>' +
+          '<button type="button" class="sess-x" data-sact="delset" data-i="' + i + '" aria-label="' + (i + 1) + 'セット目を削除">×</button></div>';
+      }).join("");
+    }
+    function viewEditor() {
+      var d = sess.draft, cardio = d.part === "有酸素";
+      var body = "";
+      var prev = findPrevious(d.exercise, cardio);
+      if (prev) body += '<div class="sess-prev"><div class="sess-prev-t">' + escapeHtml(prevText(prev, cardio)) + '</div><button type="button" class="sess-mini" data-sact="copyprev">前回をコピー</button></div>';
+      if (cardio) {
+        body += '<div class="card"><div class="section-title">時間</div><div class="sess-w-row"><button type="button" class="sess-step" data-sact="wstep" data-t="minutes" data-d="-5">−5</button><input class="ef-input" id="sessMinutes" type="number" inputmode="numeric" min="0" step="any" placeholder="分" aria-label="時間（分）" data-sin="minutes" value="' + escapeHtml(d.minutes) + '"><span class="sess-unit">分</span><button type="button" class="sess-step" data-sact="wstep" data-t="minutes" data-d="5">+5</button></div></div>';
+      } else {
+        body += '<div class="card"><div class="section-title">重量</div><div class="ef-seg sess-seg" id="sessWt">' +
+          ["合計", "片手"].map(function (t) { return '<button type="button" class="ef-seg-btn' + (d.wtype === t ? " active" : "") + '" data-sact="wt" data-w="' + t + '">' + t + "</button>"; }).join("") +
+          '</div><div class="sess-w-row"><button type="button" class="sess-step" data-sact="wstep" data-t="weight" data-d="-2.5">−2.5</button><input class="ef-input" id="sessWeight" type="number" inputmode="decimal" step="any" min="0" placeholder="自重" aria-label="重量（kg）" data-sin="weight" value="' + escapeHtml(d.weight) + '"><span class="sess-unit">kg</span><button type="button" class="sess-step" data-sact="wstep" data-t="weight" data-d="2.5">+2.5</button></div>' +
+          '<div class="sess-hint" style="margin:8px 0 0">自重は空欄。「片手」は片手あたりの重量で、合計は×2で集計します。</div></div>';
+        body += '<div class="card"><div class="section-title">セット</div><div id="sessSets">' + setsHtml(d) + '</div><button type="button" class="sess-addset" data-sact="addset">+セット</button></div>';
+      }
+      body += '<div class="card"><div class="section-title">メモ（任意）</div><input class="ef-input" id="sessNote" type="text" placeholder="メモ" aria-label="メモ" data-sin="note" value="' + escapeHtml(d.note) + '"></div>';
+      return {
+        head: headHtml(headBtn("‹ 戻る", "ed-back"), titleMid(d.exercise, d.part)),
+        body: body,
+        foot: '<button type="button" class="sess-btn primary" data-sact="commit">' + (d.editIdx != null ? "更新する" : "追加する") + "</button>"
+      };
+    }
+    function viewSummary() {
+      var st = sessionStats(sv.summaryAt || Date.now());
+      var body = '<div class="card"><div class="stat-grid">' +
+        '<div class="stat-box"><div class="stat-label">時間</div><div class="stat-value">' + escapeHtml(durationText(st.ms)) + "</div></div>" +
+        '<div class="stat-box"><div class="stat-label">種目数</div><div class="stat-value">' + st.count + "</div></div>" +
+        '<div class="stat-box"><div class="stat-label">総セット数</div><div class="stat-value">' + st.sets + "</div></div>" +
+        '<div class="stat-box"><div class="stat-label">総ボリューム</div><div class="stat-value">' + formatComma(st.volume) + '<span style="font-size:13px"> kg</span></div></div></div>';
+      if (st.cardio > 0) body += '<div class="aerobic-row" style="margin-top:10px"><span>有酸素</span><strong>' + fmtNum(st.cardio) + "分</strong></div>";
+      body += "</div>";
+      body += '<div class="card"><div class="section-title">種目</div>' + sess.items.map(function (it) {
+        return '<div class="list-item"><div class="li-left"><span class="li-item">' + escapeHtml(it.exercise) + '</span><span class="li-meta">' + escapeHtml(it.part) + '</span></div><div class="li-right" style="white-space:normal">' + escapeHtml(itemSummary(it)) + "</div></div>";
+      }).join("") + "</div>";
+      return {
+        head: headHtml(headBtn("‹ 戻る", "sum-back"), titleMid("トレーニング終了", formatDateLabel(sess.date))),
+        body: body,
+        foot: '<button type="button" class="sess-btn" data-sact="sum-back">戻る</button><button type="button" class="sess-btn primary" data-sact="save">保存する</button>'
+      };
+    }
+    function viewMenus() {
+      var part = sv.menuPart;
+      var menu = menuFor(part);
+      var past = namesForPart(part).filter(function (n) { return menu.indexOf(n) === -1; }).slice(0, 60);
+      var body = '<div class="card"><div class="section-title">部位</div><div class="sess-chips">' + allParts().map(function (p) { return partChip(p, p === part, "m-part"); }).join("") + "</div></div>";
+      body += '<div class="card"><div class="section-title">' + escapeHtml(part) + "のメニュー</div>";
+      if (menu.length) {
+        body += menu.map(function (n, i) {
+          return '<div class="sess-mrow"><span class="sess-mname">' + escapeHtml(n) + "</span>" +
+            '<button type="button" class="sess-ico" data-sact="m-up" data-i="' + i + '" aria-label="上へ"' + (i === 0 ? " disabled" : "") + ">↑</button>" +
+            '<button type="button" class="sess-ico" data-sact="m-down" data-i="' + i + '" aria-label="下へ"' + (i === menu.length - 1 ? " disabled" : "") + ">↓</button>" +
+            '<button type="button" class="sess-mini danger" data-sact="m-del" data-i="' + i + '">削除</button></div>';
+        }).join("");
+      } else body += '<div class="sess-hint" style="margin:0">メニューは空です。下から追加してください。</div>';
+      body += "</div>";
+      body += '<div class="card"><div class="section-title">過去の種目から追加</div>';
+      body += past.length ? '<div class="sess-chips">' + past.map(function (n) { return nameChip(n, "m-add", false); }).join("") + "</div>" : '<div class="sess-hint" style="margin:0">追加できる過去種目はありません。</div>';
+      body += "</div>";
+      body += '<div class="card"><div class="section-title">自由入力で追加</div>' + freeRow("m-free", "sessMFree", sv.menuFree) + "</div>";
+      return { head: headHtml(headBtn("‹ 戻る", "menus-back"), titleMid("部位メニューの設定", part)), body: body, foot: "" };
+    }
+
+    function render() {
+      if (!sv.open) return;
+      var v = sv.view, r;
+      if (v === "start") r = viewStart();
+      else if (v === "session") r = viewSession();
+      else if (v === "add") r = viewAdd();
+      else if (v === "editor") r = viewEditor();
+      else if (v === "summary") r = viewSummary();
+      else r = viewMenus();
+      var body = $("sessBody"), foot = $("sessFoot");
+      var top = body.scrollTop;
+      $("sessHead").innerHTML = r.head;
+      body.innerHTML = r.body;
+      foot.innerHTML = r.foot || "";
+      foot.style.display = r.foot ? "" : "none";
+      body.scrollTop = sv.lastView === v ? top : 0;
+      sv.lastView = v;
+      renderRestBar(!!sess && (v === "session" || v === "add" || v === "editor"));
+    }
+    function go(view) { sv.view = view; render(); }
+
+    // ---------- 開閉 ----------
+    function openSession() {
+      sess = readSession();
+      sv.open = true;
+      sv.lastView = null;
+      sv.summaryAt = null;
+      sv.view = sess ? (sess.draft ? "editor" : "session") : "start";
+      $("sessOverlay").classList.add("show");
+      document.body.classList.add("sess-open");
+      updateEntryBtn();
+      render();
+    }
+    function closeUi() {
+      sv.open = false;
+      if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+      $("sessOverlay").classList.remove("show");
+      document.body.classList.remove("sess-open");
+    }
+    function resetAfterEnd() {
+      sess = null;
+      stopRest();
+      sv.startParts = [];
+      sv.addPart = null;
+      sv.summaryAt = null;
+      sv.view = "start";
+      closeUi();
+      updateEntryBtn();
+    }
+
+    // ---------- 操作 ----------
+    function startSession() {
+      if (!sv.startParts.length) { showToast("部位を選んでください"); return; }
+      var now = new Date();
+      sess = { startedAt: now.toISOString(), date: dateToKey(now), items: [], restSec: 90, parts: sv.startParts.slice() };
+      if (!writeSession()) { sess = null; return; }
+      sv.addPart = sess.parts[0];
+      updateEntryBtn();
+      go("session");
+    }
+    function discardSession() {
+      if (!window.confirm("このトレーニングを破棄しますか？\n記録は保存されません。")) return;
+      sess = null;
+      writeSession();
+      resetAfterEnd();
+      showToast("破棄しました");
+    }
+    function endSession() {
+      if (!sess.items.length) {
+        if (window.confirm("記録する種目がありません。このトレーニングを破棄しますか？")) { sess = null; writeSession(); resetAfterEnd(); }
+        return;
+      }
+      sv.summaryAt = Date.now();
+      go("summary");
+    }
+    function saveSession() {
+      if (!sess || !sess.items.length) return;
+      var endMs = sv.summaryAt || Date.now();
+      var durMin = Math.max(1, Math.round((endMs - startMs()) / 60000));
+      var date = sess.date, time = startHHMM();
+      var loc = readLocal();
+      sess.items.forEach(function (it) { loc.entries.push(itemToEntry(it, date, time, durMin)); });
+      if (!writeLocal(loc)) { showToast("保存できませんでした（端末の容量を確認）"); return; }
+      sess = null;
+      writeSession();
+      resetAfterEnd();
+      focusDateAfterSave(date);
+      reapplyLocal();
+      showToast("記録しました");
+    }
+    function newDraft(name, part) {
+      var prev = findPrevious(name, part === "有酸素");
+      return { exercise: name, part: part, weight: "", wtype: (prev && prev.entry.weight_type === "片手") ? "片手" : "合計", sets: [{ reps: "", done: false }], minutes: "", note: "", editIdx: null };
+    }
+    function draftFromItem(it, idx) {
+      return {
+        exercise: it.exercise, part: it.part,
+        weight: it.weight_kg != null ? String(it.weight_kg) : "", wtype: it.weight_type === "片手" ? "片手" : "合計",
+        sets: it.reps.length ? it.reps.map(function (r) { return { reps: String(r), done: true }; }) : [{ reps: "", done: false }],
+        minutes: it.minutes != null ? String(it.minutes) : "", note: it.note || "", editIdx: idx
+      };
+    }
+    function draftDirty(d) {
+      return !!(d.weight || d.minutes || d.note || d.sets.some(function (s) { return s.reps || s.done; }));
+    }
+    function openEditor(name) {
+      sess.draft = newDraft(name, sv.addPart);
+      sv.freeText = "";
+      writeSession();
+      go("editor");
+    }
+    function commitDraft() {
+      var d = sess && sess.draft;
+      if (!d) return;
+      var note = (d.note || "").trim();
+      var item;
+      if (d.part === "有酸素") {
+        var mi = parseFloat(d.minutes);
+        if (!isFinite(mi) || mi <= 0) { showToast("時間（分）を入力してください"); return; }
+        item = { exercise: d.exercise, part: d.part, weight_kg: null, weight_type: "-", reps: [], minutes: Math.round(mi * 10) / 10, note: note };
+      } else {
+        var wk = parseFloat(d.weight);
+        var hasW = isFinite(wk) && wk > 0;
+        var rows = d.sets.filter(function (s) { return parseInt(s.reps, 10) > 0; });
+        var doneRows = rows.filter(function (s) { return s.done; });
+        if (!rows.length && !hasW) { showToast("回数か重量を入力してください"); return; }
+        if (doneRows.length && doneRows.length < rows.length) {
+          if (!window.confirm("未完了のセットが" + (rows.length - doneRows.length) + "つあります。\n完了済みの" + doneRows.length + "セットだけ追加しますか？\n（キャンセルで編集に戻ります）")) return;
+          rows = doneRows;
+        }
+        item = {
+          exercise: d.exercise, part: d.part,
+          weight_kg: hasW ? wk : null, weight_type: hasW ? d.wtype : "自重",
+          reps: rows.map(function (s) { return parseInt(s.reps, 10); }), note: note
+        };
+      }
+      if (d.editIdx != null && sess.items[d.editIdx]) sess.items[d.editIdx] = item;
+      else sess.items.push(item);
+      sess.draft = null;
+      if (!writeSession()) return;
+      go("session");
+    }
+    function setMenuAndRender(part, list) {
+      if (setMenu(part, list)) render();
+    }
+
+    function onAct(act, el) {
+      var d = sess && sess.draft;
+      var i = parseInt(el.getAttribute("data-i"), 10);
+      switch (act) {
+        case "close": closeUi(); break;
+        case "discard": discardSession(); break;
+        // 開始画面
+        case "start-part": {
+          var p = el.getAttribute("data-part"), k = sv.startParts.indexOf(p);
+          if (k === -1) sv.startParts.push(p); else sv.startParts.splice(k, 1);
+          render();
+          break;
+        }
+        case "start": startSession(); break;
+        // メニュー設定
+        case "menus":
+          sv.menuBack = sv.view === "add" ? "add" : "start";
+          sv.menuPart = (sv.menuBack === "add" ? sv.addPart : sv.startParts[0]) || allParts()[0];
+          sv.menuFree = "";
+          go("menus");
+          break;
+        case "menus-back":
+          if (sv.menuBack === "add" && sess) { sv.addPart = sv.menuPart; sv.freeText = ""; go("add"); }
+          else go(sess ? "session" : "start");
+          break;
+        case "m-part": sv.menuPart = el.getAttribute("data-part"); sv.menuFree = ""; render(); break;
+        case "m-up": case "m-down": {
+          var list = menuFor(sv.menuPart), j = act === "m-up" ? i - 1 : i + 1;
+          if (j < 0 || j >= list.length || !isFinite(i)) break;
+          var tmp = list[i]; list[i] = list[j]; list[j] = tmp;
+          setMenuAndRender(sv.menuPart, list);
+          break;
+        }
+        case "m-del": {
+          var l2 = menuFor(sv.menuPart);
+          if (!isFinite(i) || i < 0 || i >= l2.length) break;
+          l2.splice(i, 1);
+          setMenuAndRender(sv.menuPart, l2);
+          break;
+        }
+        case "m-add": {
+          var nm = el.getAttribute("data-name"), l3 = menuFor(sv.menuPart);
+          if (nm && l3.indexOf(nm) === -1) { l3.push(nm); setMenuAndRender(sv.menuPart, l3); }
+          break;
+        }
+        case "m-free": {
+          var fn = (sv.menuFree || "").trim(), l4 = menuFor(sv.menuPart);
+          if (!fn) { var f1 = $("sessMFree"); if (f1) f1.focus(); break; }
+          if (l4.indexOf(fn) !== -1) { showToast("すでに登録されています"); break; }
+          l4.push(fn);
+          sv.menuFree = "";
+          setMenuAndRender(sv.menuPart, l4);
+          break;
+        }
+        // セッション画面
+        case "add":
+          if (!sv.addPart) sv.addPart = (sess.parts[0]) || allParts()[0];
+          sv.freeText = "";
+          go("add");
+          break;
+        case "add-back": go("session"); break;
+        case "add-part": sv.addPart = el.getAttribute("data-part"); sv.freeText = ""; render(); break;
+        case "pick": openEditor(el.getAttribute("data-name")); break;
+        case "pick-free": {
+          var name = (sv.freeText || "").trim();
+          if (!name) { var f2 = $("sessFree"); if (f2) f2.focus(); break; }
+          openEditor(name);
+          break;
+        }
+        case "edit":
+          if (!sess.items[i]) break;
+          sess.draft = draftFromItem(sess.items[i], i);
+          writeSession();
+          go("editor");
+          break;
+        case "del":
+          if (!sess.items[i]) break;
+          if (!window.confirm("「" + sess.items[i].exercise + "」を削除しますか。")) break;
+          sess.items.splice(i, 1);
+          writeSession();
+          render();
+          break;
+        case "end": endSession(); break;
+        case "sum-back": sv.summaryAt = null; go("session"); break;
+        case "save": saveSession(); break;
+        // 種目エディタ
+        case "ed-back":
+          if (!d) { go("session"); break; }
+          if (d.editIdx == null && draftDirty(d) && !window.confirm("入力中の内容を破棄して戻りますか？")) break;
+          sess.draft = null;
+          writeSession();
+          go(d.editIdx == null ? "add" : "session");
+          break;
+        case "wt":
+          if (!d) break;
+          d.wtype = el.getAttribute("data-w") === "片手" ? "片手" : "合計";
+          Array.prototype.forEach.call($("sessWt").querySelectorAll(".ef-seg-btn"), function (b) { b.classList.toggle("active", b === el); });
+          writeSession();
+          break;
+        case "wstep": {
+          if (!d) break;
+          var key = el.getAttribute("data-t") === "minutes" ? "minutes" : "weight";
+          var cur = parseFloat(d[key]);
+          if (!isFinite(cur)) cur = 0;
+          var nv = Math.max(0, round2(cur + parseFloat(el.getAttribute("data-d"))));
+          d[key] = nv > 0 ? String(nv) : "";
+          var inp = $(key === "minutes" ? "sessMinutes" : "sessWeight");
+          if (inp) inp.value = d[key];
+          writeSession();
+          break;
+        }
+        case "setdone": {
+          if (!d || !d.sets[i]) break;
+          var s = d.sets[i];
+          if (s.done) s.done = false;
+          else {
+            if (!(parseInt(s.reps, 10) > 0)) {
+              showToast("回数を入力してください");
+              var ri = $("sessSets").querySelectorAll('input[data-sin="reps"]')[i];
+              if (ri) ri.focus();
+              break;
+            }
+            s.done = true;
+            startRest();
+          }
+          var db = $("sessSets").querySelectorAll(".sess-done")[i];
+          if (db) { db.classList.toggle("on", s.done); db.setAttribute("aria-pressed", s.done ? "true" : "false"); }
+          writeSession();
+          break;
+        }
+        case "addset": {
+          if (!d) break;
+          if (d.sets.length >= MAX_SETS) { showToast("セット数が上限です"); break; }
+          var last = d.sets[d.sets.length - 1];
+          d.sets.push({ reps: last ? last.reps : "", done: false });
+          $("sessSets").innerHTML = setsHtml(d);
+          var rows = $("sessSets").querySelectorAll(".sess-set");
+          if (rows.length && rows[rows.length - 1].scrollIntoView) rows[rows.length - 1].scrollIntoView({ block: "nearest" });
+          writeSession();
+          break;
+        }
+        case "delset":
+          if (!d || !d.sets[i]) break;
+          if (d.sets.length > 1) d.sets.splice(i, 1);
+          else d.sets[0] = { reps: "", done: false };
+          $("sessSets").innerHTML = setsHtml(d);
+          writeSession();
+          break;
+        case "copyprev": {
+          if (!d) break;
+          var cardio = d.part === "有酸素";
+          var pv = findPrevious(d.exercise, cardio);
+          if (!pv) break;
+          var pe = pv.entry;
+          if (cardio) d.minutes = String(pe.minutes);
+          else {
+            d.weight = (pe.weight_kg != null && pe.weight_kg > 0) ? String(pe.weight_kg) : "";
+            d.wtype = pe.weight_type === "片手" ? "片手" : "合計";
+            d.sets = pe.reps.map(function (r) { return { reps: String(r), done: false }; });
+          }
+          writeSession();
+          render();
+          showToast("前回をコピーしました");
+          break;
+        }
+        case "commit": commitDraft(); break;
+        // 休憩タイマー
+        case "rest-preset": {
+          var sec = parseInt(el.getAttribute("data-sec"), 10);
+          if (!sess || REST_PRESETS.indexOf(sec) === -1) break;
+          sess.restSec = sec;
+          writeSession();
+          if (rest.running) {
+            rest.total = sec;
+            rest.endAt = rest.startAt + sec * 1000;
+            if (Date.now() >= rest.endAt) finishRest();
+          }
+          renderRestBar(true);
+          break;
+        }
+        case "rest-skip": if (rest.running || rest.done) stopRest(); break;
+      }
+    }
+
+    function onInput(key, el) {
+      var d = sess && sess.draft;
+      if (key === "free") { sv.freeText = el.value; return; }
+      if (key === "mfree") { sv.menuFree = el.value; return; }
+      if (!d) return;
+      if (key === "reps") {
+        var i = parseInt(el.getAttribute("data-i"), 10);
+        if (d.sets[i]) d.sets[i].reps = el.value;
+      } else if (key === "weight") d.weight = el.value;
+      else if (key === "minutes") d.minutes = el.value;
+      else if (key === "note") d.note = el.value;
+      else return;
+      writeSession();
+    }
+
+    function bind() {
+      var overlay = $("sessOverlay");
+      overlay.addEventListener("click", function (e) {
+        var t = e.target.closest ? e.target.closest("[data-sact]") : null;
+        if (!t || t.disabled) return;
+        onAct(t.getAttribute("data-sact"), t);
+      });
+      overlay.addEventListener("input", function (e) {
+        var k = e.target.getAttribute ? e.target.getAttribute("data-sin") : null;
+        if (k) onInput(k, e.target);
+      });
+      overlay.addEventListener("keydown", function (e) {
+        if (e.key !== "Enter" || !e.target.getAttribute) return;
+        var k = e.target.getAttribute("data-sin");
+        if (k === "free") { e.preventDefault(); onAct("pick-free", e.target); }
+        else if (k === "mfree") { e.preventDefault(); onAct("m-free", e.target); }
+      });
+      $("sessionOpenBtn").addEventListener("click", openSession);
+      document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible") tick(); });
+      setInterval(tick, 250);
+    }
+
+    sessionApi.open = openSession;
+    sessionApi.init = function () {
+      sess = readSession();
+      bind();
+      updateEntryBtn();
+    };
+    // データ取得後に選択肢を最新化（入力中は邪魔しない）
+    sessionApi.onData = function () {
+      if (!sv.open) return;
+      var ae = document.activeElement;
+      if (ae && (ae.tagName === "INPUT" || ae.tagName === "TEXTAREA")) return;
+      if (sv.view === "start" || sv.view === "add" || sv.view === "menus") render();
+    };
   })();
 
   // ---------- タブ制御 ----------
@@ -4079,7 +5100,7 @@
   }
   function isSwipeEligibleTarget(target, tab) {
     if (isFormTarget(target) || scrollableAncestorX(target)) return false;
-    if (target.closest && target.closest(".tabbar")) return false;
+    if (target.closest && (target.closest(".tabbar") || target.closest(".sess-overlay"))) return false;
     if (tab === "day" || tab === "week" || tab === "month" || tab === "photo") return true;
     if (tab === "weight" || tab === "meal") {
       return !!(target.closest && target.closest(".period-swipe-zone"));
@@ -4216,7 +5237,7 @@
   // ---------- ダブルタップズーム防止（iOS Safari 対策） ----------
   var lastTouchEndAt = 0;
   document.addEventListener("touchend", function (e) {
-    if (isFormTarget(e.target) || (e.target.closest && e.target.closest(".entry-box"))) { lastTouchEndAt = 0; return; }
+    if (isFormTarget(e.target) || (e.target.closest && e.target.closest(".entry-box, .sess-overlay"))) { lastTouchEndAt = 0; return; }
     var now = Date.now();
     if (now - lastTouchEndAt <= 300) {
       e.preventDefault();
@@ -4260,6 +5281,7 @@
     return getRecordPeriod();
   }
   function init() {
+    sessionApi.init();
     loadGoalSettings();
     var initial = initialTabFromHash();
     switchTab(initial);
