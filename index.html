@@ -364,22 +364,49 @@
   .cal-dow.sat { color: #64B5F6; }
   .cal-cell { display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 44px; }
   .cal-day {
-    -webkit-appearance: none; appearance: none;
-    width: 40px; height: 40px; max-width: 100%; padding: 0; margin: 0;
+    -webkit-appearance: none; appearance: none; position: relative;
+    width: 46px; height: 46px; max-width: 100%; padding: 0; margin: 0;
     border-radius: 50%; border: none; background: transparent; color: var(--text);
     font-family: inherit; font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1;
     display: flex; align-items: center; justify-content: center; cursor: pointer;
-    transition: transform .12s var(--ease), background .15s var(--ease), box-shadow .15s var(--ease);
+    transition: transform .12s var(--ease);
   }
   .cal-day:active { transform: scale(0.9); }
-  .cal-day.trained { background: var(--accent); color: #fff; font-weight: 700; }
-  .cal-day.today { box-shadow: inset 0 0 0 2px var(--accent); color: var(--accent); font-weight: 800; }
-  .cal-day.today.trained { color: #fff; box-shadow: inset 0 0 0 2px var(--accent), inset 0 0 0 4px var(--bg); }
-  .cal-day.selected, .cal-day.selected.today, .cal-day.selected.today.trained {
-    background: var(--grad-primary); color: #fff; font-weight: 800;
-    box-shadow: 0 0 0 2px var(--card), 0 0 0 4px var(--accent), var(--accent-shadow-sm);
+  .cal-day .cal-ring { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .cal-day .cal-num { position: relative; }
+  .cal-day.future { color: #5A5A5E; font-weight: 500; }
+  .cal-day.today .cal-num { color: var(--accent); font-weight: 800; }
+  .cal-day.selected .cal-num { color: #0B1526; font-weight: 800; }
+  @media (max-width: 359px) { .cal-day { width: 42px; height: 42px; font-size: 15px; } }
+  /* カレンダーの凡例ポップオーバー */
+  .cal-card { position: relative; }
+  .cal-info-btn {
+    flex: 0 0 auto; width: 36px; height: 36px; padding: 0; border-radius: 50%;
+    border: none; background: var(--surface-alt); color: var(--text);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+    font-family: inherit; font-size: 16px; font-weight: 700;
   }
-  @media (max-width: 359px) { .cal-day { width: 36px; height: 36px; font-size: 15px; } }
+  .cal-info-btn:active { transform: scale(0.92); }
+  .cal-legend {
+    position: absolute; top: 64px; left: 12px; right: 12px; z-index: 30;
+    background: var(--surface-2, #1C1C1E); border: 1px solid var(--border-soft);
+    border-radius: 18px; padding: 16px; box-shadow: 0 18px 40px rgba(0,0,0,.5);
+    display: none;
+  }
+  .cal-legend.show { display: block; }
+  .cal-legend-text { font-size: 14px; line-height: 1.65; margin-bottom: 12px; }
+  .cal-legend-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px 10px; }
+  .cal-legend-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text); }
+  .cal-legend-dot { width: 14px; height: 14px; border-radius: 4px; flex: 0 0 auto; }
+  /* 選んだ日のセッションカード */
+  .sess-sum-row { display: flex; align-items: center; gap: 16px; color: var(--sub); font-size: 13.5px; font-weight: 600; margin-bottom: 6px; }
+  .sess-sum-row .ss-item { display: inline-flex; align-items: center; gap: 5px; font-variant-numeric: tabular-nums; }
+  .sess-sum-row svg { width: 15px; height: 15px; display: block; }
+  .day-ex-row { display: flex; gap: 12px; padding: 12px 0 4px; }
+  .day-ex-bar { flex: 0 0 auto; width: 4px; border-radius: 2px; margin: 2px 0 6px; }
+  .day-ex-main { flex: 1 1 auto; min-width: 0; }
+  .day-ex-name { font-size: 16.5px; font-weight: 700; line-height: 1.35; }
+  .day-ex-sub { font-size: 13px; color: var(--sub); margin-top: 3px; line-height: 1.55; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 
   .day-head {
     display: flex; align-items: baseline; justify-content: space-between; gap: 8px;
@@ -1754,10 +1781,23 @@
     <section class="screen active" id="screen-day">
       <div class="card cal-card">
         <div class="cal-head">
+          <button class="cal-info-btn" id="calInfoBtn" type="button" aria-label="カレンダーの見方">i</button>
           <button class="cal-nav" id="dayPrevBtn" type="button" aria-label="前の月"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
           <span class="cal-title" id="dayLabel" role="button" tabindex="0" aria-label="日付を選択"></span>
           <button class="cal-nav" id="dayNextBtn" type="button" aria-label="次の月"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
           <button class="cal-today" id="calTodayBtn" type="button">今日</button>
+        </div>
+        <div class="cal-legend" id="calLegend" role="dialog" aria-label="カレンダーの見方">
+          <div class="cal-legend-text">日付を囲む輪は、その日に行った部位です。セット数の割合で、部位の色に分けています。</div>
+          <div class="cal-legend-grid">
+            <span class="cal-legend-item"><span class="cal-legend-dot" style="background:#FF453A"></span>胸</span>
+            <span class="cal-legend-item"><span class="cal-legend-dot" style="background:#0A84FF"></span>背中</span>
+            <span class="cal-legend-item"><span class="cal-legend-dot" style="background:#30D158"></span>脚</span>
+            <span class="cal-legend-item"><span class="cal-legend-dot" style="background:#FF9F0A"></span>肩</span>
+            <span class="cal-legend-item"><span class="cal-legend-dot" style="background:#FF6482"></span>腕</span>
+            <span class="cal-legend-item"><span class="cal-legend-dot" style="background:#BF5AF2"></span>体幹</span>
+            <span class="cal-legend-item"><span class="cal-legend-dot" style="background:#98989F"></span>有酸素</span>
+          </div>
         </div>
         <input type="date" id="dayDateInput" class="day-date-input" aria-label="日付を選択" tabindex="-1">
         <div class="cal-grid" id="calGrid"></div>
@@ -1962,7 +2002,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.19h";
+  var APP_VERSION = "v2026.11.19i";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -2539,6 +2579,29 @@
     return !!(day && (day.summary_only || (day.entries && day.entries.length)));
   }
   // 月カレンダー（日曜はじまり）。トレーニングした日は青い丸、今日は輪、選択中の日は青＋外側の輪
+  // カレンダーの輪に使う部位の色（参考アプリの凡例に合わせる。二頭・三頭は「腕」、腹筋は「体幹」として扱う）
+  var CAL_PART_COLORS = {
+    "胸": "#FF453A", "背中": "#0A84FF", "脚": "#30D158", "肩": "#FF9F0A",
+    "二頭": "#FF6482", "三頭": "#FF6482", "腕": "#FF6482",
+    "腹筋": "#BF5AF2", "体幹": "#BF5AF2", "有酸素": "#98989F"
+  };
+  var CAL_PART_ORDER = ["胸", "背中", "脚", "肩", "二頭", "三頭", "腕", "腹筋", "体幹", "有酸素"];
+  function calPartColor(part) { return CAL_PART_COLORS[part] || "#98989F"; }
+  // その日の部位ごとのセット数割合（輪の分割に使う）。有酸素は1件=1として数える
+  function dayPartShares(day) {
+    if (!day || !Array.isArray(day.entries)) return null;
+    var units = {}, total = 0;
+    day.entries.forEach(function (e) {
+      var u = e.part === "有酸素" ? (e.minutes > 0 ? 1 : 0) : getEntrySetsCount(e);
+      if (u > 0) { units[e.part] = (units[e.part] || 0) + u; total += u; }
+    });
+    if (!total) return null;
+    var parts = Object.keys(units).sort(function (a, b) {
+      var ia = CAL_PART_ORDER.indexOf(a), ib = CAL_PART_ORDER.indexOf(b);
+      return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+    });
+    return parts.map(function (p) { return { part: p, share: units[p] / total }; });
+  }
   function calendarGridHtml(m, dayMap) {
     var today = todayKey();
     var html = "";
@@ -2549,13 +2612,33 @@
     var lead = first.getDay();
     var dim = daysInMonth(m.year, m.month);
     for (var i = 0; i < lead; i++) html += '<div class="cal-cell" aria-hidden="true"></div>';
+    var C = 2 * Math.PI * 19.5;
     for (var day = 1; day <= dim; day++) {
       var key = m.year + "-" + pad2(m.month) + "-" + pad2(day);
-      var trained = dayHasTraining(dayMap[key]);
+      var dayObj = dayMap[key];
+      var trained = dayHasTraining(dayObj);
       var sel = key === state.dayKey;
-      var cls = "cal-day" + (trained ? " trained" : "") + (key === today ? " today" : "") + (sel ? " selected" : "");
-      var aria = m.month + "月" + day + "日" + (trained ? "（トレーニングあり）" : "") + (key === today ? "（今日）" : "");
-      html += '<div class="cal-cell"><button type="button" class="' + cls + '" data-cal-key="' + key + '" aria-pressed="' + (sel ? "true" : "false") + '" aria-label="' + aria + '">' + day + "</button></div>";
+      var isToday = key === today;
+      var future = key > today;
+      var cls = "cal-day" + (future ? " future" : "") + (isToday ? " today" : "") + (sel ? " selected" : "");
+      var aria = m.month + "月" + day + "日" + (trained ? "（トレーニングあり）" : "") + (isToday ? "（今日）" : "");
+      var svg = '<svg class="cal-ring" viewBox="0 0 48 48" aria-hidden="true">';
+      if (sel) svg += '<circle cx="24" cy="24" r="15.5" fill="#0A84FF"></circle>';
+      if (!future) svg += '<circle cx="24" cy="24" r="19.5" fill="none" stroke="#2E2E33" stroke-width="3.2"></circle>';
+      var shares = dayPartShares(dayObj);
+      if (shares) {
+        var off = 0;
+        shares.forEach(function (s) {
+          var len = Math.max(s.share * C - 1.2, 1.5);
+          svg += '<circle cx="24" cy="24" r="19.5" fill="none" stroke="' + calPartColor(s.part) + '" stroke-width="3.2" stroke-dasharray="' + len.toFixed(1) + " " + C.toFixed(1) + '" stroke-dashoffset="' + (-off).toFixed(1) + '" transform="rotate(-90 24 24)"></circle>';
+          off += s.share * C;
+        });
+      } else if (trained && dayObj && dayObj.summary_only) {
+        svg += '<circle cx="24" cy="24" r="19.5" fill="none" stroke="#0A84FF" stroke-width="3.2"></circle>';
+      }
+      if (isToday) svg += '<circle cx="24" cy="24" r="22.3" fill="none" stroke="#FF453A" stroke-width="2"></circle>';
+      svg += "</svg>";
+      html += '<div class="cal-cell"><button type="button" class="' + cls + '" data-cal-key="' + key + '" aria-pressed="' + (sel ? "true" : "false") + '" aria-label="' + aria + '">' + svg + '<span class="cal-num">' + day + "</span></button></div>";
     }
     return html;
   }
@@ -2604,7 +2687,7 @@
 
     if (!state.dayKey) state.dayKey = todayKey();
     if (!state.calMonth) state.calMonth = monthFromKey(state.dayKey);
-    document.getElementById("dayLabel").textContent = monthLabel(state.calMonth);
+    document.getElementById("dayLabel").textContent = state.calMonth.year === new Date().getFullYear() ? state.calMonth.month + "月" : monthLabel(state.calMonth);
     document.getElementById("calGrid").innerHTML = calendarGridHtml(state.calMonth, dayMap);
     document.getElementById("daySelLabel").textContent = formatDayHeading(state.dayKey);
     document.getElementById("daySelSub").textContent = state.dayKey === todayKey() ? "今日" : "";
@@ -2625,8 +2708,6 @@
       return;
     }
 
-    html += dayPartsSetsCardHtml(day);
-
     if (day.summary_only) {
       var so = day.summary_only;
       var idx = registerRaw(so.raw || "");
@@ -2636,26 +2717,71 @@
       html += '<div class="so-sub">タップして原文を表示</div>';
       html += "</div>";
     } else {
-      var parts = [];
-      day.entries.forEach(function (e) { if (parts.indexOf(e.part) === -1) parts.push(e.part); });
+      html += daySessionCardsHtml(day);
+    }
+    content.innerHTML = html + extras;
+  }
+
+  // 選んだ日の記録：開始時刻ごとにセッションカードにまとめ、種目は部位色のバー＋ボリューム・セット要約で並べる
+  var ICON_SESS_TIME = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 13.5"/></svg>';
+  var ICON_SESS_SETS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/><polyline points="2 17 12 22 22 17"/></svg>';
+  var ICON_SESS_VOL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5h11l1.8 13.5a1 1 0 0 1-1 1.1H5.7a1 1 0 0 1-1-1.1L6.5 6.5z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>';
+  function daySetSummary(entries) {
+    var parts = [];
+    entries.forEach(function (e) {
+      if (e.minutes != null) { parts.push(e.minutes + "分"); return; }
+      if (!e.reps || !e.reps.length) return;
+      if (e.weight_type === "自重" || e.weight_kg == null) {
+        e.reps.forEach(function (r) { parts.push("自重 × " + r); });
+        return;
+      }
+      var w = formatWeight(e.weight_kg) + "kg";
+      e.reps.forEach(function (r) { parts.push(w + " × " + r); });
+    });
+    return parts.join(", ");
+  }
+  function daySessionCardsHtml(day) {
+    var order = [], groups = {};
+    day.entries.forEach(function (e) {
+      var k = e.time || "";
+      if (!groups[k]) { groups[k] = []; order.push(k); }
+      groups[k].push(e);
+    });
+    order.sort();
+    var html = "";
+    order.forEach(function (k) {
+      var entries = groups[k];
       var totalSets = 0, aerobicMinutes = 0, totalVolume = 0, hasVolume = false;
-      day.entries.forEach(function (e) {
+      entries.forEach(function (e) {
         if (e.part === "有酸素") aerobicMinutes += (e.minutes || 0);
         else totalSets += getEntrySetsCount(e);
         if (e.volume_kg != null) { totalVolume += e.volume_kg; hasVolume = true; }
       });
-
       html += '<div class="card">';
-      html += '<div class="part-chip-row">' + parts.map(partChipHtml).join("") + "</div>";
-      html += '<div class="day-summary-row"><span><strong>' + totalSets + "</strong>セット</span>";
-      if (aerobicMinutes > 0) html += '<span>有酸素 <strong>' + aerobicMinutes + "</strong>分</span>";
-      if (hasVolume) html += '<span>総負荷量 <strong>' + formatComma(totalVolume) + "</strong>kg</span>";
+      html += '<div class="sess-sum-row">';
+      if (k) html += '<span class="ss-item">' + ICON_SESS_TIME + escapeHtml(k) + "</span>";
+      html += '<span class="ss-item">' + ICON_SESS_SETS + totalSets + "セット</span>";
+      if (aerobicMinutes > 0) html += '<span class="ss-item">有酸素 ' + aerobicMinutes + "分</span>";
+      if (hasVolume) html += '<span class="ss-item">' + ICON_SESS_VOL + formatComma(totalVolume) + "kg</span>";
       html += "</div>";
-      var groups = groupEntriesByExercise(day.entries);
-      html += groups.map(function (g) { return exBlockHtml(g, { showBest: true }); }).join("");
+      groupEntriesByExercise(entries).forEach(function (g) {
+        var vol = 0, has = false;
+        g.entries.forEach(function (e) { if (e.volume_kg != null) { vol += e.volume_kg; has = true; } });
+        var sub = (has ? "ボリューム " + formatComma(vol) + "kg ・ " : "") + daySetSummary(g.entries);
+        html += '<div class="day-ex-row"><span class="day-ex-bar" style="background:' + calPartColor(g.part) + '"></span><div class="day-ex-main">';
+        html += '<div class="day-ex-name">' + escapeHtml(g.exercise) + (g.entries[0].__local ? ' <span class="local-chip">端末</span>' : "") + "</div>";
+        if (sub) html += '<div class="day-ex-sub">' + escapeHtml(sub) + "</div>";
+        g.entries.forEach(function (e) {
+          if (e.note) {
+            var idx = registerRaw(e.raw || "");
+            html += '<div class="ex-note" data-raw-idx="' + idx + '">注: ' + escapeHtml(e.note) + "</div>";
+          }
+        });
+        html += "</div></div>";
+      });
       html += "</div>";
-    }
-    content.innerHTML = html + extras;
+    });
+    return html;
   }
 
   // ---------- 週別タブ ----------
@@ -6091,7 +6217,7 @@
           sess.items.push({ exercise: n, part: part, weight_type: "-", sets: [{ w: null, r: null, done: false }], note: "" });
           return;
         }
-        var last = lastSetsFor(n);
+        var last = lastSetsForMenu(n);
         if (last) sess.items.push({ exercise: n, part: part, weight_type: last.wtype, sets: last.sets, note: "", copied: true });
         else sess.items.push({ exercise: n, part: part, weight_type: "合計", sets: [{ w: null, r: null, done: false }], note: "" });
       });
@@ -6100,6 +6226,30 @@
       sv.addPart = sess.parts[0];
       showOverlay();
       go("session");
+    }
+
+    // メニュー開始専用の「直近の記録」：今日の記録も含めて、種目ごとの一番新しい日のセットを返す
+    // （セッション内の「前回」表示は従来どおりセッション日より前の日だけを見る）
+    function lastSetsForMenu(name) {
+      if (!state.data) return null;
+      var days = (state.data.days || []).filter(function (d) { return d && d.date && Array.isArray(d.entries); });
+      days.sort(function (a, b) { return a.date < b.date ? 1 : (a.date > b.date ? -1 : 0); });
+      for (var i = 0; i < days.length; i++) {
+        var entries = days[i].entries.filter(function (e) {
+          return e.exercise === name && e.minutes == null && e.reps && e.reps.length;
+        });
+        if (!entries.length) continue;
+        var sets = [];
+        entries.forEach(function (e) {
+          var w = (e.weight_kg != null && e.weight_kg > 0) ? e.weight_kg : null;
+          e.reps.forEach(function (v) {
+            var r = parseInt(v, 10);
+            if (isFinite(r) && r > 0 && sets.length < MAX_SETS) sets.push({ w: w, r: Math.min(R_MAX, r), done: false });
+          });
+        });
+        if (sets.length) return { wtype: entries[0].weight_type === "片手" ? "片手" : "合計", sets: sets };
+      }
+      return null;
     }
 
     sessionApi.open = openSession;
@@ -6181,6 +6331,16 @@
   // ---------- イベント ----------
   document.getElementById("reloadBtn").addEventListener("click", function () { loadData(); });
   // 記録タブ：月カレンダー（前月／次月／今日、日付タップで選択）と開始・追加ボタン
+  var calLegendEl = document.getElementById("calLegend");
+  document.getElementById("calInfoBtn").addEventListener("click", function (e) {
+    e.stopPropagation();
+    calLegendEl.classList.toggle("show");
+  });
+  document.addEventListener("click", function (e) {
+    if (!calLegendEl.classList.contains("show")) return;
+    if (e.target.closest && (e.target.closest("#calLegend") || e.target.closest("#calInfoBtn"))) return;
+    calLegendEl.classList.remove("show");
+  });
   document.getElementById("dayPrevBtn").addEventListener("click", function () { changeCalMonth(-1); });
   document.getElementById("dayNextBtn").addEventListener("click", function () { changeCalMonth(1); });
   document.getElementById("calTodayBtn").addEventListener("click", function () { selectCalDay(todayKey()); });
