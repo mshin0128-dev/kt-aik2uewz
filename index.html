@@ -313,7 +313,7 @@
     border-radius: 999px;
     padding: 4px;
   }
-  .record-segment.show { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .record-segment.show { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .record-segment.body-segment.show { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .record-seg-btn {
     min-width: 0;
@@ -1913,6 +1913,7 @@
     <div class="top-banner" id="topBanner"></div>
 
     <div class="record-segment show" id="recordSegment">
+      <button class="record-seg-btn" data-period="daily" type="button">日</button>
       <button class="record-seg-btn active" data-period="day" type="button">カレンダー</button>
       <button class="record-seg-btn" data-period="week" type="button">週</button>
       <button class="record-seg-btn" data-period="month" type="button">月</button>
@@ -1956,6 +1957,23 @@
         <button class="cta-btn" id="dayAddBtn" type="button"><span class="cta-ico" aria-hidden="true">＋</span>記録を追加</button>
       </div>
       <div class="app-footer" id="footerDay"></div>
+    </section>
+
+    <!-- 日別（1日分だけを見る） -->
+    <section class="screen" id="screen-daily">
+      <div class="card">
+        <div class="nav-switch">
+          <button id="dailyPrevBtn" type="button" aria-label="前の日"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+          <span class="nav-label" id="dailyLabel" role="button" tabindex="0" aria-label="今日へ移動"></span>
+          <button id="dailyNextBtn" type="button" aria-label="次の日"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+      </div>
+      <div id="dailyContent"><div class="card"><div class="empty-msg">読み込み中…</div></div></div>
+      <div class="cta-stack">
+        <button class="cta-btn primary" id="dailyStartBtn" type="button"><span class="cta-ico" aria-hidden="true">▶</span>トレーニングを開始</button>
+        <button class="cta-btn" id="dailyAddBtn" type="button"><span class="cta-ico" aria-hidden="true">＋</span>記録を追加</button>
+      </div>
+      <div class="app-footer" id="footerDaily"></div>
     </section>
 
     <!-- 週別 -->
@@ -2164,7 +2182,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.19p";
+  var APP_VERSION = "v2026.11.19q";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -2248,7 +2266,7 @@
   function getRecordPeriod() {
     var p = null;
     try { p = localStorage.getItem(RECORD_PERIOD_KEY); } catch (e) {}
-    return (p === "day" || p === "week" || p === "month") ? p : "day";
+    return (p === "daily" || p === "day" || p === "week" || p === "month") ? p : "daily";
   }
   function saveRecordPeriod(period) {
     try { localStorage.setItem(RECORD_PERIOD_KEY, period); } catch (e) {}
@@ -2672,7 +2690,7 @@
 
   function renderFooters() {
     var text = APP_VERSION + " ・ データ更新: " + formatIsoDateTime(state.data && state.data.source_mtime);
-    ["footerDay", "footerWeek", "footerMonth", "footerExercise", "footerWeight", "footerMeal", "footerPhoto"].forEach(function (id) {
+    ["footerDaily", "footerDay", "footerWeek", "footerMonth", "footerExercise", "footerWeight", "footerMeal", "footerPhoto"].forEach(function (id) {
       document.getElementById(id).textContent = text;
     });
   }
@@ -2863,6 +2881,12 @@
     document.getElementById("daySelLabel").textContent = formatDayHeading(state.dayKey);
     document.getElementById("daySelSub").textContent = state.dayKey === todayKey() ? "今日" : "";
 
+    content.innerHTML = dayDetailHtml(dayMap);
+    hydrateMealThumbs(content);
+  }
+
+  // 選んだ1日分の詳細（体重・部位カード・食事・写真）— カレンダー画面と日ビューで共用
+  function dayDetailHtml(dayMap) {
     var day = dayMap[state.dayKey];
     var html = "";
     var bw = state.bwMap ? state.bwMap[state.dayKey] : null;
@@ -2870,16 +2894,12 @@
       html += '<div class="card"><span class="bw-pill" style="margin-bottom:0">体重 ' + formatWeight(bw) + "kg</span></div>";
     }
     var extras = dayMealCardHtml(state.dayKey) + dayPhotoCardHtml(state.dayKey);
-
     if (!day) {
       if (!html && !extras) {
         html += '<div class="card"><div class="empty-day">' + ICON_CALENDAR_EMPTY + '<div class="empty-day-text">この日の記録はありません</div></div></div>';
       }
-      content.innerHTML = html + extras;
-      hydrateMealThumbs(content);
-      return;
+      return html + extras;
     }
-
     if (day.summary_only) {
       var so = day.summary_only;
       var idx = registerRaw(so.raw || "");
@@ -2891,7 +2911,20 @@
     } else {
       html += daySessionCardsHtml(day);
     }
-    content.innerHTML = html + extras;
+    return html + extras;
+  }
+
+  // 日ビュー：カレンダーを出さず、選んだ1日分だけを表示する
+  function renderDailyTab() {
+    var days = (state.data && state.data.days) || [];
+    var dayMap = {};
+    days.forEach(function (d) { dayMap[d.date] = d; });
+    if (!state.dayKey) state.dayKey = todayKey();
+    var label = document.getElementById("dailyLabel");
+    if (label) label.textContent = formatDayHeading(state.dayKey) + (state.dayKey === todayKey() ? "（今日）" : "");
+    var content = document.getElementById("dailyContent");
+    if (!content) return;
+    content.innerHTML = dayDetailHtml(dayMap);
     hydrateMealThumbs(content);
   }
 
@@ -7476,7 +7509,8 @@
   // ---------- タブ制御 ----------
   function renderCurrentTab() {
     if (!state.loaded) return;
-    if (state.currentTab === "day") renderDayTab();
+    if (state.currentTab === "daily") renderDailyTab();
+    else if (state.currentTab === "day") renderDayTab();
     else if (state.currentTab === "week") renderWeekTab();
     else if (state.currentTab === "month") renderMonthTab();
     else if (state.currentTab === "exercise") renderExerciseTab();
@@ -7485,7 +7519,7 @@
     else if (state.currentTab === "photo") renderPhotoTab();
   }
   function isRecordPeriodTab(tab) {
-    return tab === "day" || tab === "week" || tab === "month";
+    return tab === "daily" || tab === "day" || tab === "week" || tab === "month";
   }
   function isBodyTab(tab) {
     return tab === "weight" || tab === "photo";
@@ -7555,6 +7589,24 @@
   });
   document.getElementById("dayStartBtn").addEventListener("click", function () { openRecordSheet(); });
   document.getElementById("dayAddBtn").addEventListener("click", function () { openRecordSheet(); });
+  // 日ビュー：前日／翌日、見出しタップで今日へ、写真カードと開始・追加ボタンは日タブと同じ動き
+  document.getElementById("dailyPrevBtn").addEventListener("click", function () { changeDay(-1); });
+  document.getElementById("dailyNextBtn").addEventListener("click", function () { changeDay(1); });
+  document.getElementById("dailyLabel").addEventListener("click", function () {
+    if (state.dayKey === todayKey()) return;
+    state.dayKey = todayKey();
+    state.calMonth = monthFromKey(state.dayKey);
+    renderDailyTab();
+  });
+  document.getElementById("dailyStartBtn").addEventListener("click", function () { openRecordSheet(); });
+  document.getElementById("dailyAddBtn").addEventListener("click", function () { openRecordSheet(); });
+  document.getElementById("dailyContent").addEventListener("click", function (e) {
+    var card = e.target.closest ? e.target.closest("[data-open-photo]") : null;
+    if (!card) return;
+    state.photoKey = card.getAttribute("data-open-photo");
+    state.photoMonth = monthFromKey(state.photoKey);
+    switchTab("photo");
+  });
   var dayDateInput = document.getElementById("dayDateInput");
   document.getElementById("dayLabel").addEventListener("click", function () {
     var range = dayNavRange();
@@ -7602,7 +7654,8 @@
     }
     state.dayKey = dateToKey(nd);
     state.calMonth = monthFromKey(state.dayKey);
-    renderDayTab();
+    if (state.currentTab === "daily") renderDailyTab();
+    else renderDayTab();
     return true;
   }
   // 記録画面のスワイプは、既存の全体スワイプ処理（triggerSwipeChange）が
@@ -8209,7 +8262,7 @@
     var tab = state.currentTab;
     var el = document.querySelector(".screen.active");
     var changed = false;
-    if (tab === "day") changed = changeDay(dir);
+    if (tab === "day" || tab === "daily") changed = changeDay(dir);
     else if (tab === "week") changed = changeWeek(dir);
     else if (tab === "month") changed = changeMonth(dir);
     else if (tab === "weight") changed = changeWeightPeriod(dir);
