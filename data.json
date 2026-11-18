@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-19T01:33:33+09:00",
+ "source_mtime": "2026-11-19T01:37:22+09:00",
  "parts": [
   "胸",
   "背中",
@@ -6663,6 +6663,27 @@
      "load_reps": 10,
      "volume_kg": 400.0,
      "hands": "判断不可"
+    },
+    {
+     "date": "2026-11-18",
+     "time": "01:37",
+     "exercise": "シーテッドロウ",
+     "part": "背中",
+     "weight_kg": 40.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "01:37 シーテッドロウ 40kg×10(3セット目) /負荷量 40kg×10=400kg",
+     "load_kg": 40.0,
+     "load_reps": 10,
+     "volume_kg": 400.0,
+     "hands": "判断不可"
     }
    ],
    "summary_only": null
@@ -8437,6 +8458,6 @@
    "note": null
   }
  },
- "content_hash": "4e37ab60c949",
- "generated_at": "2026-11-19T01:34:43+09:00"
+ "content_hash": "0d1e7f752cd1",
+ "generated_at": "2026-11-19T01:38:19+09:00"
 }
