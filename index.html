@@ -222,7 +222,9 @@
     cursor: pointer; padding: 0;
     transition: background .15s var(--ease), color .15s var(--ease), transform .15s var(--ease);
   }
-  header.topbar .reload-btn:hover, header.topbar .settings-btn:hover { color: var(--accent); }
+  @media (hover: hover) and (pointer: fine) {
+    header.topbar .reload-btn:hover, header.topbar .settings-btn:hover { color: var(--accent); }
+  }
   header.topbar .reload-btn:active, header.topbar .settings-btn:active { transform: scale(0.92); }
   header.topbar .reload-btn svg, header.topbar .settings-btn svg { width: 18px; height: 18px; display: block; }
   header.topbar .settings-btn[aria-pressed="true"] { color: var(--accent); background: var(--chip-active-bg); }
@@ -1102,6 +1104,23 @@
   .ef-bw-photo-row { display: flex; align-items: center; gap: 12px; margin: 2px 0 6px; }
   .ef-bw-photo-thumb { width: 76px; height: 76px; object-fit: cover; border-radius: 14px; border: 1px solid var(--line); flex: 0 0 auto; }
   .ef-bw-photo-note { font-size: 12.5px; color: var(--sub); }
+  /* 検索欄（SearchFieldの作法）：虫眼鏡アイコン＋クリアボタンは予約枠に置き、出ても幅がずれない */
+  .search-field { position: relative; }
+  .search-field .sf-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--sub); pointer-events: none; display: flex; }
+  .search-field .sf-icon svg { width: 18px; height: 18px; display: block; }
+  .search-field .rec-search { padding-left: 40px; padding-right: 46px; }
+  .search-field input[type="search"]::-webkit-search-cancel-button { display: none; }
+  .search-field .sf-slot { position: absolute; right: 7px; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; }
+  .sf-clear { width: 26px; height: 26px; border-radius: 50%; border: none; background: var(--chip-active-bg); color: var(--sub); display: flex; align-items: center; justify-content: center; cursor: pointer; -webkit-tap-highlight-color: transparent; animation: sf-in 0.18s ease; }
+  .sf-clear svg { width: 13px; height: 13px; display: block; }
+  .sf-clear[hidden] { display: none; }
+  .sf-clear:active { transform: scale(0.92); }
+  @keyframes sf-in { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+  /* UIの細部（UI Arcの作法）：押下は約0.97に統一、キーボードフォーカスはリングで示す */
+  .ef-btn, .rec-pill, .menu-card-go, .sess-head-btn { transition: transform 0.12s ease, opacity 0.12s ease, background-color 0.15s ease, color 0.15s ease; }
+  .ef-btn:active, .rec-pill:active, .menu-card-go:active { transform: scale(0.97); }
+  .sess-head-btn:active { transform: scale(0.96); }
+  :where(button, a, [role="button"], input, select, textarea):focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .rec-lead { font-size: 13px; color: var(--sub); margin: 0 4px 16px; }
   .rec-label { font-size: 13px; font-weight: 700; color: var(--sub); letter-spacing: 0.06em; margin: 22px 4px 10px; }
   .rec-resume { margin-bottom: 6px; }
@@ -2136,7 +2155,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.19n";
+  var APP_VERSION = "v2026.11.19o";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -5350,7 +5369,7 @@
           '<button type="button" class="ai-link danger" data-ai-act="key-del">キーを削除</button></div>';
       }
       h += '<textarea class="ef-input ai-text" id="efAiText" data-ai-in="text" rows="4" placeholder="' + escapeHtml(AI_PLACEHOLDER) + '" aria-label="トレーニング内容">' + escapeHtml(ai.text) + "</textarea>";
-      h += '<button type="button" class="ef-btn primary ai-go" data-ai-act="convert"' + (ai.busy ? " disabled" : "") + ">" + (ai.busy ? "変換中…" : "AIで変換") + "</button>";
+      h += '<button type="button" class="ef-btn primary ai-go" data-ai-act="convert"' + (ai.busy ? ' disabled aria-busy="true"' : "") + ">" + (ai.busy ? "変換中…" : "AIで変換") + "</button>";
     }
     if (ai.err) h += '<div class="ai-err" role="alert">' + escapeHtml(ai.err) + "</div>";
     box.innerHTML = h;
@@ -5702,8 +5721,8 @@
       var busy = !!mai.busy;
       h += '<textarea class="ef-input ai-text" id="efMealAiText" data-mai-in="text" rows="3" placeholder="' + escapeHtml(MAI_PLACEHOLDER) + '" aria-label="食事の内容">' + escapeHtml(mai.text) + "</textarea>";
       h += '<div class="ai-btn-row">';
-      h += '<button type="button" class="ef-btn primary ai-go" data-mai-act="calc"' + (busy ? " disabled" : "") + ">" + (mai.busy === "text" ? "計算中…" : "AIで計算") + "</button>";
-      h += '<button type="button" class="ef-btn ai-photo" data-mai-act="photo"' + (busy ? " disabled" : "") + ">" + ICON_CAMERA + "<span>" + (mai.busy === "photo" ? "分析中…" : "写真から記録") + "</span></button>";
+      h += '<button type="button" class="ef-btn primary ai-go" data-mai-act="calc"' + (busy ? ' disabled aria-busy="true"' : "") + ">" + (mai.busy === "text" ? "計算中…" : "AIで計算") + "</button>";
+      h += '<button type="button" class="ef-btn ai-photo" data-mai-act="photo"' + (busy ? ' disabled aria-busy="true"' : "") + ">" + ICON_CAMERA + "<span>" + (mai.busy === "photo" ? "分析中…" : "写真から記録") + "</span></button>";
       h += "</div>";
     }
     if (mai.err) h += '<div class="ai-err" role="alert">' + escapeHtml(mai.err) + "</div>";
@@ -7694,7 +7713,9 @@
   }
   function recPickerHtml() {
     var pk = rv.picker;
-    var h = '<input class="ef-input rec-search" id="recSearch" type="search" placeholder="種目名で検索" aria-label="種目名で検索" autocomplete="off" enterkeyhint="search" data-rin="q" value="' + escapeHtml(pk.q) + '">';
+    var h = '<div class="search-field"><span class="sf-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg></span>' +
+      '<input class="ef-input rec-search" id="recSearch" type="search" placeholder="種目名で検索" aria-label="種目名で検索" autocomplete="off" enterkeyhint="search" data-rin="q" value="' + escapeHtml(pk.q) + '">' +
+      '<span class="sf-slot"><button type="button" class="sf-clear" id="recSearchClear" data-ract="pk-clear" aria-label="検索をクリア"' + (pk.q ? "" : " hidden") + '><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button></span></div>';
     h += '<div class="chip-row-scroll rec-chips">' +
       '<button type="button" class="part-chip-btn' + (!pk.part ? " active" : "") + '" data-ract="pk-part" data-part="">全て</button>' +
       recPickParts().map(function (p) {
@@ -7857,6 +7878,9 @@
       }
       case "picker": if (d) recOpenPicker(); break;
       // 種目を追加
+      case "pk-clear":
+        if (pk) { pk.q = ""; renderRec(); var si = recEl("recSearch"); if (si) { try { si.focus(); } catch (e) {} } }
+        break;
       case "pk-cancel": rv.picker = null; rv.view = rv.editorView; renderRec(); break;
       case "pk-add": if (pk) recPickerDone(); break;
       case "pk-part": if (pk) { pk.part = el.getAttribute("data-part") || null; renderRec(); } break;
@@ -7924,6 +7948,8 @@
         rv.picker.q = e.target.value;
         var list = recEl("recPickList");
         if (list) list.innerHTML = recPickListHtml();
+        var clr = recEl("recSearchClear");
+        if (clr) clr.hidden = !e.target.value;
       }
     });
     ov.addEventListener("keydown", function (e) {
@@ -7933,6 +7959,16 @@
         e.preventDefault();
         var om = sessionApi.findMenu(t.getAttribute("data-menu-open"));
         if (om) recOpenEditor(om);
+        return;
+      }
+      if (e.key === "Escape" && t.getAttribute("data-rin") === "q" && rv.picker && rv.picker.q) {
+        e.preventDefault();
+        rv.picker.q = "";
+        t.value = "";
+        var list2 = recEl("recPickList");
+        if (list2) list2.innerHTML = recPickListHtml();
+        var clr2 = recEl("recSearchClear");
+        if (clr2) clr2.hidden = true;
         return;
       }
       if (e.key !== "Enter") return;
