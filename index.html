@@ -1803,28 +1803,42 @@
   .sx-hbtn.danger { width: 32px; padding: 0; color: var(--danger); background: var(--status-off-bg); }
   .sx-hbtn:active { transform: scale(0.94); }
   .sx-row {
-    display: grid; grid-template-columns: 24px minmax(0, 1.25fr) minmax(0, 1fr) 44px;
+    display: grid; grid-template-columns: 24px minmax(0, 1fr) minmax(0, 1fr) 44px;
     align-items: center; column-gap: 6px;
-    min-height: 60px; padding: 6px 6px 6px 8px; margin-bottom: 4px;
+    min-height: 62px; padding: 6px 6px 6px 8px; margin-bottom: 4px;
     border-radius: 14px; cursor: pointer;
     transition: background .15s var(--ease);
   }
-  .sx-grp { display: flex; align-items: center; gap: 0; min-width: 0; }
-  .sx-grp .sx-v { flex: 1 1 auto; text-align: center; }
-  /* ステッパーは記号だけの静かな見た目に（押したときだけ薄く反応）。数字の列が主役 */
-  .sx-step {
-    flex: 0 0 32px; width: 32px; height: 44px; padding: 0; border: none; border-radius: 50%;
-    background: transparent; color: var(--sub);
-    font-family: inherit; font-size: 19px; font-weight: 600; line-height: 1; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform .1s var(--ease), background .12s var(--ease), color .12s var(--ease);
-    -webkit-tap-highlight-color: transparent;
+  /* 重量・回数は種目エディタと同じ見た目：背景付きの [−][入力][＋] ピル、同幅で並べる */
+  .sx-num {
+    display: flex; align-items: stretch; height: 50px; min-width: 0;
+    border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-alt);
+    transition: border-color .15s var(--ease), box-shadow .15s var(--ease);
   }
-  .sx-step:active { transform: scale(0.9); background: var(--surface-alt); color: var(--text); }
+  .sx-num:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--chip-active-bg); }
+  .sx-num input {
+    -webkit-appearance: none; appearance: none; -moz-appearance: textfield;
+    flex: 1 1 0; width: 0; min-width: 0; height: 100%; margin: 0; padding: 0 1px;
+    border: none; border-radius: 0; background: transparent; outline: none; color: var(--text);
+    font-family: inherit; font-size: 19px; font-weight: 700; line-height: 48px; text-align: center;
+    font-variant-numeric: tabular-nums; letter-spacing: -0.01em;
+  }
+  .sx-num input::-webkit-outer-spin-button, .sx-num input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .sx-num input::placeholder { color: var(--sub); opacity: 0.6; font-size: 13px; font-weight: 500; letter-spacing: 0; }
+  .sx-step {
+    position: relative; flex: 0 0 36px; width: 36px; height: 100%; padding: 0;
+    border: none; background: var(--border-soft); color: var(--text);
+    font-family: inherit; font-size: 16px; font-weight: 600; line-height: 1; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent;
+    transition: background .12s var(--ease), color .12s var(--ease);
+  }
+  .sx-step:first-child { border-radius: 11px 0 0 11px; border-right: 1px solid var(--border); }
+  .sx-step:last-child { border-radius: 0 11px 11px 0; border-left: 1px solid var(--border); }
+  .sx-step:active { background: var(--accent); color: #fff; }
   @media (max-width: 374px) {
-    .sx-step { flex-basis: 28px; width: 28px; height: 40px; font-size: 17px; }
-    .sx-grp .sx-v { font-size: 22px; }
-    .sx-grp .sx-v.empty { font-size: 14px; }
+    .sx-step { flex-basis: 32px; width: 32px; }
+    .sx-num input { font-size: 17px; }
   }
   .sx-row:active { background: var(--surface-alt); }
   .sx-row.done { background: rgba(48,209,88,0.11); }
@@ -2211,7 +2225,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.19u";
+  var APP_VERSION = "v2026.11.19v";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -6800,11 +6814,14 @@
     }
     function setRowHtml(it, i, si) {
       var s = it.sets[si], done = isDone(s), n = si + 1;
-      var wHtml = (s.w != null && s.w > 0) ? bigVal(s.w, "kg") : bigVal(null, "", s.r > 0 ? "自重" : "—");
       return '<div class="sx-row' + (done ? " done" : "") + '" role="button" tabindex="0" data-sact="rowopen" data-i="' + i + '" data-s="' + si + '" aria-label="' + n + 'セット目を編集">' +
         '<span class="sx-n">' + n + "</span>" +
-        '<span class="sx-grp">' + rowStep("w", i, si, -W_STEP, "−", n + "セット目の重量を" + W_STEP + "kg減らす") + wHtml + rowStep("w", i, si, W_STEP, "+", n + "セット目の重量を" + W_STEP + "kg増やす") + "</span>" +
-        '<span class="sx-grp">' + rowStep("r", i, si, -R_STEP, "−", n + "セット目の回数を1回減らす") + bigVal(s.r, "回") + rowStep("r", i, si, R_STEP, "+", n + "セット目の回数を1回増やす") + "</span>" +
+        '<span class="sx-num" data-sact="noop">' + rowStep("w", i, si, -W_STEP, "−", n + "セット目の重量を" + W_STEP + "kg減らす") +
+          '<input type="number" inputmode="decimal" step="any" min="0" placeholder="kg" aria-label="' + n + 'セット目の重量（kg）" data-sin="rw" data-i="' + i + '" data-s="' + si + '" value="' + (s.w > 0 ? escapeHtml(fmtNum(s.w)) : "") + '">' +
+          rowStep("w", i, si, W_STEP, "+", n + "セット目の重量を" + W_STEP + "kg増やす") + "</span>" +
+        '<span class="sx-num" data-sact="noop">' + rowStep("r", i, si, -R_STEP, "−", n + "セット目の回数を1回減らす") +
+          '<input type="number" inputmode="numeric" min="0" max="' + R_MAX + '" placeholder="回" aria-label="' + n + 'セット目の回数" data-sin="rr" data-i="' + i + '" data-s="' + si + '" value="' + (s.r > 0 ? String(s.r) : "") + '">' +
+          rowStep("r", i, si, R_STEP, "+", n + "セット目の回数を1回増やす") + "</span>" +
         '<button type="button" class="sx-check' + (done ? " on" : "") + '" data-sact="rowdone" data-i="' + i + '" data-s="' + si + '" aria-pressed="' + (done ? "true" : "false") + '" aria-label="' + n + 'セット目を完了">' + ICON_TICK + "</button></div>";
     }
     function itemCard(it, i) {
@@ -6813,7 +6830,6 @@
       var h = '<div class="sx-card' + (pend ? " pending" : "") + '" id="sxc-' + i + '" style="--pc:' + c + '">';
       h += '<div class="sx-head"><span class="sx-dot" aria-hidden="true"></span><span class="sx-name">' + escapeHtml(it.exercise) + "</span>";
       if (!cardio && it.weight_type === "片手") h += '<span class="sx-tag">片手</span>';
-      h += '<button type="button" class="sx-hbtn" data-sact="edit" data-i="' + i + '">編集</button>';
       h += '<button type="button" class="sx-hbtn danger" data-sact="del" data-i="' + i + '" aria-label="「' + escapeHtml(it.exercise) + '」を削除">' + ICON_TRASH + "</button></div>";
       if (cardio) {
         // 有酸素は従来どおり分数で、タップすると既存のエディタ（時間 ±5分）を開く
@@ -7462,6 +7478,25 @@
         afterSetEdit(t);
         return;
       }
+      // セッション画面の行の入力欄：入力中はカードを描き直さず、値だけ保存する（確定時に change 側で描き直す）
+      if (key === "rw" || key === "rr") {
+        var ii = parseInt(el.getAttribute("data-i"), 10), ss = parseInt(el.getAttribute("data-s"), 10);
+        var it2 = sess && sess.items[ii], st2 = it2 && it2.sets[ss];
+        if (!st2) return;
+        normSet(st2);
+        if (key === "rw") {
+          var wv2 = parseFloat(el.value);
+          st2.w = (isFinite(wv2) && wv2 > 0) ? round2(wv2) : null;
+        } else {
+          var rv2 = parseInt(el.value, 10);
+          if (isFinite(rv2) && rv2 > R_MAX) { rv2 = R_MAX; el.value = String(R_MAX); }
+          st2.r = (isFinite(rv2) && rv2 > 0) ? rv2 : null;
+          if (!(st2.r > 0)) st2.done = false;
+        }
+        itemTouched(ii);
+        writeSession();
+        return;
+      }
       if (!d) return;
       if (key === "reps") {
         var i = parseInt(el.getAttribute("data-i"), 10);
@@ -7485,6 +7520,13 @@
       overlay.addEventListener("input", function (e) {
         var k = e.target.getAttribute ? e.target.getAttribute("data-sin") : null;
         if (k) onInput(k, e.target);
+      });
+      overlay.addEventListener("change", function (e) {
+        var k = e.target.getAttribute ? e.target.getAttribute("data-sin") : null;
+        if (k === "rw" || k === "rr") {
+          var ci = parseInt(e.target.getAttribute("data-i"), 10);
+          if (sess && sess.items[ci]) refreshCard(ci);
+        }
       });
       overlay.addEventListener("keydown", function (e) {
         if (!e.target.getAttribute) return;
