@@ -1664,12 +1664,12 @@
   .sess-unit { flex: 0 0 auto; font-size: 13px; color: var(--sub); }
 
   /* セット行：番号 | 重量ステッパー | 回数ステッパー | ✓ | ×（1行・高さ52px）
-     幅の内訳（390px幅・中身328px）：番号18 + 重量(44+入力52+44+枠2) + 回数(38+入力26+38+枠2) + ✓30 + ×22 + 隙間3×4
-     --sn 番号列 / --sw 重量ステッパー幅 / --sr 回数ステッパー幅 / --ri 回数入力幅 / --cd ✓列 / --cx ×列 */
+     重量と回数のグループは同じ幅（1frずつ）。ボタン幅も共通にして、見た目を揃える
+     --sn 番号列 / --sw ステッパーボタン幅（共通） / --cd ✓列 / --cx ×列 */
   .sess-set, .sess-set-head {
-    --set-h: 52px; --sn: 18px; --sw: 44px; --sr: 38px; --ri: 26px; --cd: 30px; --cx: 22px;
+    --set-h: 52px; --sn: 18px; --sw: 40px; --cd: 30px; --cx: 22px;
     display: grid;
-    grid-template-columns: var(--sn) minmax(0, 1fr) calc(var(--sr) * 2 + var(--ri) + 2px) var(--cd) var(--cx);
+    grid-template-columns: var(--sn) minmax(0, 1fr) minmax(0, 1fr) var(--cd) var(--cx);
     column-gap: 3px; align-items: center; min-width: 0;
   }
   .sess-set { margin-bottom: 10px; }
@@ -1692,14 +1692,14 @@
     font-family: inherit; font-size: 18px; font-weight: 600; line-height: calc(var(--set-h) - 2px); text-align: center;
     font-variant-numeric: tabular-nums; letter-spacing: -0.01em;
   }
-  .sess-num.reps input { flex: 0 0 var(--ri); width: var(--ri); padding: 0; }
+  .sess-num.reps input { flex: 1 1 0; width: 0; padding: 0 1px; }
   .sess-num input::-webkit-outer-spin-button, .sess-num input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
   .sess-num input::placeholder { color: var(--sub); opacity: 0.6; font-size: 13px; font-weight: 500; letter-spacing: 0; }
   /* ステッパー：入力部（白）と区切った独立ボタン。文字は本文色・太字 */
   .sess-num button {
     position: relative; flex: 0 0 var(--sw); width: var(--sw); height: 100%; padding: 0;
     border: none; background: var(--border-soft); color: var(--text);
-    font-family: inherit; font-size: 14px; font-weight: 600; line-height: 1; letter-spacing: -0.02em;
+    font-family: inherit; font-size: 17px; font-weight: 600; line-height: 1; letter-spacing: -0.02em;
     font-variant-numeric: tabular-nums; cursor: pointer;
     -webkit-user-select: none; user-select: none;
     transition: background .12s var(--ease), color .12s var(--ease), transform .12s var(--ease);
@@ -1710,19 +1710,19 @@
     background: var(--accent); color: #fff; border-color: var(--accent);
     box-shadow: inset 0 2px 6px rgba(0,0,0,0.18); transition-duration: 0s;
   }
-  .sess-num.reps button { flex-basis: var(--sr); width: var(--sr); font-size: 17px; font-weight: 600; letter-spacing: 0; }
+  .sess-num.reps button { flex-basis: var(--sw); width: var(--sw); font-size: 17px; font-weight: 600; letter-spacing: 0; }
   /* 390px 未満（375px など）：ステッパーを少し詰める */
   @media (max-width: 389px) {
-    .sess-set, .sess-set-head { --sw: 40px; --sr: 36px; --ri: 24px; }
+    .sess-set, .sess-set-head { --sw: 38px; }
   }
-  /* 375px 未満（360px など）：重量 38 / 回数 36（下限 36px）、隙間と番号列も詰める */
+  /* 375px 未満（360px など）：ボタン 36px（下限）、隙間と番号列も詰める */
   @media (max-width: 374px) {
-    .sess-set, .sess-set-head { --sn: 16px; --sw: 38px; --sr: 36px; --ri: 22px; column-gap: 2px; }
+    .sess-set, .sess-set-head { --sn: 16px; --sw: 36px; column-gap: 2px; }
     .sess-num button { font-size: 13px; }
     .sess-num input { padding: 0; }
   }
   @media (max-width: 359px) {
-    .sess-set, .sess-set-head { --sw: 36px; --cd: 28px; --cx: 20px; }
+    .sess-set, .sess-set-head { --sw: 34px; --cd: 28px; --cx: 20px; }
     .sess-done { width: 28px; height: 28px; }
   }
   .sess-done {
@@ -2211,7 +2211,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.19t";
+  var APP_VERSION = "v2026.11.19u";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -6921,9 +6921,9 @@
         var n = i + 1;
         return '<div class="sess-set"><span class="sess-set-n">' + n + "</span>" +
           '<div class="sess-num">' +
-            stepBtn("w", i, -W_STEP, "−2.5", n + "セット目の重量を2.5kg減らす") +
+            stepBtn("w", i, -W_STEP, "−", n + "セット目の重量を2.5kg減らす") +
             '<input type="number" inputmode="decimal" step="any" min="0" placeholder="kg" aria-label="' + n + 'セット目の重量（kg）" data-sin="w" data-i="' + i + '" value="' + escapeHtml(s.w) + '">' +
-            stepBtn("w", i, W_STEP, "+2.5", n + "セット目の重量を2.5kg増やす") +
+            stepBtn("w", i, W_STEP, "+", n + "セット目の重量を2.5kg増やす") +
           "</div>" +
           '<div class="sess-num reps">' +
             stepBtn("r", i, -R_STEP, "−", n + "セット目の回数を1回減らす") +
