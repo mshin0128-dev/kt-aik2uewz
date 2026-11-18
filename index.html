@@ -1220,6 +1220,15 @@
   }
   .rec-mv:active { background: var(--surface-alt); }
   .rec-mv[disabled] { opacity: 0.25; cursor: default; }
+  .rec-drag {
+    flex: 0 0 30px; width: 30px; height: 44px; margin-left: -8px; padding: 0; border: none; background: none;
+    color: var(--sub); display: flex; align-items: center; justify-content: center; cursor: grab;
+    touch-action: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent;
+  }
+  .rec-drag svg { width: 18px; height: 18px; display: block; }
+  .rec-drag:active { cursor: grabbing; }
+  .rec-ex-card.dragging { position: relative; z-index: 5; border-color: var(--accent); box-shadow: var(--shadow-card); transition: none; }
+  .rec-ex-card.drag-shift { transition: transform .18s var(--ease); }
   .rec-add-ex {
     display: flex; align-items: center; justify-content: center; width: 100%; min-height: 56px; margin-top: 10px; padding: 0 16px;
     border-radius: var(--radius-md); border: 1.5px dashed var(--accent); background: var(--chip-active-bg); color: var(--accent);
@@ -1275,6 +1284,9 @@
   .rec-pick-empty { padding: 26px 4px; text-align: center; font-size: 13px; line-height: 1.7; color: var(--sub); }
   .rec-btn-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .entry-box { max-height: 90vh; max-height: 90dvh; }
+  .sheet-grab { display: flex; justify-content: center; padding: 2px 0 12px; margin: -8px -6px 0; touch-action: none; cursor: grab; }
+  .sheet-grab span { width: 44px; height: 5px; border-radius: 999px; background: var(--border); display: block; }
+  .sheet-grab:active { cursor: grabbing; }
   .entry-title { margin: 0 0 12px; font-size: 16px; font-weight: 700; letter-spacing: 0.02em; }
   .entry-box .section-title { font-size: 13px; font-weight: 600; color: var(--sub); letter-spacing: 0.04em; }
   /* 入力欄の共通寸法：入力パネル・セッションの入力欄はすべて高さ 48px。
@@ -1791,11 +1803,26 @@
   .sx-hbtn.danger { width: 32px; padding: 0; color: var(--danger); background: var(--status-off-bg); }
   .sx-hbtn:active { transform: scale(0.94); }
   .sx-row {
-    display: grid; grid-template-columns: 24px minmax(0, 1fr) minmax(0, 1fr) 44px;
-    align-items: center; column-gap: 8px;
+    display: grid; grid-template-columns: 24px minmax(0, 1.25fr) minmax(0, 1fr) 44px;
+    align-items: center; column-gap: 6px;
     min-height: 60px; padding: 6px 6px 6px 8px; margin-bottom: 4px;
     border-radius: 14px; cursor: pointer;
     transition: background .15s var(--ease);
+  }
+  .sx-grp { display: flex; align-items: center; gap: 1px; min-width: 0; }
+  .sx-grp .sx-v { flex: 1 1 auto; text-align: center; }
+  .sx-step {
+    flex: 0 0 30px; width: 30px; height: 42px; padding: 0; border: none; border-radius: 12px;
+    background: var(--surface-alt); color: var(--text);
+    font-family: inherit; font-size: 17px; font-weight: 700; line-height: 1; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .1s var(--ease), background .12s var(--ease);
+  }
+  .sx-step:active { transform: scale(0.92); background: var(--chip-active-bg); }
+  @media (max-width: 374px) {
+    .sx-step { flex-basis: 26px; width: 26px; height: 38px; font-size: 15px; }
+    .sx-grp .sx-v { font-size: 22px; }
+    .sx-grp .sx-v.empty { font-size: 14px; }
   }
   .sx-row:active { background: var(--surface-alt); }
   .sx-row.done { background: rgba(48,209,88,0.11); }
@@ -2147,6 +2174,7 @@
 
 <div class="modal-overlay" id="entryModalOverlay">
   <div class="modal-box entry-box">
+    <div class="sheet-grab" id="entryGrab" aria-hidden="true"><span></span></div>
     <h3 class="entry-title">記録を追加</h3>
     <div class="ef-seg type" id="efTypeSeg">
       <button class="ef-seg-btn active" type="button" data-ef-type="train">トレーニング</button>
@@ -2181,7 +2209,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.19r";
+  var APP_VERSION = "v2026.11.19s";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -5139,6 +5167,42 @@
       if (f) { try { f.focus(); } catch (e) {} }
     }
   }
+  // 「記録を追加」シート：上のつまみ／タイトルを持って下へスワイプで閉じる
+  (function () {
+    var ov = efEl("entryModalOverlay"), grab = efEl("entryGrab");
+    if (!ov || !grab) return;
+    var box = ov.querySelector(".entry-box");
+    var sd = null;
+    function onDown(e) {
+      if (sd || !ov.classList.contains("show")) return;
+      if (!e.target.closest || (!e.target.closest("#entryGrab") && !e.target.closest(".entry-title"))) return;
+      sd = { id: e.pointerId, y: e.clientY, dy: 0 };
+      box.style.transition = "none";
+      try { grab.setPointerCapture(e.pointerId); } catch (err) {}
+    }
+    function onMove(e) {
+      if (!sd || e.pointerId !== sd.id) return;
+      sd.dy = Math.max(0, e.clientY - sd.y);
+      box.style.transform = "translateY(" + sd.dy + "px)";
+    }
+    function onUp(e) {
+      if (!sd || e.pointerId !== sd.id) return;
+      var dy = sd.dy;
+      sd = null;
+      box.style.transition = "transform .22s ease-out";
+      if (dy > 90) {
+        box.style.transform = "";
+        closeEntryModal();
+      } else {
+        box.style.transform = "";
+      }
+      window.setTimeout(function () { box.style.transition = ""; }, 240);
+    }
+    ov.addEventListener("pointerdown", onDown);
+    grab.addEventListener("pointermove", onMove);
+    grab.addEventListener("pointerup", onUp);
+    grab.addEventListener("pointercancel", onUp);
+  })();
   function closeEntryModal() {
     efEl("entryModalOverlay").classList.remove("show");
     // 変換待ちの応答は捨て、確認中の内容も破棄（入力したテキストは残す）
@@ -6729,11 +6793,16 @@
       if (v == null || !(v > 0)) return '<span class="sx-v empty">' + (emptyText || "—") + "</span>";
       return '<span class="sx-v">' + escapeHtml(fmtNum(v)) + "<small>" + unit + "</small></span>";
     }
+    function rowStep(k, i, si, d, label, aria) {
+      return '<button type="button" class="sx-step" data-sact="rstep" data-k="' + k + '" data-i="' + i + '" data-s="' + si + '" data-d="' + d + '" aria-label="' + aria + '">' + label + "</button>";
+    }
     function setRowHtml(it, i, si) {
       var s = it.sets[si], done = isDone(s), n = si + 1;
       var wHtml = (s.w != null && s.w > 0) ? bigVal(s.w, "kg") : bigVal(null, "", s.r > 0 ? "自重" : "—");
       return '<div class="sx-row' + (done ? " done" : "") + '" role="button" tabindex="0" data-sact="rowopen" data-i="' + i + '" data-s="' + si + '" aria-label="' + n + 'セット目を編集">' +
-        '<span class="sx-n">' + n + "</span>" + wHtml + bigVal(s.r, "回") +
+        '<span class="sx-n">' + n + "</span>" +
+        '<span class="sx-grp">' + rowStep("w", i, si, -W_STEP, "−", n + "セット目の重量を" + W_STEP + "kg減らす") + wHtml + rowStep("w", i, si, W_STEP, "+", n + "セット目の重量を" + W_STEP + "kg増やす") + "</span>" +
+        '<span class="sx-grp">' + rowStep("r", i, si, -R_STEP, "−", n + "セット目の回数を1回減らす") + bigVal(s.r, "回") + rowStep("r", i, si, R_STEP, "+", n + "セット目の回数を1回増やす") + "</span>" +
         '<button type="button" class="sx-check' + (done ? " on" : "") + '" data-sact="rowdone" data-i="' + i + '" data-s="' + si + '" aria-pressed="' + (done ? "true" : "false") + '" aria-label="' + n + 'セット目を完了">' + ICON_TICK + "</button></div>";
     }
     function itemCard(it, i) {
@@ -7307,6 +7376,23 @@
           afterSetEdit(t1);
           break;
         }
+        case "rstep": {
+          // セッション画面の行のステッパー：その場で重量・回数を変えて保存する
+          var rsi = parseInt(el.getAttribute("data-s"), 10);
+          var rit2 = sess && sess.items[i], rset = rit2 && rit2.sets[rsi];
+          if (!rset) break;
+          var isR2 = el.getAttribute("data-k") === "r";
+          normSet(rset);
+          var raw2 = isR2 ? (rset.r > 0 ? String(rset.r) : "") : (rset.w > 0 ? String(rset.w) : "");
+          var stp2 = stepValue(raw2, parseFloat(el.getAttribute("data-d")), isR2);
+          if (isR2) rset.r = stp2 ? parseInt(stp2, 10) : null;
+          else rset.w = stp2 ? parseFloat(stp2) : null;
+          if (!(rset.r > 0)) rset.done = false;
+          itemTouched(i);
+          refreshCard(i);
+          writeSession();
+          break;
+        }
         case "sheet-done": {
           var t2 = sheetTarget();
           if (!t2) { closeSheet(); break; }
@@ -7761,9 +7847,7 @@
       var last = d.exercises.length - 1;
       h += '<div class="rec-ex-list">' + d.exercises.map(function (n, i) {
         var en = escapeHtml(n);
-        return '<div class="rec-ex-card"><div class="rec-ex-main"><div class="rec-ex-name">' + en + '</div><div class="rec-ex-note">開始時に直近の記録からセット内容をコピーします。</div></div>' +
-          '<button type="button" class="rec-mv" data-ract="ex-up" data-i="' + i + '" aria-label="「' + en + '」を上へ"' + (i === 0 ? " disabled" : "") + ">↑</button>" +
-          '<button type="button" class="rec-mv" data-ract="ex-down" data-i="' + i + '" aria-label="「' + en + '」を下へ"' + (i === last ? " disabled" : "") + ">↓</button>" +
+        return '<div class="rec-ex-card"><button type="button" class="rec-drag" data-drag-handle aria-label="「' + en + '」をドラッグして並び替え"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="9" cy="6" r="1.9"/><circle cx="15" cy="6" r="1.9"/><circle cx="9" cy="12" r="1.9"/><circle cx="15" cy="12" r="1.9"/><circle cx="9" cy="18" r="1.9"/><circle cx="15" cy="18" r="1.9"/></svg></button><div class="rec-ex-main"><div class="rec-ex-name">' + en + '</div><div class="rec-ex-note">開始時に直近の記録からセット内容をコピーします。</div></div>' +
           '<button type="button" class="rec-trash" data-ract="ex-del" data-i="' + i + '" aria-label="「' + en + '」をメニューから外す">' + REC_ICON_TRASH + "</button></div>";
       }).join("") + "</div>";
     } else {
@@ -8077,6 +8161,74 @@
         if (clr) clr.hidden = !e.target.value;
       }
     });
+    // トレーニング内容のドラッグ並び替え：ハンドル（data-drag-handle）を掴んで上下へ動かす
+    var exDrag = null;
+    ov.addEventListener("pointerdown", function (e) {
+      if (exDrag) return;
+      var h = e.target.closest ? e.target.closest("[data-drag-handle]") : null;
+      if (!h || !rv.draft) return;
+      var card = h.closest(".rec-ex-card");
+      var list = card && card.parentElement;
+      if (!card || !list) return;
+      var cards = Array.prototype.slice.call(list.querySelectorAll(".rec-ex-card"));
+      var idx = cards.indexOf(card);
+      if (idx < 0 || cards.length < 2) return;
+      e.preventDefault();
+      try { h.setPointerCapture(e.pointerId); } catch (err) {}
+      exDrag = {
+        id: e.pointerId, card: card, cards: cards, from: idx, to: idx, startY: e.clientY,
+        tops: cards.map(function (c) { return c.offsetTop; }),
+        hs: cards.map(function (c) { return c.offsetHeight; }),
+        scroller: recEl("recBody")
+      };
+      card.classList.add("dragging");
+      cards.forEach(function (c) { if (c !== card) c.classList.add("drag-shift"); });
+    });
+    ov.addEventListener("pointermove", function (e) {
+      if (!exDrag || e.pointerId !== exDrag.id) return;
+      var d = exDrag, sc = d.scroller;
+      if (sc) {
+        var r = sc.getBoundingClientRect(), before = sc.scrollTop;
+        if (e.clientY < r.top + 72 && sc.scrollTop > 0) sc.scrollTop -= 10;
+        else if (e.clientY > r.bottom - 72) sc.scrollTop += 10;
+        d.startY -= (sc.scrollTop - before);
+      }
+      var last = d.cards.length - 1;
+      var dy = e.clientY - d.startY;
+      var minDy = d.tops[0] - d.tops[d.from];
+      var maxDy = (d.tops[last] + d.hs[last]) - (d.tops[d.from] + d.hs[d.from]);
+      dy = Math.max(minDy, Math.min(maxDy, dy));
+      var center = d.tops[d.from] + d.hs[d.from] / 2 + dy, to = d.from;
+      for (var k = 0; k < d.cards.length; k++) {
+        if (k === d.from) continue;
+        // 入れ替え判定は相手の中心より少し手前（約15%分）にして、指の動きに早く追いつかせる
+        var cMid = d.tops[k] + d.hs[k] / 2;
+        if (dy > 0 && k > d.from && center > cMid - d.hs[k] * 0.15) to = Math.max(to, k);
+        if (dy < 0 && k < d.from && center < cMid + d.hs[k] * 0.15) to = Math.min(to, k);
+      }
+      d.to = to;
+      d.card.style.transform = "translateY(" + dy + "px)";
+      var shift = d.hs[d.from] + 8;
+      d.cards.forEach(function (c, k2) {
+        if (c === d.card) return;
+        var t = 0;
+        if (to > d.from && k2 > d.from && k2 <= to) t = -shift;
+        else if (to < d.from && k2 >= to && k2 < d.from) t = shift;
+        c.style.transform = t ? "translateY(" + t + "px)" : "";
+      });
+    });
+    function exDragEnd(e) {
+      if (!exDrag || (e && e.pointerId !== exDrag.id)) return;
+      var d = exDrag;
+      exDrag = null;
+      if (rv.draft && d.to !== d.from) {
+        var mv = rv.draft.exercises.splice(d.from, 1)[0];
+        rv.draft.exercises.splice(d.to, 0, mv);
+      }
+      renderRec();
+    }
+    ov.addEventListener("pointerup", exDragEnd);
+    ov.addEventListener("pointercancel", exDragEnd);
     ov.addEventListener("keydown", function (e) {
       var t = e.target;
       if (!t.getAttribute) return;
