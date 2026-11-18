@@ -2257,7 +2257,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.19y";
+  var APP_VERSION = "v2026.11.19z";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -5459,6 +5459,8 @@
     ai.err = "";
     ai.keyOpen = false;
     maiReset();
+    // 入力パネルは必ず「記録する」シートから開くので、閉じたらシートに戻る
+    openRecordSheet();
   }
 
   // ---------- 保存・削除 ----------
@@ -7273,6 +7275,8 @@
       renderSheet();
       $("sessOverlay").classList.remove("show");
       document.body.classList.remove("sess-open");
+      // セッションは必ず「記録する」シートから開くので、閉じたらシートに戻る
+      openRecordSheet();
     }
     function resetAfterEnd() {
       sess = null;
