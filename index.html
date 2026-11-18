@@ -1099,6 +1099,9 @@
   .hub-label { flex: 1 1 auto; font-size: 16.5px; font-weight: 700; }
   .hub-chev { flex: 0 0 auto; color: var(--sub); display: flex; }
   .hub-chev svg { width: 17px; height: 17px; display: block; }
+  .ef-bw-photo-row { display: flex; align-items: center; gap: 12px; margin: 2px 0 6px; }
+  .ef-bw-photo-thumb { width: 76px; height: 76px; object-fit: cover; border-radius: 14px; border: 1px solid var(--line); flex: 0 0 auto; }
+  .ef-bw-photo-note { font-size: 12.5px; color: var(--sub); }
   .rec-lead { font-size: 13px; color: var(--sub); margin: 0 4px 16px; }
   .rec-label { font-size: 13px; font-weight: 700; color: var(--sub); letter-spacing: 0.06em; margin: 22px 4px 10px; }
   .rec-resume { margin-bottom: 6px; }
@@ -1986,6 +1989,7 @@
   </main>
   <input type="file" id="photoFileInput" class="photo-file-input" accept="image/*" aria-hidden="true" tabindex="-1">
   <input type="file" id="mealPhotoFileInput" class="photo-file-input" accept="image/*" aria-hidden="true" tabindex="-1">
+  <input type="file" id="bwPhotoFileInput" class="photo-file-input" accept="image/*" aria-hidden="true" tabindex="-1">
 
   <nav class="tabbar">
     <button class="tab-btn tab-action" id="recordSheetBtn" type="button" aria-label="記録する" aria-haspopup="dialog" aria-expanded="false" aria-controls="recordSheetOverlay">
@@ -2066,7 +2070,7 @@
         <span class="hub-label">食事をAIで記録</span>
         <span class="hub-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 5 16 12 9 19"/></svg></span>
       </button>
-      <button type="button" class="hub-row" data-ract="hub-body">
+      <button type="button" class="hub-row" data-open-entry="bw-photo">
         <span class="hub-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg></span>
         <span class="hub-label">体重・写真を記録</span>
         <span class="hub-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 5 16 12 9 19"/></svg></span>
@@ -2132,7 +2136,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.19m";
+  var APP_VERSION = "v2026.11.19n";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -4939,6 +4943,7 @@
     } else if (ef.type === "bw") {
       h += '<div class="ef-row"><div><label class="ef-label" for="efDate">日付</label><input class="ef-input" id="efDate" type="date" value="' + escapeHtml(date) + '"></div>';
       h += '<div><label class="ef-label" for="efBw">体重(kg)</label><input class="ef-input" id="efBw" type="number" inputmode="decimal" step="0.1" min="20" max="300" placeholder="例 76.2"></div></div>';
+      h += '<label class="ef-label">体の写真（その日の写真として保存されます）</label><div id="efBwPhoto"></div>';
     } else {
       // AIで食事を記録（上部）。日付・時刻は手入力と共通、AIの確認中は手入力欄を確認画面に差し替え
       h += '<div class="ai-box" id="efMealAiBox"></div>';
@@ -4994,14 +4999,44 @@
       h += '<button class="ef-del" type="button" data-del-kind="' + it.kind + '" data-del-id="' + escapeHtml(it.id) + '" data-del-date="' + escapeHtml(it.date) + '">削除</button></div>';
     });
     box.innerHTML = h + "</div>";
+    if (ef.type === "bw") renderBwPhoto();
+  }
+  // 体重フォーム内の写真欄：その日の体の写真の有無を表示し、追加／変更できるようにする
+  function renderBwPhoto() {
+    var box = efEl("efBwPhoto");
+    if (!box) return;
+    var dateEl = efEl("efDate");
+    var date = dateEl ? dateEl.value : "";
+    if (!date) { box.innerHTML = ""; return; }
+    if (!state.photoReady) {
+      box.innerHTML = '<div class="ef-bw-photo-note">写真を読み込んでいます…</div>';
+      loadAllPhotos().then(function () { state.photoReady = true; renderBwPhoto(); }, function () { renderBwPhoto(); });
+      return;
+    }
+    var rec = state.photoCache[date];
+    if (rec && rec.blob) {
+      box.innerHTML = '<div class="ef-bw-photo-row"><img class="ef-bw-photo-thumb" src="' + photoSrc(date) + '" alt="その日の体の写真">' +
+        '<button class="ef-btn inline" type="button" data-ef-act="bw-photo">写真を変更する</button></div>';
+    } else {
+      box.innerHTML = '<div class="ef-bw-photo-row"><button class="ef-btn inline" type="button" data-ef-act="bw-photo">写真を追加する</button>' +
+        '<span class="ef-bw-photo-note">体重・写真タブにも表示されます</span></div>';
+    }
+  }
+  function pickBwPhoto() {
+    var input = efEl("bwPhotoFileInput");
+    if (!input) return;
+    input.value = "";
+    input.click();
   }
   function openEntryModal(type) {
     // "ai"＝「AIで記録」から：トレーニングの入力欄を開き、AIの入力欄（キー未保存ならキー欄）にフォーカス
     // "meal-ai"＝「AIで食事を記録」から：食事の入力欄を開き、食事の AI 欄（キー未保存ならキー欄）にフォーカス
+    // "bw-photo"＝「体重・写真を記録」から：体重の入力欄を開く（写真の追加欄つき）
     var focusAi = type === "ai";
     var focusMealAi = type === "meal-ai";
     if (focusAi) type = "train";
     if (focusMealAi) type = "meal";
+    if (type === "bw-photo") type = "bw";
     if (type === "train" || type === "bw" || type === "meal") ef.type = type;
     renderEntryForm();
     renderLocalList();
@@ -5083,6 +5118,8 @@
       if (kg == null || kg < 20 || kg > 300) { showToast("体重(kg)を正しく入力してください"); return; }
       loc.bodyweight = loc.bodyweight.filter(function (b) { return b.date !== date; });
       loc.bodyweight.push({ id: newLocalId(), date: date, kg: kg, raw: m + " 体重" + fmtNum(kg) + "kg（端末入力）" });
+      // その日の写真がある場合は、写真に重ねる体重表示も新しい体重へ更新する
+      if (state.photoCache && state.photoCache[date]) { try { updatePhotoWeight(date, kg); } catch (e) {} }
     } else {
       var text = efEl("efMealText").value.trim();
       var kcal = parseNum("efKcal");
@@ -5942,6 +5979,22 @@
       this.value = "";
       if (file) maiFromPhoto(file);
     });
+    efEl("bwPhotoFileInput").addEventListener("change", function () {
+      var file = this.files && this.files[0];
+      this.value = "";
+      if (!file) return;
+      var dateEl = efEl("efDate");
+      var date = dateEl ? dateEl.value : "";
+      if (!date) { showToast("日付を入力してください"); return; }
+      if (state.photoCache[date] && !window.confirm("この日の写真を変更しますか？")) return;
+      savePhotoFromFile(file, date).then(function () {
+        showToast("写真を保存しました");
+        renderBwPhoto();
+      }, function () { showToast("写真を保存できませんでした"); });
+    });
+    efEl("entryModalOverlay").addEventListener("change", function (e) {
+      if (e.target && e.target.id === "efDate" && ef.type === "bw") renderBwPhoto();
+    });
     // 食事のサムネイル（記録タブ・食事タブ）：キャプチャ段階で拾い、ほかのタップ処理（開閉など）には渡さない
     document.addEventListener("click", function (e) {
       var b = e.target.closest ? e.target.closest("[data-meal-photo]") : null;
@@ -5987,6 +6040,7 @@
       if (!b) return;
       var act = b.getAttribute("data-ef-act");
       if (act === "close") closeEntryModal();
+      else if (act === "bw-photo") pickBwPhoto();
       else if (act === "save") saveEntry();
       else if (act === "export") exportLocal();
       else if (act === "minus" || act === "plus") {
@@ -7772,7 +7826,6 @@
       case "close": closeRecordSheet(); break;
       case "hub-train": rv.view = "start"; renderRec(); break;
       case "hub-back": rv.view = "hub"; rv.editMode = false; renderRec(); break;
-      case "hub-body": closeRecordSheet(); switchTab("body"); break;
       case "edit-toggle": rv.editMode = !rv.editMode; renderRec(); break;
       // メニューを作成／編集
       case "ed-cancel":
