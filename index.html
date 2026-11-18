@@ -402,6 +402,9 @@
   .sess-sum-row { display: flex; align-items: center; gap: 16px; color: var(--sub); font-size: 13.5px; font-weight: 600; margin-bottom: 6px; }
   .sess-sum-row .ss-item { display: inline-flex; align-items: center; gap: 5px; font-variant-numeric: tabular-nums; }
   .sess-sum-row svg { width: 15px; height: 15px; display: block; }
+  .day-part-head { flex-wrap: wrap; row-gap: 6px; }
+  .day-part-name { display: inline-flex; align-items: center; gap: 7px; font-size: 15.5px; font-weight: 800; color: var(--text); margin-right: 2px; }
+  .day-part-dot { width: 10px; height: 10px; border-radius: 3px; flex: 0 0 auto; }
   .day-ex-row { display: flex; gap: 12px; padding: 12px 0 4px; }
   .day-ex-bar { flex: 0 0 auto; width: 4px; border-radius: 2px; margin: 2px 0 6px; }
   .day-ex-main { flex: 1 1 auto; min-width: 0; }
@@ -2114,7 +2117,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.19k";
+  var APP_VERSION = "v2026.11.19l";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -2864,35 +2867,47 @@
     return parts.join(", ");
   }
   function daySessionCardsHtml(day) {
-    var order = [], groups = {};
+    // 部位ごとに1カードへまとめ、カード内では同じ種目の記録を1行に合体させる
+    var partOrder = [], partGroups = {};
     day.entries.forEach(function (e) {
-      var k = e.time || "";
-      if (!groups[k]) { groups[k] = []; order.push(k); }
-      groups[k].push(e);
+      var p = e.part || "その他";
+      if (!partGroups[p]) { partGroups[p] = []; partOrder.push(p); }
+      partGroups[p].push(e);
     });
-    order.sort();
+    function firstTime(entries) {
+      var t = "";
+      entries.forEach(function (e) { if (e.time && (!t || e.time < t)) t = e.time; });
+      return t;
+    }
+    partOrder.sort(function (a, b) {
+      var ta = firstTime(partGroups[a]), tb = firstTime(partGroups[b]);
+      return ta < tb ? -1 : ta > tb ? 1 : 0;
+    });
     var html = "";
-    order.forEach(function (k) {
-      var entries = groups[k];
+    partOrder.forEach(function (part) {
+      var entries = partGroups[part];
       var totalSets = 0, aerobicMinutes = 0, totalVolume = 0, hasVolume = false;
+      var tMin = "", tMax = "";
       entries.forEach(function (e) {
         if (e.part === "有酸素") aerobicMinutes += (e.minutes || 0);
         else totalSets += getEntrySetsCount(e);
         if (e.volume_kg != null) { totalVolume += e.volume_kg; hasVolume = true; }
+        if (e.time) { if (!tMin || e.time < tMin) tMin = e.time; if (!tMax || e.time > tMax) tMax = e.time; }
       });
       html += '<div class="card">';
-      html += '<div class="sess-sum-row">';
-      if (k) html += '<span class="ss-item">' + ICON_SESS_TIME + escapeHtml(k) + "</span>";
-      html += '<span class="ss-item">' + ICON_SESS_SETS + totalSets + "セット</span>";
-      if (aerobicMinutes > 0) html += '<span class="ss-item">有酸素 ' + aerobicMinutes + "分</span>";
+      html += '<div class="sess-sum-row day-part-head">';
+      html += '<span class="day-part-name"><span class="day-part-dot" style="background:' + calPartColor(part) + '"></span>' + escapeHtml(part) + "</span>";
+      if (tMin) html += '<span class="ss-item">' + ICON_SESS_TIME + escapeHtml(tMin === tMax ? tMin : tMin + "〜" + tMax) + "</span>";
+      if (totalSets > 0) html += '<span class="ss-item">' + ICON_SESS_SETS + totalSets + "セット</span>";
+      if (aerobicMinutes > 0) html += '<span class="ss-item">' + aerobicMinutes + "分</span>";
       if (hasVolume) html += '<span class="ss-item">' + ICON_SESS_VOL + formatComma(totalVolume) + "kg</span>";
       html += "</div>";
       groupEntriesByExercise(entries).forEach(function (g) {
-        var vol = 0, has = false;
-        g.entries.forEach(function (e) { if (e.volume_kg != null) { vol += e.volume_kg; has = true; } });
+        var vol = 0, has = false, anyLocal = false;
+        g.entries.forEach(function (e) { if (e.volume_kg != null) { vol += e.volume_kg; has = true; } if (e.__local) anyLocal = true; });
         var sub = (has ? "ボリューム " + formatComma(vol) + "kg ・ " : "") + daySetSummary(g.entries);
         html += '<div class="day-ex-row"><span class="day-ex-bar" style="background:' + calPartColor(g.part) + '"></span><div class="day-ex-main">';
-        html += '<div class="day-ex-name">' + escapeHtml(g.exercise) + (g.entries[0].__local ? ' <span class="local-chip">端末</span>' : "") + "</div>";
+        html += '<div class="day-ex-name">' + escapeHtml(g.exercise) + (anyLocal ? ' <span class="local-chip">端末</span>' : "") + "</div>";
         if (sub) html += '<div class="day-ex-sub">' + escapeHtml(sub) + "</div>";
         g.entries.forEach(function (e) {
           if (e.note) {
