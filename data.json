@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-17T13:17:02+09:00",
+ "source_mtime": "2026-11-19T01:14:54+09:00",
  "parts": [
   "胸",
   "背中",
@@ -8257,9 +8257,9 @@
    "note": null
   },
   "2026-11-17": {
-   "kcal": 787,
+   "kcal": 2120,
    "kcal_range": null,
-   "protein": 40,
+   "protein": 97,
    "items": [
     {
      "time": "12:44",
@@ -8276,11 +8276,55 @@
     {
      "time": "13:16",
      "text": "ザバス ミルクプロテイン 脂肪0 200ml 107kcal・P20.0g"
+    },
+    {
+     "time": null,
+     "text": "夕食(時刻未確認) ご飯300g(概算)約470kcal・P約8g"
+    },
+    {
+     "time": null,
+     "text": "夕食(時刻未確認) 生姜焼き200g(概算)約480kcal・P約34g"
+    },
+    {
+     "time": null,
+     "text": "夕食(時刻未確認) ファミチキ1個(概算)約250kcal・P約13g"
+    },
+    {
+     "time": null,
+     "text": "夕食(時刻未確認) キャベツ150g(概算)約35kcal・P約2g"
+    },
+    {
+     "time": null,
+     "text": "夕食(時刻未確認) マヨネーズ(量未確認・大さじ1として概算)約100kcal・P約0g"
+    },
+    {
+     "time": null,
+     "text": "夕食(時刻未確認) シーザードレッシング(量未確認・大さじ1として概算)約60kcal・P約0g"
+    }
+   ],
+   "note": null
+  },
+  "2026-11-18": {
+   "kcal": 1350,
+   "kcal_range": null,
+   "protein": 54,
+   "items": [
+    {
+     "time": null,
+     "text": "昼食(時刻未確認) 来来亭 ラーメン大盛り(概算)約900kcal・P約35g"
+    },
+    {
+     "time": null,
+     "text": "昼食(時刻未確認) 来来亭 小ご飯(概算)約250kcal・P約4g"
+    },
+    {
+     "time": null,
+     "text": "昼食(時刻未確認) 来来亭 チャーシュー追加(枚数未確認・概算)約200kcal・P約15g"
     }
    ],
    "note": null
   }
  },
- "content_hash": "d4f26d9b5cde",
- "generated_at": "2026-11-17T13:18:01+09:00"
+ "content_hash": "7f60bb4e462e",
+ "generated_at": "2026-11-19T01:15:39+09:00"
 }
