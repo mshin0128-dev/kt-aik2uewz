@@ -1833,6 +1833,23 @@
     border-radius: 14px; cursor: pointer;
     transition: background .15s var(--ease);
   }
+  /* セット行の左スワイプ削除：行を左へ滑らせると後ろから削除ボタンが出る */
+  .sx-wrap { position: relative; overflow: hidden; border-radius: 14px; margin-bottom: 4px; }
+  .sx-wrap .sx-row {
+    position: relative; z-index: 1; margin-bottom: 0;
+    background-color: var(--card); touch-action: pan-y;
+    transition: transform .18s var(--ease), background-color .15s var(--ease);
+  }
+  .sx-wrap .sx-row.swiping { transition: none; }
+  .sx-del {
+    position: absolute; top: 0; right: 0; bottom: 0; width: 76px; z-index: 0;
+    border: none; background: var(--danger); color: #fff;
+    font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .sx-del:active { filter: brightness(0.92); }
+  .sx-wrap .sx-row:active { background-color: var(--surface-alt); background-image: none; }
+  .sx-wrap .sx-row.done { background-color: var(--card); background-image: linear-gradient(rgba(48, 209, 88, 0.13), rgba(48, 209, 88, 0.13)); }
   /* 重量・回数は種目エディタと同じ見た目：背景付きの [−][入力][＋] ピル、同幅で並べる */
   .sx-num {
     display: flex; align-items: stretch; height: 50px; min-width: 0;
@@ -2258,7 +2275,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.20a";
+  var APP_VERSION = "v2026.11.20b";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -7050,7 +7067,8 @@
     }
     function setRowHtml(it, i, si) {
       var s = it.sets[si], done = isDone(s), n = si + 1;
-      return '<div class="sx-row' + (done ? " done" : "") + '" role="button" tabindex="0" data-sact="rowopen" data-i="' + i + '" data-s="' + si + '" aria-label="' + n + 'セット目を編集">' +
+      return '<div class="sx-wrap"><button type="button" class="sx-del" data-sact="rowdel" data-i="' + i + '" data-s="' + si + '" aria-label="' + n + 'セット目を削除" tabindex="-1">削除</button>' +
+      '<div class="sx-row' + (done ? " done" : "") + '" role="button" tabindex="0" data-sact="rowopen" data-i="' + i + '" data-s="' + si + '" aria-label="' + n + 'セット目を編集">' +
         '<span class="sx-n">' + n + "</span>" +
         '<span class="sx-num" data-sact="noop">' + rowStep("w", i, si, -W_STEP, "−", n + "セット目の重量を" + W_STEP + "kg減らす") +
           '<input type="number" inputmode="decimal" step="any" min="0" placeholder="kg" aria-label="' + n + 'セット目の重量（kg）" data-sin="rw" data-i="' + i + '" data-s="' + si + '" value="' + (s.w > 0 ? escapeHtml(fmtNum(s.w)) : "") + '">' +
@@ -7058,7 +7076,7 @@
         '<span class="sx-num" data-sact="noop">' + rowStep("r", i, si, -R_STEP, "−", n + "セット目の回数を1回減らす") +
           '<input type="number" inputmode="numeric" min="0" max="' + R_MAX + '" placeholder="回" aria-label="' + n + 'セット目の回数" data-sin="rr" data-i="' + i + '" data-s="' + si + '" value="' + (s.r > 0 ? String(s.r) : "") + '">' +
           rowStep("r", i, si, R_STEP, "+", n + "セット目の回数を1回増やす") + "</span>" +
-        '<button type="button" class="sx-check' + (done ? " on" : "") + '" data-sact="rowdone" data-i="' + i + '" data-s="' + si + '" aria-pressed="' + (done ? "true" : "false") + '" aria-label="' + n + 'セット目を完了">' + ICON_TICK + "</button></div>";
+        '<button type="button" class="sx-check' + (done ? " on" : "") + '" data-sact="rowdone" data-i="' + i + '" data-s="' + si + '" aria-pressed="' + (done ? "true" : "false") + '" aria-label="' + n + 'セット目を完了">' + ICON_TICK + "</button></div></div>";
     }
     function itemCard(it, i) {
       var c = PART_COLORS[it.part] || PART_ACCENT;
@@ -7630,6 +7648,17 @@
           writeSession();
           break;
         }
+        case "rowdel": {
+          // 左スワイプで出た削除ボタン。編集シートの削除と同じ扱い（最後の1セットは中身をリセット）
+          var di = sess && sess.items[i], ds = parseInt(el.getAttribute("data-s"), 10);
+          if (!di || !di.sets || !di.sets[ds]) break;
+          if (di.sets.length > 1) di.sets.splice(ds, 1);
+          else di.sets[0] = { w: di.sets[0].w, r: null, done: false };
+          itemTouched(i);
+          refreshCard(i);
+          writeSession();
+          break;
+        }
         case "sstep": {
           var t1 = sheetTarget();
           if (!t1) break;
@@ -7767,6 +7796,59 @@
         if (!t || t.disabled) return;
         onAct(t.getAttribute("data-sact"), t);
       });
+      // セット行の左スワイプで削除ボタンを出す（同時に開けるのは1行だけ）
+      var DEL_W = 76, sw = null, openRow = null, suppressClick = false;
+      function closeRow(row) {
+        if (!row) return;
+        row.style.transform = "";
+        row.classList.remove("swiping");
+        if (openRow === row) openRow = null;
+      }
+      overlay.addEventListener("pointerdown", function (e) {
+        if (e.target.closest && e.target.closest(".sx-del")) return;
+        var row = e.target.closest ? e.target.closest(".sx-wrap .sx-row") : null;
+        if (openRow && !openRow.isConnected) openRow = null;
+        if (openRow && openRow !== row) closeRow(openRow);
+        if (!row) { sw = null; return; }
+        sw = { row: row, x0: e.clientX, y0: e.clientY, base: openRow === row ? -DEL_W : 0, dx: 0, active: false };
+      });
+      overlay.addEventListener("pointermove", function (e) {
+        if (!sw) return;
+        var dx = e.clientX - sw.x0, dy = e.clientY - sw.y0;
+        if (!sw.active) {
+          if (Math.abs(dx) < 9 || Math.abs(dx) <= Math.abs(dy)) return;
+          sw.active = true;
+          sw.row.classList.add("swiping");
+        }
+        var t = sw.base + dx;
+        if (t < -DEL_W) t = -DEL_W;
+        if (t > 0) t = 0;
+        sw.dx = t;
+        sw.row.style.transform = "translateX(" + t + "px)";
+      });
+      function swEnd() {
+        if (!sw) return;
+        var wasActive = sw.active, row = sw.row;
+        if (wasActive) {
+          var open = sw.dx < -DEL_W / 2;
+          row.classList.remove("swiping");
+          row.style.transform = open ? "translateX(" + (-DEL_W) + "px)" : "";
+          openRow = open ? row : null;
+          suppressClick = true;
+          setTimeout(function () { suppressClick = false; }, 120);
+        }
+        sw = null;
+      }
+      overlay.addEventListener("pointerup", swEnd);
+      overlay.addEventListener("pointercancel", swEnd);
+      overlay.addEventListener("click", function (e) {
+        if (suppressClick) { e.stopPropagation(); e.preventDefault(); suppressClick = false; return; }
+        // 削除ボタンが出ている行をタップしたら閉じるだけ（編集シートは開かない）
+        if (openRow && !(e.target.closest && e.target.closest(".sx-del"))) {
+          var inRow = e.target.closest ? e.target.closest(".sx-row") : null;
+          if (inRow === openRow) { e.stopPropagation(); e.preventDefault(); closeRow(openRow); }
+        }
+      }, true);
       overlay.addEventListener("input", function (e) {
         var k = e.target.getAttribute ? e.target.getAttribute("data-sin") : null;
         if (k) onInput(k, e.target);
