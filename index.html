@@ -676,6 +676,26 @@
   .exr-val small { font-size: 13px; font-weight: 600; color: var(--sub); margin-left: 3px; letter-spacing: 0; }
   .exr-val.none { font-size: 15px; font-weight: 600; color: var(--sub); }
   .exr-delta { font-size: 12px; color: var(--sub); font-variant-numeric: tabular-nums; }
+  /* 種目詳細：推定1RMベースのカード群 */
+  .rm-stats { display: flex; gap: 12px; margin: 2px 0 12px; }
+  .rm-stat { flex: 1 1 0; min-width: 0; }
+  .rm-num { font-size: 32px; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .rm-num small, .rmt-w small, .rm-goal-line small { font-size: 13px; font-weight: 600; color: var(--sub); margin-left: 3px; letter-spacing: 0; }
+  .rm-cap { font-size: 12px; color: var(--sub); margin-top: 2px; }
+  .rm-seg { display: flex; background: var(--surface-alt); border-radius: 999px; padding: 3px; gap: 2px; margin-bottom: 10px; }
+  .rm-seg button { flex: 1 1 0; border: none; background: transparent; color: var(--sub); font-family: inherit; font-size: 13px; font-weight: 600; padding: 6px 0; border-radius: 999px; cursor: pointer; transition: transform .1s var(--ease); }
+  .rm-seg button:active { transform: scale(0.96); }
+  .rm-seg button.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.28); }
+  .rm-note { font-size: 12px; line-height: 1.6; color: var(--sub); margin: 10px 0 0; }
+  .rm-goal-line { display: flex; align-items: baseline; gap: 8px; }
+  .rm-goal-label { color: var(--sub); font-size: 14px; font-weight: 600; }
+  .rm-goal-num { font-size: 30px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .rm-goal-ex { font-size: 15px; font-weight: 700; margin-top: 8px; font-variant-numeric: tabular-nums; }
+  .rmt-row { display: flex; align-items: baseline; padding: 7px 0; border-bottom: 1px solid var(--border-soft); }
+  .rmt-row:last-of-type { border-bottom: none; }
+  .rmt-reps { width: 52px; font-weight: 600; }
+  .rmt-pct { flex: 1 1 auto; color: var(--sub); font-variant-numeric: tabular-nums; }
+  .rmt-w { font-size: 17px; font-weight: 800; font-variant-numeric: tabular-nums; }
   .exr-delta b { font-weight: 700; }
   .exr-delta.up b { color: var(--success); }
   .exr-spark-wrap { flex: 0 0 104px; width: 104px; }
@@ -2237,7 +2257,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.19w";
+  var APP_VERSION = "v2026.11.19y";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -2295,7 +2315,8 @@
     photoError: false,
     manualWeight: {}
   };
-  var charts = { exercise: null, exerciseVolume: null, weight: null };
+  var charts = { exercise: null, exerciseVolume: null, weight: null, exZones: null };
+  var exPeriodDays = 90; // 種目詳細の推定1RMグラフの表示期間（日）
   var rawRegistry = [];
   var mealOpenDays = {};
   var gesture = { tracking: false, startX: 0, startY: 0, lockDir: null, eligible: false };
@@ -3490,10 +3511,12 @@
   // 各回（日）の代表値：重量のある種目は最大重量（chartWeightValue＝片手は合計×2）、
   // 重量のない種目は有酸素なら合計分数、自重なら最大回数（自己ベストと同じ優先順）。kg を作り出さない。
   // 比較の基準：直近3か月の中で最も古い回（最新の回以外）。窓内に最新の1回しかなければ、窓の直前の回。
+  // 推定1RM（Epley式）：重量×（1＋回数/30）
+  function est1RM(w, r) { return (w > 0 && r > 0) ? w * (1 + r / 30) : null; }
   function exerciseProgress(perDate) {
     var keys = Object.keys(perDate).sort();
     var sessions = keys.map(function (k) {
-      var w = null, r = null, mi = null;
+      var w = null, r = null, mi = null, rm = null;
       perDate[k].forEach(function (e) {
         if (e.minutes != null) mi = (mi || 0) + e.minutes;
         var v = chartWeightValue(e);
@@ -3501,12 +3524,16 @@
         if (e.reps && e.reps.length) {
           var mr = Math.max.apply(null, e.reps);
           if (isFinite(mr)) r = r == null ? mr : Math.max(r, mr);
+          if (v != null) e.reps.forEach(function (rep) {
+            var x = est1RM(v, rep);
+            if (x != null) rm = rm == null ? x : Math.max(rm, x);
+          });
         }
       });
-      return { date: k, w: w, mi: mi, r: r };
+      return { date: k, w: w, mi: mi, r: r, rm: rm };
     });
     var has = function (f) { return sessions.some(function (s) { return s[f] != null; }); };
-    var mode = has("w") ? "w" : (has("mi") ? "mi" : (has("r") ? "r" : null));
+    var mode = has("rm") ? "rm" : (has("w") ? "w" : (has("mi") ? "mi" : (has("r") ? "r" : null)));
     var out = { mode: mode, count: keys.length, lastDate: keys.length ? keys[keys.length - 1] : null };
     if (!mode) return out;
     var pts = sessions.filter(function (s) { return s[mode] != null; }).map(function (s) { return { date: s.date, v: s[mode] }; });
@@ -3523,7 +3550,7 @@
     }
     var spark = inWin.slice();
     if (base && base.date < cutKey) spark.unshift({ date: cutKey, v: base.v }); // 窓の直前の値を左端に置く
-    out.unit = mode === "w" ? "kg" : (mode === "mi" ? "分" : "回");
+    out.unit = (mode === "w" || mode === "rm") ? "kg" : (mode === "mi" ? "分" : "回");
     out.latest = latest;
     out.base = base;
     out.delta = base ? Math.round((latest.v - base.v) * 100) / 100 : null;
@@ -3574,7 +3601,7 @@
       if (pr.lastDate) h += '<span class="exr-delta">最終 ' + escapeHtml(formatDateLabel(pr.lastDate)) + "</span>";
       return h + "</span></button>";
     }
-    h += '<span class="exr-val">' + escapeHtml(fmtNum(pr.latest.v)) + "<small>" + pr.unit + "</small></span>";
+    h += '<span class="exr-val">' + escapeHtml(fmtNum(pr.mode === "rm" ? Math.round(pr.latest.v * 2) / 2 : pr.latest.v)) + "<small>" + (pr.mode === "rm" ? "kg・推定1RM" : pr.unit) + "</small></span>";
     if (pr.stale) {
       h += '<span class="exr-delta">最終 ' + escapeHtml(formatDateLabel(pr.latest.date)) + "</span>";
     } else if (pr.delta == null) {
@@ -3656,12 +3683,14 @@
       content.innerHTML = "";
       if (charts.exercise) { charts.exercise.destroy(); charts.exercise = null; }
       if (charts.exerciseVolume) { charts.exerciseVolume.destroy(); charts.exerciseVolume = null; }
+      if (charts.exZones) { charts.exZones.destroy(); charts.exZones = null; }
       return;
     }
     if (!name) {
       content.innerHTML = '<div class="card"><div class="empty-msg">種目がありません</div></div>';
       if (charts.exercise) { charts.exercise.destroy(); charts.exercise = null; }
       if (charts.exerciseVolume) { charts.exerciseVolume.destroy(); charts.exerciseVolume = null; }
+      if (charts.exZones) { charts.exZones.destroy(); charts.exZones = null; }
       return;
     }
     var days = (state.data && state.data.days) || [];
@@ -3681,52 +3710,246 @@
     });
     dateKeys.sort();
 
-    var html = '<button type="button" class="ex-back" data-ex-back>' + ICON_CHEVRON_LEFT + "種目一覧</button>";
-    html += '<div class="card">';
-    html += '<div class="section-title">' + escapeHtml(name) + "の推移</div>";
-    if (!dateKeys.length) {
-      html += '<div class="empty-msg">記録なし</div>';
-    } else {
-      html += '<div class="chart-wrap"><canvas id="exerciseChartCanvas"></canvas></div>';
-    }
-    html += "</div>";
-
-    if (hasVolume) {
-      html += '<div class="card">';
-      html += '<div class="section-title">' + escapeHtml(name) + "の負荷量(volume)の推移</div>";
-      html += '<div class="chart-wrap"><canvas id="exerciseVolumeChartCanvas"></canvas></div>';
-      html += "</div>";
-    }
-
+    var backHtml = '<button type="button" class="ex-back" data-ex-back>' + ICON_CHEVRON_LEFT + "種目一覧</button>";
     var bestInfo = computeExerciseBestInfo(name, dateKeys, perDate);
-    html += bestCardHtml(bestInfo);
-
-    html += '<div class="card"><div class="section-title">履歴</div>';
+    var historyHtml = '<div class="card"><div class="section-title">履歴</div>';
     if (!dateKeys.length) {
-      html += '<div class="empty-msg">記録がありません</div>';
+      historyHtml += '<div class="empty-msg">記録がありません</div>';
     } else {
       var descKeys = dateKeys.slice().reverse();
       descKeys.forEach(function (key) {
         var group = { exercise: name, part: perDate[key][0].part, entries: perDate[key] };
-        html += '<div class="li-meta" style="margin:8px 0 2px;font-weight:bold;color:var(--text);">' + formatDateLabel(key) + "</div>";
-        html += exBlockHtml(group);
+        historyHtml += '<div class="li-meta" style="margin:8px 0 2px;font-weight:bold;color:var(--text);">' + formatDateLabel(key) + "</div>";
+        historyHtml += exBlockHtml(group);
       });
     }
-    html += "</div>";
-    content.innerHTML = html;
+    historyHtml += "</div>";
 
-    if (dateKeys.length) {
-      renderExerciseChart(dateKeys, perDate, isAerobic);
-    } else if (charts.exercise) {
-      charts.exercise.destroy();
-      charts.exercise = null;
+    var rmDays = isAerobic ? [] : exerciseRmDays(dateKeys, perDate);
+    if (!rmDays.length) {
+      // 推定1RMが計算できない種目（有酸素・自重など）は従来の表示
+      var html = backHtml + '<div class="card">';
+      html += '<div class="section-title">' + escapeHtml(name) + "の推移</div>";
+      if (!dateKeys.length) html += '<div class="empty-msg">記録なし</div>';
+      else html += '<div class="chart-wrap"><canvas id="exerciseChartCanvas"></canvas></div>';
+      html += "</div>";
+      if (hasVolume) {
+        html += '<div class="card">';
+        html += '<div class="section-title">' + escapeHtml(name) + "の負荷量(volume)の推移</div>";
+        html += '<div class="chart-wrap"><canvas id="exerciseVolumeChartCanvas"></canvas></div>';
+        html += "</div>";
+      }
+      html += bestCardHtml(bestInfo);
+      html += historyHtml;
+      content.innerHTML = html;
+      if (charts.exZones) { charts.exZones.destroy(); charts.exZones = null; }
+      if (dateKeys.length) renderExerciseChart(dateKeys, perDate, isAerobic);
+      else if (charts.exercise) { charts.exercise.destroy(); charts.exercise = null; }
+      if (hasVolume) renderExerciseVolumeChart(dateKeys, perDate);
+      else if (charts.exerciseVolume) { charts.exerciseVolume.destroy(); charts.exerciseVolume = null; }
+      return;
     }
-    if (hasVolume) {
-      renderExerciseVolumeChart(dateKeys, perDate);
-    } else if (charts.exerciseVolume) {
-      charts.exerciseVolume.destroy();
-      charts.exerciseVolume = null;
+
+    // ---- 推定1RMベースの表示 ----
+    var today = todayKey();
+    var cut28 = dateToKey(addDays(dkToDate(today), -28));
+    var allBest = rmDays[0], recentBest = null;
+    rmDays.forEach(function (d) {
+      if (d.rm > allBest.rm) allBest = d;
+      if (d.date >= cut28 && (!recentBest || d.rm > recentBest.rm)) recentBest = d;
+    });
+    var baseDay = recentBest || allBest;
+    var html2 = backHtml;
+    // 推定1RMカード
+    html2 += '<div class="card"><div class="section-title">推定1RM</div>';
+    html2 += '<div class="rm-stats">'
+      + '<div class="rm-stat"><div class="rm-num">' + (recentBest ? fmtRm(recentBest.rm) + "<small>kg</small>" : "—") + '</div><div class="rm-cap">今（直近4週の最高）</div></div>'
+      + '<div class="rm-stat"><div class="rm-num">' + fmtRm(allBest.rm) + '<small>kg</small></div><div class="rm-cap">これまでの最高</div></div></div>';
+    var segs = [[30, "1か月"], [90, "3か月"], [180, "6か月"], [365, "1年"]];
+    html2 += '<div class="rm-seg" role="group" aria-label="表示期間">' + segs.map(function (s) {
+      return '<button type="button" data-ex-period="' + s[0] + '"' + (exPeriodDays === s[0] ? ' class="active"' : "") + ">" + s[1] + "</button>";
+    }).join("") + "</div>";
+    html2 += '<div class="chart-wrap"><canvas id="rmChartCanvas"></canvas></div>';
+    html2 += '<p class="rm-note">グラフは各回で最も良いセットから推定した1RMを示し、丸は自己ベストを更新した回です。</p></div>';
+    // ボリュームカード
+    var wk = exerciseWeekVolumes(dateKeys, perDate);
+    html2 += '<div class="card"><div class="section-title">ボリューム</div>';
+    html2 += '<div class="rm-stats">'
+      + '<div class="rm-stat"><div class="rm-num">' + fmtInt(wk.cur.vol) + '<small>kg</small></div><div class="rm-cap">今週（' + wk.cur.sets + 'セット）</div></div>'
+      + '<div class="rm-stat"><div class="rm-num">' + fmtInt(wk.prev.vol) + '<small>kg</small></div><div class="rm-cap">先週（' + wk.prev.sets + 'セット）</div></div></div>';
+    html2 += '<div class="chart-wrap"><canvas id="exWeekVolCanvas"></canvas></div>';
+    html2 += '<p class="rm-note">週ごとの、重量×回数の合計です。</p></div>';
+    // 次の目標カード
+    var goalRm = (Math.floor(allBest.rm / 5) + 1) * 5;
+    var exReps = baseDay.r + 1;
+    var exWeight = (Math.floor(baseDay.w / 5) + 1) * 5;
+    var guideRaw = baseDay.rm / (1 + exReps / 30);
+    var guide = Math.floor(guideRaw / 5) * 5;
+    if (!guide) guide = Math.round(guideRaw * 2) / 2;
+    html2 += '<div class="card"><div class="section-title">次の目標</div>'
+      + '<div class="rm-goal-line"><span class="rm-goal-label">推定1RM</span><span class="rm-goal-num">' + goalRm + '</span><small>kg</small></div>'
+      + '<div class="rm-goal-ex">例：' + exReps + "回 × " + fmtNum(exWeight) + "kg（現在の目安は" + fmtNum(guide) + "kg）</div>"
+      + '<p class="rm-note">まずは5kg上を目指しましょう。回数を少し減らして重量を上げるなど、普段と違う刺激を加えると伸びやすくなります。</p></div>';
+    // 回数ごとの重量の目安
+    var rows = [1, 3, 5, 8, 10, 12, 15].map(function (r) {
+      var raw = r === 1 ? baseDay.rm : baseDay.rm / (1 + r / 30);
+      var pct = r === 1 ? 100 : Math.round(100 / (1 + r / 30));
+      var w5 = Math.floor(raw / 5) * 5;
+      var wDisp = w5 ? String(w5) : fmtNum(Math.round(raw * 2) / 2);
+      return '<div class="rmt-row"><span class="rmt-reps">' + r + '回</span><span class="rmt-pct">' + pct + '%</span><span class="rmt-w">' + wDisp + "<small>kg</small></span></div>";
+    }).join("");
+    html2 += '<div class="card"><div class="section-title">回数ごとの重量の目安</div>' + rows
+      + '<p class="rm-note">現在の推定1RMから逆算した、その回数で挙げられる最大の重量の目安です（5kgずつで丸めています）。</p></div>';
+    // 強度の分布
+    html2 += '<div class="card"><div class="section-title">強度の分布</div><div class="chart-wrap"><canvas id="exZoneCanvas"></canvas></div>'
+      + '<p class="rm-note">全セットの推定1RMが、自己ベストの何％だったかの分布です。</p></div>';
+    html2 += historyHtml;
+    content.innerHTML = html2;
+    if (charts.exercise) { charts.exercise.destroy(); charts.exercise = null; }
+    if (charts.exerciseVolume) { charts.exerciseVolume.destroy(); charts.exerciseVolume = null; }
+    renderRmChart(rmDays, today);
+    renderWeekVolChart(wk.weeks);
+    renderZoneChart(dateKeys, perDate, allBest.rm);
+  }
+  // 推定1RMまわりの集計ヘルパー
+  function fmtRm(v) { return fmtNum(Math.round(v * 2) / 2); }
+  function fmtInt(v) { return String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+  function exerciseRmDays(dateKeys, perDate) {
+    var days = [], runMax = 0;
+    dateKeys.forEach(function (k) {
+      var best = null;
+      (perDate[k] || []).forEach(function (e) {
+        var w = chartWeightValue(e);
+        if (w == null || !(w > 0) || !e.reps) return;
+        e.reps.forEach(function (r) {
+          var rm = est1RM(w, r);
+          if (rm != null && (!best || rm > best.rm)) best = { rm: rm, w: w, r: r };
+        });
+      });
+      if (best) {
+        var pr = best.rm > runMax + 1e-9;
+        if (pr) runMax = best.rm;
+        days.push({ date: k, rm: best.rm, w: best.w, r: best.r, pr: pr });
+      }
+    });
+    return days;
+  }
+  function exerciseWeekVolumes(dateKeys, perDate) {
+    var map = {};
+    dateKeys.forEach(function (k) {
+      var wkKey = dateToKey(mondayOf(dkToDate(k)));
+      (perDate[k] || []).forEach(function (e) {
+        var w = chartWeightValue(e) || 0;
+        var repsSum = (e.reps || []).reduce(function (a, b) { return a + b; }, 0);
+        var vol = e.volume_kg != null ? e.volume_kg : w * repsSum;
+        if (!map[wkKey]) map[wkKey] = { vol: 0, sets: 0 };
+        map[wkKey].vol += vol;
+        map[wkKey].sets += (e.reps ? e.reps.length : 0);
+      });
+    });
+    var thisWk = dateToKey(mondayOf(new Date()));
+    var weeks = [];
+    for (var i = 13; i >= 0; i--) {
+      var wkKey = dateToKey(addDays(dkToDate(thisWk), -7 * i));
+      var cell = map[wkKey] || { vol: 0, sets: 0 };
+      weeks.push({ key: wkKey, vol: cell.vol, sets: cell.sets, cur: i === 0 });
     }
+    return { weeks: weeks, cur: weeks[13], prev: weeks[12] };
+  }
+  function renderRmChart(rmDays, today) {
+    var canvas = document.getElementById("rmChartCanvas");
+    if (!canvas) return;
+    var start = dateToKey(addDays(dkToDate(today), -exPeriodDays));
+    var pts = rmDays.filter(function (d) { return d.date >= start; });
+    if (!pts.length) pts = rmDays.slice();
+    var tcol = themeColors();
+    charts.exercise = new Chart(canvas.getContext("2d"), {
+      type: "line",
+      data: { labels: pts.map(function (d) { return formatShortDate(d.date); }), datasets: [{
+        label: "推定1RM",
+        data: pts.map(function (d) { return Math.round(d.rm * 10) / 10; }),
+        borderColor: "#0A84FF", backgroundColor: "#0A84FF",
+        spanGaps: true, tension: 0.25,
+        pointRadius: pts.map(function (d) { return d.pr ? 5 : 3; }),
+        pointBackgroundColor: "#0A84FF",
+        pointBorderColor: pts.map(function (d) { return d.pr ? "#ffffff" : "#0A84FF"; }),
+        pointBorderWidth: pts.map(function (d) { return d.pr ? 1.5 : 0; })
+      }] },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: "nearest", intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: {
+            title: function (items) { return formatDateLabel(pts[items[0].dataIndex].date); },
+            label: function (item) {
+              var d = pts[item.dataIndex];
+              return fmtNum(d.w) + "kg × " + d.r + "回" + (d.pr ? " 🏆 自己ベスト更新" : "") + "（1RM " + fmtRm(d.rm) + "kg）";
+            }
+          } }
+        },
+        scales: {
+          x: { ticks: { color: tcol.sub, maxTicksLimit: 6 }, grid: { color: tcol.grid } },
+          y: { grace: "12%", ticks: { color: tcol.sub }, grid: { color: tcol.grid }, title: { display: true, text: "kg", color: tcol.sub } }
+        }
+      }
+    });
+  }
+  function renderWeekVolChart(weeks) {
+    var canvas = document.getElementById("exWeekVolCanvas");
+    if (!canvas) return;
+    var tcol = themeColors();
+    charts.exerciseVolume = new Chart(canvas.getContext("2d"), {
+      type: "bar",
+      data: { labels: weeks.map(function (w) { return formatShortDate(w.key); }), datasets: [{
+        label: "ボリューム",
+        data: weeks.map(function (w) { return Math.round(w.vol); }),
+        backgroundColor: weeks.map(function (w) { return w.cur ? "rgba(10,132,255,0.45)" : "#0A84FF"; }),
+        borderRadius: 4, maxBarThickness: 22
+      }] },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (item) { return fmtInt(item.parsed.y) + "kg"; } } } },
+        scales: {
+          x: { ticks: { color: tcol.sub, maxTicksLimit: 7 }, grid: { display: false } },
+          y: { beginAtZero: true, ticks: { color: tcol.sub }, grid: { color: tcol.grid } }
+        }
+      }
+    });
+  }
+  function renderZoneChart(dateKeys, perDate, allBestRm) {
+    var canvas = document.getElementById("exZoneCanvas");
+    if (!canvas || !(allBestRm > 0)) return;
+    var zones = [0, 0, 0, 0, 0];
+    dateKeys.forEach(function (k) {
+      (perDate[k] || []).forEach(function (e) {
+        var w = chartWeightValue(e);
+        if (w == null || !(w > 0) || !e.reps) return;
+        e.reps.forEach(function (r) {
+          var rm = est1RM(w, r);
+          if (rm == null) return;
+          var pct = rm / allBestRm * 100;
+          zones[pct < 60 ? 0 : pct < 70 ? 1 : pct < 80 ? 2 : pct < 90 ? 3 : 4]++;
+        });
+      });
+    });
+    var tcol = themeColors();
+    charts.exZones = new Chart(canvas.getContext("2d"), {
+      type: "bar",
+      data: { labels: ["60%未満", "60%台", "70%台", "80%台", "90%以上"], datasets: [{
+        label: "セット数",
+        data: zones,
+        backgroundColor: "#0A84FF", borderRadius: 4, maxBarThickness: 34
+      }] },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: function (item) { return item.parsed.y + "セット"; } } } },
+        scales: {
+          x: { ticks: { color: tcol.sub }, grid: { display: false } },
+          y: { beginAtZero: true, ticks: { color: tcol.sub, stepSize: 1 }, grid: { color: tcol.grid } }
+        }
+      }
+    });
   }
   function renderExerciseChart(periodKeys, perDate, isAerobic) {
     if (charts.exercise) { charts.exercise.destroy(); charts.exercise = null; }
@@ -7830,8 +8053,14 @@
     return true;
   }
 
-  // 種目詳細 → 種目一覧に戻る
+  // 種目詳細 → 種目一覧に戻る／推定1RMグラフの期間切り替え
   document.getElementById("exerciseContent").addEventListener("click", function (e) {
+    var pb = e.target.closest ? e.target.closest("[data-ex-period]") : null;
+    if (pb) {
+      exPeriodDays = parseInt(pb.getAttribute("data-ex-period"), 10) || 90;
+      renderExerciseTab();
+      return;
+    }
     var b = e.target.closest ? e.target.closest("[data-ex-back]") : null;
     if (!b) return;
     state.exerciseDetail = false;
@@ -8432,7 +8661,7 @@
   var SWIPE_TRIGGER_DISTANCE = 60;
   var SWIPE_RATIO = 1.5;
   var SWIPE_EDGE_GUARD = 24;
-  var SWIPE_TABS = { daily: true, day: true, week: true, month: true, weight: true, meal: true, photo: true };
+  var SWIPE_TABS = { daily: true, day: true, week: true, month: true, weight: true, meal: true, photo: true, exercise: true };
   var pgesture = { tracking: false, pointerId: null, startX: 0, startY: 0, lockDir: null, eligible: false };
 
   function isFormTarget(el) {
@@ -8458,7 +8687,7 @@
   function isSwipeEligibleTarget(target, tab) {
     if (isFormTarget(target) || scrollableAncestorX(target)) return false;
     if (target.closest && (target.closest(".tabbar") || target.closest(".sess-overlay") || target.closest(".rec-overlay") || target.closest(".meal-viewer"))) return false;
-    if (tab === "daily" || tab === "day" || tab === "week" || tab === "month" || tab === "photo") return true;
+    if (tab === "daily" || tab === "day" || tab === "week" || tab === "month" || tab === "photo" || tab === "exercise") return true;
     if (tab === "weight" || tab === "meal") {
       return !!(target.closest && target.closest(".period-swipe-zone"));
     }
@@ -8484,6 +8713,34 @@
       el.style.opacity = "";
     }, 220);
   }
+  // 種目別タブのスワイプ：一覧では部位チップを左右へ、詳細では同じ部位の前後の種目へ
+  function changeExerciseSwipe(dir) {
+    if (state.exerciseDetail) {
+      var order = state.exerciseOrder || [];
+      var idx = order.indexOf(state.selectedExercise);
+      var next = idx + dir;
+      if (idx < 0 || next < 0 || next >= order.length) return false;
+      state.selectedExercise = order[next];
+      renderExerciseTab();
+      try { window.scrollTo(0, 0); } catch (e) {}
+      return true;
+    }
+    var structure = buildEquipExerciseStructure();
+    var parts = structure.map(function (g) { return g.part; });
+    var pi = parts.indexOf(state.selectedPart);
+    var pn = pi + dir;
+    if (pi < 0 || pn < 0 || pn >= parts.length) return false;
+    var part = parts[pn], grp = null;
+    structure.forEach(function (x) { if (x.part === part) grp = x; });
+    var ord = [];
+    if (grp) grp.equips.forEach(function (eq) { eq.list.forEach(function (it) { ord.push(it.name); }); });
+    state.selectedPart = part;
+    state.exerciseOrder = ord;
+    state.selectedExercise = ord[0];
+    state.exerciseDetail = false;
+    buildExerciseList();
+    return true;
+  }
   function triggerSwipeChange(dir) {
     var tab = state.currentTab;
     var el = document.querySelector(".screen.active");
@@ -8494,6 +8751,7 @@
     else if (tab === "weight") changed = changeWeightPeriod(dir);
     else if (tab === "meal") changed = changeMealPeriod(dir);
     else if (tab === "photo") changed = changePhotoDay(dir);
+    else if (tab === "exercise") changed = changeExerciseSwipe(dir);
     if (changed) playSwipeAnim(el, dir);
   }
 
@@ -8624,8 +8882,15 @@
         var already = null;
         try { already = sessionStorage.getItem(RELOADED_VERSION_KEY); } catch (e) {}
         if (already === latest) return;
+        // 操作中（記録するシート・セッション・モーダルが開いている間）に再読み込みすると
+        // 画面が記録タブへ戻ってしまうので、閉じるまで適用を待つ
+        if (document.querySelector(".rec-overlay.show, .sess-overlay.show, .modal-overlay.show")) {
+          setTimeout(checkAppUpdate, 15000);
+          return;
+        }
         try { sessionStorage.setItem(RELOADED_VERSION_KEY, latest); } catch (e) {}
-        location.replace(location.pathname + "?v=" + encodeURIComponent(latest));
+        // 今いるタブ（ハッシュ）を引き継いで再読み込みする
+        location.replace(location.pathname + "?v=" + encodeURIComponent(latest) + location.hash);
       })
       .catch(function () {});
   }
