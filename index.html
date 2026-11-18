@@ -1402,6 +1402,44 @@
   .ai-card .ef-input.ai-min { text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; }
   .ai-actions { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
   .ai-actions .ef-btn.primary { margin-top: 6px; }
+  /* ---------- AIで食事を記録（入力パネルの食事欄の上部。トレーニングの AI 欄と同じ見た目） ---------- */
+  .ai-btn-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; margin-top: 10px; }
+  .ai-btn-row .ef-btn.primary.ai-go { margin-top: 0; }
+  .ef-btn.ai-photo { display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .ef-btn.ai-photo svg { width: 18px; height: 18px; display: block; flex: none; color: var(--accent); }
+  .mai-photo { margin: 0 0 12px; border-radius: var(--radius-md); overflow: hidden; background: var(--surface-alt); }
+  .mai-photo img { display: block; width: 100%; max-height: 260px; object-fit: cover; }
+  .ai-card .ef-row .ef-input[type="number"] { text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .mai-item-head, .mai-item {
+    display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr) minmax(0, 1fr) 32px;
+    column-gap: 6px; align-items: center; min-width: 0;
+  }
+  .mai-item-head { margin: 14px 0 4px; font-size: 11px; font-weight: 600; color: var(--sub); text-align: center; }
+  .mai-item { margin-bottom: 8px; }
+  .mai-item .ef-input { padding: 0 8px; }
+  .mai-item .ef-input[type="number"] { text-align: center; padding: 0 4px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .mai-note { font-size: 11px; line-height: 1.5; color: var(--sub); margin: 0 2px 8px; }
+  .meal-item-row.has-photo { display: flex; align-items: center; gap: 10px; }
+  .meal-item-row .mi-main { flex: 1 1 auto; min-width: 0; }
+  .meal-thumb {
+    flex: 0 0 56px; width: 56px; height: 56px; padding: 0; border: none; border-radius: 12px;
+    overflow: hidden; background: var(--surface-alt); cursor: pointer;
+    transition: transform .15s var(--ease);
+  }
+  .meal-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .meal-thumb:active { transform: scale(0.95); }
+  .meal-viewer {
+    position: fixed; inset: 0; z-index: 70; display: flex; align-items: center; justify-content: center;
+    padding: calc(60px + var(--safe-t)) 12px calc(24px + var(--safe-b));
+    background: rgba(0,0,0,0.92); animation: recIn .2s var(--ease);
+  }
+  .meal-viewer img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; border-radius: var(--radius-md); }
+  .meal-viewer-x {
+    position: absolute; top: calc(12px + var(--safe-t)); right: calc(12px + var(--safe-r));
+    width: 40px; height: 40px; padding: 0; border-radius: 50%; border: none;
+    background: rgba(255,255,255,0.16); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer;
+  }
+  .meal-viewer-x svg { width: 18px; height: 18px; display: block; }
   .local-chip {
     display: inline-block; padding: 1px 7px; border-radius: 999px;
     font-size: 10px; font-weight: 600; color: var(--sub);
@@ -1934,6 +1972,7 @@
     </section>
   </main>
   <input type="file" id="photoFileInput" class="photo-file-input" accept="image/*" aria-hidden="true" tabindex="-1">
+  <input type="file" id="mealPhotoFileInput" class="photo-file-input" accept="image/*" aria-hidden="true" tabindex="-1">
 
   <nav class="tabbar">
     <button class="tab-btn tab-action" id="recordSheetBtn" type="button" aria-label="記録する" aria-haspopup="dialog" aria-expanded="false" aria-controls="recordSheetOverlay">
@@ -2027,6 +2066,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M12 11V4"/><path d="M8 4c0 1.4 1 2 1 3.4"/><path d="M16 4c0 1.4-1 2-1 3.4"/></svg>
         <span>食事を記録する</span>
       </button>
+      <button class="add-record-btn" type="button" data-open-entry="meal-ai">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9z"/><path d="M19 14l.8 2.2L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-.8z"/></svg>
+        <span>AIで食事を記録</span>
+      </button>
     </div>
     </div>
     <!-- メニューを作成／メニューを編集／種目を追加 -->
@@ -2071,7 +2114,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.19j";
+  var APP_VERSION = "v2026.11.19k";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -2724,12 +2767,21 @@
     if (m.note) html += '<div class="meal-note">' + escapeHtml(m.note) + "</div>";
     if (items.length) {
       html += '<div class="meal-items open">';
-      items.forEach(function (it) {
-        html += '<div class="meal-item-row">' + (it.time ? '<span class="mi-time">' + escapeHtml(it.time) + "</span>" : "") + escapeHtml(it.text) + "</div>";
-      });
+      items.forEach(function (it) { html += mealItemRowHtml(it); });
       html += "</div>";
     }
     return html + "</div>";
+  }
+  // 食事の1行（時刻＋内容）。端末記録で写真つき（photo_id）のものは左に小さなサムネイル（タップで拡大）。
+  // 画像は描画後に hydrateMealThumbs() が IndexedDB（meal_photos）から読み込んで入れる
+  function mealItemRowHtml(it) {
+    var inner = (it.time ? '<span class="mi-time">' + escapeHtml(it.time) + "</span>" : "") + escapeHtml(it.text);
+    if (!it.photo_id) return '<div class="meal-item-row">' + inner + "</div>";
+    var pid = escapeHtml(it.photo_id);
+    var cached = mealPhotoUrlCache[it.photo_id];
+    return '<div class="meal-item-row has-photo"><button type="button" class="meal-thumb" data-meal-photo="' + pid + '" aria-label="食事の写真を開く">' +
+      '<img alt="" data-meal-photo-img="' + pid + '"' + (cached ? ' src="' + cached + '"' : "") + "></button>" +
+      '<div class="mi-main">' + inner + "</div></div>";
   }
   // 選んだ日の写真（写真タブと同じ表示。タップで写真画面を開く）
   function dayPhotoCardHtml(key) {
@@ -2774,6 +2826,7 @@
         html += '<div class="card"><div class="empty-day">' + ICON_CALENDAR_EMPTY + '<div class="empty-day-text">この日の記録はありません</div></div></div>';
       }
       content.innerHTML = html + extras;
+      hydrateMealThumbs(content);
       return;
     }
 
@@ -2789,6 +2842,7 @@
       html += daySessionCardsHtml(day);
     }
     content.innerHTML = html + extras;
+    hydrateMealThumbs(content);
   }
 
   // 選んだ日の記録：開始時刻ごとにセッションカードにまとめ、種目は部位色のバー＋ボリューム・セット要約で並べる
@@ -4009,9 +4063,7 @@
         if (m && m.note) html += '<div class="meal-note">' + escapeHtml(m.note) + "</div>";
         var mealItems = (m && m.items) ? m.items.filter(function (it) { return !MEAL_NOISE_RE.test(it.text); }) : [];
         if (mealItems.length) {
-          mealItems.forEach(function (it) {
-            html += '<div class="meal-item-row">' + (it.time ? '<span class="mi-time">' + escapeHtml(it.time) + "</span>" : "") + escapeHtml(it.text) + "</div>";
-          });
+          mealItems.forEach(function (it) { html += mealItemRowHtml(it); });
         } else {
           html += '<div class="meal-empty">項目の記録なし(未記録)</div>';
         }
@@ -4020,6 +4072,7 @@
     }
 
     content.innerHTML = html;
+    hydrateMealThumbs(content);
     var prevBtn = document.getElementById("mealPeriodPrevBtn");
     var nextBtn = document.getElementById("mealPeriodNextBtn");
     if (prevBtn) prevBtn.addEventListener("click", function () { changeMealPeriod(-1); });
@@ -4033,8 +4086,13 @@
   var PHOTO_MAX_EDGE = 1600;
   var PHOTO_JPEG_QUALITY = 0.85;
   var ICON_CAMERA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>';
+  // v2：食事の写真用ストア "meal_photos"（keyPath "id"＝食事の端末記録の id。{ id, blob, date, createdAt }）。
+  // 既存の "photos" ストアとその中身は触らない（無いときだけ作る）
+  var PHOTO_DB_VERSION = 2;
+  var MEAL_PHOTO_STORE = "meal_photos";
   var photoDbPromise = null;
   var photoUrlMap = {};
+  var mealPhotoUrlCache = {}; // photo_id → object URL（""＝見つからなかった）
 
   function formatPhotoDateLabel(key) {
     var d = dkToDate(key);
@@ -4048,28 +4106,32 @@
   function openPhotoDb() {
     if (photoDbPromise) return photoDbPromise;
     photoDbPromise = new Promise(function (resolve, reject) {
-      var req = indexedDB.open(PHOTO_DB_NAME, 1);
+      var req = indexedDB.open(PHOTO_DB_NAME, PHOTO_DB_VERSION);
       req.onupgradeneeded = function (e) {
         var db = e.target.result;
         if (!db.objectStoreNames.contains(PHOTO_STORE)) {
           db.createObjectStore(PHOTO_STORE, { keyPath: "date" });
         }
+        if (!db.objectStoreNames.contains(MEAL_PHOTO_STORE)) {
+          db.createObjectStore(MEAL_PHOTO_STORE, { keyPath: "id" });
+        }
       };
-      req.onsuccess = function (e) { resolve(e.target.result); };
-      req.onerror = function () { reject(req.error); };
+      req.onsuccess = function (e) {
+        var db = e.target.result;
+        // 別のタブで新しい版が DB を上げようとしたら、この接続を閉じて邪魔しない（次の操作で開き直す）
+        db.onversionchange = function () { try { db.close(); } catch (err) {} photoDbPromise = null; };
+        resolve(db);
+      };
+      req.onerror = function () { photoDbPromise = null; reject(req.error); };
+      // 古い版（v1）のタブが開いたままだと onblocked のあと待ちになる（そのタブを閉じると続きが進む）。
+      // 食事の写真の保存側はタイムアウトで「写真なしで保存」に切り替える
     });
     return photoDbPromise;
   }
-  function idbReq(req) {
-    return new Promise(function (resolve, reject) {
-      req.onsuccess = function () { resolve(req.result); };
-      req.onerror = function () { reject(req.error); };
-    });
-  }
-  function withPhotoStore(mode, fn) {
+  function withStore(storeName, mode, fn) {
     return openPhotoDb().then(function (db) {
-      var tx = db.transaction(PHOTO_STORE, mode);
-      var store = tx.objectStore(PHOTO_STORE);
+      var tx = db.transaction(storeName, mode);
+      var store = tx.objectStore(storeName);
       var p = Promise.resolve(fn(store));
       var txDone = new Promise(function (resolve, reject) {
         tx.oncomplete = function () { resolve(); };
@@ -4078,6 +4140,68 @@
       });
       return p.then(function (val) { return txDone.then(function () { return val; }); });
     });
+  }
+  // ---- 食事の写真（meal_photos） ----
+  function putMealPhoto(rec) {
+    return withStore(MEAL_PHOTO_STORE, "readwrite", function (store) { return idbReq(store.put(rec)); });
+  }
+  function deleteMealPhoto(id) {
+    if (mealPhotoUrlCache[id]) URL.revokeObjectURL(mealPhotoUrlCache[id]);
+    delete mealPhotoUrlCache[id];
+    return withStore(MEAL_PHOTO_STORE, "readwrite", function (store) { return idbReq(store.delete(id)); });
+  }
+  // photo_id → object URL（無ければ ""）。一度読んだものは使い回す
+  function getMealPhotoUrl(id) {
+    if (Object.prototype.hasOwnProperty.call(mealPhotoUrlCache, id)) return Promise.resolve(mealPhotoUrlCache[id]);
+    return withStore(MEAL_PHOTO_STORE, "readonly", function (store) { return idbReq(store.get(id)); }).then(function (rec) {
+      var url = (rec && rec.blob) ? URL.createObjectURL(rec.blob) : "";
+      if (!Object.prototype.hasOwnProperty.call(mealPhotoUrlCache, id)) mealPhotoUrlCache[id] = url;
+      else if (url) URL.revokeObjectURL(url);
+      return mealPhotoUrlCache[id];
+    }).catch(function () { return ""; });
+  }
+  // 描画済みの食事サムネイルに画像を入れる（読めないものはサムネイルごと外す）
+  function hydrateMealThumbs(root) {
+    if (!root || !root.querySelectorAll) return;
+    Array.prototype.forEach.call(root.querySelectorAll("img[data-meal-photo-img]"), function (img) {
+      if (img.getAttribute("src")) return;
+      var id = img.getAttribute("data-meal-photo-img");
+      getMealPhotoUrl(id).then(function (url) {
+        if (url) { img.src = url; return; }
+        var btn = img.closest ? img.closest(".meal-thumb") : null;
+        if (btn && btn.parentNode) btn.parentNode.removeChild(btn);
+      });
+    });
+  }
+  // 全画面の簡易ビューア（タップ・✕・Esc で閉じる）
+  function openMealPhotoViewer(id) {
+    getMealPhotoUrl(id).then(function (url) {
+      if (!url) { showToast("写真を読み込めませんでした"); return; }
+      closeMealPhotoViewer();
+      var ov = document.createElement("div");
+      ov.className = "meal-viewer";
+      ov.id = "mealPhotoViewer";
+      ov.setAttribute("role", "dialog");
+      ov.setAttribute("aria-modal", "true");
+      ov.setAttribute("aria-label", "食事の写真");
+      ov.innerHTML = '<img alt="食事の写真" src="' + url + '"><button type="button" class="meal-viewer-x" aria-label="閉じる">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>';
+      ov.addEventListener("click", closeMealPhotoViewer);
+      document.body.appendChild(ov);
+    });
+  }
+  function closeMealPhotoViewer() {
+    var ov = document.getElementById("mealPhotoViewer");
+    if (ov && ov.parentNode) ov.parentNode.removeChild(ov);
+  }
+  function idbReq(req) {
+    return new Promise(function (resolve, reject) {
+      req.onsuccess = function () { resolve(req.result); };
+      req.onerror = function () { reject(req.error); };
+    });
+  }
+  function withPhotoStore(mode, fn) {
+    return withStore(PHOTO_STORE, mode, fn);
   }
   function revokePhotoUrl(date) {
     if (photoUrlMap[date]) {
@@ -4646,7 +4770,11 @@
       if (!Array.isArray(cur.items)) cur.items = [];
       if (lm.kcal != null) cur.kcal = (cur.kcal || 0) + lm.kcal;
       if (lm.protein != null) cur.protein = Math.round(((cur.protein || 0) + lm.protein) * 10) / 10;
-      (lm.items || []).forEach(function (it) { cur.items.push({ time: it.time || null, text: it.text, local: true }); });
+      (lm.items || []).forEach(function (it) {
+        var row = { time: it.time || null, text: it.text, local: true };
+        if (it.photo_id) { row.id = it.id; row.photo_id = it.photo_id; } // 写真つき（AIで食事を記録）
+        cur.items.push(row);
+      });
       if (lm.note) cur.note = cur.note ? cur.note + " / " + lm.note : lm.note;
     });
     return out;
@@ -4782,19 +4910,29 @@
       h += '<div class="ef-row"><div><label class="ef-label" for="efDate">日付</label><input class="ef-input" id="efDate" type="date" value="' + escapeHtml(date) + '"></div>';
       h += '<div><label class="ef-label" for="efBw">体重(kg)</label><input class="ef-input" id="efBw" type="number" inputmode="decimal" step="0.1" min="20" max="300" placeholder="例 76.2"></div></div>';
     } else {
+      // AIで食事を記録（上部）。日付・時刻は手入力と共通、AIの確認中は手入力欄を確認画面に差し替え
+      h += '<div class="ai-box" id="efMealAiBox"></div>';
       h += '<div class="ef-row"><div><label class="ef-label" for="efDate">日付</label><input class="ef-input" id="efDate" type="date" value="' + escapeHtml(date) + '"></div>';
       h += '<div><label class="ef-label" for="efTime">時刻</label><input class="ef-input" id="efTime" type="time" value="' + nowTimeStr() + '"></div></div>';
+      h += '<div id="efMealAiReview"></div><div id="efMealManual">';
       h += '<label class="ef-label" for="efMealText">食べたもの</label><input class="ef-input" id="efMealText" type="text" placeholder="例 鶏むね肉とご飯">';
       h += '<div class="ef-row"><div><label class="ef-label" for="efKcal">kcal（任意）</label><input class="ef-input" id="efKcal" type="number" inputmode="numeric" min="0" step="any"></div>';
       h += '<div><label class="ef-label" for="efProtein">タンパク質 g（任意）</label><input class="ef-input" id="efProtein" type="number" inputmode="decimal" min="0" step="any"></div></div>';
+      h += "</div>";
     }
     form.innerHTML = h;
     if (ef.type === "train") {
+      maiReset();
       renderReps(null);
       renderAiBox();
       renderAiReview();
+    } else if (ef.type === "meal") {
+      ai.review = null;
+      renderMealAiBox();
+      renderMealAiReview();
     } else {
       ai.review = null;
+      maiReset();
       aiSyncSaveBtn();
     }
   }
@@ -4829,16 +4967,19 @@
   }
   function openEntryModal(type) {
     // "ai"＝「AIで記録」から：トレーニングの入力欄を開き、AIの入力欄（キー未保存ならキー欄）にフォーカス
+    // "meal-ai"＝「AIで食事を記録」から：食事の入力欄を開き、食事の AI 欄（キー未保存ならキー欄）にフォーカス
     var focusAi = type === "ai";
+    var focusMealAi = type === "meal-ai";
     if (focusAi) type = "train";
+    if (focusMealAi) type = "meal";
     if (type === "train" || type === "bw" || type === "meal") ef.type = type;
     renderEntryForm();
     renderLocalList();
     efEl("entryModalOverlay").classList.add("show");
-    if (focusAi) {
+    if (focusAi || focusMealAi) {
       var box = efEl("entryModalOverlay").querySelector(".entry-box");
       if (box) box.scrollTop = 0;
-      var f = efEl("efAiText") || efEl("efAiKey");
+      var f = focusAi ? (efEl("efAiText") || efEl("efAiKey")) : (efEl("efMealAiText") || efEl("efAiKey"));
       if (f) { try { f.focus(); } catch (e) {} }
     }
   }
@@ -4850,6 +4991,7 @@
     ai.review = null;
     ai.err = "";
     ai.keyOpen = false;
+    maiReset();
   }
 
   // ---------- 保存・削除 ----------
@@ -4937,6 +5079,10 @@
     } else if (kind === "meal") {
       var mm = loc.meals[date];
       if (mm) {
+        // 写真つき（AIで食事を記録）なら meal_photos の写真も消す（失敗しても記録の削除は進める）
+        (mm.items || []).forEach(function (it) {
+          if (it.id === id && it.photo_id) deleteMealPhoto(it.photo_id).catch(function () {});
+        });
         mm.items = (mm.items || []).filter(function (it) { return it.id !== id; });
         if (!mm.items.length) delete loc.meals[date];
         else recalcMeal(mm);
@@ -5114,13 +5260,14 @@
   // ---- 描画 ----
   function aiSyncSaveBtn() {
     var btn = efEl("entryModalOverlay").querySelector('[data-ef-act="save"]');
-    if (btn) btn.style.display = (ef.type === "train" && ai.review) ? "none" : "";
+    if (btn) btn.style.display = ((ef.type === "train" && ai.review) || (ef.type === "meal" && mai.review)) ? "none" : "";
   }
   function aiKeyRowHtml(placeholder) {
     return '<div class="ai-key-row"><input class="ef-input" id="efAiKey" type="password" placeholder="' + placeholder + '" aria-label="OpenAI APIキー" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="done">' +
       '<button type="button" class="rec-pill lg" data-ai-act="key-save">キーを保存</button></div>';
   }
   function renderAiBox() {
+    if (ef.type === "meal") { renderMealAiBox(); return; } // キーの保存・削除など共通の操作から呼ばれたとき
     var box = efEl("efAiBox");
     if (!box) return;
     var key = aiGetKey();
@@ -5293,7 +5440,7 @@
     ai.err = "";
     renderAiBox();
     showToast("APIキーを保存しました");
-    var ta = efEl("efAiText");
+    var ta = efEl("efAiText") || efEl("efMealAiText");
     if (ta) { try { ta.focus(); } catch (e) {} }
   }
   function onAiAct(act, el) {
@@ -5374,6 +5521,407 @@
     });
     overlay.addEventListener("keydown", function (e) {
       if (e.key === "Enter" && e.target.id === "efAiKey") { e.preventDefault(); aiSaveKey(); }
+    });
+  })();
+
+  // ---------- AIで食事を記録（テキスト／写真 → OpenAI で kcal・タンパク質を推定 → 確認 → 端末記録の食事へ保存） ----------
+  // APIキー（wayaku_openai_key）・エンドポイント・モデル・エラー文言はトレーニングの「AIで記録」と共通。
+  // 保存は手入力の食事と同じ形 { id, time, text, kcal, protein }（写真つきは photo_id を足すだけ）で kintore_local_v1 へ。
+  // 写真は端末の IndexedDB（kintore_photos_v1 / meal_photos）にだけ保存し、分析のときだけ OpenAI へ送る
+  var MAI_PLACEHOLDER = "例：親子丼と味噌汁、サラダ";
+  var MAI_MAX_ITEMS = 30;
+  var MAI_PHOTO_SAVE_TIMEOUT = 8000;
+  // review = { mode: "text"|"photo", name, kcal, protein, items:[{ name, kcal, protein }] }（入力欄の値は文字列で保持）
+  // busy = "" | "text" | "photo"
+  var mai = { text: "", busy: "", err: "", review: null, req: 0, photoBlob: null, photoUrl: "", saving: false };
+
+  // 確認中の内容・待ち中の応答・写真を捨てる（入力したテキストは残す）
+  function maiReset() {
+    mai.req++;
+    mai.busy = "";
+    mai.err = "";
+    mai.review = null;
+    mai.photoBlob = null;
+    mai.photoUrl = "";
+    mai.saving = false;
+  }
+  function maiPromptRules() {
+    return [
+      "出力はJSONオブジェクトのみ（説明文・コードブロックは不要）。形式：",
+      '{"name":"親子丼定食","kcal":820,"protein":38.5,"items":[{"name":"親子丼","kcal":650,"protein":30},{"name":"味噌汁","kcal":70,"protein":3.5}]}',
+      "",
+      "ルール：",
+      "- name：食事全体の短い名前（日本語）。",
+      "- kcal：食事全体の合計カロリー（整数）。protein：食事全体の合計タンパク質（グラム、小数1桁）。",
+      "- items：料理・食品ごとに1件。各 kcal は整数、protein は小数1桁。合計の kcal・protein は items の合計とそろえる。",
+      "- 量の記載があればそれに従い、無ければ日本の一般的な1人前として推定する。",
+      "- 数値は推定値でよい。"
+    ];
+  }
+  function maiTextPrompt() {
+    return [
+      "あなたは食事記録アプリの栄養計算アシスタントです。ユーザーが書いた食事の内容から、食事全体の合計カロリー（kcal）とタンパク質（g）を推定し、料理・食品ごとの内訳に分けてください。",
+      ""
+    ].concat(maiPromptRules(), [
+      '- 食事の内容が読み取れない場合は {"name":"","kcal":null,"protein":null,"items":[]} を返す。'
+    ]).join("\n");
+  }
+  function maiPhotoPrompt() {
+    return [
+      "あなたは食事記録アプリの栄養計算アシスタントです。写真に写っている食事（料理・食品）を特定し、写っている量から食事全体の合計カロリー（kcal）とタンパク質（g）を推定して、料理・食品ごとの内訳に分けてください。",
+      ""
+    ].concat(maiPromptRules(), [
+      '- 写真に食事が写っていない、または判別できない場合は {"name":"","kcal":null,"protein":null,"items":[]} を返す。'
+    ]).join("\n");
+  }
+  function maiNum(v) {
+    if (v == null || v === "") return null;
+    if (typeof v === "string") v = v.replace(/[^\d.]/g, ""); // "820kcal" などにも対応
+    var n = parseFloat(v);
+    return isFinite(n) && n >= 0 ? n : null;
+  }
+  function maiKcalStr(n) { return n == null ? "" : String(Math.round(n)); }
+  function maiProtStr(n) { return n == null ? "" : String(Math.round(n * 10) / 10); }
+  // OpenAI の応答（JSON文字列）→ 確認用の内容。読めなければ null
+  function maiParse(content) {
+    var o;
+    try { o = typeof content === "string" ? JSON.parse(content) : content; } catch (e) { return null; }
+    if (!o || typeof o !== "object" || Array.isArray(o)) return null;
+    var items = [], sumK = null, sumP = null;
+    (Array.isArray(o.items) ? o.items : []).forEach(function (x) {
+      if (!x || typeof x !== "object" || items.length >= MAI_MAX_ITEMS) return;
+      var nm = String(aiPick(x, ["name", "food", "item"]) || "").trim();
+      if (!nm) return;
+      var k = maiNum(aiPick(x, ["kcal", "calories", "energy"]));
+      var p = maiNum(aiPick(x, ["protein", "protein_g"]));
+      if (k != null) sumK = (sumK || 0) + k;
+      if (p != null) sumP = (sumP || 0) + p;
+      items.push({ name: nm, kcal: maiKcalStr(k), protein: maiProtStr(p) });
+    });
+    var kcal = maiNum(aiPick(o, ["kcal", "calories", "total_kcal"]));
+    var prot = maiNum(aiPick(o, ["protein", "protein_g", "total_protein"]));
+    if (kcal == null) kcal = sumK; // 合計が無いときだけ内訳の合計を使う
+    if (prot == null) prot = sumP;
+    var name = String(o.name || "").trim();
+    if (!name && items.length) name = items.map(function (it) { return it.name; }).join("・");
+    if (!name && kcal == null) return null;
+    return { name: name, kcal: maiKcalStr(kcal), protein: maiProtStr(prot), items: items };
+  }
+  function maiErrMsg(err, photo) {
+    var st = err && err.status;
+    if (err && err.decode) return "写真を読み込めませんでした。別の画像で試してください";
+    return st === 401 ? "APIキーが正しくありません"
+      : st === 429 ? "APIの利用上限か残高不足です"
+      : (err && err.parse) ? (photo ? "この写真は分析できませんでした" : "うまく読み取れませんでした。書き方を変えて試してください")
+      : "変換できませんでした。通信環境を確認してください";
+  }
+
+  // ---- 描画 ----
+  function renderMealAiBox() {
+    var box = efEl("efMealAiBox");
+    if (!box) return;
+    var key = aiGetKey();
+    var h = '<div class="ai-head"><span class="ai-title">' + AI_ICON + "AIで記録</span>";
+    if (key) h += '<button type="button" class="ai-link" data-ai-act="key-toggle" aria-expanded="' + (ai.keyOpen ? "true" : "false") + '">' + (ai.keyOpen ? "閉じる" : "APIキー設定") + "</button>";
+    h += "</div>";
+    if (!key) {
+      h += '<div class="ai-note">OpenAI APIキーが必要です。単語帳アプリで保存したキーはそのまま使えます。</div>';
+      h += aiKeyRowHtml("sk-…");
+    } else {
+      if (ai.keyOpen) {
+        h += '<div class="ai-key-panel"><div class="ai-note">APIキーは保存済みです。変更するときは新しいキーを入力して保存してください。</div>' + aiKeyRowHtml("新しいAPIキー") +
+          '<button type="button" class="ai-link danger" data-ai-act="key-del">キーを削除</button></div>';
+      }
+      var busy = !!mai.busy;
+      h += '<textarea class="ef-input ai-text" id="efMealAiText" data-mai-in="text" rows="3" placeholder="' + escapeHtml(MAI_PLACEHOLDER) + '" aria-label="食事の内容">' + escapeHtml(mai.text) + "</textarea>";
+      h += '<div class="ai-btn-row">';
+      h += '<button type="button" class="ef-btn primary ai-go" data-mai-act="calc"' + (busy ? " disabled" : "") + ">" + (mai.busy === "text" ? "計算中…" : "AIで計算") + "</button>";
+      h += '<button type="button" class="ef-btn ai-photo" data-mai-act="photo"' + (busy ? " disabled" : "") + ">" + ICON_CAMERA + "<span>" + (mai.busy === "photo" ? "分析中…" : "写真から記録") + "</span></button>";
+      h += "</div>";
+    }
+    if (mai.err) h += '<div class="ai-err" role="alert">' + escapeHtml(mai.err) + "</div>";
+    box.innerHTML = h;
+  }
+  function maiItemRowHtml(it, i) {
+    var n = i + 1;
+    return '<div class="mai-item">' +
+      '<input class="ef-input" type="text" data-mai-in="iname" data-i="' + i + '" value="' + escapeHtml(it.name) + '" placeholder="品名" aria-label="' + n + '品目の名前" autocomplete="off">' +
+      '<input class="ef-input" type="number" inputmode="numeric" min="0" step="any" placeholder="kcal" data-mai-in="ikcal" data-i="' + i + '" value="' + escapeHtml(it.kcal) + '" aria-label="' + n + '品目のkcal">' +
+      '<input class="ef-input" type="number" inputmode="decimal" min="0" step="any" placeholder="g" data-mai-in="iprot" data-i="' + i + '" value="' + escapeHtml(it.protein) + '" aria-label="' + n + '品目のタンパク質（g）">' +
+      '<button type="button" class="ai-x" data-mai-act="del-item" data-i="' + i + '" aria-label="' + n + '品目を削除">×</button></div>';
+  }
+  function renderMealAiReview() {
+    var box = efEl("efMealAiReview"), manual = efEl("efMealManual");
+    if (!box) return;
+    var r = mai.review;
+    if (!r) {
+      box.innerHTML = "";
+      if (manual) manual.style.display = "";
+      aiSyncSaveBtn();
+      return;
+    }
+    var h = '<div class="ai-review-lead">推定した内容を確認して保存してください。日付・時刻は上の欄のものを使います。</div>';
+    h += '<div class="ai-card">';
+    if (r.mode === "photo" && mai.photoUrl) h += '<div class="mai-photo"><img src="' + mai.photoUrl + '" alt="分析した食事の写真"></div>';
+    h += '<label class="ef-label" for="efMaiName" style="margin-top:0">食事名</label>' +
+      '<input class="ef-input" id="efMaiName" type="text" data-mai-in="name" value="' + escapeHtml(r.name) + '" placeholder="例 親子丼定食" autocomplete="off">';
+    h += '<div class="ef-row"><div><label class="ef-label" for="efMaiKcal">kcal（合計）</label>' +
+      '<input class="ef-input" id="efMaiKcal" type="number" inputmode="numeric" min="0" step="any" data-mai-in="kcal" value="' + escapeHtml(r.kcal) + '"></div>' +
+      '<div><label class="ef-label" for="efMaiProtein">タンパク質 g（合計）</label>' +
+      '<input class="ef-input" id="efMaiProtein" type="number" inputmode="decimal" min="0" step="any" data-mai-in="protein" value="' + escapeHtml(r.protein) + '"></div></div>';
+    h += '<div class="mai-item-head" aria-hidden="true"><span>内訳</span><span>kcal</span><span>P（g）</span><span></span></div>';
+    h += r.items.map(maiItemRowHtml).join("");
+    h += '<div class="mai-note">' + (r.items.length ? "" : "内訳はありません。") + "保存されるのは上の合計の値です（内訳を直しても合計は自動では変わりません）。</div>";
+    if (r.items.length < MAI_MAX_ITEMS) h += '<button type="button" class="sess-addset" data-mai-act="add-item">＋ 項目を追加</button>';
+    h += "</div>";
+    h += '<div class="ai-actions"><button type="button" class="ef-btn primary" data-mai-act="save"' + (mai.saving ? " disabled" : "") + ">" + (mai.saving ? "保存中…" : "この内容で保存") + "</button>" +
+      '<button type="button" class="ef-btn" data-mai-act="cancel"' + (mai.saving ? " disabled" : "") + ">やめる</button></div>";
+    box.innerHTML = h;
+    if (manual) manual.style.display = "none";
+    aiSyncSaveBtn();
+  }
+  function maiShowReview(r, mode) {
+    r.mode = mode;
+    mai.busy = "";
+    mai.review = r;
+    renderMealAiBox();
+    renderMealAiReview();
+    var rb = efEl("efMealAiReview");
+    if (rb && rb.scrollIntoView) { try { rb.scrollIntoView({ block: "start", behavior: "smooth" }); } catch (e) {} }
+  }
+
+  // ---- 推定（テキスト／写真） ----
+  function maiRequest(key, messages) {
+    return fetch(AI_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Authorization": "Bearer " + key },
+      body: JSON.stringify({ model: AI_MODEL, response_format: { type: "json_object" }, messages: messages })
+    }).then(function (res) {
+      if (!res.ok) { var he = new Error("http"); he.status = res.status; throw he; }
+      return res.json().catch(function () { var pe = new Error("parse"); pe.parse = true; throw pe; });
+    }).then(function (json) {
+      var msg = json && json.choices && json.choices[0] && json.choices[0].message;
+      var r = maiParse(msg && msg.content);
+      if (!r) { var pe2 = new Error("parse"); pe2.parse = true; throw pe2; }
+      return r;
+    });
+  }
+  function maiCalc() {
+    if (mai.busy) return;
+    var key = aiGetKey();
+    if (!key) { renderMealAiBox(); return; }
+    var ta = efEl("efMealAiText");
+    if (ta) mai.text = ta.value;
+    var text = mai.text.trim();
+    if (!text) { if (ta) ta.focus(); return; }
+    var my = ++mai.req;
+    mai.busy = "text";
+    mai.err = "";
+    mai.review = null; // 新しく計算するときは前の確認内容を捨てる
+    mai.photoBlob = null;
+    mai.photoUrl = "";
+    renderMealAiBox();
+    renderMealAiReview();
+    maiRequest(key, [
+      { role: "system", content: maiTextPrompt() },
+      { role: "user", content: "次の食事のカロリーとタンパク質を推定してください。\n\n" + text }
+    ]).then(function (r) {
+      if (my !== mai.req) return;
+      maiShowReview(r, "text");
+    }).catch(function (err) {
+      if (my !== mai.req) return;
+      mai.busy = "";
+      mai.err = maiErrMsg(err, false);
+      renderMealAiBox(); // テキストは mai.text から書き戻すので消えない
+    });
+  }
+  function blobToDataUrl(blob) {
+    return new Promise(function (resolve, reject) {
+      var fr = new FileReader();
+      fr.onload = function () { resolve(String(fr.result)); };
+      fr.onerror = function () { reject(fr.error || new Error("read")); };
+      fr.readAsDataURL(blob);
+    });
+  }
+  // 体の写真と同じ縮小・圧縮（resizeImageBlob：長辺 PHOTO_MAX_EDGE=1600・JPEG 品質 PHOTO_JPEG_QUALITY=0.85）
+  function maiCompress(file) {
+    return resizeImageBlob(file).then(function (resized) {
+      return blobToDataUrl(resized.blob).then(function (url) { return { blob: resized.blob, url: url }; });
+    }).catch(function () { var de = new Error("decode"); de.decode = true; throw de; });
+  }
+  function maiPickPhoto() {
+    if (mai.busy) return;
+    if (!aiGetKey()) { renderMealAiBox(); return; }
+    var input = efEl("mealPhotoFileInput");
+    if (!input) return;
+    input.value = "";
+    input.click();
+  }
+  function maiFromPhoto(file) {
+    if (!file || mai.busy) return;
+    var key = aiGetKey();
+    if (!key) { renderMealAiBox(); return; }
+    var ta = efEl("efMealAiText");
+    if (ta) mai.text = ta.value;
+    var my = ++mai.req;
+    mai.busy = "photo";
+    mai.err = "";
+    mai.review = null;
+    mai.photoBlob = null;
+    mai.photoUrl = "";
+    renderMealAiBox();
+    renderMealAiReview();
+    var img = null;
+    maiCompress(file).then(function (c) {
+      if (my !== mai.req) return null;
+      img = c;
+      return maiRequest(key, [{
+        role: "user",
+        content: [
+          { type: "text", text: maiPhotoPrompt() },
+          { type: "image_url", image_url: { url: c.url } }
+        ]
+      }]);
+    }).then(function (r) {
+      if (!r || my !== mai.req) return;
+      mai.photoBlob = img.blob;
+      mai.photoUrl = img.url;
+      maiShowReview(r, "photo");
+    }).catch(function (err) {
+      if (my !== mai.req) return;
+      mai.busy = "";
+      mai.err = maiErrMsg(err, true);
+      renderMealAiBox();
+    });
+  }
+
+  // ---- 保存 ----
+  // 写真を meal_photos へ（成功で true）。DB が開けない・待ちのまま（古い版のタブが開いている等）なら false
+  function maiSavePhoto(id, blob, date) {
+    return new Promise(function (resolve) {
+      var settled = false;
+      var timer = setTimeout(function () { settled = true; resolve(false); }, MAI_PHOTO_SAVE_TIMEOUT);
+      putMealPhoto({ id: id, blob: blob, date: date, createdAt: Date.now() }).then(function () {
+        if (settled) { deleteMealPhoto(id).catch(function () {}); return; } // 時間切れで写真なしにした記録の写真は残さない
+        settled = true;
+        clearTimeout(timer);
+        resolve(true);
+      }, function () {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
+        resolve(false);
+      });
+    });
+  }
+  function maiSave() {
+    var r = mai.review;
+    if (!r || mai.saving) return;
+    var date = efEl("efDate").value;
+    if (!date) { showToast("日付を入力してください"); return; }
+    var time = efEl("efTime").value || nowTimeStr();
+    var name = String(r.name || "").trim();
+    var kcal = maiNum(r.kcal), prot = maiNum(r.protein);
+    if (!name && kcal == null) { showToast("食事名またはkcalを入力してください"); return; }
+    kcal = kcal == null ? null : Math.round(kcal);
+    prot = prot == null ? null : Math.round(prot * 10) / 10;
+    var id = newLocalId();
+    var blob = (r.mode === "photo" && mai.photoBlob) ? mai.photoBlob : null;
+    mai.saving = true;
+    renderMealAiReview();
+    // 先に写真を保存（失敗しても食事は写真なしで保存する）
+    var photoStep = blob ? maiSavePhoto(id, blob, date) : Promise.resolve(null);
+    photoStep.then(function (photoOk) {
+      var loc = readLocal();
+      var cur = loc.meals[date];
+      if (!cur) cur = loc.meals[date] = { kcal: null, protein: null, items: [], note: null };
+      // 手入力の食事と同じ形（写真つきは photo_id＝この記録の id を足す）
+      var item = { id: id, time: time, text: name || "(kcalのみ)", kcal: kcal, protein: prot };
+      if (photoOk) item.photo_id = id;
+      cur.items.push(item);
+      recalcMeal(cur);
+      if (!writeLocal(loc)) {
+        if (photoOk) deleteMealPhoto(id).catch(function () {});
+        mai.saving = false;
+        renderMealAiReview();
+        showToast("保存できませんでした（端末の容量を確認）");
+        return;
+      }
+      if (photoOk) mealPhotoUrlCache[id] = URL.createObjectURL(blob); // すぐにサムネイルを出す
+      mai.text = "";
+      closeEntryModal();
+      focusDateAfterSave(date);
+      reapplyLocal();
+      showToast(photoOk === false ? "記録しました（写真は保存できませんでした）" : "記録しました");
+    });
+  }
+
+  // ---- 操作 ----
+  (function () {
+    var overlay = efEl("entryModalOverlay");
+    overlay.addEventListener("click", function (e) {
+      var b = e.target.closest ? e.target.closest("[data-mai-act]") : null;
+      if (!b || b.disabled) return;
+      var act = b.getAttribute("data-mai-act");
+      var i = parseInt(b.getAttribute("data-i"), 10);
+      var r = mai.review;
+      switch (act) {
+        case "calc": maiCalc(); break;
+        case "photo": maiPickPhoto(); break;
+        case "add-item": {
+          if (!r || r.items.length >= MAI_MAX_ITEMS) break;
+          r.items.push({ name: "", kcal: "", protein: "" });
+          renderMealAiReview();
+          var ins = overlay.querySelectorAll('[data-mai-in="iname"]');
+          if (ins.length) { try { ins[ins.length - 1].focus(); } catch (err) {} }
+          break;
+        }
+        case "del-item":
+          if (!r || !isFinite(i) || !r.items[i]) break;
+          r.items.splice(i, 1);
+          renderMealAiReview();
+          break;
+        case "save": maiSave(); break;
+        case "cancel":
+          mai.review = null;
+          mai.photoBlob = null;
+          mai.photoUrl = "";
+          renderMealAiReview();
+          break;
+      }
+    });
+    overlay.addEventListener("input", function (e) {
+      var t = e.target, k = t.getAttribute ? t.getAttribute("data-mai-in") : null;
+      if (!k) return;
+      if (k === "text") { mai.text = t.value; return; }
+      var r = mai.review;
+      if (!r) return;
+      if (k === "name") r.name = t.value;
+      else if (k === "kcal") r.kcal = t.value;
+      else if (k === "protein") r.protein = t.value;
+      else {
+        var it = r.items[parseInt(t.getAttribute("data-i"), 10)];
+        if (!it) return;
+        if (k === "iname") it.name = t.value;
+        else if (k === "ikcal") it.kcal = t.value;
+        else if (k === "iprot") it.protein = t.value;
+      }
+    });
+    efEl("mealPhotoFileInput").addEventListener("change", function () {
+      var file = this.files && this.files[0];
+      this.value = "";
+      if (file) maiFromPhoto(file);
+    });
+    // 食事のサムネイル（記録タブ・食事タブ）：キャプチャ段階で拾い、ほかのタップ処理（開閉など）には渡さない
+    document.addEventListener("click", function (e) {
+      var b = e.target.closest ? e.target.closest("[data-meal-photo]") : null;
+      if (!b) return;
+      e.preventDefault();
+      e.stopPropagation();
+      openMealPhotoViewer(b.getAttribute("data-meal-photo"));
+    }, true);
+    document.addEventListener("keydown", function (e) {
+      if ((e.key === "Escape" || e.key === "Esc") && document.getElementById("mealPhotoViewer")) closeMealPhotoViewer();
     });
   })();
 
@@ -7424,7 +7972,7 @@
   }
   function isSwipeEligibleTarget(target, tab) {
     if (isFormTarget(target) || scrollableAncestorX(target)) return false;
-    if (target.closest && (target.closest(".tabbar") || target.closest(".sess-overlay") || target.closest(".rec-overlay"))) return false;
+    if (target.closest && (target.closest(".tabbar") || target.closest(".sess-overlay") || target.closest(".rec-overlay") || target.closest(".meal-viewer"))) return false;
     if (tab === "day" || tab === "week" || tab === "month" || tab === "photo") return true;
     if (tab === "weight" || tab === "meal") {
       return !!(target.closest && target.closest(".period-swipe-zone"));
