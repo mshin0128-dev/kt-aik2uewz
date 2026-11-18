@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-19T01:37:22+09:00",
+ "source_mtime": "2026-11-19T02:00:30+09:00",
  "parts": [
   "胸",
   "背中",
@@ -6684,6 +6684,44 @@
      "load_reps": 10,
      "volume_kg": 400.0,
      "hands": "判断不可"
+    },
+    {
+     "date": "2026-11-18",
+     "time": "01:59",
+     "exercise": "ベンチプレス",
+     "part": "胸",
+     "weight_kg": 40.0,
+     "weight_type": "合計",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "01:59 ベンチプレス 40kg(バー込み)×5(1セット目) /負荷量 40kg×5=200kg",
+     "load_kg": 40.0,
+     "load_reps": 5,
+     "volume_kg": 200.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-18",
+     "time": "01:59",
+     "exercise": "ベンチプレス",
+     "part": "胸",
+     "weight_kg": 50.0,
+     "weight_type": "合計",
+     "reps": [
+      1
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "01:59 ベンチプレス 50kg(バー込み)×1(2セット目) /負荷量 50kg×1=50kg",
+     "load_kg": 50.0,
+     "load_reps": 1,
+     "volume_kg": 50.0,
+     "hands": null
     }
    ],
    "summary_only": null
@@ -6865,6 +6903,7 @@
   "ブルガリアンスクワット",
   "プランク",
   "プリーチャーカール",
+  "ベンチプレス",
   "ペックフライ",
   "マシンショルダープレス",
   "ライイングエクステンション",
@@ -8458,6 +8497,6 @@
    "note": null
   }
  },
- "content_hash": "0d1e7f752cd1",
- "generated_at": "2026-11-19T01:38:19+09:00"
+ "content_hash": "007b08029dfe",
+ "generated_at": "2026-11-19T02:01:32+09:00"
 }
