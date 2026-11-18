@@ -1089,6 +1089,16 @@
   .add-record-btn:not(.primary) svg { color: var(--accent); }
   .add-record-btn:active { transform: scale(0.98); opacity: 0.92; }
   .rec-title-big { font-size: 30px; font-weight: 800; letter-spacing: 0.01em; line-height: 1.2; margin: 4px 4px 4px; }
+  /* 記録する画面の入口リスト（箇条書き） */
+  .hub-list { background: var(--card); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; margin-top: 14px; }
+  .hub-row { display: flex; align-items: center; gap: 13px; width: 100%; min-height: 62px; padding: 10px 16px; background: none; border: none; border-bottom: 1px solid var(--line); color: var(--text); font: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .hub-row:last-child { border-bottom: none; }
+  .hub-row:active { background: var(--card2); }
+  .hub-ico { flex: 0 0 auto; width: 36px; height: 36px; border-radius: 11px; background: rgba(10, 132, 255, 0.14); color: var(--accent); display: flex; align-items: center; justify-content: center; }
+  .hub-ico svg { width: 20px; height: 20px; display: block; }
+  .hub-label { flex: 1 1 auto; font-size: 16.5px; font-weight: 700; }
+  .hub-chev { flex: 0 0 auto; color: var(--sub); display: flex; }
+  .hub-chev svg { width: 17px; height: 17px; display: block; }
   .rec-lead { font-size: 13px; color: var(--sub); margin: 0 4px 16px; }
   .rec-label { font-size: 13px; font-weight: 700; color: var(--sub); letter-spacing: 0.06em; margin: 22px 4px 10px; }
   .rec-resume { margin-bottom: 6px; }
@@ -2038,14 +2048,34 @@
     <!-- ヘッダーは画面ごとに描き直す（開始：閉じる／編集、作成・編集・種目追加：✕／タイトル／保存・追加） -->
     <header class="sess-head rec-head" id="recHead"></header>
     <div class="rec-body" id="recBody">
-    <div id="recStartView">
-    <h2 class="rec-title-big" id="recordSheetTitle">トレーニングを開始</h2>
-    <p class="rec-lead">メニューを選ぶと、直近の記録が入った状態で始められます。</p>
-    <!-- 進行中のトレーニングがあるときだけ表示（再開ボタン） -->
+    <!-- 進行中のトレーニングがあるときだけ表示（再開ボタン。ハブ／トレーニング画面のどちらでも上に残す） -->
     <button class="add-record-btn primary rec-resume" type="button" id="sessionOpenBtn" hidden>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8v8"/><path d="M4 9v6"/><path d="M20 9v6"/><path d="M22 8v8"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M9 8v8"/><path d="M15 8v8"/></svg>
       <span id="sessionOpenLabel">トレーニングを記録する</span>
     </button>
+    <div id="recHubView">
+    <h2 class="rec-title-big">記録する</h2>
+    <div class="hub-list">
+      <button type="button" class="hub-row" data-ract="hub-train">
+        <span class="hub-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8v8"/><path d="M4 9v6"/><path d="M20 9v6"/><path d="M22 8v8"/><line x1="9" y1="12" x2="15" y2="12"/><path d="M9 8v8"/><path d="M15 8v8"/></svg></span>
+        <span class="hub-label">トレーニングを記録</span>
+        <span class="hub-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 5 16 12 9 19"/></svg></span>
+      </button>
+      <button type="button" class="hub-row" data-open-entry="meal-ai">
+        <span class="hub-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9z"/><path d="M19 14l.8 2.2L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-.8z"/></svg></span>
+        <span class="hub-label">食事をAIで記録</span>
+        <span class="hub-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 5 16 12 9 19"/></svg></span>
+      </button>
+      <button type="button" class="hub-row" data-ract="hub-body">
+        <span class="hub-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg></span>
+        <span class="hub-label">体重・写真を記録</span>
+        <span class="hub-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 5 16 12 9 19"/></svg></span>
+      </button>
+    </div>
+    </div>
+    <div id="recStartView" hidden>
+    <h2 class="rec-title-big" id="recordSheetTitle">トレーニングを開始</h2>
+    <p class="rec-lead">メニューを選ぶと、直近の記録が入った状態で始められます。</p>
     <div class="rec-label">メニュー</div>
     <div class="rec-menu-list" id="recMenuList"></div>
     <div class="rec-btn-stack">
@@ -2054,24 +2084,9 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="7 4 20 12 7 20 7 4"/></svg>
         <span>フリーで開始</span>
       </button>
-    </div>
-    <div class="rec-label">ほかの記録</div>
-    <div class="record-actions">
       <button class="add-record-btn" type="button" data-open-entry="ai">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9z"/><path d="M19 14l.8 2.2L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-.8z"/></svg>
-        <span>AIで記録</span>
-      </button>
-      <button class="add-record-btn" type="button" data-open-entry="bw">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v6h-6"/></svg>
-        <span>体重を記録する</span>
-      </button>
-      <button class="add-record-btn" type="button" data-open-entry="meal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M12 11V4"/><path d="M8 4c0 1.4 1 2 1 3.4"/><path d="M16 4c0 1.4-1 2-1 3.4"/></svg>
-        <span>食事を記録する</span>
-      </button>
-      <button class="add-record-btn" type="button" data-open-entry="meal-ai">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9z"/><path d="M19 14l.8 2.2L22 17l-2.2.8L19 20l-.8-2.2L16 17l2.2-.8z"/></svg>
-        <span>AIで食事を記録</span>
+        <span>AIで記録（テキスト）</span>
       </button>
     </div>
     </div>
@@ -2117,7 +2132,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.19l";
+  var APP_VERSION = "v2026.11.19m";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -7498,7 +7513,7 @@
     return recEl("recordSheetOverlay").classList.contains("show");
   }
   function resetRecView() {
-    rv.view = "start";
+    rv.view = "hub";
     rv.lastView = null;
     rv.editMode = false;
     rv.draft = null;
@@ -7687,28 +7702,38 @@
 
   // ---- 描画 ----
   function renderRec() {
-    var head = recEl("recHead"), start = recEl("recStartView"), sub = recEl("recSubView"), body = recEl("recBody");
+    var head = recEl("recHead"), start = recEl("recStartView"), sub = recEl("recSubView"), body = recEl("recBody"), hub = recEl("recHubView");
     if (!head || !start || !sub) return;
     var v = rv.view;
-    if (v === "start") {
+    if (v === "hub") {
+      head.innerHTML = recHeadHtml(
+        '<button type="button" class="sess-head-btn" data-ract="close">閉じる</button>', "", "");
+      sub.innerHTML = "";
+      sub.hidden = true;
+      start.hidden = true;
+      if (hub) hub.hidden = false;
+    } else if (v === "start") {
       var count = renderRecMenus();
       head.innerHTML = recHeadHtml(
-        '<button type="button" class="sess-head-btn" data-ract="close">閉じる</button>', "",
+        '<button type="button" class="sess-head-btn" data-ract="hub-back">‹ 戻る</button>', "",
         count ? '<button type="button" class="sess-head-btn' + (rv.editMode ? " accent" : "") + '" data-ract="edit-toggle" aria-pressed="' + (rv.editMode ? "true" : "false") + '">' + (rv.editMode ? "完了" : "編集") + "</button>" : "");
       sub.innerHTML = "";
       sub.hidden = true;
       start.hidden = false;
+      if (hub) hub.hidden = true;
     } else if (v === "create" || v === "edit") {
       head.innerHTML = recHeadHtml(recXBtn("ed-cancel", "閉じる"), recTitle(v === "edit" ? "メニューを編集" : "メニューを作成"),
         '<button type="button" class="rec-pill" data-ract="ed-save">保存</button>');
       sub.innerHTML = recEditorHtml();
       start.hidden = true;
+      if (hub) hub.hidden = true;
       sub.hidden = false;
     } else {
       head.innerHTML = recHeadHtml(recXBtn("pk-cancel", "追加せずに戻る"), recTitle("種目を追加"),
         '<button type="button" class="rec-pill" id="recPickAddBtn" data-ract="pk-add">' + recPickAddLabel() + "</button>");
       sub.innerHTML = recPickerHtml();
       start.hidden = true;
+      if (hub) hub.hidden = true;
       sub.hidden = false;
     }
     if (body && rv.lastView !== v) body.scrollTop = 0;
@@ -7716,7 +7741,7 @@
   }
   // データ取得後：開始画面を開いているときだけ描き直す（作成・編集・種目追加の入力中は邪魔しない）
   function refreshRecordSheet() {
-    if (isRecordSheetOpen() && rv.view === "start") renderRec();
+    if (isRecordSheetOpen() && (rv.view === "start" || rv.view === "hub")) renderRec();
   }
 
   function openRecordSheet() {
@@ -7745,6 +7770,9 @@
     var i = parseInt(el.getAttribute("data-i"), 10);
     switch (act) {
       case "close": closeRecordSheet(); break;
+      case "hub-train": rv.view = "start"; renderRec(); break;
+      case "hub-back": rv.view = "hub"; rv.editMode = false; renderRec(); break;
+      case "hub-body": closeRecordSheet(); switchTab("body"); break;
       case "edit-toggle": rv.editMode = !rv.editMode; renderRec(); break;
       // メニューを作成／編集
       case "ed-cancel":
@@ -7809,6 +7837,9 @@
     ov.addEventListener("click", function (e) {
       var b = e.target.closest ? e.target.closest(".add-record-btn") : null;
       if (b && !b.hasAttribute("data-rec-stay")) closeRecordSheet();
+      // ハブの行（.hub-row）から入力パネルを開くときも、先にこのビューを閉じる
+      var h = e.target.closest ? e.target.closest("[data-open-entry]") : null;
+      if (h) closeRecordSheet();
     }, true);
     ov.addEventListener("click", function (e) {
       if (!e.target.closest) return;
