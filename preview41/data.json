@@ -1,0 +1,8286 @@
+{
+ "version": 1,
+ "source": "log.md",
+ "source_mtime": "2026-11-17T13:17:02+09:00",
+ "parts": [
+  "胸",
+  "背中",
+  "肩",
+  "二頭",
+  "三頭",
+  "脚",
+  "腹筋",
+  "有酸素",
+  "不明"
+ ],
+ "days": [
+  {
+   "date": "2026-09-30",
+   "entries": [
+    {
+     "date": "2026-09-30",
+     "time": "23:37",
+     "exercise": "ハンマーカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "09/30(共有チャット 23:37~): ハンマーカール10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 600.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-09-30",
+     "time": "23:37",
+     "exercise": "ダンベルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "ダンベルオーバーヘッドエクステンション10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": "判断不可"
+    },
+    {
+     "date": "2026-09-30",
+     "time": "23:37",
+     "exercise": "レッグレイズ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": "各セット後に秒数キープ",
+     "raw": "ベンチで脚を伸ばして上下する腹筋10回+10秒キープ×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-09-30",
+     "time": null,
+     "exercise": "ダンベルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": null,
+     "weight_type": "-",
+     "reps": null,
+     "sets": 3,
+     "unknown": [],
+     "note": "過去分負荷量一覧（Notionセット詳細等）から追加",
+     "raw": "トライセプスエクステンション(頭の後ろ) 片手10kg×10 / トライセプスエクステンション(頭の後ろ) 片手10kg×10 / トライセプスエクステンション(頭の後ろ) 片手10kg×10",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 600.0,
+     "load_source": "past_load",
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-01",
+   "entries": [
+    {
+     "date": "2026-10-01",
+     "time": "20:44",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": null,
+     "raw": "10/01(共有チャットのタイムスタンプで確定): 20:44~20:53にダンベルチェストプレス片手10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 600.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-01",
+     "time": "20:44",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10
+     ],
+     "sets": 2,
+     "unknown": [],
+     "note": null,
+     "raw": "ダンベルフライ片手10kg 10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 400.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-01",
+     "time": "20:44",
+     "exercise": "レッグレイズ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10,
+      10
+     ],
+     "sets": 2,
+     "unknown": [],
+     "note": null,
+     "raw": "ベンチ・レッグレイズ10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-03",
+   "entries": [
+    {
+     "date": "2026-10-03",
+     "time": "2:37",
+     "exercise": "ダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/03: ダンベルカール10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 600.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-03",
+     "time": "2:37",
+     "exercise": "ダンベルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "ダンベルオーバーヘッドエクステンション10kg 10×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": "判断不可"
+    },
+    {
+     "date": "2026-10-03",
+     "time": "2:37",
+     "exercise": "ダンベルキックバック",
+     "part": "三頭",
+     "weight_kg": 3.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "ダンベルキックバック3kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 180.0,
+     "load_source": "past_load",
+     "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-10-03",
+     "time": "2:37",
+     "exercise": "コンセントレーションカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      12,
+      12
+     ],
+     "sets": 2,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "コンセントレーションカール10kg 左右12×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 480.0,
+     "load_source": "past_load",
+     "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-10-03",
+     "time": "2:37",
+     "exercise": "サイドプランク",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": null,
+     "sets": null,
+     "unknown": [
+      "回数",
+      "セット数"
+     ],
+     "note": "時間で記録（原文参照）",
+     "raw": "プランク1分・サイドプランク左右30秒・脚を浮かせて1分キープ",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-03",
+     "time": null,
+     "exercise": "ダンベルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": null,
+     "weight_type": "-",
+     "reps": null,
+     "sets": 1,
+     "unknown": [],
+     "note": "過去分負荷量一覧（Notionセット詳細等）から追加",
+     "raw": "トライセプスエクステンション(頭の後ろ) 片手10kg×10",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 200.0,
+     "load_source": "past_load",
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-05",
+   "entries": [
+    {
+     "date": "2026-10-05",
+     "time": null,
+     "exercise": "ダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      8,
+      9,
+      5
+     ],
+     "sets": 3,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/05(深夜の報告を活動日に整理): ダンベルカール10kg 8/9/5回",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 440.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-05",
+     "time": null,
+     "exercise": "ハンマーカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10
+     ],
+     "sets": 2,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "ハンマーカール10kg 10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 400.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-05",
+     "time": null,
+     "exercise": "ダンベルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "ダンベルオーバーヘッドエクステンション10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": "判断不可"
+    },
+    {
+     "date": "2026-10-05",
+     "time": null,
+     "exercise": "ダンベルキックバック",
+     "part": "三頭",
+     "weight_kg": 5.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "キックバック5kg 10×3(左のみ)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 150.0,
+     "load_source": "past_load",
+     "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-10-05",
+     "time": null,
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10
+     ],
+     "sets": 2,
+     "unknown": [],
+     "note": null,
+     "raw": "ダンベルチェストプレス片手10kg 10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 400.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-05",
+     "time": null,
+     "exercise": "レッグレイズ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10,
+      10,
+      10,
+      10
+     ],
+     "sets": 4,
+     "unknown": [],
+     "note": "各セット後に秒数キープ",
+     "raw": "腹筋の脚上げ10回+10秒キープ×4",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-05",
+     "time": null,
+     "exercise": "ダンベルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": null,
+     "weight_type": "-",
+     "reps": null,
+     "sets": 3,
+     "unknown": [],
+     "note": "過去分負荷量一覧（Notionセット詳細等）から追加",
+     "raw": "トライセプスエクステンション 片手10kg×10 / トライセプスエクステンション 片手10kg×10 / トライセプスエクステンション 片手10kg×10",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 600.0,
+     "load_source": "past_load",
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-06",
+   "entries": [
+    {
+     "date": "2026-10-06",
+     "time": null,
+     "exercise": "ダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10
+     ],
+     "sets": 2,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/06(深夜の自宅トレの報告を活動日に整理): 自宅でアームカール10kg 10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 400.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-06",
+     "time": null,
+     "exercise": "ダンベルキックバック",
+     "part": "三頭",
+     "weight_kg": 3.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "ダンベルキックバック3kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 180.0,
+     "load_source": "past_load",
+     "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-10-06",
+     "time": null,
+     "exercise": "レッグレイズ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": null,
+     "raw": "脚を伸縮する腹筋10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-09",
+   "entries": [
+    {
+     "date": "2026-10-09",
+     "time": null,
+     "exercise": "ダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/09: アームカール10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 600.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-09",
+     "time": null,
+     "exercise": "ダンベルキックバック",
+     "part": "三頭",
+     "weight_kg": 3.0,
+     "weight_type": "片手",
+     "reps": null,
+     "sets": null,
+     "unknown": [
+      "回数",
+      "セット数"
+     ],
+     "note": "回数があいまい（原文参照）",
+     "raw": "ダンベルキックバック片手3kg(「10回／15回3セット」の報告で回数があいまい／当時は15×3として整理)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 270.0,
+     "load_source": "past_load",
+     "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-10-09",
+     "time": null,
+     "exercise": "レッグレイズ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      12,
+      12,
+      12
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": "各セット後に秒数キープ",
+     "raw": "腹筋の脚上げ12回+10秒キープ×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-11",
+   "entries": [],
+   "summary_only": {
+    "date": "2026-10-11",
+    "parts_text": "胸・腕",
+    "sets": null,
+    "raw": "- 10/11: 胸・腕 / P約105.6〜135.6g（幅あり）"
+   }
+  },
+  {
+   "date": "2026-10-12",
+   "entries": [
+    {
+     "date": "2026-10-12",
+     "time": null,
+     "exercise": "トレッドミル",
+     "part": "有酸素",
+     "weight_kg": null,
+     "weight_type": "-",
+     "reps": null,
+     "sets": null,
+     "minutes": 10,
+     "unknown": [],
+     "note": null,
+     "raw": "トレッドミル時速10km 10分(約1.67km)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-12",
+     "time": null,
+     "exercise": "サイドレイズ",
+     "part": "肩",
+     "weight_kg": 5.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": null,
+     "raw": "サイドレイズ片手5kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 300.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 10.0
+    },
+    {
+     "date": "2026-10-12",
+     "time": null,
+     "exercise": "ショルダープレス",
+     "part": "肩",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": null,
+     "raw": "ショルダープレス片手10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 600.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-12",
+     "time": null,
+     "exercise": "ラットプルダウン",
+     "part": "背中",
+     "weight_kg": 25.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "ラットプルダウン25kg 10×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 950.0,
+     "load_source": "past_load",
+     "hands": null
+    },
+    {
+     "date": "2026-10-12",
+     "time": null,
+     "exercise": "ラットプルダウン",
+     "part": "背中",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      10,
+      10
+     ],
+     "sets": 2,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "35kg 10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-13",
+   "entries": [
+    {
+     "date": "2026-10-13",
+     "time": null,
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": null,
+     "weight_type": "-",
+     "reps": null,
+     "sets": 3,
+     "unknown": [],
+     "note": "過去分負荷量一覧（Notionセット詳細等）から追加",
+     "raw": "ダンベルチェストプレス 片手10kg×10 / ダンベルチェストプレス 片手10kg×10 / ダンベルチェストプレス 片手10kg×10",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 600.0,
+     "load_source": "past_load",
+     "hands": null
+    },
+    {
+     "date": "2026-10-13",
+     "time": null,
+     "exercise": "プリーチャーカール",
+     "part": "二頭",
+     "weight_kg": null,
+     "weight_type": "-",
+     "reps": null,
+     "sets": 3,
+     "unknown": [],
+     "note": "過去分負荷量一覧（Notionセット詳細等）から追加",
+     "raw": "肘固定アームカール(ベンチ約70度) 7.5kg×14 / 肘固定アームカール(ベンチ約70度) 7.5kg×14 / 肘固定アームカール(ベンチ約70度) 7.5kg×10",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 570.0,
+     "load_source": "past_load",
+     "hands": null
+    },
+    {
+     "date": "2026-10-13",
+     "time": null,
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": null,
+     "weight_type": "-",
+     "reps": null,
+     "sets": 3,
+     "unknown": [],
+     "note": "過去分負荷量一覧（Notionセット詳細等）から追加",
+     "raw": "ケーブルプレスダウン 30kg×10 / ケーブルプレスダウン 30kg×10 / ケーブルプレスダウン 30kg×10",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 900.0,
+     "load_source": "past_load",
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-14",
+   "entries": [
+    {
+     "date": "2026-10-14",
+     "time": null,
+     "exercise": "トレッドミル",
+     "part": "有酸素",
+     "weight_kg": null,
+     "weight_type": "-",
+     "reps": null,
+     "sets": null,
+     "minutes": 15,
+     "unknown": [],
+     "note": null,
+     "raw": "トレッドミル15分・約2.13km(5.5km/h 3分→10km/h 10分→5.5km/h 2分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-14",
+     "time": null,
+     "exercise": "ショルダープレス",
+     "part": "肩",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10,
+      10
+     ],
+     "sets": 4,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": "片手と仮定の記載あり（未確定）",
+     "raw": "ショルダープレス10kg(片手と仮定)10×4",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 800.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-14",
+     "time": null,
+     "exercise": "サイドレイズ",
+     "part": "肩",
+     "weight_kg": 5.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": "片手と仮定の記載あり（未確定）",
+     "raw": "サイドレイズ5kg(片手と仮定)10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 300.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 10.0
+    },
+    {
+     "date": "2026-10-14",
+     "time": null,
+     "exercise": "ダンベルロウ",
+     "part": "背中",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "ダンベルロウ12.5kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 750.0,
+     "load_source": "past_load",
+     "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-10-14",
+     "time": null,
+     "exercise": "ラットプルダウン",
+     "part": "背中",
+     "weight_kg": 30.0,
+     "weight_type": "マシン",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "ラットプルダウン30kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 900.0,
+     "load_source": "past_load",
+     "hands": null
+    },
+    {
+     "date": "2026-10-14",
+     "time": null,
+     "exercise": "ペックフライ",
+     "part": "胸",
+     "weight_kg": 30.0,
+     "weight_type": "マシン",
+     "reps": [
+      10,
+      5
+     ],
+     "sets": 2,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "ペックフライ30kg 10回・5回",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 450.0,
+     "load_source": "past_load",
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-15",
+   "entries": [
+    {
+     "date": "2026-10-15",
+     "time": "2:47",
+     "exercise": "トレッドミル",
+     "part": "有酸素",
+     "weight_kg": null,
+     "weight_type": "-",
+     "reps": null,
+     "sets": null,
+     "minutes": 15,
+     "unknown": [],
+     "note": null,
+     "raw": "トレッドミル15分・約2.11km(5.5km/h 3分→10km/h 10分→5km/h 2分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-15",
+     "time": "2:47",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": null,
+     "raw": "ダンベルフライ片手10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 600.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-15",
+     "time": "2:47",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": null,
+     "raw": "ダンベルチェストプレス片手10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 600.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-15",
+     "time": "2:47",
+     "exercise": "インクラインダンベルフライ",
+     "part": "胸",
+     "weight_kg": null,
+     "weight_type": "不明",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "重さ"
+     ],
+     "note": "重さの記載なし",
+     "raw": "インクラインダンベルフライ10×1(重量未確認)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-15",
+     "time": "2:47",
+     "exercise": "ハンマーカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "ハンマーカール10kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 600.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-16",
+   "entries": [
+    {
+     "date": "2026-10-16",
+     "time": "1:32",
+     "exercise": "トレッドミル",
+     "part": "有酸素",
+     "weight_kg": null,
+     "weight_type": "-",
+     "reps": null,
+     "sets": null,
+     "minutes": 12,
+     "unknown": [],
+     "note": null,
+     "raw": "トレッドミル12分・約1.86km(5.5km/h 3分→12km/h 7分→5.5km/h 2分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-16",
+     "time": "1:32",
+     "exercise": "プリーチャーカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10
+     ],
+     "sets": 2,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "肘固定アームカール10kg 10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 400.0,
+     "load_source": "past_load",
+     "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-10-16",
+     "time": "1:32",
+     "exercise": "ダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10,
+      10
+     ],
+     "sets": 4,
+     "unknown": [],
+     "note": null,
+     "raw": "立位ダンベルカール片手10kg 10×4",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 800.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-16",
+     "time": "1:32",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 9.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      7,
+      5
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": null,
+     "raw": "インクラインダンベルカール片手9kg 10/7/5回(左が弱い)+片手ずつ左右各5回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 486.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 18.0
+    },
+    {
+     "date": "2026-10-16",
+     "time": "1:32",
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 30.0,
+     "weight_type": "マシン",
+     "reps": [
+      10,
+      10,
+      8
+     ],
+     "sets": 3,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "ケーブルプレスダウン30kg 10/10/8",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-16",
+     "time": "1:32",
+     "exercise": "レッグレイズ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20,
+      20,
+      20
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": null,
+     "raw": "腹筋=脚を曲げ伸ばしする種目20×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-16",
+     "time": "1:32",
+     "exercise": "アブドミナル（マシン）",
+     "part": "腹筋",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      10,
+      10
+     ],
+     "sets": 2,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "アブドミナル40kg 10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 800.0,
+     "load_source": "past_load",
+     "hands": null
+    },
+    {
+     "date": "2026-10-16",
+     "time": null,
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": null,
+     "weight_type": "-",
+     "reps": null,
+     "sets": 3,
+     "unknown": [],
+     "note": "過去分負荷量一覧（Notionセット詳細等）から追加",
+     "raw": "ケーブルトライセプスプレスダウン 30kg×10 / ケーブルトライセプスプレスダウン 30kg×10 / ケーブルトライセプスプレスダウン 30kg×8",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 840.0,
+     "load_source": "past_load",
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-19",
+   "entries": [
+    {
+     "date": "2026-10-19",
+     "time": "2:00",
+     "exercise": "ダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": null,
+     "raw": "実施報告あり(10/20 2:00ごろ本人訂正):アームカール片手10kg×10回×3セット",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 600.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-19",
+     "time": "2:00",
+     "exercise": "プリーチャーカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10
+     ],
+     "sets": 2,
+     "unknown": [],
+     "note": null,
+     "raw": "プリーチャーカール(肘固定)片手10kg×10回×2セット(10/20 2:08ごろ本人報告で1→2セットに更新)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 400.0,
+     "load_source": "past_load",
+     "hands": "片腕ずつ"
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-20",
+   "entries": [
+    {
+     "date": "2026-10-20",
+     "time": "11:14",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      15,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": null,
+     "raw": "筋トレ(10/21 1:20ごろ報告・深夜なので10/20に計上): ダンベルプレス片手12.5kg×15回・10回・10回",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 875.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 25.0
+    },
+    {
+     "date": "2026-10-20",
+     "time": "11:14",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      7
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "ダンベルフライ片手12.5kg×7回×1セット",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 175.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 25.0
+    },
+    {
+     "date": "2026-10-20",
+     "time": "11:14",
+     "exercise": "インクラインダンベルフライ",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "インクラインダンベルフライ片手10kg×10回×1セット",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 200.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-20",
+     "time": "11:14",
+     "exercise": "インクラインダンベルプレス",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": null,
+     "raw": "インクラインダンベルプレス片手10kg×10回×3セット",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 600.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-20",
+     "time": "11:14",
+     "exercise": "ダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      15,
+      15
+     ],
+     "sets": 2,
+     "unknown": [],
+     "note": null,
+     "raw": "アームカール片手10kg×15回×2セット",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 800.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-20",
+     "time": "11:14",
+     "exercise": "ダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": "原文で重さ省略（直前と同じ重さで記録）",
+     "raw": "10回×1セット",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-20",
+     "time": "11:14",
+     "exercise": "ブルガリアンスクワット",
+     "part": "脚",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": null,
+     "raw": "ブルガリアンスクワット片手10kg×左右各10回×3セット",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 1200.0,
+     "load_source": "past_load",
+     "hands": "判断不可"
+    },
+    {
+     "date": "2026-10-20",
+     "time": "11:14",
+     "exercise": "ケーブルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": 30.0,
+     "weight_type": "マシン",
+     "reps": [
+      10,
+      7
+     ],
+     "sets": 2,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "ケーブルオーバーヘッドエクステンション30kg×10回・7回(2セット／限界)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-20",
+     "time": null,
+     "exercise": "ケーブルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": null,
+     "weight_type": "-",
+     "reps": null,
+     "sets": 2,
+     "unknown": [],
+     "note": "過去分負荷量一覧（Notionセット詳細等）から追加",
+     "raw": "ケーブルトライセプスエクステンション 30kg×10 / ケーブルトライセプスエクステンション 30kg×7",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 510.0,
+     "load_source": "past_load",
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-21",
+   "entries": [
+    {
+     "date": "2026-10-21",
+     "time": "15:08",
+     "exercise": "ショルダープレス",
+     "part": "肩",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10,
+      10,
+      10
+     ],
+     "sets": 5,
+     "unknown": [],
+     "note": null,
+     "raw": "筋トレ: ショルダープレス片手10kg×10×5",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 1000.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-21",
+     "time": "15:08",
+     "exercise": "シーテッドサイドレイズ",
+     "part": "肩",
+     "weight_kg": 5.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": null,
+     "raw": "シーテッドサイドレイズ片手5kg×10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 300.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 10.0
+    },
+    {
+     "date": "2026-10-21",
+     "time": "15:08",
+     "exercise": "ダンベルロウ",
+     "part": "背中",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10
+     ],
+     "sets": 2,
+     "unknown": [],
+     "note": null,
+     "raw": "ダンベルロウ片手12.5kg×10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 875.0,
+     "load_source": "past_load",
+     "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-10-21",
+     "time": "15:08",
+     "exercise": "ダンベルロウ",
+     "part": "背中",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": "原文で重さ省略（直前と同じ重さで記録）",
+     "raw": "15×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-10-21",
+     "time": "15:08",
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 30.0,
+     "weight_type": "マシン",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "ケーブルプレスダウン30kg×10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 900.0,
+     "load_source": "past_load",
+     "hands": null
+    },
+    {
+     "date": "2026-10-21",
+     "time": "15:08",
+     "exercise": "ラットプルダウン",
+     "part": "背中",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      10,
+      10
+     ],
+     "sets": 2,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "ラットプルダウン35kg×10×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 1100.0,
+     "load_source": "past_load",
+     "hands": null
+    },
+    {
+     "date": "2026-10-21",
+     "time": "15:08",
+     "exercise": "ラットプルダウン",
+     "part": "背中",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "40kg×10×1(深夜)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-22",
+   "entries": [
+    {
+     "date": "2026-10-22",
+     "time": "17:33",
+     "exercise": "レッグレイズ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      30,
+      30
+     ],
+     "sets": 2,
+     "unknown": [],
+     "note": null,
+     "raw": "筋トレ: レッグレイズ30回×2セット",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-22",
+     "time": "17:33",
+     "exercise": "ヒールタッチ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20,
+      20
+     ],
+     "sets": 2,
+     "unknown": [],
+     "note": null,
+     "raw": "ヒールタッチ 左右交互で合計20回×2セット(腹筋)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-22",
+     "time": "17:33",
+     "exercise": "バイシクルクランチ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      60
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "バイシクルクランチ 左右交互で合計60回×1セット(腹筋)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-23",
+   "entries": [
+    {
+     "date": "2026-10-23",
+     "time": "20:20",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      16,
+      19,
+      15
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": null,
+     "raw": "筋トレ: ダンベルプレス片手10kg 16回・19回・15回(3セット／部位: 胸／15回は同じ重さと解釈／重さは未確認)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 1750.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-23",
+     "time": "20:20",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": null,
+     "raw": "追加(20:20ごろ報告): ダンベルプレス片手12.5kg×10×3(先の10kg 3セットとは別に記録)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "両手",
+     "total_kg": 25.0
+    },
+    {
+     "date": "2026-10-23",
+     "time": "20:20",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": null,
+     "raw": "ダンベルフライ片手12.5kg×10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 750.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 25.0
+    },
+    {
+     "date": "2026-10-23",
+     "time": "20:20",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      8,
+      9
+     ],
+     "sets": 2,
+     "unknown": [],
+     "note": null,
+     "raw": "追加(21:15ごろ報告): インクラインダンベルカール片手12.5kg 8回・9回(2セット／部位: 腕)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 425.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 25.0
+    },
+    {
+     "date": "2026-10-23",
+     "time": "20:20",
+     "exercise": "プリーチャーカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      12
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": "右12回・左11回",
+     "raw": "プリーチャーカール片手10kg 1セット目 右12回・左11回",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 520.0,
+     "load_source": "past_load",
+     "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-10-23",
+     "time": "20:20",
+     "exercise": "プリーチャーカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": "原文で重さ省略（直前と同じ重さで記録） / 右10回・左7回",
+     "raw": "2セット目 右10回・左7回(2セット目は同じ重さと解釈)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-10-23",
+     "time": "20:20",
+     "exercise": "プリーチャーカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": "原文で重さ省略（直前と同じ重さで記録） / 右6回・左6回",
+     "raw": "3セット目 右6回・左6回(3セット／部位: 腕)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "片腕ずつ"
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-24",
+   "entries": [
+    {
+     "date": "2026-10-24",
+     "time": "21:08",
+     "exercise": "ショルダープレス",
+     "part": "肩",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10
+     ],
+     "sets": 2,
+     "unknown": [],
+     "note": null,
+     "raw": "10/24 21:08報告: 筋トレ=ショルダープレス片手12.5kg 10回×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 700.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 25.0
+    },
+    {
+     "date": "2026-10-24",
+     "time": "21:08",
+     "exercise": "ショルダープレス",
+     "part": "肩",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": "原文で重さ省略（直前と同じ重さで記録）",
+     "raw": "8回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "両手",
+     "total_kg": 25.0
+    },
+    {
+     "date": "2026-10-24",
+     "time": "21:13",
+     "exercise": "サイドレイズ",
+     "part": "肩",
+     "weight_kg": 5.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [],
+     "note": null,
+     "raw": "10/24 21:13報告: 筋トレ=サイドレイズ片手5kg 10回×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 300.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 10.0
+    },
+    {
+     "date": "2026-10-24",
+     "time": "21:20",
+     "exercise": "ラットプルダウン",
+     "part": "背中",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      5,
+      5
+     ],
+     "sets": 2,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/24 21:20報告: 筋トレ=ラットプルダウン40kg 5回×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 400.0,
+     "load_source": "past_load",
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-25",
+   "entries": [
+    {
+     "date": "2026-10-25",
+     "time": null,
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      10,
+      10
+     ],
+     "sets": 2,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/25(日)17:38報告: 筋トレ=ケーブルプレスダウン35kg 10回×2",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 945.0,
+     "load_source": "past_load",
+     "hands": null
+    },
+    {
+     "date": "2026-10-25",
+     "time": null,
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      7
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": "原文で重さ省略（直前と同じ重さで記録）",
+     "raw": "7回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    },
+    {
+     "date": "2026-10-25",
+     "time": "17:42",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      12
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/25 17:42報告: 筋トレ=ケーブルアームカール35kg 12回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 1100.0,
+     "load_source": "past_load",
+     "hands": null
+    },
+    {
+     "date": "2026-10-25",
+     "time": "17:42",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "40kg 10回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    },
+    {
+     "date": "2026-10-25",
+     "time": "17:42",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      7
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "40kg 7回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    },
+    {
+     "date": "2026-10-25",
+     "time": "17:49",
+     "exercise": "スミスマシンベンチプレス",
+     "part": "胸",
+     "weight_kg": 32.0,
+     "weight_type": "合計",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/25 17:49報告: 筋トレ=スミスマシンベンチプレス 片側10kg(合計32kg)5回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 798.0,
+     "load_source": "past_load",
+     "hands": null
+    },
+    {
+     "date": "2026-10-25",
+     "time": "17:49",
+     "exercise": "スミスマシンベンチプレス",
+     "part": "胸",
+     "weight_kg": 42.0,
+     "weight_type": "合計",
+     "reps": [
+      3
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "片側15kg(合計42kg)3回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    },
+    {
+     "date": "2026-10-25",
+     "time": "17:49",
+     "exercise": "スミスマシンベンチプレス",
+     "part": "胸",
+     "weight_kg": 32.0,
+     "weight_type": "合計",
+     "reps": [
+      8,
+      8
+     ],
+     "sets": 2,
+     "unknown": [],
+     "note": null,
+     "raw": "合計32kg 8回×2(胸4セット／バー12kg込み)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-26",
+   "entries": [
+    {
+     "date": "2026-10-26",
+     "time": "18:57",
+     "exercise": "レッグレイズ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/26 18:57報告 筋トレ:レッグレイズ20回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-26",
+     "time": "18:57",
+     "exercise": "ヒールタッチ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "ベンチに寝てヒールタッチ20回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-26",
+     "time": "19:00",
+     "exercise": "レッグレイズ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": "セット数の記載なし（1セットとして集計）",
+     "raw": "10/26 19:00報告 筋トレ追加:レッグレイズ20回",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-26",
+     "time": "19:00",
+     "exercise": "ヒールタッチ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "ヒールタッチ20回をもう1セットずつ(腹筋は計4セット／どちらも追加したと判断)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-26",
+     "time": "21:13",
+     "exercise": "ラットプルダウン",
+     "part": "背中",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      10,
+      10,
+      10
+     ],
+     "sets": 3,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/26 21:13報告 筋トレ:ラットプルダウン40kg 10×3",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 1200.0,
+     "load_source": "past_load",
+     "hands": null
+    },
+    {
+     "date": "2026-10-26",
+     "time": "21:18",
+     "exercise": "ブルガリアンスクワット",
+     "part": "脚",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/26 21:18報告 筋トレ:ブルガリアンスクワット片手10kg 左右10回×1(脚1セット／セット数は報告どおり1)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 1200.0,
+     "load_source": "past_load",
+     "hands": "判断不可"
+    },
+    {
+     "date": "2026-10-26",
+     "time": "21:22",
+     "exercise": "ブルガリアンスクワット",
+     "part": "脚",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/26 21:22報告 筋トレ追加:ブルガリアンスクワット片手10kg 左右10回の2セット目",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "判断不可"
+    },
+    {
+     "date": "2026-10-26",
+     "time": "21:29",
+     "exercise": "ブルガリアンスクワット",
+     "part": "脚",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/26 21:29報告 筋トレ追加:ブルガリアンスクワット片手10kg 左右10回の3セット目",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "判断不可"
+    },
+    {
+     "date": "2026-10-26",
+     "time": "21:37",
+     "exercise": "レッグエクステンション",
+     "part": "脚",
+     "weight_kg": 45.0,
+     "weight_type": "マシン",
+     "reps": [
+      12
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/26 21:37報告 筋トレ:レッグエクステンション45kg 12回×1",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 2190.0,
+     "load_source": "past_load",
+     "hands": null
+    },
+    {
+     "date": "2026-10-26",
+     "time": "21:40",
+     "exercise": "レッグエクステンション",
+     "part": "脚",
+     "weight_kg": 55.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/26 21:40報告 筋トレ追加:レッグエクステンション55kg 10回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    },
+    {
+     "date": "2026-10-26",
+     "time": "21:43",
+     "exercise": "レッグエクステンション",
+     "part": "脚",
+     "weight_kg": 55.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/26 21:43報告 筋トレ追加:レッグエクステンション3セット目 55kg 10回(本人確認済み)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    },
+    {
+     "date": "2026-10-26",
+     "time": "21:45",
+     "exercise": "レッグエクステンション",
+     "part": "脚",
+     "weight_kg": 55.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/26 21:45報告 筋トレ追加:レッグエクステンション4セット目 55kg 10回(本人確認済み)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-28",
+   "entries": [
+    {
+     "date": "2026-10-28",
+     "time": "16:46",
+     "exercise": "EZバーカール",
+     "part": "二頭",
+     "weight_kg": 30.0,
+     "weight_type": "合計",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/28 16:46 筋トレ:EZバーカール 合計30kg(プレート20kg+バー10kg)×8回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 570.0,
+     "load_source": "past_load",
+     "hands": null
+    },
+    {
+     "date": "2026-10-28",
+     "time": "16:49",
+     "exercise": "EZバーカール",
+     "part": "二頭",
+     "weight_kg": 30.0,
+     "weight_type": "合計",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/28 16:49 筋トレ:EZバーカール 合計30kg×6回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    },
+    {
+     "date": "2026-10-28",
+     "time": "16:51",
+     "exercise": "EZバーカール",
+     "part": "二頭",
+     "weight_kg": 30.0,
+     "weight_type": "合計",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/28 16:51 筋トレ:EZバーカール 合計30kg×5回(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    },
+    {
+     "date": "2026-10-28",
+     "time": "16:59",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 9.0,
+     "weight_type": "片手",
+     "reps": [
+      10,
+      10
+     ],
+     "sets": 2,
+     "unknown": [],
+     "note": null,
+     "raw": "10/28 16:59 筋トレ:インクラインダンベルカール 片手9kg×10回×2セット",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 540.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 18.0
+    },
+    {
+     "date": "2026-10-28",
+     "time": "17:04",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 9.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/28 17:04 筋トレ:インクラインダンベルカール 片手9kg×10回(3セット目／重量・回数は同じと想定)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "両手",
+     "total_kg": 18.0
+    },
+    {
+     "date": "2026-10-28",
+     "time": "17:06",
+     "exercise": "インクラインハンマーカール",
+     "part": "二頭",
+     "weight_kg": 9.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/28 17:06 筋トレ:インクラインハンマーカール 片手9kg×10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 180.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 18.0
+    },
+    {
+     "date": "2026-10-28",
+     "time": "17:09",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/28 17:09 筋トレ:ケーブルアームカール 40kg×8回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 880.0,
+     "load_source": "past_load",
+     "hands": null
+    },
+    {
+     "date": "2026-10-28",
+     "time": "17:11",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/28 17:11 筋トレ:ケーブルアームカール 35kg×10回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    },
+    {
+     "date": "2026-10-28",
+     "time": "17:13",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/28 17:13 筋トレ:ケーブルアームカール 35kg×6回(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    },
+    {
+     "date": "2026-10-28",
+     "time": "17:16",
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/28 17:16 筋トレ:ケーブルプレスダウン 35kg×10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 1030.0,
+     "load_source": "past_load",
+     "hands": null
+    },
+    {
+     "date": "2026-10-28",
+     "time": "17:17",
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      9
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/28 17:17 筋トレ:ケーブルプレスダウン 40kg×9回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    },
+    {
+     "date": "2026-10-28",
+     "time": "17:21",
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/28 17:21 筋トレ:ケーブルプレスダウン 40kg×8回(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    },
+    {
+     "date": "2026-10-28",
+     "time": "17:23",
+     "exercise": "ケーブルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": 20.0,
+     "weight_type": "マシン",
+     "reps": [
+      12
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/28 17:23 筋トレ:ケーブルオーバーヘッドエクステンション 20kg×12回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-28",
+     "time": "23:08",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/28 23:08 筋トレ:ダンベルベンチプレス 片手15kg×8回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 990.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-10-28",
+     "time": "23:16",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/28 23:16 筋トレ:ダンベルベンチプレス 片手15kg×10回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-10-28",
+     "time": "23:26",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/28 23:26 筋トレ:ダンベルベンチプレス 片手15kg×10回(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-10-28",
+     "time": "23:55",
+     "exercise": "ブルガリアンスクワット",
+     "part": "脚",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/28 23:55 筋トレ:ブルガリアンスクワット 片手15kg×左右各10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 600.0,
+     "load_source": "past_load",
+     "hands": "判断不可"
+    },
+    {
+     "date": "2026-10-28",
+     "time": "0:05",
+     "exercise": "ダンベルスクワット",
+     "part": "脚",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/28(10/29 0:05)筋トレ:ダンベルスクワット 片手15kg×15回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 450.0,
+     "load_source": "past_load",
+     "hands": "判断不可"
+    },
+    {
+     "date": "2026-10-28",
+     "time": "0:06",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/28(10/29 0:06)筋トレ:ダンベルベンチプレス 片手15kg×5回(4セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-10-28",
+     "time": "0:06",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/28(10/29 0:06)筋トレ:ダンベルフライ 片手15kg×5回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 150.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-10-28",
+     "time": "0:23",
+     "exercise": "インクラインダンベルプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      7
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/28(10/29 0:23)筋トレ:インクラインダンベルプレス 片手15kg×7回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 210.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-10-28",
+     "time": "0:27",
+     "exercise": "ライイングエクステンション",
+     "part": "三頭",
+     "weight_kg": 10.0,
+     "weight_type": "バー",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/28(10/29 0:27)筋トレ:ライイングエクステンション(EZバー) 10kg(バーのみ)×10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 190.0,
+     "load_source": "past_load",
+     "hands": null
+    },
+    {
+     "date": "2026-10-28",
+     "time": "0:33",
+     "exercise": "ライイングエクステンション",
+     "part": "三頭",
+     "weight_kg": 15.0,
+     "weight_type": "合計",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/28(10/29 0:33)筋トレ:ライイングエクステンション(EZバー) 合計15kg(バー10kg+片側2.5kg／EZバーと仮定)×6回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    },
+    {
+     "date": "2026-10-28",
+     "time": null,
+     "exercise": "ケーブルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": null,
+     "weight_type": "-",
+     "reps": null,
+     "sets": 1,
+     "unknown": [],
+     "note": "過去分負荷量一覧（Notionセット詳細等）から追加",
+     "raw": "ケーブルフレンチプレス 20kg×12",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 240.0,
+     "load_source": "past_load",
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-30",
+   "entries": [
+    {
+     "date": "2026-10-30",
+     "time": "13:52",
+     "exercise": "レッグレイズ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "13:52 筋トレ レッグレイズ 自重×20 1セット目",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-30",
+     "time": "13:57",
+     "exercise": "ヒールタッチ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "13:57 筋トレ ヒールタッチ 自重 左右各10 1セット目",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-30",
+     "time": "13:58",
+     "exercise": "レッグレイズ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "13:58 筋トレ レッグレイズ 自重×20 2セット目",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-30",
+     "time": "14:00",
+     "exercise": "ヒールタッチ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "14:00 筋トレ ヒールタッチ 自重 左右各10 2セット目",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-10-30",
+     "time": "20:06",
+     "exercise": "マシンショルダープレス",
+     "part": "肩",
+     "weight_kg": 10.0,
+     "weight_type": "片側",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:06 筋トレ マシンショルダープレス 片側10kg×10 1セット目 /負荷量 20kg×10=200kg",
+     "load_kg": 20.0,
+     "load_reps": 10,
+     "volume_kg": 200.0,
+     "hands": null
+    },
+    {
+     "date": "2026-10-30",
+     "time": "20:08",
+     "exercise": "マシンショルダープレス",
+     "part": "肩",
+     "weight_kg": 10.0,
+     "weight_type": "片側",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:08 筋トレ マシンショルダープレス 片側10kg×10 2セット目(重量・回数は1セット目と同じとして記録) /負荷量 20kg×10=200kg",
+     "load_kg": 20.0,
+     "load_reps": 10,
+     "volume_kg": 200.0,
+     "hands": null
+    },
+    {
+     "date": "2026-10-30",
+     "time": "20:12",
+     "exercise": "マシンショルダープレス",
+     "part": "肩",
+     "weight_kg": 12.5,
+     "weight_type": "片側",
+     "reps": [
+      9
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:12 筋トレ マシンショルダープレス 片側12.5kg×9 3セット目 /負荷量 25kg×9=225kg",
+     "load_kg": 25.0,
+     "load_reps": 9,
+     "volume_kg": 225.0,
+     "hands": null
+    },
+    {
+     "date": "2026-10-30",
+     "time": "20:14",
+     "exercise": "マシンショルダープレス",
+     "part": "肩",
+     "weight_kg": 12.5,
+     "weight_type": "片側",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:14 筋トレ マシンショルダープレス 片側12.5kg×5 4セット目(重量は前セットと同じとして記録) /負荷量 25kg×5=125kg",
+     "load_kg": 25.0,
+     "load_reps": 5,
+     "volume_kg": 125.0,
+     "hands": null
+    },
+    {
+     "date": "2026-10-30",
+     "time": "20:17",
+     "exercise": "マシンショルダープレス",
+     "part": "肩",
+     "weight_kg": 12.5,
+     "weight_type": "片側",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:17 筋トレ マシンショルダープレス 片側12.5kg×8 5セット目(重量は前セットと同じとして記録) /負荷量 25kg×8=200kg",
+     "load_kg": 25.0,
+     "load_reps": 8,
+     "volume_kg": 200.0,
+     "hands": null
+    },
+    {
+     "date": "2026-10-30",
+     "time": "20:19",
+     "exercise": "シーテッドサイドレイズ",
+     "part": "肩",
+     "weight_kg": 7.5,
+     "weight_type": "片手",
+     "reps": [
+      9
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:19 筋トレ シーテッドサイドレイズ 片手7.5kg×9 1セット目 /負荷量 15kg×9=135kg",
+     "load_kg": 15.0,
+     "load_reps": 9,
+     "volume_kg": 135.0,
+     "hands": "両手",
+     "total_kg": 15.0
+    },
+    {
+     "date": "2026-10-30",
+     "time": "20:23",
+     "exercise": "シーテッドサイドレイズ",
+     "part": "肩",
+     "weight_kg": 7.5,
+     "weight_type": "片手",
+     "reps": [
+      9
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:23 筋トレ シーテッドサイドレイズ 片手7.5kg×9 2セット目 /負荷量 15kg×9=135kg",
+     "load_kg": 15.0,
+     "load_reps": 9,
+     "volume_kg": 135.0,
+     "hands": "両手",
+     "total_kg": 15.0
+    },
+    {
+     "date": "2026-10-30",
+     "time": "20:27",
+     "exercise": "シーテッドサイドレイズ",
+     "part": "肩",
+     "weight_kg": 7.5,
+     "weight_type": "片手",
+     "reps": [
+      9
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:27 筋トレ シーテッドサイドレイズ 片手7.5kg×9 3セット目 /負荷量 15kg×9=135kg",
+     "load_kg": 15.0,
+     "load_reps": 9,
+     "volume_kg": 135.0,
+     "hands": "両手",
+     "total_kg": 15.0
+    },
+    {
+     "date": "2026-10-30",
+     "time": "20:30",
+     "exercise": "シーテッドサイドレイズ",
+     "part": "肩",
+     "weight_kg": 7.5,
+     "weight_type": "片手",
+     "reps": [
+      7
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:30 筋トレ シーテッドサイドレイズ 片手7.5kg×7 4セット目 /負荷量 15kg×7=105kg",
+     "load_kg": 15.0,
+     "load_reps": 7,
+     "volume_kg": 105.0,
+     "hands": "両手",
+     "total_kg": 15.0
+    },
+    {
+     "date": "2026-10-30",
+     "time": "20:33",
+     "exercise": "シーテッドサイドレイズ",
+     "part": "肩",
+     "weight_kg": 7.5,
+     "weight_type": "片手",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:33 筋トレ シーテッドサイドレイズ 片手7.5kg×6 5セット目 /負荷量 15kg×6=90kg",
+     "load_kg": 15.0,
+     "load_reps": 6,
+     "volume_kg": 90.0,
+     "hands": "両手",
+     "total_kg": 15.0
+    },
+    {
+     "date": "2026-10-30",
+     "time": "20:37",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      7
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:37 筋トレ ダンベルベンチプレス(チェスト) 片手15kg×7 1セット目 /負荷量 30kg×7=210kg",
+     "load_kg": 30.0,
+     "load_reps": 7,
+     "volume_kg": 210.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-10-30",
+     "time": "20:41",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      9
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:41 筋トレ ダンベルベンチプレス(チェスト) 片手15kg×9 2セット目 /負荷量 30kg×9=270kg",
+     "load_kg": 30.0,
+     "load_reps": 9,
+     "volume_kg": 270.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-10-30",
+     "time": "20:48",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      9
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:48 筋トレ ダンベルベンチプレス(チェスト) 片手15kg×9 3セット目 /負荷量 30kg×9=270kg",
+     "load_kg": 30.0,
+     "load_reps": 9,
+     "volume_kg": 270.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-10-30",
+     "time": "20:53",
+     "exercise": "ラットプルダウン",
+     "part": "背中",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "20:53 筋トレ ラットプルダウン 40kg×10 1セット目 /負荷量 40kg×10=400kg",
+     "load_kg": 40.0,
+     "load_reps": 10,
+     "volume_kg": 400.0,
+     "hands": null
+    },
+    {
+     "date": "2026-10-30",
+     "time": "20:57",
+     "exercise": "ラットプルダウン",
+     "part": "背中",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "20:57 筋トレ ラットプルダウン 40kg×10 2セット目(重量・回数は1セット目と同じとして記録) /負荷量 40kg×10=400kg",
+     "load_kg": 40.0,
+     "load_reps": 10,
+     "volume_kg": 400.0,
+     "hands": null
+    },
+    {
+     "date": "2026-10-30",
+     "time": "21:02",
+     "exercise": "ラットプルダウン",
+     "part": "背中",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "21:02 筋トレ ラットプルダウン 40kg×10 3セット目(重量・回数は前セットと同じとして記録) /負荷量 40kg×10=400kg",
+     "load_kg": 40.0,
+     "load_reps": 10,
+     "volume_kg": 400.0,
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-10-31",
+   "entries": [
+    {
+     "date": "2026-10-31",
+     "time": "20:40",
+     "exercise": "EZバーカール",
+     "part": "二頭",
+     "weight_kg": 30.0,
+     "weight_type": "合計",
+     "reps": [
+      9
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/31 20:40 EZバーカール 30kg(片側10kg+バー10kg)×9回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 780.0,
+     "load_source": "past_load",
+     "hands": null
+    },
+    {
+     "date": "2026-10-31",
+     "time": "20:41",
+     "exercise": "EZバーカール",
+     "part": "二頭",
+     "weight_kg": 30.0,
+     "weight_type": "バー",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/31 20:41 EZバーカール 30kg×5回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    },
+    {
+     "date": "2026-10-31",
+     "time": "20:45",
+     "exercise": "EZバーカール",
+     "part": "二頭",
+     "weight_kg": 30.0,
+     "weight_type": "バー",
+     "reps": [
+      7
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/31 20:45 EZバーカール 30kg×7回(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    },
+    {
+     "date": "2026-10-31",
+     "time": "20:49",
+     "exercise": "EZバーカール",
+     "part": "二頭",
+     "weight_kg": 30.0,
+     "weight_type": "バー",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/31 20:49 EZバーカール 30kg×5回(4セット目／休憩約4分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    },
+    {
+     "date": "2026-10-31",
+     "time": "20:52",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/31 20:52 インクラインダンベルカール 片手12.5kg×5回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 645.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 25.0
+    },
+    {
+     "date": "2026-10-31",
+     "time": "20:56",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/31 20:56 インクラインダンベルカール 片手10kg×10回(2セット目／休憩約4分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-31",
+     "time": "21:00",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/31 21:00 インクラインダンベルカール 片手10kg×8回(3セット目／休憩約4分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-31",
+     "time": "21:03",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10/31 21:03 インクラインダンベルカール 片手10kg×8回(4セット目／休憩約3分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-10-31",
+     "time": "21:05",
+     "exercise": "プリーチャーカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": "右6回・左4回",
+     "raw": "10/31 21:05 プリーチャーカール(ダンベル片手)10kg 右6回・左4回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 100.0,
+     "load_source": "past_load",
+     "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-10-31",
+     "time": "21:10",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      7
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/31 21:10 ケーブルアームカール 40kg×7回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 800.0,
+     "load_source": "past_load",
+     "hands": null
+    },
+    {
+     "date": "2026-10-31",
+     "time": "21:13",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/31 21:13 ケーブルアームカール 40kg×6回(2セット目／休憩約3分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    },
+    {
+     "date": "2026-10-31",
+     "time": "21:16",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "10/31 21:16 ケーブルアームカール 35kg×8回(3セット目／休憩約3分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-11-02",
+   "entries": [
+    {
+     "date": "2026-11-02",
+     "time": "20:55",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "11/2 20:55 筋トレ:インクラインダンベルカール 片手10kg×10(1セット目／風邪気味の中)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 600.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-02",
+     "time": "20:57",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "11/2 20:57 インクラインダンベルカール 片手10kg×10(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-02",
+     "time": "21:02",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "11/2 21:02 インクラインダンベルカール 片手10kg×10(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-02",
+     "time": "21:05",
+     "exercise": "ショルダープレス",
+     "part": "肩",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      13
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "11/2 21:05 ショルダープレス 片手10kg×13(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 700.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-02",
+     "time": "21:08",
+     "exercise": "ショルダープレス",
+     "part": "肩",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      12
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "11/2 21:08 ショルダープレス 片手10kg×12(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-02",
+     "time": "21:11",
+     "exercise": "ショルダープレス",
+     "part": "肩",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "11/2 21:11 ショルダープレス 片手10kg×10(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-02",
+     "time": "21:15",
+     "exercise": "アーノルドプレス",
+     "part": "肩",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "11/2 21:15 アーノルドプレス 片手10kg×10(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 600.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-02",
+     "time": "21:23",
+     "exercise": "アーノルドプレス",
+     "part": "肩",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "11/2 21:23 アーノルドプレス 片手10kg×10(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-02",
+     "time": "21:27",
+     "exercise": "アーノルドプレス",
+     "part": "肩",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "11/2 21:27 アーノルドプレス 片手10kg×10(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-02",
+     "time": "21:28",
+     "exercise": "サイドレイズ",
+     "part": "肩",
+     "weight_kg": 3.0,
+     "weight_type": "片手",
+     "reps": [
+      11
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "11/2 21:28 サイドレイズ 片手3kg×11(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": 210.0,
+     "load_source": "past_load",
+     "hands": "両手",
+     "total_kg": 6.0
+    },
+    {
+     "date": "2026-11-02",
+     "time": "21:33",
+     "exercise": "サイドレイズ",
+     "part": "肩",
+     "weight_kg": 3.0,
+     "weight_type": "片手",
+     "reps": [
+      12
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "11/2 21:33 サイドレイズ 片手3kg×12(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "両手",
+     "total_kg": 6.0
+    },
+    {
+     "date": "2026-11-02",
+     "time": "21:34",
+     "exercise": "サイドレイズ",
+     "part": "肩",
+     "weight_kg": 3.0,
+     "weight_type": "片手",
+     "reps": [
+      12
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "11/2 21:34 サイドレイズ 片手3kg×12(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "load_source": "past_load(先頭エントリに合算)",
+     "hands": "両手",
+     "total_kg": 6.0
+    },
+    {
+     "date": "2026-11-02",
+     "time": "22:48",
+     "exercise": "腕立て伏せ",
+     "part": "胸",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      9
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": "セット数の記載なし（1セットとして集計）",
+     "raw": "22:48 腕立て伏せ 自重×9回(胸)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-02",
+     "time": "22:51",
+     "exercise": "腕立て伏せ",
+     "part": "胸",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "22:51 腕立て伏せ 自重×10回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-11-03",
+   "entries": [
+    {
+     "date": "2026-11-03",
+     "time": "16:15",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      12
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "16:15 ダンベルベンチプレス 片手15kg×12(1セット目) /負荷量 30kg×12=360kg",
+     "load_kg": 30.0,
+     "load_reps": 12,
+     "volume_kg": 360.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-03",
+     "time": "16:18",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "16:18 ダンベルベンチプレス 片手15kg×10(2セット目) /負荷量 30kg×10=300kg",
+     "load_kg": 30.0,
+     "load_reps": 10,
+     "volume_kg": 300.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-03",
+     "time": "16:20",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      9
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "16:20 ダンベルベンチプレス 片手15kg×9(3セット目) /負荷量 30kg×9=270kg",
+     "load_kg": 30.0,
+     "load_reps": 9,
+     "volume_kg": 270.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-03",
+     "time": "16:24",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "16:24 ダンベルフライ 片手15kg×8(1セット目) /負荷量 30kg×8=240kg",
+     "load_kg": 30.0,
+     "load_reps": 8,
+     "volume_kg": 240.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-03",
+     "time": "16:28",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      9
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "16:28 ダンベルフライ 片手15kg×9(2セット目) /負荷量 30kg×9=270kg",
+     "load_kg": 30.0,
+     "load_reps": 9,
+     "volume_kg": 270.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-03",
+     "time": "16:32",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      7
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "16:32 ダンベルフライ 片手15kg×7(3セット目) /負荷量 30kg×7=210kg",
+     "load_kg": 30.0,
+     "load_reps": 7,
+     "volume_kg": 210.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-03",
+     "time": "16:41",
+     "exercise": "スミスマシンベンチプレス",
+     "part": "胸",
+     "weight_kg": 37.0,
+     "weight_type": "合計",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "16:41 スミスマシン ベンチプレス 37kg(バー込み)×5(1セット目) /負荷量 37kg×5=185kg",
+     "load_kg": 37.0,
+     "load_reps": 5,
+     "volume_kg": 185.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-03",
+     "time": "16:44",
+     "exercise": "スミスマシンベンチプレス",
+     "part": "胸",
+     "weight_kg": 37.0,
+     "weight_type": "合計",
+     "reps": [
+      4
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "16:44 スミスマシン ベンチプレス 37kg(バー込み)×4(2セット目) /負荷量 37kg×4=148kg",
+     "load_kg": 37.0,
+     "load_reps": 4,
+     "volume_kg": 148.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-03",
+     "time": "16:58",
+     "exercise": "ラットプルダウン",
+     "part": "背中",
+     "weight_kg": 45.0,
+     "weight_type": "マシン",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "16:58 ラットプルダウン 45kg×5(1セット目) /負荷量 45kg×5=225kg",
+     "load_kg": 45.0,
+     "load_reps": 5,
+     "volume_kg": 225.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-03",
+     "time": "16:59",
+     "exercise": "ラットプルダウン",
+     "part": "背中",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "16:59 ラットプルダウン 40kg×10(2セット目) /負荷量 40kg×10=400kg",
+     "load_kg": 40.0,
+     "load_reps": 10,
+     "volume_kg": 400.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-03",
+     "time": "17:02",
+     "exercise": "ラットプルダウン",
+     "part": "背中",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "17:02 ラットプルダウン 40kg×10(3セット目) /負荷量 40kg×10=400kg",
+     "load_kg": 40.0,
+     "load_reps": 10,
+     "volume_kg": 400.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-03",
+     "time": "17:10",
+     "exercise": "ラットプルダウン",
+     "part": "背中",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "17:10 ラットプルダウン 40kg×10(4セット目) /負荷量 40kg×10=400kg",
+     "load_kg": 40.0,
+     "load_reps": 10,
+     "volume_kg": 400.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-03",
+     "time": "0:36",
+     "exercise": "腹筋",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "0:36 腹筋 自重×20回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-03",
+     "time": "0:36",
+     "exercise": "プランク",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": null,
+     "sets": null,
+     "unknown": [
+      "回数",
+      "セット数"
+     ],
+     "note": "時間で記録（原文参照）",
+     "raw": "0:36 プランク 1分(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-03",
+     "time": "0:39",
+     "exercise": "腹筋",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "0:39 腹筋 自重×20回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-03",
+     "time": "0:41",
+     "exercise": "腹筋",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "0:41 腹筋 自重×20回(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-11-04",
+   "entries": [
+    {
+     "date": "2026-11-04",
+     "time": "10:20",
+     "exercise": "腹筋",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10:20 腹筋 自重×20回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "10:20",
+     "exercise": "腹筋",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10:20 腹筋 自重×20回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "10:20",
+     "exercise": "アブローラー",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "10:20 膝立てアブローラー 自重×10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "12:11",
+     "exercise": "ライイングエクステンション",
+     "part": "三頭",
+     "weight_kg": 15.0,
+     "weight_type": "バー",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "12:11 ライイングエクステンション 15kg(EZバー込み)×10(1セット目) /負荷量 15kg×10=150kg",
+     "load_kg": 15.0,
+     "load_reps": 10,
+     "volume_kg": 150.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "12:14",
+     "exercise": "ライイングエクステンション",
+     "part": "三頭",
+     "weight_kg": 15.0,
+     "weight_type": "バー",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "12:14 ライイングエクステンション 15kg(EZバー込み)×8(2セット目) /負荷量 15kg×8=120kg",
+     "load_kg": 15.0,
+     "load_reps": 8,
+     "volume_kg": 120.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "12:17",
+     "exercise": "ライイングエクステンション",
+     "part": "三頭",
+     "weight_kg": 15.0,
+     "weight_type": "バー",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "12:17 ライイングエクステンション 15kg(EZバー込み)×6(3セット目) /負荷量 15kg×6=90kg",
+     "load_kg": 15.0,
+     "load_reps": 6,
+     "volume_kg": 90.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "12:20",
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "12:20 ケーブルプレスダウン 35kg×8(1セット目) /負荷量 35kg×8=280kg",
+     "load_kg": 35.0,
+     "load_reps": 8,
+     "volume_kg": 280.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "12:21",
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "12:21 ケーブルプレスダウン 35kg×6(2セット目) /負荷量 35kg×6=210kg",
+     "load_kg": 35.0,
+     "load_reps": 6,
+     "volume_kg": 210.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "12:24",
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "12:24 ケーブルプレスダウン 35kg×6(3セット目) /負荷量 35kg×6=210kg",
+     "load_kg": 35.0,
+     "load_reps": 6,
+     "volume_kg": 210.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "12:25",
+     "exercise": "ケーブルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": 30.0,
+     "weight_type": "マシン",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "12:25 ケーブルオーバーヘッドエクステンション 30kg×6(1セット目) /負荷量 30kg×6=180kg",
+     "load_kg": 30.0,
+     "load_reps": 6,
+     "volume_kg": 180.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "12:28",
+     "exercise": "ケーブルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": 30.0,
+     "weight_type": "マシン",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "12:28 ケーブルオーバーヘッドエクステンション 30kg×8(2セット目) /負荷量 30kg×8=240kg",
+     "load_kg": 30.0,
+     "load_reps": 8,
+     "volume_kg": 240.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "12:30",
+     "exercise": "ケーブルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": 30.0,
+     "weight_type": "マシン",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "12:30 ケーブルオーバーヘッドエクステンション 30kg×5(3セット目) /負荷量 30kg×5=150kg",
+     "load_kg": 30.0,
+     "load_reps": 5,
+     "volume_kg": 150.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "12:34",
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "12:34 ケーブルプレスダウン 35kg×6(4セット目) /負荷量 35kg×6=210kg",
+     "load_kg": 35.0,
+     "load_reps": 6,
+     "volume_kg": 210.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-04",
+     "time": "13:04",
+     "exercise": "トレッドミル",
+     "part": "有酸素",
+     "weight_kg": null,
+     "weight_type": "-",
+     "reps": null,
+     "sets": null,
+     "minutes": 25,
+     "unknown": [],
+     "note": null,
+     "raw": "  トレッドミル 時速5.5km 計25分(傾斜0で5分／傾斜3で15分／傾斜4で5分)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-11-05",
+   "entries": [
+    {
+     "date": "2026-11-05",
+     "time": "23:33",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:33 インクラインダンベルカール 片手12.5kg×8(1セット目) /負荷量 25kg×8=200kg",
+     "load_kg": 25.0,
+     "load_reps": 8,
+     "volume_kg": 200.0,
+     "hands": "両手",
+     "total_kg": 25.0
+    },
+    {
+     "date": "2026-11-05",
+     "time": "23:37",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      7
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:37 インクラインダンベルカール 片手12.5kg×7(2セット目) /負荷量 25kg×7=175kg",
+     "load_kg": 25.0,
+     "load_reps": 7,
+     "volume_kg": 175.0,
+     "hands": "両手",
+     "total_kg": 25.0
+    },
+    {
+     "date": "2026-11-05",
+     "time": "23:41",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:41 インクラインダンベルカール 片手12.5kg×5(3セット目) /負荷量 25kg×5=125kg",
+     "load_kg": 25.0,
+     "load_reps": 5,
+     "volume_kg": 125.0,
+     "hands": "両手",
+     "total_kg": 25.0
+    },
+    {
+     "date": "2026-11-05",
+     "time": "23:45",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:45 インクラインダンベルカール 片手12.5kg×5(4セット目) /負荷量 25kg×5=125kg",
+     "load_kg": 25.0,
+     "load_reps": 5,
+     "volume_kg": 125.0,
+     "hands": "両手",
+     "total_kg": 25.0
+    },
+    {
+     "date": "2026-11-05",
+     "time": "23:49",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:49 ダンベルプレス 片手15kg×10(1セット目) /負荷量 30kg×10=300kg",
+     "load_kg": 30.0,
+     "load_reps": 10,
+     "volume_kg": 300.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-05",
+     "time": "23:53",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:53 ダンベルプレス 片手15kg×10(2セット目) /負荷量 30kg×10=300kg",
+     "load_kg": 30.0,
+     "load_reps": 10,
+     "volume_kg": 300.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-05",
+     "time": "23:56",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 17.5,
+     "weight_type": "片手",
+     "reps": [
+      4
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:56 ダンベルプレス 片手17.5kg×4(3セット目) /負荷量 35kg×4=140kg",
+     "load_kg": 35.0,
+     "load_reps": 4,
+     "volume_kg": 140.0,
+     "hands": "両手",
+     "total_kg": 35.0
+    },
+    {
+     "date": "2026-11-05",
+     "time": "00:03",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 17.5,
+     "weight_type": "片手",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "00:03 ダンベルプレス 片手17.5kg×6(4セット目) /負荷量 35kg×6=210kg",
+     "load_kg": 35.0,
+     "load_reps": 6,
+     "volume_kg": 210.0,
+     "hands": "両手",
+     "total_kg": 35.0
+    },
+    {
+     "date": "2026-11-05",
+     "time": "00:09",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "00:09 ダンベルフライ 片手15kg×8(1セット目) /負荷量 30kg×8=240kg",
+     "load_kg": 30.0,
+     "load_reps": 8,
+     "volume_kg": 240.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-05",
+     "time": "00:23",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "00:23 ダンベルフライ 片手15kg×6(2セット目) /負荷量 30kg×6=180kg",
+     "load_kg": 30.0,
+     "load_reps": 6,
+     "volume_kg": 180.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-05",
+     "time": "00:29",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "00:29 ダンベルフライ 片手15kg×8(3セット目) /負荷量 30kg×8=240kg",
+     "load_kg": 30.0,
+     "load_reps": 8,
+     "volume_kg": 240.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-05",
+     "time": "00:37",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      11
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "00:37 ケーブルアームカール 40kg×11(1セット目) /負荷量 40kg×11=440kg",
+     "load_kg": 40.0,
+     "load_reps": 11,
+     "volume_kg": 440.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-05",
+     "time": "00:37",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      9
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "00:37 ケーブルアームカール 40kg×9(2セット目) /負荷量 40kg×9=360kg",
+     "load_kg": 40.0,
+     "load_reps": 9,
+     "volume_kg": 360.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-05",
+     "time": "00:39",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 45.0,
+     "weight_type": "マシン",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "00:39 ケーブルアームカール 45kg×5(3セット目) /負荷量 45kg×5=225kg",
+     "load_kg": 45.0,
+     "load_reps": 5,
+     "volume_kg": 225.0,
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-11-06",
+   "entries": [
+    {
+     "date": "2026-11-06",
+     "time": "14:39",
+     "exercise": "腹筋",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "14:39 腹筋 自重20回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-06",
+     "time": "14:41",
+     "exercise": "腹筋",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "14:41 腹筋 自重20回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-06",
+     "time": "14:44",
+     "exercise": "ヒールタッチ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": "左右各10回ずつ",
+     "raw": "14:44 ヒールタッチ 自重左右10回ずつ(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-06",
+     "time": "14:49",
+     "exercise": "レッグレイズ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "14:49 レッグレイズ 自重10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-06",
+     "time": "14:53",
+     "exercise": "ヒールタッチ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": "左右各10回ずつ",
+     "raw": "14:53 ヒールタッチ 自重左右10回ずつ(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-06",
+     "time": "14:55",
+     "exercise": "レッグレイズ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "14:55 レッグレイズ 自重10回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-06",
+     "time": "15:15",
+     "exercise": "サイドレイズ",
+     "part": "肩",
+     "weight_kg": 3.0,
+     "weight_type": "片手",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "15:15 サイドレイズ 片手3kg×15(1セット目) /負荷量 6kg×15=90kg",
+     "load_kg": 6.0,
+     "load_reps": 15,
+     "volume_kg": 90.0,
+     "hands": "両手",
+     "total_kg": 6.0
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-11-07",
+   "entries": [
+    {
+     "date": "2026-11-07",
+     "time": "20:15",
+     "exercise": "アブローラー",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:15 アブローラー 自重10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-07",
+     "time": "20:15",
+     "exercise": "レッグレイズ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:15 レッグレイズ 自重10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-11-10",
+   "entries": [
+    {
+     "date": "2026-11-10",
+     "time": "23:17",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:17 インクラインダンベルベンチプレス 片手10kg×15(1セット目) /負荷量 20kg×15=300kg",
+     "load_kg": 20.0,
+     "load_reps": 15,
+     "volume_kg": 300.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-10",
+     "time": "23:17",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:17 インクラインダンベルベンチプレス 片手10kg×15(2セット目) /負荷量 20kg×15=300kg",
+     "load_kg": 20.0,
+     "load_reps": 15,
+     "volume_kg": 300.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-10",
+     "time": "23:21",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:21 インクラインダンベルベンチプレス 片手10kg×15(3セット目) /負荷量 20kg×15=300kg",
+     "load_kg": 20.0,
+     "load_reps": 15,
+     "volume_kg": 300.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-10",
+     "time": "23:27",
+     "exercise": "インクラインダンベルフライ",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      13
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:27 インクラインダンベルフライ 片手10kg×13(1セット目) /負荷量 20kg×13=260kg",
+     "load_kg": 20.0,
+     "load_reps": 13,
+     "volume_kg": 260.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-10",
+     "time": "23:27",
+     "exercise": "インクラインダンベルフライ",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      11
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:27 インクラインダンベルフライ 片手10kg×11(2セット目) /負荷量 20kg×11=220kg",
+     "load_kg": 20.0,
+     "load_reps": 11,
+     "volume_kg": 220.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-10",
+     "time": "23:31",
+     "exercise": "インクラインダンベルフライ",
+     "part": "胸",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:31 インクラインダンベルフライ 片手10kg×10(3セット目) /負荷量 20kg×10=200kg",
+     "load_kg": 20.0,
+     "load_reps": 10,
+     "volume_kg": 200.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-10",
+     "time": "23:40",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:40 インクラインダンベルカール 片手10kg×10(1セット目) /負荷量 20kg×10=200kg",
+     "load_kg": 20.0,
+     "load_reps": 10,
+     "volume_kg": 200.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-10",
+     "time": "23:52",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:52 インクラインダンベルカール 片手10kg×10(2セット目) /負荷量 20kg×10=200kg",
+     "load_kg": 20.0,
+     "load_reps": 10,
+     "volume_kg": 200.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-10",
+     "time": "23:52",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:52 インクラインダンベルカール 片手10kg×10(3セット目) /負荷量 20kg×10=200kg",
+     "load_kg": 20.0,
+     "load_reps": 10,
+     "volume_kg": 200.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-10",
+     "time": "23:55",
+     "exercise": "腕立て伏せ",
+     "part": "胸",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "23:55 腕立て 自重10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-11-11",
+   "entries": [
+    {
+     "date": "2026-11-11",
+     "time": "20:11",
+     "exercise": "腕立て伏せ",
+     "part": "胸",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:11 腕立て 自重20回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-11",
+     "time": "20:12",
+     "exercise": "レッグレイズ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:12 レッグレイズ 自重15回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-11",
+     "time": "20:14",
+     "exercise": "腹筋",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:14 腹筋 自重20回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-11",
+     "time": "20:14",
+     "exercise": "ヒールタッチ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:14 ヒールタッチ 自重20回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-11",
+     "time": "20:17",
+     "exercise": "腕立て伏せ",
+     "part": "胸",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:17 腕立て 自重20回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-11",
+     "time": "20:21",
+     "exercise": "腹筋",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:21 腹筋 自重20回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-11",
+     "time": "20:27",
+     "exercise": "アブローラー",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:27 アブローラー 自重10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-11",
+     "time": "20:31",
+     "exercise": "ダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      11
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:31 ダンベルカール 片手10kg×11(1セット目) /負荷量 20kg×11=220kg",
+     "load_kg": 20.0,
+     "load_reps": 11,
+     "volume_kg": 220.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-11",
+     "time": "20:32",
+     "exercise": "ダンベルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": 10.0,
+     "weight_type": "ダンベル1個",
+     "reps": [
+      12
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "20:32 ダンベルオーバーヘッドエクステンション ダンベル1個10kg×12(1セット目) /負荷量 10kg×12=120kg",
+     "load_kg": 10.0,
+     "load_reps": 12,
+     "volume_kg": 120.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-11",
+     "time": "20:35",
+     "exercise": "ダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      12
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:35 ダンベルカール 片手10kg×12(2セット目) /負荷量 20kg×12=240kg",
+     "load_kg": 20.0,
+     "load_reps": 12,
+     "volume_kg": 240.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-11",
+     "time": "20:43",
+     "exercise": "ダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      12
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:43 ダンベルカール 片手10kg×12(3セット目) /負荷量 20kg×12=240kg",
+     "load_kg": 20.0,
+     "load_reps": 12,
+     "volume_kg": 240.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-11",
+     "time": "20:47",
+     "exercise": "プリーチャーカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:47 プリーチャーカール 片手10kg×左右10(1セット目) /負荷量 20kg×10=200kg",
+     "load_kg": 20.0,
+     "load_reps": 10,
+     "volume_kg": 200.0,
+     "hands": "片腕ずつ"
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-11-13",
+   "entries": [
+    {
+     "date": "2026-11-13",
+     "time": "20:52",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:52 ダンベルベンチプレス 片手15kg×15(1セット目) /負荷量 30kg×15=450kg",
+     "load_kg": 30.0,
+     "load_reps": 15,
+     "volume_kg": 450.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-13",
+     "time": "20:54",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      13
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:54 ダンベルベンチプレス 片手15kg×13(2セット目) /負荷量 30kg×13=390kg",
+     "load_kg": 30.0,
+     "load_reps": 13,
+     "volume_kg": 390.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-13",
+     "time": "20:58",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 17.5,
+     "weight_type": "片手",
+     "reps": [
+      7
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:58 ダンベルベンチプレス 片手17.5kg×7(3セット目) /負荷量 35kg×7=245kg",
+     "load_kg": 35.0,
+     "load_reps": 7,
+     "volume_kg": 245.0,
+     "hands": "両手",
+     "total_kg": 35.0
+    },
+    {
+     "date": "2026-11-13",
+     "time": "21:00",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 17.5,
+     "weight_type": "片手",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "21:00 ダンベルベンチプレス 片手17.5kg×5(4セット目) /負荷量 35kg×5=175kg",
+     "load_kg": 35.0,
+     "load_reps": 5,
+     "volume_kg": 175.0,
+     "hands": "両手",
+     "total_kg": 35.0
+    },
+    {
+     "date": "2026-11-13",
+     "time": "21:05",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "21:05 ダンベルフライ 片手12.5kg×15(1セット目) /負荷量 25kg×15=375kg",
+     "load_kg": 25.0,
+     "load_reps": 15,
+     "volume_kg": 375.0,
+     "hands": "両手",
+     "total_kg": 25.0
+    },
+    {
+     "date": "2026-11-13",
+     "time": "21:09",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      12
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "21:09 ダンベルフライ 片手12.5kg×12(2セット目) /負荷量 25kg×12=300kg",
+     "load_kg": 25.0,
+     "load_reps": 12,
+     "volume_kg": 300.0,
+     "hands": "両手",
+     "total_kg": 25.0
+    },
+    {
+     "date": "2026-11-13",
+     "time": "21:14",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      11
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "21:14 ダンベルフライ 片手12.5kg×11(3セット目) /負荷量 25kg×11=275kg",
+     "load_kg": 25.0,
+     "load_reps": 11,
+     "volume_kg": 275.0,
+     "hands": "両手",
+     "total_kg": 25.0
+    },
+    {
+     "date": "2026-11-13",
+     "time": "21:16",
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      9
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "21:16 ケーブルプレスダウン 35kg×9(1セット目) /負荷量 35kg×9=315kg",
+     "load_kg": 35.0,
+     "load_reps": 9,
+     "volume_kg": 315.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-13",
+     "time": "21:18",
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      9
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "21:18 ケーブルプレスダウン 35kg×9(2セット目) /負荷量 35kg×9=315kg",
+     "load_kg": 35.0,
+     "load_reps": 9,
+     "volume_kg": 315.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-13",
+     "time": "21:20",
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "21:20 ケーブルプレスダウン 35kg×8(3セット目) /負荷量 35kg×8=280kg",
+     "load_kg": 35.0,
+     "load_reps": 8,
+     "volume_kg": 280.0,
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-11-14",
+   "entries": [
+    {
+     "date": "2026-11-14",
+     "time": "17:24",
+     "exercise": "サイドレイズ",
+     "part": "肩",
+     "weight_kg": 3.0,
+     "weight_type": "片手",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "17:24 サイドレイズ 片手3kg×20(1セット目) /負荷量 6kg×20=120kg",
+     "load_kg": 6.0,
+     "load_reps": 20,
+     "volume_kg": 120.0,
+     "hands": "両手",
+     "total_kg": 6.0
+    },
+    {
+     "date": "2026-11-14",
+     "time": "17:27",
+     "exercise": "サイドレイズ",
+     "part": "肩",
+     "weight_kg": 3.0,
+     "weight_type": "片手",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "17:27 サイドレイズ 片手3kg×20(2セット目) /負荷量 6kg×20=120kg",
+     "load_kg": 6.0,
+     "load_reps": 20,
+     "volume_kg": 120.0,
+     "hands": "両手",
+     "total_kg": 6.0
+    },
+    {
+     "date": "2026-11-14",
+     "time": "19:34",
+     "exercise": "腹筋",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "19:34 腹筋 20回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-14",
+     "time": "19:34",
+     "exercise": "腹筋",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "19:34 腹筋 20回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-14",
+     "time": "19:36",
+     "exercise": "腹筋",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "19:36 腹筋 20回(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-14",
+     "time": "19:38",
+     "exercise": "ヒールタッチ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "19:38 ヒールタッチ 20回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-14",
+     "time": "19:45",
+     "exercise": "腹筋",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "19:45 腹筋 20回(4セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-14",
+     "time": "19:53",
+     "exercise": "アブローラー",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "19:53 アブローラー 20回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-14",
+     "time": "19:56",
+     "exercise": "サイドレイズ",
+     "part": "肩",
+     "weight_kg": 3.0,
+     "weight_type": "片手",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "19:56 サイドレイズ 片手3kg×15(3セット目) /負荷量 6kg×15=90kg",
+     "load_kg": 6.0,
+     "load_reps": 15,
+     "volume_kg": 90.0,
+     "hands": "両手",
+     "total_kg": 6.0
+    },
+    {
+     "date": "2026-11-14",
+     "time": "20:06",
+     "exercise": "腕立て伏せ",
+     "part": "胸",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:06 腕立て伏せ 15回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-11-16",
+   "entries": [
+    {
+     "date": "2026-11-16",
+     "time": "15:15",
+     "exercise": "アブローラー",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "15:15 アブローラー 10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-16",
+     "time": "19:19",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "19:19 インクラインダンベルカール 片手12.5kg×10(1セット目) /負荷量 25kg×10=250kg",
+     "load_kg": 25.0,
+     "load_reps": 10,
+     "volume_kg": 250.0,
+     "hands": "両手",
+     "total_kg": 25.0
+    },
+    {
+     "date": "2026-11-16",
+     "time": "19:19",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "19:19 インクラインダンベルカール 片手12.5kg×5(2セット目) /負荷量 25kg×5=125kg",
+     "load_kg": 25.0,
+     "load_reps": 5,
+     "volume_kg": 125.0,
+     "hands": "両手",
+     "total_kg": 25.0
+    },
+    {
+     "date": "2026-11-16",
+     "time": "19:21",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      4
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "19:21 インクラインダンベルカール 片手12.5kg×4(3セット目) /負荷量 25kg×4=100kg",
+     "load_kg": 25.0,
+     "load_reps": 4,
+     "volume_kg": 100.0,
+     "hands": "両手",
+     "total_kg": 25.0
+    },
+    {
+     "date": "2026-11-16",
+     "time": "19:24",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "19:24 インクラインダンベルカール 片手10kg×10(4セット目) /負荷量 20kg×10=200kg",
+     "load_kg": 20.0,
+     "load_reps": 10,
+     "volume_kg": 200.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-16",
+     "time": "19:27",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "19:27 インクラインダンベルカール 片手10kg×8(5セット目) /負荷量 20kg×8=160kg",
+     "load_kg": 20.0,
+     "load_reps": 8,
+     "volume_kg": 160.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-16",
+     "time": "19:32",
+     "exercise": "プリーチャーカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": "右10回・左8回",
+     "raw": "19:32 プリーチャーカール 片手10kg 右10回・左8回(1セット目) /負荷量 10kg×18=180kg",
+     "load_kg": 10.0,
+     "load_reps": 18,
+     "volume_kg": 180.0,
+     "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-11-16",
+     "time": "19:36",
+     "exercise": "プリーチャーカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": "右8回・左6回",
+     "raw": "19:36 プリーチャーカール 片手10kg 右8回・左6回(2セット目) /負荷量 10kg×14=140kg",
+     "load_kg": 10.0,
+     "load_reps": 14,
+     "volume_kg": 140.0,
+     "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-11-16",
+     "time": "19:41",
+     "exercise": "プリーチャーカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": "右10回・左7回",
+     "raw": "19:41 プリーチャーカール 片手10kg 右10回・左7回(3セット目) /負荷量 10kg×17=170kg",
+     "load_kg": 10.0,
+     "load_reps": 17,
+     "volume_kg": 170.0,
+     "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-11-16",
+     "time": "19:43",
+     "exercise": "ショルダープレス",
+     "part": "肩",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "19:43 ショルダープレス 片手10kg×8(1セット目) /負荷量 20kg×8=160kg",
+     "load_kg": 20.0,
+     "load_reps": 8,
+     "volume_kg": 160.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-16",
+     "time": "19:48",
+     "exercise": "ショルダープレス",
+     "part": "肩",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "19:48 ショルダープレス 片手10kg×10(2セット目) /負荷量 20kg×10=200kg",
+     "load_kg": 20.0,
+     "load_reps": 10,
+     "volume_kg": 200.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-16",
+     "time": "19:50",
+     "exercise": "ショルダープレス",
+     "part": "肩",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "19:50 ショルダープレス 片手10kg×8(3セット目) /負荷量 20kg×8=160kg",
+     "load_kg": 20.0,
+     "load_reps": 8,
+     "volume_kg": 160.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-16",
+     "time": "19:53",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "19:53 ケーブルアームカール 40kg×10(1セット目) /負荷量 40kg×10=400kg",
+     "load_kg": 40.0,
+     "load_reps": 10,
+     "volume_kg": 400.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-16",
+     "time": "19:55",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 45.0,
+     "weight_type": "マシン",
+     "reps": [
+      4
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "19:55 ケーブルアームカール 45kg×4(2セット目) /負荷量 45kg×4=180kg",
+     "load_kg": 45.0,
+     "load_reps": 4,
+     "volume_kg": 180.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-16",
+     "time": "19:59",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      7
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "19:59 ケーブルアームカール 40kg×7(3セット目) /負荷量 40kg×7=280kg",
+     "load_kg": 40.0,
+     "load_reps": 7,
+     "volume_kg": 280.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-16",
+     "time": "20:01",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      4
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "20:01 ケーブルアームカール 40kg×4(4セット目) /負荷量 40kg×4=160kg",
+     "load_kg": 40.0,
+     "load_reps": 4,
+     "volume_kg": 160.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-16",
+     "time": "20:04",
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "20:04 ケーブルプレスダウン 35kg×15(1セット目) /負荷量 35kg×15=525kg",
+     "load_kg": 35.0,
+     "load_reps": 15,
+     "volume_kg": 525.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-16",
+     "time": "20:08",
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      12
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "20:08 ケーブルプレスダウン 35kg×12(2セット目) /負荷量 35kg×12=420kg",
+     "load_kg": 35.0,
+     "load_reps": 12,
+     "volume_kg": 420.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-16",
+     "time": "20:11",
+     "exercise": "ケーブルプレスダウン",
+     "part": "三頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "20:11 ケーブルプレスダウン 35kg×8(3セット目) /負荷量 35kg×8=280kg",
+     "load_kg": 35.0,
+     "load_reps": 8,
+     "volume_kg": 280.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-16",
+     "time": "20:12",
+     "exercise": "ケーブルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": 25.0,
+     "weight_type": "マシン",
+     "reps": [
+      12
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "20:12 ケーブルオーバーヘッドエクステンション 25kg×12(1セット目) /負荷量 25kg×12=300kg",
+     "load_kg": 25.0,
+     "load_reps": 12,
+     "volume_kg": 300.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-16",
+     "time": "20:15",
+     "exercise": "ケーブルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": 25.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "20:15 ケーブルオーバーヘッドエクステンション 25kg×10(2セット目) /負荷量 25kg×10=250kg",
+     "load_kg": 25.0,
+     "load_reps": 10,
+     "volume_kg": 250.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-16",
+     "time": "20:18",
+     "exercise": "ケーブルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": 25.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "20:18 ケーブルオーバーヘッドエクステンション 25kg×10(3セット目) /負荷量 25kg×10=250kg",
+     "load_kg": 25.0,
+     "load_reps": 10,
+     "volume_kg": 250.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-16",
+     "time": "20:20",
+     "exercise": "ケーブルオーバーヘッドエクステンション",
+     "part": "三頭",
+     "weight_kg": 25.0,
+     "weight_type": "マシン",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "20:20 ケーブルオーバーヘッドエクステンション 25kg×5(4セット目) /負荷量 25kg×5=125kg",
+     "load_kg": 25.0,
+     "load_reps": 5,
+     "volume_kg": 125.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-16",
+     "time": "20:23",
+     "exercise": "ケーブルサイドレイズ",
+     "part": "肩",
+     "weight_kg": 5.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": "右10回・左10回",
+     "raw": "20:23 ケーブルサイドレイズ 片手5kg 右10回・左10回(1セット目) /負荷量 5kg×20=100kg",
+     "load_kg": 5.0,
+     "load_reps": 20,
+     "volume_kg": 100.0,
+     "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-11-16",
+     "time": "20:26",
+     "exercise": "ケーブルサイドレイズ",
+     "part": "肩",
+     "weight_kg": 5.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": "右10回・左10回",
+     "raw": "20:26 ケーブルサイドレイズ 片手5kg 右10回・左10回(2セット目) /負荷量 5kg×20=100kg",
+     "load_kg": 5.0,
+     "load_reps": 20,
+     "volume_kg": 100.0,
+     "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-11-16",
+     "time": "20:29",
+     "exercise": "ケーブルサイドレイズ",
+     "part": "肩",
+     "weight_kg": 5.0,
+     "weight_type": "片手",
+     "reps": [
+      9
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": "右9回・左9回",
+     "raw": "20:29 ケーブルサイドレイズ 片手5kg 右9回・左9回(3セット目) /負荷量 5kg×18=90kg",
+     "load_kg": 5.0,
+     "load_reps": 18,
+     "volume_kg": 90.0,
+     "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-11-16",
+     "time": "20:51",
+     "exercise": "腹筋",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:51 腹筋 20回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-16",
+     "time": "20:51",
+     "exercise": "腹筋",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:51 腹筋 20回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-16",
+     "time": "20:51",
+     "exercise": "腹筋",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:51 腹筋 20回(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-11-17",
+   "entries": [
+    {
+     "date": "2026-11-17",
+     "time": "11:47",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "11:47 ダンベルベンチプレス 片手15kg×10(1セット目) /負荷量 30kg×10=300kg",
+     "load_kg": 30.0,
+     "load_reps": 10,
+     "volume_kg": 300.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-17",
+     "time": "11:50",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      11
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "11:50 ダンベルベンチプレス 片手15kg×11(2セット目) /負荷量 30kg×11=330kg",
+     "load_kg": 30.0,
+     "load_reps": 11,
+     "volume_kg": 330.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-17",
+     "time": "11:54",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 20.0,
+     "weight_type": "片手",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "11:54 ダンベルベンチプレス 片手20kg×6(3セット目) /負荷量 40kg×6=240kg",
+     "load_kg": 40.0,
+     "load_reps": 6,
+     "volume_kg": 240.0,
+     "hands": "両手",
+     "total_kg": 40.0
+    },
+    {
+     "date": "2026-11-17",
+     "time": "12:00",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 20.0,
+     "weight_type": "片手",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "12:00 ダンベルベンチプレス 片手20kg×6(4セット目) /負荷量 40kg×6=240kg",
+     "load_kg": 40.0,
+     "load_reps": 6,
+     "volume_kg": 240.0,
+     "hands": "両手",
+     "total_kg": 40.0
+    },
+    {
+     "date": "2026-11-17",
+     "time": "12:06",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "12:06 ダンベルフライ 片手15kg×10(1セット目) /負荷量 30kg×10=300kg",
+     "load_kg": 30.0,
+     "load_reps": 10,
+     "volume_kg": 300.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-17",
+     "time": "12:08",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "12:08 ダンベルフライ 片手15kg×8(2セット目) /負荷量 30kg×8=240kg",
+     "load_kg": 30.0,
+     "load_reps": 8,
+     "volume_kg": 240.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-17",
+     "time": "12:29",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      8
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "12:29 ダンベルフライ 片手15kg×8(3セット目) /負荷量 30kg×8=240kg",
+     "load_kg": 30.0,
+     "load_reps": 8,
+     "volume_kg": 240.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    }
+   ],
+   "summary_only": null
+  }
+ ],
+ "bodyweight": [
+  {
+   "date": "2026-10-13",
+   "kg": 76.3,
+   "raw": "- 10/13: 胸・腕・腹筋13セット＋有酸素28分 / 約2,419kcal・P約122g / 体重76.3kg"
+  },
+  {
+   "date": "2026-10-14",
+   "kg": 77.0,
+   "raw": "- 10/14: 体重77.0kg（10/13比＋0.7kg）。トレッドミル15分・約2.13km（5.5km/h 3分→10km/h 10分→5.5km/h 2分）。ショルダープレス10kg（片手と仮定）10×4、サイドレイズ5kg（片手と仮定）10×3、ダンベルロウ12.5kg 10×3、ラットプルダウン30kg 10×3、ペックフライ30kg 10回・5回＝計15セット（肩7・背中6・胸2）。胸の筋肉痛あり。食事＝野菜ジュース200ml、ご飯330g、鶏むね300g（皮なし調理前と仮定）、キャベツ120g＋シーザー（大さじ1〜2仮定）、いつものプロテイン（粉30g＋牛乳300g）。報告分約1,300〜1,350kcal（Notion明細計算では1,294〜1,354）・P約113g（残り約17g）。クレアチン未確認。"
+  },
+  {
+   "date": "2026-10-15",
+   "kg": 76.8,
+   "raw": "- 10/15: 体重76.8kg（−0.2kg）。トレッドミル15分・約2.11km（5.5km/h 3分→10km/h 10分→5km/h 2分）。ダンベルフライ片手10kg 10×3、ダンベルチェストプレス片手10kg 10×3、インクラインダンベルフライ10×1（重量未確認）、ハンマーカール10kg 10×3＝計10セット（胸7・二頭3）。痛みなし。食事＝昼にシーチキン＆たまごサラダ79kcal/P6.8g、タルタルチキン南蛮281/P13.3g、味付けたまご181/P13.6g、しゃけおにぎり約160〜190/P3.5〜5g、チャーマヨおにぎり約220〜260/P4〜6g（昼計約920〜990kcal・P41〜45g）、いつものプロテイン299kcal/P31g、クレアチン5g。朝食は未報告。飲み会前までの報告分約1,220〜1,290kcal・P約72〜76g。夜は飲み会（10/16 2:47ごろ帰宅）、料理・酒量不明のため1日合計は未確認。"
+  },
+  {
+   "date": "2026-10-16",
+   "kg": 76.6,
+   "raw": "- 10/16: 体重76.6kg（−0.2kg、測定条件未確認）。トレッドミル12分・約1.86km（5.5km/h 3分→12km/h 7分→5.5km/h 2分）。肘固定アームカール10kg 10×2、立位ダンベルカール片手10kg 10×4、インクラインダンベルカール片手9kg 10/7/5回（左が弱い）＋片手ずつ左右各5回×1、ケーブルプレスダウン30kg 10/10/8、腹筋＝脚を曲げ伸ばしする種目20×3・アブドミナル40kg 10×2＝計18セット（二頭10・三頭3・腹筋5）。食事＝いつもの朝食（グラノーラ50g・ヨーグルト100g・バナナ）＋牛乳100g 約449kcal/P18.6g、ご飯1合（約330g）・目玉焼き3個・ウインナー1袋 約1,040〜1,100kcal/P38〜42g、深夜（10/17 1:32報告）に一蘭＋替え玉・卵・追加チャーシュー、スープ多め。一蘭単体は当初約1,100〜1,400kcal/P40〜55gとし、スープ分を上寄りに修正。1日報告分約2,790〜2,950kcal・P約97〜116g。プロテインは未報告。"
+  },
+  {
+   "date": "2026-10-19",
+   "kg": 78.2,
+   "raw": "- 10/19: 体重78.2kg（本人訂正で10/20から移動）。食事＝マック（ビッグマック524kcal/P26.1g、ダブルチーズバーガー459kcal/P26.4g＝公式値、ポテトL約520kcal/P約7g＝概算）。報告分約1,500kcal・P約60g（残り約70g）。朝食・プロテインは未報告。筋トレ：脚・背中メニュー（レッグプレス・レッグカール軽重量10×2、ラットプル25〜30kg 10×2、DBカール片手7.5kg 10×2）を提案されたが、脚・背中の実施報告はなし（未確認）。実施報告あり（10/20 2:00ごろ本人訂正）：アームカール片手10kg×10回×3セット、プリーチャーカール（肘固定）片手10kg×10回×2セット（10/20 2:08ごろ本人報告で1→2セットに更新）。 追加（10/20 2:25ごろ・深夜分なので10/19に計上）：菓子パン1個（山崎製パン、表示値292kcal・P8.4g・脂質15.8g・炭水化物29.7g）。合計約1,792kcal・P約68g（残り約62g）。"
+  },
+  {
+   "date": "2026-10-20",
+   "kg": 77.6,
+   "raw": "- 10/20: 体重77.6kg（11:14ごろ報告）。筋トレ（10/21 1:20ごろ報告・深夜なので10/20に計上）: ダンベルプレス片手12.5kg×15回・10回・10回（3セット）、ダンベルフライ片手12.5kg×7回×1セット、インクラインダンベルフライ片手10kg×10回×1セット、インクラインダンベルプレス片手10kg×10回×3セット、アームカール片手10kg×15回×2セット＋10回×1セット、ブルガリアンスクワット片手10kg×左右各10回×3セット、ケーブルオーバーヘッドエクステンション30kg×10回・7回（2セット、限界）。食事: 朝（11:48ごろ報告）いつもの朝食＝無糖グラノーラ50g（238kcal・P9.3g）＋ヨーグルト100g（P5g）＋バナナ1本（P1g）。P約15.3g（残り約114.7g）。本人了承の概算：ヨーグルト100g約60kcal、バナナ1本約90kcal、朝食合計約390kcal。 夜（20:37ごろ報告）一蘭：ラーメン1杯＋追加チャーシュー1皿＋ゆで卵1個＋替え玉1玉（写真より）。本人了承の概算：ラーメン約600kcal・P約25g、追加チャーシュー約250kcal・P約20g、ゆで卵約80kcal・P約6.5g、替え玉約250kcal・P約8g、合計約1,180kcal・P約60g（目安±1割）。深夜（10/21 2:48ごろ報告・10/20に計上）プロテイン粉30g（116kcal・P21g）＋牛乳300g（約183kcal・P10g）＋クレアチン5g（0kcal・P0g）。深夜（10/21 3:13ごろ）ファミマおにぎり 天然紅しゃけ1個（表示値167kcal・P4.0g・脂質1.5g・炭水化物35.0g）。今日の報告分約2,036kcal・P約110g（残り約164kcal・P約20g）。"
+  },
+  {
+   "date": "2026-10-21",
+   "kg": 77.0,
+   "raw": "- 10/21: 体重 77.0kg。筋トレ: ショルダープレス片手10kg×10×5、シーテッドサイドレイズ片手5kg×10×3、ダンベルロウ片手12.5kg×10×2＋15×1、ケーブルプレスダウン30kg×10×3、ラットプルダウン35kg×10×2＋40kg×10×1（深夜）。食事: 昼（15:08ごろ報告・表示値）明治ミルクプロテイン脂肪0 ココア味430ml（191kcal・P30.0g）、シーチキン＆たまごのサラダ（79kcal・P6.8g）、焦がし醤油仕立て 焼きとうもろこしとツナのパスタ（450kcal・P18.5g）。報告分約720kcal・P約55.3g（残り約1,480kcal・P約74.7g）。 夜（20:25ごろ報告・概算）一蘭ラーメン＋替玉＋追加チャーシュー7枚＋半熟塩ゆでたまご（約1,000kcal・P約54g）。深夜（0:39ごろ報告）惣菜パン（表示値292kcal・P8.4g）、目玉焼き2個（概算約200kcal・P約12g）。合計 約2,212kcal・P約129.4g、kcal約12オーバー・P残り約0.6g。"
+  },
+  {
+   "date": "2026-10-22",
+   "kg": 77.4,
+   "raw": "- 10/22: 体重 77.4kg。筋トレ: レッグレイズ30回×2セット（部位: 腹筋）、ヒールタッチ 左右交互で合計20回×2セット（腹筋）、バイシクルクランチ 左右交互で合計60回×1セット（腹筋）。 食事:（17:33ごろ報告・公式値ベースの概算）ビッグマック（約525kcal・P約26g）、ポテトM（約409kcal・P約5g）、エッグチーズバーガー（約410kcal・P約23g）。報告分 約1,344kcal・P約54g。深夜（0:00ごろ報告・概算）夢を語れ 汁なし 麺300g、大きめチャーシュー2枚、野菜マシ、アブラ多め、マヨ（約2,100kcal・P約72g）。合計 約3,444kcal・P約126g、kcal約1,244オーバー・P残り約4g。"
+  },
+  {
+   "date": "2026-10-23",
+   "kg": 78.2,
+   "raw": "- 10/23: 体重 78.2kg（昼ごろ報告）。筋トレ: ダンベルプレス片手10kg 16回・19回・15回（3セット、部位: 胸。15回は同じ重さと解釈、重さは未確認）。追加（20:20ごろ報告）: ダンベルプレス片手12.5kg×10×3（先の10kg 3セットとは別に記録）、ダンベルフライ片手12.5kg×10×3。追加（21:15ごろ報告）: インクラインダンベルカール片手12.5kg 8回・9回（2セット、部位: 腕）。プリーチャーカール片手10kg 1セット目 右12回・左11回、2セット目 右10回・左7回（2セット目は同じ重さと解釈）、3セット目 右6回・左6回（3セット、部位: 腕）。食事: 14:40ごろ 目玉焼き3個（約270kcal・P約18.5g、油は別）・ウィンナー1袋（量未確認、一般的な1袋100〜130gなら約320〜420kcal・P約12〜16g）・ごはん1合分（炊き上がり約330gで約555kcal・P約8g）。合計は概算で約1,150〜1,250kcal・P約39〜43g（朝食・その他は未確認）。 追加（10/24 6:53ごろ報告・本人確認で10/23分）: 一蘭（ラーメン1杯・煮卵・替え玉1玉・追加チャーシュー約5〜6枚、写真から概算）約900〜1,000kcal・P約45〜52g（麺量・チャーシュー枚数は未確認）。10/23の合計は概算で約2,050〜2,250kcal・P約84〜95g（朝食・プロテイン・その他は未確認）。"
+  },
+  {
+   "date": "2026-10-27",
+   "kg": 78.4,
+   "raw": "- 10/27 13:22 体重 78.4kg"
+  },
+  {
+   "date": "2026-10-28",
+   "kg": 78.6,
+   "raw": "- 10/28 9:12 体重 78.6kg"
+  },
+  {
+   "date": "2026-10-30",
+   "kg": 77.0,
+   "raw": "- 13:36 体重 77.0kg"
+  },
+  {
+   "date": "2026-10-31",
+   "kg": 76.0,
+   "raw": "- 15:47 体重 76.0kg"
+  },
+  {
+   "date": "2026-11-01",
+   "kg": 76.4,
+   "raw": "- 11/1 15:23 体重 76.4kg"
+  },
+  {
+   "date": "2026-11-02",
+   "kg": 76.4,
+   "raw": "- 11/2 12:45 体重76.4kg（前日と同じ）。喉の痛み・痰あり（山田経由）"
+  },
+  {
+   "date": "2026-11-03",
+   "kg": 77.4,
+   "raw": "- 12:29 体重 77.4kg"
+  },
+  {
+   "date": "2026-11-04",
+   "kg": 75.4,
+   "raw": "- 09:31 体重 75.4kg"
+  },
+  {
+   "date": "2026-11-05",
+   "kg": 76.8,
+   "raw": "- 13:02 体重 76.8kg"
+  },
+  {
+   "date": "2026-11-06",
+   "kg": 76.4,
+   "raw": "- 12:30 体重 76.4kg"
+  },
+  {
+   "date": "2026-11-07",
+   "kg": 76.0,
+   "raw": "- 16:50 体重 76.0kg"
+  },
+  {
+   "date": "2026-11-09",
+   "kg": 76.8,
+   "raw": "- 22:26 体重 76.8kg"
+  },
+  {
+   "date": "2026-11-10",
+   "kg": 77.0,
+   "raw": "- 14:27 体重 77.0kg"
+  },
+  {
+   "date": "2026-11-11",
+   "kg": 76.6,
+   "raw": "- 19:19 体重 76.6kg"
+  },
+  {
+   "date": "2026-11-12",
+   "kg": 76.6,
+   "raw": "- 11:28 体重 76.6kg"
+  },
+  {
+   "date": "2026-11-14",
+   "kg": 76.6,
+   "raw": "- 17:25 体重 76.6kg"
+  },
+  {
+   "date": "2026-11-15",
+   "kg": 75.8,
+   "raw": "- 17:31 体重 75.8kg"
+  },
+  {
+   "date": "2026-11-16",
+   "kg": 76.4,
+   "raw": "- 10:35 体重 76.4kg"
+  },
+  {
+   "date": "2026-11-17",
+   "kg": 75.2,
+   "raw": "- 10:17 体重 75.2kg"
+  }
+ ],
+ "exercises": [
+  "EZバーカール",
+  "アブドミナル（マシン）",
+  "アブローラー",
+  "アーノルドプレス",
+  "インクラインダンベルカール",
+  "インクラインダンベルフライ",
+  "インクラインダンベルプレス",
+  "インクラインハンマーカール",
+  "ケーブルアームカール",
+  "ケーブルオーバーヘッドエクステンション",
+  "ケーブルサイドレイズ",
+  "ケーブルプレスダウン",
+  "コンセントレーションカール",
+  "サイドプランク",
+  "サイドレイズ",
+  "ショルダープレス",
+  "シーテッドサイドレイズ",
+  "スミスマシンベンチプレス",
+  "ダンベルオーバーヘッドエクステンション",
+  "ダンベルカール",
+  "ダンベルキックバック",
+  "ダンベルスクワット",
+  "ダンベルフライ",
+  "ダンベルベンチプレス",
+  "ダンベルロウ",
+  "トレッドミル",
+  "ハンマーカール",
+  "バイシクルクランチ",
+  "ヒールタッチ",
+  "ブルガリアンスクワット",
+  "プランク",
+  "プリーチャーカール",
+  "ペックフライ",
+  "マシンショルダープレス",
+  "ライイングエクステンション",
+  "ラットプルダウン",
+  "レッグエクステンション",
+  "レッグレイズ",
+  "腕立て伏せ",
+  "腹筋"
+ ],
+ "meals": {
+  "2026-09-30": {
+   "kcal": null,
+   "kcal_range": null,
+   "protein": null,
+   "items": [
+    {
+     "time": "23:37",
+     "text": "一蘭のラーメン(トッピング未報告。ChatGPTはP約20gで仮計算)"
+    }
+   ],
+   "note": "kcal未確認"
+  },
+  "2026-10-01": {
+   "kcal": null,
+   "kcal_range": null,
+   "protein": 115,
+   "items": [
+    {
+     "time": "11:30",
+     "text": "いつもの朝食(グラノーラ・ヨーグルト・バナナ、量未報告)"
+    },
+    {
+     "time": "11:31",
+     "text": "プロテイン30g"
+    },
+    {
+     "time": null,
+     "text": "牛乳(量未報告)"
+    },
+    {
+     "time": null,
+     "text": "クレアチン5g"
+    },
+    {
+     "time": "15:40",
+     "text": "オムライス(卵3個・ご飯約1.35合・ケチャップ)約900~1000kcal/P約29~31g"
+    },
+    {
+     "time": "20:16",
+     "text": "夜ラーメン(チャーシュー4枚・卵1個・写真の小さいご飯)約850~1100kcal/P約40~50g"
+    },
+    {
+     "time": null,
+     "text": "カリウムサプリ5粒・ビタミンCグミ2粒"
+    }
+   ],
+   "note": "1日kcalは未確認(朝食・プロテイン分の値なし)"
+  },
+  "2026-10-02": {
+   "kcal": null,
+   "kcal_range": null,
+   "protein": 161.5,
+   "items": [
+    {
+     "time": null,
+     "text": "いつもの朝食(P17g=当日指定の計算値)"
+    },
+    {
+     "time": null,
+     "text": "プロテイン30g(116kcal/P21g)"
+    },
+    {
+     "time": null,
+     "text": "牛乳300g(P約31g)"
+    },
+    {
+     "time": null,
+     "text": "クレアチン5g"
+    },
+    {
+     "time": null,
+     "text": "昼にご飯200g・納豆・卵1個・卵2個のだし巻き・サラダチキン110g(P約57~60g)"
+    },
+    {
+     "time": "19:52",
+     "text": "つけ麺(麺270g・卵1個・魚介スープ・小さいチャーシュー約3枚、P約25~35g)"
+    },
+    {
+     "time": null,
+     "text": "10/03 2:19にご飯・チャーシュー4枚・卵・ネギ(P約20~30g、ChatGPTが夜勤中の食事として10/02に集計)"
+    }
+   ],
+   "note": "kcalは未確認"
+  },
+  "2026-10-03": {
+   "kcal": 3000,
+   "kcal_range": [
+    2700,
+    3300
+   ],
+   "protein": 180.5,
+   "items": [
+    {
+     "time": null,
+     "text": "いつもの朝食(グラノーラ50g・ヨーグルト100g・バナナ1本)"
+    },
+    {
+     "time": null,
+     "text": "プロテイン30g"
+    },
+    {
+     "time": null,
+     "text": "牛乳300g(約299kcal/P約31g)"
+    },
+    {
+     "time": null,
+     "text": "クレアチン5g"
+    },
+    {
+     "time": null,
+     "text": "皮なし鶏むね360g"
+    },
+    {
+     "time": null,
+     "text": "ご飯1合"
+    },
+    {
+     "time": null,
+     "text": "マヨネーズ(量不明)"
+    },
+    {
+     "time": null,
+     "text": "夜勤中(10/04 2:37報告)に一蘭"
+    },
+    {
+     "time": null,
+     "text": "卵1個・チャーシュー4枚・替え玉1つ・海苔4枚(約1000~1300kcal/P約35~45g)"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-04": {
+   "kcal": 1910,
+   "kcal_range": [
+    1760,
+    2060
+   ],
+   "protein": 97.5,
+   "items": [
+    {
+     "time": null,
+     "text": "いつもの朝食(グラノーラ50g・ヨーグルト100g〈200gから訂正〉・バナナ1本、P17g)"
+    },
+    {
+     "time": null,
+     "text": "シャウエッセン1袋・卵3個〈半個から訂正〉・ご飯200g・醤油/みりん/酒 各大さじ1・マヨネーズ"
+    },
+    {
+     "time": "21:30",
+     "text": "プロテイン(粉30g+牛乳300gで仮計算)"
+    },
+    {
+     "time": null,
+     "text": "10/05 1:56 ブロッコリー6個・卵1個"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-05": {
+   "kcal": 2530,
+   "kcal_range": [
+    2380,
+    2680
+   ],
+   "protein": 126,
+   "items": [
+    {
+     "time": null,
+     "text": "グラノーラ50g"
+    },
+    {
+     "time": null,
+     "text": "ヨーグルト100g(バナナなし)"
+    },
+    {
+     "time": null,
+     "text": "プロテイン・牛乳・クレアチン(約299kcal/P約31g)"
+    },
+    {
+     "time": null,
+     "text": "紅しゃけおにぎり167kcal/P4g"
+    },
+    {
+     "time": null,
+     "text": "タルタルチキン南蛮281kcal/P13.3g"
+    },
+    {
+     "time": null,
+     "text": "シーチキン&たまごサラダ79kcal/P6.8g"
+    },
+    {
+     "time": null,
+     "text": "夜にキラメキのチャーシュー麺(チャーシュー4枚・卵1個)"
+    },
+    {
+     "time": null,
+     "text": "卵かけご飯"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-06": {
+   "kcal": 3335,
+   "kcal_range": [
+    3110,
+    3560
+   ],
+   "protein": 147,
+   "items": [
+    {
+     "time": null,
+     "text": "いつもの朝食(グラノーラ50g・ヨーグルト100g・バナナ1本)"
+    },
+    {
+     "time": null,
+     "text": "プロテイン30g"
+    },
+    {
+     "time": null,
+     "text": "牛乳300g"
+    },
+    {
+     "time": null,
+     "text": "クレアチン5g(約299kcal/P約31g)"
+    },
+    {
+     "time": null,
+     "text": "昼にご飯300g・シャウエッセン1袋・目玉焼き3個・韓国海苔3枚・焼肉のタレ"
+    },
+    {
+     "time": null,
+     "text": "夜に一蘭(チャーシュー7枚・ネギ・卵1個・替え玉)"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-07": {
+   "kcal": null,
+   "kcal_range": null,
+   "protein": null,
+   "items": [
+    {
+     "time": null,
+     "text": "無糖グラノーラ50g・ヨーグルト150g・バナナ1本"
+    },
+    {
+     "time": null,
+     "text": "昼に目玉焼き3個・サラダチキン1/3・ご飯300g・海苔3枚・焼肉のタレ"
+    },
+    {
+     "time": null,
+     "text": "プロテイン・クレアチン(牛乳量は仮定)"
+    },
+    {
+     "time": null,
+     "text": "夜は飲み会(量は記録しない指定=不明)"
+    },
+    {
+     "time": null,
+     "text": "夕食を除く"
+    }
+   ],
+   "note": "1日合計は算出不可"
+  },
+  "2026-10-08": {
+   "kcal": 2545,
+   "kcal_range": [
+    2420,
+    2670
+   ],
+   "protein": 114,
+   "items": [
+    {
+     "time": null,
+     "text": "いつもの朝食(無糖グラノーラ50g・ヨーグルト100g・バナナ1本)"
+    },
+    {
+     "time": null,
+     "text": "まぜそば"
+    },
+    {
+     "time": null,
+     "text": "ご飯約50g"
+    },
+    {
+     "time": null,
+     "text": "プロテイン30g"
+    },
+    {
+     "time": null,
+     "text": "牛乳300g"
+    },
+    {
+     "time": null,
+     "text": "クレアチン5g(約299kcal/P約31g)"
+    },
+    {
+     "time": null,
+     "text": "目玉焼き3個"
+    },
+    {
+     "time": null,
+     "text": "ご飯300g(油の量不明)"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-09": {
+   "kcal": 2610,
+   "kcal_range": [
+    2400,
+    2820
+   ],
+   "protein": 126.5,
+   "items": [
+    {
+     "time": null,
+     "text": "いつもの朝食"
+    },
+    {
+     "time": null,
+     "text": "プロテイン・牛乳・クレアチン(約299kcal/P約31g)"
+    },
+    {
+     "time": null,
+     "text": "外食でサーモンのカルパッチョ・鯛・サラダ・パン(量不明)"
+    },
+    {
+     "time": null,
+     "text": "ボロネーゼ20g・カルボナーラ20g"
+    },
+    {
+     "time": null,
+     "text": "深夜にラーメン"
+    },
+    {
+     "time": null,
+     "text": "替え玉・卵・チャーシュー・きくらげ・ネギ"
+    },
+    {
+     "time": null,
+     "text": "ご飯150g"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-10": {
+   "kcal": 1075,
+   "kcal_range": [
+    860,
+    1290
+   ],
+   "protein": 67,
+   "items": [
+    {
+     "time": null,
+     "text": "ヨーグルト(100gと仮定)約60kcal/P5g"
+    },
+    {
+     "time": null,
+     "text": "R-1(112g)71kcal/P3.3g"
+    },
+    {
+     "time": null,
+     "text": "野菜生活200ml 65kcal/P0.8g"
+    },
+    {
+     "time": null,
+     "text": "外食でアヒージョ・パスタ・生ハムサラダ・ティラミス・チキンを各約1/3(約660~1090kcal/P31~55g)"
+    },
+    {
+     "time": null,
+     "text": "SAVAS(P15g、kcal未確認)"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-11": {
+   "kcal": null,
+   "kcal_range": null,
+   "protein": 120.6,
+   "items": [],
+   "note": null
+  },
+  "2026-10-12": {
+   "kcal": 2480,
+   "kcal_range": [
+    2440,
+    2520
+   ],
+   "protein": 137.5,
+   "items": [
+    {
+     "time": null,
+     "text": "いつもの朝食"
+    },
+    {
+     "time": null,
+     "text": "卵かけご飯(ご飯約1合・海苔・醤油)"
+    },
+    {
+     "time": null,
+     "text": "鶏むね300g・焼肉のタレ(約950~990kcal/P約85g)"
+    },
+    {
+     "time": null,
+     "text": "ミックスサラダ100g"
+    },
+    {
+     "time": null,
+     "text": "シーザー"
+    },
+    {
+     "time": "20:57",
+     "text": "マック(倍えぐち・ポテトM・野菜生活、約1020kcal/P約36g)"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-13": {
+   "kcal": 2419,
+   "kcal_range": null,
+   "protein": 122,
+   "items": [
+    {
+     "time": null,
+     "text": "胸・腕・腹筋13セット"
+    },
+    {
+     "time": null,
+     "text": "有酸素28分 / 約2419kcal・P約122g / 体重76.3kg"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-14": {
+   "kcal": 1325,
+   "kcal_range": [
+    1300,
+    1350
+   ],
+   "protein": 113,
+   "items": [
+    {
+     "time": null,
+     "text": "野菜ジュース200ml"
+    },
+    {
+     "time": null,
+     "text": "ご飯330g"
+    },
+    {
+     "time": null,
+     "text": "鶏むね300g(皮なし調理前と仮定)"
+    },
+    {
+     "time": null,
+     "text": "キャベツ120g"
+    },
+    {
+     "time": null,
+     "text": "シーザー(大さじ1~2仮定)"
+    },
+    {
+     "time": null,
+     "text": "いつものプロテイン(粉30g+牛乳300g)"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-15": {
+   "kcal": null,
+   "kcal_range": null,
+   "protein": null,
+   "items": [
+    {
+     "time": null,
+     "text": "昼にシーチキン&たまごサラダ79kcal/P6.8g"
+    },
+    {
+     "time": null,
+     "text": "タルタルチキン南蛮281/P13.3g"
+    },
+    {
+     "time": null,
+     "text": "味付けたまご181/P13.6g"
+    },
+    {
+     "time": null,
+     "text": "しゃけおにぎり約160~190/P3.5~5g"
+    },
+    {
+     "time": null,
+     "text": "チャーマヨおにぎり約220~260/P4~6g(昼計約920~990kcal・P41~45g)"
+    },
+    {
+     "time": null,
+     "text": "いつものプロテイン299kcal/P31g"
+    },
+    {
+     "time": null,
+     "text": "クレアチン5g"
+    },
+    {
+     "time": null,
+     "text": "朝食は未報告"
+    },
+    {
+     "time": null,
+     "text": "飲み会前までの"
+    }
+   ],
+   "note": "料理・酒量不明のため1日合計は未確認"
+  },
+  "2026-10-16": {
+   "kcal": 2870,
+   "kcal_range": [
+    2790,
+    2950
+   ],
+   "protein": 106.5,
+   "items": [
+    {
+     "time": null,
+     "text": "いつもの朝食(グラノーラ50g・ヨーグルト100g・バナナ)"
+    },
+    {
+     "time": null,
+     "text": "牛乳100g 約449kcal/P18.6g"
+    },
+    {
+     "time": null,
+     "text": "ご飯1合(約330g)・目玉焼き3個・ウインナー1袋 約1040~1100kcal/P38~42g"
+    },
+    {
+     "time": null,
+     "text": "深夜(10/17 1:32報告)に一蘭"
+    },
+    {
+     "time": null,
+     "text": "替え玉・卵・追加チャーシュー"
+    },
+    {
+     "time": null,
+     "text": "スープ多め"
+    },
+    {
+     "time": null,
+     "text": "1日"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-17": {
+   "kcal": 1325,
+   "kcal_range": [
+    1050,
+    1600
+   ],
+   "protein": 38.5,
+   "items": [
+    {
+     "time": null,
+     "text": "丸亀ぶっかけうどん並"
+    },
+    {
+     "time": null,
+     "text": "ネギ・天かす(約350~500kcal/P9~13g)"
+    },
+    {
+     "time": null,
+     "text": "夜に白味噌ラーメン(約700~1100kcal/P20~35g)"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-18": {
+   "kcal": 2500,
+   "kcal_range": [
+    2000,
+    3000
+   ],
+   "protein": null,
+   "items": [
+    {
+     "time": null,
+     "text": "居酒屋で飲酒多め(内容は覚えていない、本人申告)"
+    },
+    {
+     "time": null,
+     "text": "約2000~3000kcal(本人の見積もり)"
+    }
+   ],
+   "note": "タンパク質は未確認"
+  },
+  "2026-10-19": {
+   "kcal": 1792,
+   "kcal_range": null,
+   "protein": 68,
+   "items": [
+    {
+     "time": null,
+     "text": "マック(ビッグマック524kcal/P26.1g、ダブルチーズバーガー459kcal/P26.4g=公式値、ポテトL約520kcal/P約7g=概算)"
+    },
+    {
+     "time": null,
+     "text": "報告分約1500kcal・P約60g(残り約70g)"
+    },
+    {
+     "time": null,
+     "text": "朝食・プロテインは未報告"
+    },
+    {
+     "time": null,
+     "text": "追加(10/20 2:25ごろ・深夜分なので10/19に計上):菓子パン1個(山崎製パン、表示値292kcal・P8.4g・脂質15.8g・炭水化物29.7g)"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-20": {
+   "kcal": 2036,
+   "kcal_range": null,
+   "protein": 110,
+   "items": [
+    {
+     "time": "11:14",
+     "text": "朝(11:48ごろ報告)いつもの朝食=無糖グラノーラ50g(238kcal・P9.3g)"
+    },
+    {
+     "time": "11:14",
+     "text": "ヨーグルト100g(P5g)"
+    },
+    {
+     "time": "11:14",
+     "text": "バナナ1本(P1g)"
+    },
+    {
+     "time": "11:14",
+     "text": "P約15.3g(残り約114.7g)"
+    },
+    {
+     "time": "11:14",
+     "text": "本人了承の概算:ヨーグルト100g約60kcal"
+    },
+    {
+     "time": "11:14",
+     "text": "バナナ1本約90kcal"
+    },
+    {
+     "time": "11:14",
+     "text": "朝食合計約390kcal"
+    },
+    {
+     "time": "11:14",
+     "text": "夜(20:37ごろ報告)一蘭:ラーメン1杯"
+    },
+    {
+     "time": "11:14",
+     "text": "追加チャーシュー1皿"
+    },
+    {
+     "time": "11:14",
+     "text": "ゆで卵1個"
+    },
+    {
+     "time": "11:14",
+     "text": "替え玉1玉(写真より)"
+    },
+    {
+     "time": "11:14",
+     "text": "本人了承の概算:ラーメン約600kcal・P約25g"
+    },
+    {
+     "time": "11:14",
+     "text": "追加チャーシュー約250kcal・P約20g"
+    },
+    {
+     "time": "11:14",
+     "text": "ゆで卵約80kcal・P約6.5g"
+    },
+    {
+     "time": "11:14",
+     "text": "替え玉約250kcal・P約8g"
+    },
+    {
+     "time": "11:14",
+     "text": "合計約1180kcal・P約60g(目安±1割)"
+    },
+    {
+     "time": "11:14",
+     "text": "深夜(10/21 2:48ごろ報告・10/20に計上)プロテイン粉30g(116kcal・P21g)"
+    },
+    {
+     "time": "11:14",
+     "text": "牛乳300g(約183kcal・P10g)"
+    },
+    {
+     "time": "11:14",
+     "text": "クレアチン5g(0kcal・P0g)"
+    },
+    {
+     "time": "11:14",
+     "text": "深夜(10/21 3:13ごろ)ファミマおにぎり 天然紅しゃけ1個(表示値167kcal・P4.0g・脂質1.5g・炭水化物35.0g)"
+    },
+    {
+     "time": "11:14",
+     "text": "今日の"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-21": {
+   "kcal": 2212,
+   "kcal_range": null,
+   "protein": 129.4,
+   "items": [
+    {
+     "time": null,
+     "text": "昼(15:08ごろ報告・表示値)明治ミルクプロテイン脂肪0 ココア味430ml(191kcal・P30.0g)"
+    },
+    {
+     "time": null,
+     "text": "シーチキン&たまごのサラダ(79kcal・P6.8g)"
+    },
+    {
+     "time": null,
+     "text": "焦がし醤油仕立て 焼きとうもろこしとツナのパスタ(450kcal・P18.5g)"
+    },
+    {
+     "time": null,
+     "text": "報告分約720kcal・P約55.3g(残り約1480kcal・P約74.7g)"
+    },
+    {
+     "time": null,
+     "text": "夜(20:25ごろ報告・概算)一蘭ラーメン"
+    },
+    {
+     "time": null,
+     "text": "替玉"
+    },
+    {
+     "time": null,
+     "text": "追加チャーシュー7枚"
+    },
+    {
+     "time": null,
+     "text": "半熟塩ゆでたまご(約1000kcal・P約54g)"
+    },
+    {
+     "time": null,
+     "text": "深夜(0:39ごろ報告)惣菜パン(表示値292kcal・P8.4g)"
+    },
+    {
+     "time": null,
+     "text": "目玉焼き2個(概算約200kcal・P約12g)"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-22": {
+   "kcal": 3444,
+   "kcal_range": null,
+   "protein": 126,
+   "items": [
+    {
+     "time": null,
+     "text": "(17:33ごろ報告・公式値ベースの概算)ビッグマック(約525kcal・P約26g)"
+    },
+    {
+     "time": null,
+     "text": "ポテトM(約409kcal・P約5g)"
+    },
+    {
+     "time": null,
+     "text": "エッグチーズバーガー(約410kcal・P約23g)"
+    },
+    {
+     "time": null,
+     "text": "報告分 約1344kcal・P約54g"
+    },
+    {
+     "time": null,
+     "text": "深夜(0:00ごろ報告・概算)夢を語れ 汁なし 麺300g"
+    },
+    {
+     "time": null,
+     "text": "大きめチャーシュー2枚"
+    },
+    {
+     "time": null,
+     "text": "野菜マシ"
+    },
+    {
+     "time": null,
+     "text": "アブラ多め"
+    },
+    {
+     "time": null,
+     "text": "マヨ(約2100kcal・P約72g)"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-23": {
+   "kcal": 2150,
+   "kcal_range": [
+    2050,
+    2250
+   ],
+   "protein": 89.5,
+   "items": [
+    {
+     "time": "14:40",
+     "text": "ごろ 目玉焼き3個(約270kcal・P約18.5g、油は別)・ウィンナー1袋(量未確認、一般的な1袋100~130gなら約320~420kcal・P約12~16g)・ごはん1合分(炊き上がり約330gで約555kcal・P約8g)"
+    },
+    {
+     "time": null,
+     "text": "合計は概算で約1150~1250kcal・P約39~43g(朝食・その他は未確認)"
+    },
+    {
+     "time": null,
+     "text": "追加(10/24 6:53ごろ報告・本人確認で10/23分): 一蘭(ラーメン1杯・煮卵・替え玉1玉・追加チャーシュー約5~6枚、写真から概算)約900~1000kcal・P約45~52g(麺量・チャーシュー枚数は未確認)"
+    },
+    {
+     "time": null,
+     "text": "10/23の"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-24": {
+   "kcal": 2500,
+   "kcal_range": [
+    2450,
+    2550
+   ],
+   "protein": 110,
+   "items": [
+    {
+     "time": null,
+     "text": "ビッグマック"
+    },
+    {
+     "time": null,
+     "text": "ダブルチーズバーガー"
+    },
+    {
+     "time": null,
+     "text": "ポテトL(マクドナルド公表値ベースの概算:約1500kcal・P約60g)"
+    },
+    {
+     "time": null,
+     "text": "Pの残り約70g"
+    },
+    {
+     "time": "00:35",
+     "text": "一蘭=ラーメン"
+    },
+    {
+     "time": "00:35",
+     "text": "替え玉1"
+    },
+    {
+     "time": "00:35",
+     "text": "ゆで卵2個"
+    },
+    {
+     "time": "00:35",
+     "text": "追加チャーシュー(枚数未確認)"
+    },
+    {
+     "time": "00:35",
+     "text": "概算約950~1050kcal・P約47~53g"
+    },
+    {
+     "time": "00:35",
+     "text": "10/24"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-25": {
+   "kcal": null,
+   "kcal_range": null,
+   "protein": 30,
+   "items": [],
+   "note": "kcalは未確認"
+  },
+  "2026-10-26": {
+   "kcal": 2550,
+   "kcal_range": [
+    2400,
+    2700
+   ],
+   "protein": 95,
+   "items": [
+    {
+     "time": "15:19",
+     "text": "昼:来来亭チャーシューメン(味玉1個入り、写真あり)概算約900~1000kcal・P約45~50g"
+    },
+    {
+     "time": "23:04",
+     "text": "夜:魂心家 家系ラーメン大盛り(チャーシュー2枚・味玉・うずら・ほうれん草・のり、写真あり)"
+    },
+    {
+     "time": "23:04",
+     "text": "ごはん2杯(本人訂正23:04)概算約1500~1700kcal・P約45~50g"
+    },
+    {
+     "time": "23:04",
+     "text": "10/26"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-27": {
+   "kcal": 2480,
+   "kcal_range": [
+    2260,
+    2700
+   ],
+   "protein": 92,
+   "items": [
+    {
+     "time": "15:18",
+     "text": "昼:唐揚げ弁当(唐揚げ約6個、ごはん大盛り、ポテサラ、キャベツ)約1100~1300kcal・P約40~45g(概算・写真から)"
+    },
+    {
+     "time": "23:44",
+     "text": "夜:吉野家 唐揚げ定食(唐揚げ5個、タルタル、ごはん、味噌汁、サラダ、ねぎ小鉢)約1000~1200kcal・P約35~40g(概算・写真から)"
+    },
+    {
+     "time": "00:25",
+     "text": "(10/27分)ネギ卵 卵2個 約160~200kcal・P約12g(概算)"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-28": {
+   "kcal": 1947,
+   "kcal_range": [
+    1932,
+    1962
+   ],
+   "protein": 127.8,
+   "items": [
+    {
+     "time": "14:52",
+     "text": "昼:生パスタ 濃い濃いカルボナーラ 428kcal・P19.1g(ラベル)"
+    },
+    {
+     "time": "14:52",
+     "text": "ザバス ミルクプロテイン200ml 107kcal・P20.0g(ラベル)"
+    },
+    {
+     "time": "00:53",
+     "text": "ザバス ミルクプロテイン200ml(107kcal・P20.0g・脂質0g・炭水化物6.8g)"
+    },
+    {
+     "time": "01:11",
+     "text": "カット野菜1袋130g(44kcal・P1.8g)"
+    },
+    {
+     "time": "01:11",
+     "text": "伊藤ハム しっとり焼豚切落し110g(176kcal・P24.3g、100gあたり160kcal・P22.1gから換算)"
+    },
+    {
+     "time": "01:14",
+     "text": "目玉焼き3個(概算 約250~280kcal・P約18g)"
+    },
+    {
+     "time": "01:14",
+     "text": "焼肉のたれ(量未確認・大さじ1と仮定で概算 約30kcal・P約0.5g)"
+    },
+    {
+     "time": "01:14",
+     "text": "シーザードレッシング(量未確認・大さじ1と仮定で概算 約60kcal・P約0.3g)"
+    },
+    {
+     "time": "01:14",
+     "text": "ごはん270g(概算 約420kcal・P約6.8g)"
+    },
+    {
+     "time": "01:27",
+     "text": "牛乳500ml(概算 約310kcal・P約17g)"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-29": {
+   "kcal": 2177,
+   "kcal_range": [
+    2002,
+    2352
+   ],
+   "protein": 81.6,
+   "items": [
+    {
+     "time": "18:58",
+     "text": "いつもの朝食(無糖グラノーラ65g(約309kcal・P12.1g)+ヨーグルト200g(P10g)+バナナ1本、概算 約522kcal・P約23.1g)"
+    },
+    {
+     "time": "22:29",
+     "text": "家系ラーメン(概算 約800~1000kcal・P約30g、量未確認)"
+    },
+    {
+     "time": "22:29",
+     "text": "チャーシュー丼(概算 約600~750kcal・P約20~25g、量未確認)"
+    },
+    {
+     "time": "22:29",
+     "text": "煮卵1個(ラーメンのトッピング、個数未確認・1個と仮定、概算 約80kcal・P約6g)"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-30": {
+   "kcal": 768,
+   "kcal_range": null,
+   "protein": 50.7,
+   "items": [
+    {
+     "time": "14:29",
+     "text": "プロテイン 粉30g"
+    },
+    {
+     "time": "14:29",
+     "text": "牛乳300g 約299kcal P31g(いつもの量として概算)"
+    },
+    {
+     "time": "14:29",
+     "text": "クレアチン5g"
+    },
+    {
+     "time": "18:38",
+     "text": "グラノーラ60g(約286kcal P11.2g)"
+    },
+    {
+     "time": "18:38",
+     "text": "ヨーグルト150g(P7.5g、kcalは概算約93)"
+    },
+    {
+     "time": "18:38",
+     "text": "バナナ1本(概算約90kcal P1g) 計 約469kcal P約19.7g(概算)"
+    }
+   ],
+   "note": null
+  },
+  "2026-10-31": {
+   "kcal": 2010,
+   "kcal_range": null,
+   "protein": 136,
+   "items": [
+    {
+     "time": "17:02",
+     "text": "鶏むね肉300g(皮なし生想定・概算 約330kcal P69g)"
+    },
+    {
+     "time": "17:02",
+     "text": "目玉焼き3個(概算 約230kcal P18.5g、油未確認)"
+    },
+    {
+     "time": "17:02",
+     "text": "ごはん300g(約470kcal P7.5g)→ 小計 約1030kcal P約95g"
+    },
+    {
+     "time": "17:02",
+     "text": "残りP約35g"
+    },
+    {
+     "time": "02:54",
+     "text": "まかない:豚骨ラーメン"
+    },
+    {
+     "time": "02:54",
+     "text": "替え玉1"
+    },
+    {
+     "time": "02:54",
+     "text": "ゆで卵1(写真、概算 約980kcal P約41g)→ 10/31"
+    }
+   ],
+   "note": null
+  },
+  "2026-11-01": {
+   "kcal": 1890,
+   "kcal_range": null,
+   "protein": 74,
+   "items": [
+    {
+     "time": "23:52",
+     "text": "朝食セット:無糖グラノーラ50g"
+    },
+    {
+     "time": "23:52",
+     "text": "ヨーグルト100g"
+    },
+    {
+     "time": "23:52",
+     "text": "バナナ1本(約390kcal・P約15.3g 概算)"
+    },
+    {
+     "time": "23:52",
+     "text": "11/1"
+    },
+    {
+     "time": "23:52",
+     "text": "マック:ビッグマック(約525kcal・P約26g)"
+    },
+    {
+     "time": "23:52",
+     "text": "ダブルチーズバーガー(約457kcal・P約27g)"
+    },
+    {
+     "time": "23:52",
+     "text": "ポテトL(約517kcal・P約6g)=約1500kcal・P約59g(概算)"
+    },
+    {
+     "time": "23:52",
+     "text": "11/1"
+    }
+   ],
+   "note": null
+  },
+  "2026-11-02": {
+   "kcal": 2720,
+   "kcal_range": null,
+   "protein": 124,
+   "items": [
+    {
+     "time": "19:38",
+     "text": "コッペパン(いちご系、表示:420kcal・P8.2g)"
+    },
+    {
+     "time": "19:38",
+     "text": "ランチパック ピーナッツ(概算 約380kcal・P約10g)=約800kcal・P約18g"
+    },
+    {
+     "time": "19:38",
+     "text": "11/2"
+    },
+    {
+     "time": "20:47",
+     "text": "ザバス ミルクプロテイン 脂肪0 200ml(表示:107kcal・P20.0g)"
+    },
+    {
+     "time": "20:47",
+     "text": "11/2"
+    },
+    {
+     "time": "00:43",
+     "text": "(11/2分) パスタ乾麺400g(概算 約1480kcal・P約52g)"
+    },
+    {
+     "time": "00:43",
+     "text": "ツナ缶1缶(種類未確認、概算 約180kcal・P約13g)"
+    },
+    {
+     "time": "00:43",
+     "text": "セブン ブロッコリーエッグ(表示 150kcal・P20.6g)"
+    }
+   ],
+   "note": null
+  },
+  "2026-11-03": {
+   "kcal": 107,
+   "kcal_range": null,
+   "protein": 20,
+   "items": [
+    {
+     "time": "00:10",
+     "text": "ザバス ミルクプロテイン 脂肪0 200ml(表示:107kcal・P20.0g)"
+    },
+    {
+     "time": "00:10",
+     "text": "11/3"
+    }
+   ],
+   "note": null
+  },
+  "2026-11-04": {
+   "kcal": 2179,
+   "kcal_range": null,
+   "protein": 87.4,
+   "items": [
+    {
+     "time": "09:32",
+     "text": "朝食:無糖グラノーラ50g(238kcal・P9.3g)"
+    },
+    {
+     "time": "09:32",
+     "text": "ヨーグルト100g(P5g)"
+    },
+    {
+     "time": "09:32",
+     "text": "バナナ1本(P1g)"
+    },
+    {
+     "time": "09:32",
+     "text": "概算 約390kcal・P約15.3g"
+    },
+    {
+     "time": "09:32",
+     "text": "11/4"
+    },
+    {
+     "time": "15:01",
+     "text": "シーチキンとたまごのサラダ(ラベルの読み取りで約194kcal・P約6.8g、未確認)"
+    },
+    {
+     "time": "15:01",
+     "text": "ザバス ミルクプロテイン脂肪0 200ml 107kcal P20.0g"
+    },
+    {
+     "time": "01:07",
+     "text": "もつ鍋 1人前(概算 約500kcal・P約25g、量は未確認)"
+    },
+    {
+     "time": "01:07",
+     "text": "ご飯 3杯(1杯150gとして概算 約750kcal・P約11g)"
+    }
+   ],
+   "note": null
+  },
+  "2026-11-05": {
+   "kcal": 1424,
+   "kcal_range": null,
+   "protein": 87.7,
+   "items": [
+    {
+     "time": "20:36",
+     "text": "来来亭 こってりチャーシュー麺(概算 約900kcal・P約40g、公式値は未確認)"
+    },
+    {
+     "time": "20:36",
+     "text": "小ライス 約100g(概算 約170kcal・P約3g)"
+    },
+    {
+     "time": "01:36",
+     "text": "蒸し鶏と玉子のサラダ 66kcal・P8.7g"
+    },
+    {
+     "time": "01:36",
+     "text": "ザバス ミルクプロテイン200ml 107kcal・P20g"
+    },
+    {
+     "time": "04:01",
+     "text": "プロテインバー(チョコ、商品名未確認) 181kcal・P16g"
+    }
+   ],
+   "note": null
+  },
+  "2026-11-06": {
+   "kcal": 1100,
+   "kcal_range": null,
+   "protein": 54,
+   "items": [
+    {
+     "time": "15:37",
+     "text": "サトウのご飯 ゆめぴりか150g×2パック 414kcal・P7g"
+    },
+    {
+     "time": "15:37",
+     "text": "ウインナー5本 約150kcal・P約6g(概算)"
+    },
+    {
+     "time": "15:37",
+     "text": "千切りキャベツ100g 約23kcal・P約1.3g"
+    },
+    {
+     "time": "15:37",
+     "text": "目玉焼き3個 約270kcal・P約19.5g(概算)"
+    }
+   ],
+   "note": null
+  },
+  "2026-11-07": {
+   "kcal": 1100,
+   "kcal_range": null,
+   "protein": 54,
+   "items": [
+    {
+     "time": "20:15",
+     "text": "マック:いつもの組み合わせとしてビッグマック"
+    },
+    {
+     "time": "20:15",
+     "text": "ダブルチーズバーガー"
+    },
+    {
+     "time": "20:15",
+     "text": "ポテトL 約1500kcal・P約59g(11/1の記録に基づく概算、今回の内訳は未確認)"
+    },
+    {
+     "time": "20:35",
+     "text": "プロテイン粉35g(約135kcal・P約24.5g)"
+    },
+    {
+     "time": "20:35",
+     "text": "牛乳320g(約195kcal・P約10.7g)"
+    },
+    {
+     "time": "20:35",
+     "text": "クレアチン5g(0kcal・P0g)"
+    }
+   ],
+   "note": null
+  },
+  "2026-11-08": {
+   "kcal": 2200,
+   "kcal_range": null,
+   "protein": 85,
+   "items": [
+    {
+     "time": "22:28",
+     "text": "概算(本人指示):第一旭 チャーシューめん(並と仮定) 概算約700kcal・P約35g"
+    },
+    {
+     "time": "22:28",
+     "text": "概算(本人指示):飲み会(ビール等+料理、一般的な量と仮定) 概算約1500kcal・P約50g"
+    }
+   ],
+   "note": null
+  },
+  "2026-11-09": {
+   "kcal": 1099,
+   "kcal_range": null,
+   "protein": 51.5,
+   "items": [
+    {
+     "time": "17:39",
+     "text": "ファミマ 大盛 グリルチキンのペペロンチーノ(大盛と仮定) 650kcal・P31.1g(公表値ベース)"
+    },
+    {
+     "time": "17:39",
+     "text": "千切りキャベツ 100g 概算21kcal・P1.3g"
+    },
+    {
+     "time": "22:26",
+     "text": "ファミマ 生パスタ 濃い濃いカルボナーラ 428kcal・P19.1g(ラベル値)"
+    }
+   ],
+   "note": null
+  },
+  "2026-11-10": {
+   "kcal": 1400,
+   "kcal_range": null,
+   "protein": 55,
+   "items": [
+    {
+     "time": "23:17",
+     "text": "夢を語れ ラーメン 麺300g(豚・野菜・スープは標準と仮定、トッピング未確認) 概算約1400kcal・P約55g"
+    }
+   ],
+   "note": null
+  },
+  "2026-11-11": {
+   "kcal": 1330,
+   "kcal_range": null,
+   "protein": 54,
+   "items": [
+    {
+     "time": "21:21",
+     "text": "来来亭 チャーシューメン 大盛(公式の栄養表示は未確認) 概算約1100kcal・P約50g"
+    },
+    {
+     "time": "21:21",
+     "text": "来来亭 ご飯 小(約150gと仮定) 概算約230kcal・P約4g"
+    }
+   ],
+   "note": null
+  },
+  "2026-11-12": {
+   "kcal": 1303.5,
+   "kcal_range": [
+    1302,
+    1305
+   ],
+   "protein": 45,
+   "items": [
+    {
+     "time": "00:27",
+     "text": "ザバス ミルクプロテイン 脂肪0 200ml(たんぱく質15g配合、風味未確認) 公式 約102~105kcal・P15.0g"
+    },
+    {
+     "time": "02:56",
+     "text": "コストコのご飯 本人指示 1200kcal・P30g"
+    }
+   ],
+   "note": null
+  },
+  "2026-11-13": {
+   "kcal": 1500,
+   "kcal_range": null,
+   "protein": 88,
+   "items": [
+    {
+     "time": "16:05",
+     "text": "キャベツ 150g 概算約32kcal・P約2.0g"
+    },
+    {
+     "time": "16:05",
+     "text": "卵 3個(目玉焼き、油の量は未確認) 概算約228kcal・P約18.6g"
+    },
+    {
+     "time": "16:05",
+     "text": "ウインナー 100g 概算約319kcal・P約11.5g"
+    },
+    {
+     "time": "16:05",
+     "text": "ご飯 250g 概算約390kcal・P約6.3g"
+    },
+    {
+     "time": "16:05",
+     "text": "オイコス(味未確認) 概算約92kcal・P10g(本人申告)"
+    },
+    {
+     "time": "16:05",
+     "text": "バナナ 1本 概算約86kcal・P約1.1g"
+    },
+    {
+     "time": "16:05",
+     "text": "無糖グラノーラ 40g 概算約190kcal・P約7.4g"
+    }
+   ],
+   "note": null
+  },
+  "2026-11-14": {
+   "kcal": 2570,
+   "kcal_range": null,
+   "protein": 100,
+   "items": [
+    {
+     "time": "18:59",
+     "text": "ご飯 1.5合分(炊き上がり約495gと仮定) 概算約770kcal・P約12g"
+    },
+    {
+     "time": "18:59",
+     "text": "生姜焼き 200g(本人申告) 概算約670kcal・P約33g"
+    },
+    {
+     "time": "18:59",
+     "text": "ネギトロ(量未確認、1パック約80gと仮定) 概算約200kcal・P約15g"
+    },
+    {
+     "time": "06:39",
+     "text": "(11/15早朝報告・11/14分) 一蘭 ラーメン"
+    },
+    {
+     "time": "06:39",
+     "text": "替え玉1玉"
+    },
+    {
+     "time": "06:39",
+     "text": "卵1個(追加チャーシューは報告なし) 概算約930kcal・P約40g"
+    }
+   ],
+   "note": null
+  },
+  "2026-11-15": {
+   "kcal": null,
+   "kcal_range": null,
+   "protein": null,
+   "items": [],
+   "note": null
+  },
+  "2026-11-16": {
+   "kcal": 2614,
+   "kcal_range": null,
+   "protein": 161.4,
+   "items": [
+    {
+     "time": "11:55",
+     "text": "シーチキン&たまごのサラダ 1パック(ラベル表示) 79kcal・P6.8g"
+    },
+    {
+     "time": "11:55",
+     "text": "リュウジ ガリバタチキンパスタ 1パック(ラベル表示) 467kcal・P25.2g"
+    },
+    {
+     "time": "13:02",
+     "text": "ザバス プロテイン(P20g・本人申告、kcal未確認のため約105kcalと仮定) 約105kcal・P20g"
+    },
+    {
+     "time": "21:39",
+     "text": "ご飯 270g 約420kcal・P約7g"
+    },
+    {
+     "time": "21:39",
+     "text": "海苔(枚数未確認) 約5kcal・P約0.4g"
+    },
+    {
+     "time": "21:39",
+     "text": "コストコ ハイローラー 2個(概算) 約600kcal・P約28g"
+    },
+    {
+     "time": "21:39",
+     "text": "ネギトロ 200g(概算) 約600kcal・P約36g"
+    },
+    {
+     "time": "21:40",
+     "text": "プロテイン粉 40g 約155kcal・P約28g"
+    },
+    {
+     "time": "21:40",
+     "text": "牛乳 300g 約183kcal・P約10g"
+    },
+    {
+     "time": "21:40",
+     "text": "クレアチン 5g 0kcal・P0g"
+    }
+   ],
+   "note": null
+  },
+  "2026-11-17": {
+   "kcal": 787,
+   "kcal_range": null,
+   "protein": 40,
+   "items": [
+    {
+     "time": "12:44",
+     "text": "丸亀製麺 ぶっかけうどん並(天かす・わかめ・ねぎ入り)(概算)約360kcal・P約9g"
+    },
+    {
+     "time": "12:44",
+     "text": "半熟卵天(概算)約120kcal・P約6g"
+    },
+    {
+     "time": "12:44",
+     "text": "しゃけむすび(概算)約200kcal・P約5g"
+    },
+    {
+     "time": "13:16",
+     "text": "ザバス ミルクプロテイン 脂肪0 200ml 107kcal・P20.0g"
+    }
+   ],
+   "note": null
+  }
+ },
+ "content_hash": "d4f26d9b5cde",
+ "generated_at": "2026-11-17T13:18:01+09:00"
+}
