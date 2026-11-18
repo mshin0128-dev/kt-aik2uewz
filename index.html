@@ -1809,18 +1809,20 @@
     border-radius: 14px; cursor: pointer;
     transition: background .15s var(--ease);
   }
-  .sx-grp { display: flex; align-items: center; gap: 1px; min-width: 0; }
+  .sx-grp { display: flex; align-items: center; gap: 0; min-width: 0; }
   .sx-grp .sx-v { flex: 1 1 auto; text-align: center; }
+  /* ステッパーは記号だけの静かな見た目に（押したときだけ薄く反応）。数字の列が主役 */
   .sx-step {
-    flex: 0 0 30px; width: 30px; height: 42px; padding: 0; border: none; border-radius: 12px;
-    background: var(--surface-alt); color: var(--text);
-    font-family: inherit; font-size: 17px; font-weight: 700; line-height: 1; cursor: pointer;
+    flex: 0 0 32px; width: 32px; height: 44px; padding: 0; border: none; border-radius: 50%;
+    background: transparent; color: var(--sub);
+    font-family: inherit; font-size: 19px; font-weight: 600; line-height: 1; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    transition: transform .1s var(--ease), background .12s var(--ease);
+    transition: transform .1s var(--ease), background .12s var(--ease), color .12s var(--ease);
+    -webkit-tap-highlight-color: transparent;
   }
-  .sx-step:active { transform: scale(0.92); background: var(--chip-active-bg); }
+  .sx-step:active { transform: scale(0.9); background: var(--surface-alt); color: var(--text); }
   @media (max-width: 374px) {
-    .sx-step { flex-basis: 26px; width: 26px; height: 38px; font-size: 15px; }
+    .sx-step { flex-basis: 28px; width: 28px; height: 40px; font-size: 17px; }
     .sx-grp .sx-v { font-size: 22px; }
     .sx-grp .sx-v.empty { font-size: 14px; }
   }
@@ -2209,7 +2211,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.19s";
+  var APP_VERSION = "v2026.11.19t";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
