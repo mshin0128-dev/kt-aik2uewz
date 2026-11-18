@@ -313,7 +313,7 @@
     border-radius: 999px;
     padding: 4px;
   }
-  .record-segment.show { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .record-segment.show { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .record-segment.body-segment.show { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .record-seg-btn {
     min-width: 0;
@@ -1913,8 +1913,7 @@
     <div class="top-banner" id="topBanner"></div>
 
     <div class="record-segment show" id="recordSegment">
-      <button class="record-seg-btn" data-period="daily" type="button">日</button>
-      <button class="record-seg-btn active" data-period="day" type="button">カレンダー</button>
+      <button class="record-seg-btn active" data-period="daily" type="button">日</button>
       <button class="record-seg-btn" data-period="week" type="button">週</button>
       <button class="record-seg-btn" data-period="month" type="button">月</button>
     </div>
@@ -2182,7 +2181,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.19q";
+  var APP_VERSION = "v2026.11.19r";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -2266,7 +2265,8 @@
   function getRecordPeriod() {
     var p = null;
     try { p = localStorage.getItem(RECORD_PERIOD_KEY); } catch (e) {}
-    return (p === "daily" || p === "day" || p === "week" || p === "month") ? p : "daily";
+    if (p === "day") return "daily"; // 旧「カレンダー」セグメントは廃止したので、日ビューへ寄せる
+    return (p === "daily" || p === "week" || p === "month") ? p : "daily";
   }
   function saveRecordPeriod(period) {
     try { localStorage.setItem(RECORD_PERIOD_KEY, period); } catch (e) {}
@@ -4787,6 +4787,7 @@
       state.photoError = false;
       ensurePhotoCursor();
       if (state.currentTab === "photo") renderPhotoTab();
+      else if (state.currentTab === "daily" && state.loaded) renderDailyTab();
       else if (state.currentTab === "day" && state.loaded) renderDayTab();
     }).catch(function () {
       state.photoReady = true;
@@ -7663,7 +7664,7 @@
   function goToDay(dateKey) {
     state.dayKey = dateKey;
     state.calMonth = monthFromKey(dateKey);
-    switchTab("day");
+    switchTab("daily");
   }
   function changeWeek(delta) {
     state.weekStart = addDays(state.weekStart, delta * 7);
@@ -8206,7 +8207,7 @@
   var SWIPE_TRIGGER_DISTANCE = 60;
   var SWIPE_RATIO = 1.5;
   var SWIPE_EDGE_GUARD = 24;
-  var SWIPE_TABS = { day: true, week: true, month: true, weight: true, meal: true, photo: true };
+  var SWIPE_TABS = { daily: true, day: true, week: true, month: true, weight: true, meal: true, photo: true };
   var pgesture = { tracking: false, pointerId: null, startX: 0, startY: 0, lockDir: null, eligible: false };
 
   function isFormTarget(el) {
@@ -8232,7 +8233,7 @@
   function isSwipeEligibleTarget(target, tab) {
     if (isFormTarget(target) || scrollableAncestorX(target)) return false;
     if (target.closest && (target.closest(".tabbar") || target.closest(".sess-overlay") || target.closest(".rec-overlay") || target.closest(".meal-viewer"))) return false;
-    if (tab === "day" || tab === "week" || tab === "month" || tab === "photo") return true;
+    if (tab === "daily" || tab === "day" || tab === "week" || tab === "month" || tab === "photo") return true;
     if (tab === "weight" || tab === "meal") {
       return !!(target.closest && target.closest(".period-swipe-zone"));
     }
@@ -8409,7 +8410,8 @@
     var h = (location.hash || "").replace("#", "");
     if (h === "exercise" || h === "weight" || h === "meal" || h === "photo") return h;
     if (h === "body") return "weight";
-    if (h === "day" || h === "week" || h === "month") return h;
+    if (h === "day") return "daily";
+    if (h === "week" || h === "month") return h;
     return getRecordPeriod();
   }
   function init() {
