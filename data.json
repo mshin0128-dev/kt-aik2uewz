@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-19T01:20:21+09:00",
+ "source_mtime": "2026-11-19T01:29:14+09:00",
  "parts": [
   "胸",
   "背中",
@@ -6621,6 +6621,27 @@
      "load_reps": 10,
      "volume_kg": 400.0,
      "hands": null
+    },
+    {
+     "date": "2026-11-18",
+     "time": "01:29",
+     "exercise": "ベントオーバーロウ",
+     "part": "背中",
+     "weight_kg": 40.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "01:29 ベントオーバーロウ 40kg×10(1セット目) /負荷量 40kg×10=400kg",
+     "load_kg": 40.0,
+     "load_reps": 10,
+     "volume_kg": 400.0,
+     "hands": "判断不可"
     }
    ],
    "summary_only": null
@@ -6801,6 +6822,7 @@
   "ブルガリアンスクワット",
   "プランク",
   "プリーチャーカール",
+  "ベントオーバーロウ",
   "ペックフライ",
   "マシンショルダープレス",
   "ライイングエクステンション",
@@ -8394,6 +8416,6 @@
    "note": null
   }
  },
- "content_hash": "811afe281278",
- "generated_at": "2026-11-19T01:21:15+09:00"
+ "content_hash": "ca2b6ecd752e",
+ "generated_at": "2026-11-19T01:30:33+09:00"
 }
