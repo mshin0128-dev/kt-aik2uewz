@@ -2275,7 +2275,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.20b";
+  var APP_VERSION = "v2026.11.20c";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -3019,7 +3019,15 @@
     if (label) label.textContent = formatDayHeading(state.dayKey) + (state.dayKey === todayKey() ? "（今日）" : "");
     var content = document.getElementById("dailyContent");
     if (!content) return;
-    content.innerHTML = dayDetailHtml(dayMap);
+    var summaryHtml = "";
+    var curDay = dayMap[state.dayKey];
+    if (curDay && !curDay.summary_only) {
+      var curD = computeDayData(state.dayKey);
+      var prevD = computeDayData(dateToKey(addDays(dkToDate(state.dayKey), -1)));
+      var diffD = curD.totalSets - prevD.totalSets;
+      summaryHtml = periodSummaryHtml(curD, "前日比 " + (diffD >= 0 ? "+" : "") + diffD + "セット");
+    }
+    content.innerHTML = summaryHtml + dayDetailHtml(dayMap);
     hydrateMealThumbs(content);
   }
 
@@ -3097,6 +3105,53 @@
     return html;
   }
 
+  // ---------- 期間サマリー（日・週・月で共通） ----------
+  function computeDayData(dateKey) {
+    var days = (state.data && state.data.days) || [];
+    var dayMap = {};
+    days.forEach(function (d) { dayMap[d.date] = d; });
+    var partsSets = {};
+    STRENGTH_PARTS.forEach(function (p) { partsSets[p] = 0; });
+    var approxParts = {};
+    var aerobicMinutes = 0;
+    var totalVolume = 0;
+    var day = dayMap[dateKey];
+    if (day && !day.summary_only) {
+      day.entries.forEach(function (e) {
+        if (e.part === "有酸素") {
+          aerobicMinutes += (e.minutes || 0);
+        } else if (partsSets.hasOwnProperty(e.part)) {
+          partsSets[e.part] += getEntrySetsCount(e);
+          if (isApproxSets(e)) approxParts[e.part] = true;
+        }
+        if (e.volume_kg != null) totalVolume += e.volume_kg;
+      });
+    }
+    var totalSets = STRENGTH_PARTS.reduce(function (sum, p) { return sum + partsSets[p]; }, 0);
+    return { partsSets: partsSets, approxParts: approxParts, aerobicMinutes: aerobicMinutes, totalSets: totalSets, totalVolume: totalVolume };
+  }
+  function periodSummaryHtml(cur, diffLabel) {
+    var maxVal = Math.max.apply(null, STRENGTH_PARTS.map(function (p) { return cur.partsSets[p]; }).concat([1]));
+    var html = "";
+    html += '<div class="card trained-days-box"><div class="num">' + cur.totalSets + '</div><div class="lbl">合計セット数</div></div>';
+    html += '<div class="card"><div class="section-title">部位別セット数 <span style="font-size:12px;color:var(--sub);font-weight:normal;">(' + diffLabel + ')</span></div>';
+    STRENGTH_PARTS.forEach(function (p) {
+      var val = cur.partsSets[p];
+      var pct = val === 0 ? 0 : Math.max(4, Math.round((val / maxVal) * 100));
+      html += '<div class="bar-row">';
+      html += '<div class="bar-label">' + escapeHtml(p) + "</div>";
+      html += '<div class="bar-track"><div class="bar-fill" style="width:' + pct + "%;background:" + (PART_COLORS[p] || PART_ACCENT) + '"></div></div>';
+      html += '<div class="bar-value">' + val + "セット" + (cur.approxParts[p] ? "(概算)" : "") + "</div>";
+      html += "</div>";
+    });
+    html += "</div>";
+    html += '<div class="card"><div class="aerobic-row"><span>有酸素</span><strong>' + cur.aerobicMinutes + "分</strong></div></div>";
+    if (cur.totalVolume > 0) {
+      html += '<div class="card"><div class="aerobic-row"><span>総負荷量</span><strong>' + formatComma(cur.totalVolume) + "kg</strong></div></div>";
+    }
+    return html;
+  }
+
   // ---------- 週別タブ ----------
   function computeWeekData(weekStart) {
     var days = (state.data && state.data.days) || [];
@@ -3151,28 +3206,7 @@
     var diff = cur.totalSets - prev.totalSets;
     var diffStr = (diff >= 0 ? "+" : "") + diff + "セット";
 
-    var maxVal = Math.max.apply(null, STRENGTH_PARTS.map(function (p) { return cur.partsSets[p]; }).concat([1]));
-
-    var html = "";
-    html += '<div class="card trained-days-box"><div class="num">' + cur.trainedDaysCount + '</div><div class="lbl">今週トレした日数</div></div>';
-
-    html += '<div class="card"><div class="section-title">部位別セット数 <span style="font-size:12px;color:var(--sub);font-weight:normal;">(前週比 ' + diffStr + ')</span></div>';
-    STRENGTH_PARTS.forEach(function (p) {
-      var val = cur.partsSets[p];
-      var pct = val === 0 ? 0 : Math.max(4, Math.round((val / maxVal) * 100));
-      html += '<div class="bar-row">';
-      html += '<div class="bar-label">' + escapeHtml(p) + "</div>";
-      html += '<div class="bar-track"><div class="bar-fill" style="width:' + pct + "%;background:" + (PART_COLORS[p] || PART_ACCENT) + '"></div></div>';
-      html += '<div class="bar-value">' + val + "セット" + (cur.approxParts[p] ? "(概算)" : "") + "</div>";
-      html += "</div>";
-    });
-    html += "</div>";
-
-    html += '<div class="card"><div class="aerobic-row"><span>有酸素</span><strong>' + cur.aerobicMinutes + "分</strong></div></div>";
-
-    if (cur.totalVolume > 0) {
-      html += '<div class="card"><div class="aerobic-row"><span>総負荷量</span><strong>' + formatComma(cur.totalVolume) + "kg</strong></div></div>";
-    }
+    var html = periodSummaryHtml(cur, "前週比 " + diffStr);
 
     html += '<div class="card"><div class="section-title">日別</div><div class="week-dots">';
     cur.dotInfo.forEach(function (info) {
@@ -3194,6 +3228,7 @@
     var approxParts = {};
     var aerobicMinutes = 0;
     var trainedDaysCount = 0;
+    var totalVolume = 0;
     var dayStatus = {};
 
     monthDateKeys(m).forEach(function (key) {
@@ -3212,12 +3247,13 @@
             if (isApproxSets(e)) approxParts[e.part] = true;
             if (partsPresent.indexOf(e.part) === -1) partsPresent.push(e.part);
           }
+          if (e.volume_kg != null) totalVolume += e.volume_kg;
         });
         dayStatus[key] = { status: "full", parts: partsPresent };
       }
     });
     var totalSets = STRENGTH_PARTS.reduce(function (sum, p) { return sum + partsSets[p]; }, 0);
-    return { partsSets: partsSets, approxParts: approxParts, aerobicMinutes: aerobicMinutes, trainedDaysCount: trainedDaysCount, dayStatus: dayStatus, totalSets: totalSets };
+    return { partsSets: partsSets, approxParts: approxParts, aerobicMinutes: aerobicMinutes, trainedDaysCount: trainedDaysCount, dayStatus: dayStatus, totalSets: totalSets, totalVolume: totalVolume };
   }
   function computeMonthWeightAvg(m) {
     var keys = monthDateKeys(m);
@@ -3267,24 +3303,7 @@
     var diff = cur.totalSets - prev.totalSets;
     var diffStr = (diff >= 0 ? "+" : "") + diff + "セット";
 
-    var maxVal = Math.max.apply(null, STRENGTH_PARTS.map(function (p) { return cur.partsSets[p]; }).concat([1]));
-
-    var html = "";
-    html += '<div class="card trained-days-box"><div class="num">' + cur.trainedDaysCount + '</div><div class="lbl">今月トレした日数</div></div>';
-
-    html += '<div class="card"><div class="section-title">部位別セット数 <span style="font-size:12px;color:var(--sub);font-weight:normal;">(前月比 ' + diffStr + ')</span></div>';
-    STRENGTH_PARTS.forEach(function (p) {
-      var val = cur.partsSets[p];
-      var pct = val === 0 ? 0 : Math.max(4, Math.round((val / maxVal) * 100));
-      html += '<div class="bar-row">';
-      html += '<div class="bar-label">' + escapeHtml(p) + "</div>";
-      html += '<div class="bar-track"><div class="bar-fill" style="width:' + pct + "%;background:" + (PART_COLORS[p] || PART_ACCENT) + '"></div></div>';
-      html += '<div class="bar-value">' + val + "セット" + (cur.approxParts[p] ? "(概算)" : "") + "</div>";
-      html += "</div>";
-    });
-    html += "</div>";
-
-    html += '<div class="card"><div class="aerobic-row"><span>有酸素</span><strong>' + cur.aerobicMinutes + "分</strong></div></div>";
+    var html = periodSummaryHtml(cur, "前月比 " + diffStr);
 
     html += '<div class="card">' + monthCalendarHtml(m, cur) + "</div>";
 
