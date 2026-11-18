@@ -1120,6 +1120,15 @@
   .ef-btn, .rec-pill, .menu-card-go, .sess-head-btn { transition: transform 0.12s ease, opacity 0.12s ease, background-color 0.15s ease, color 0.15s ease; }
   .ef-btn:active, .rec-pill:active, .menu-card-go:active { transform: scale(0.97); }
   .sess-head-btn:active { transform: scale(0.96); }
+  /* インライン確認（Confirm morphの作法）：危険なボタンは1回目で armed になり、2回目で実行される */
+  [data-armed="1"] { color: var(--danger) !important; font-weight: 700; }
+  .ef-btn[data-armed="1"], .ef-del[data-armed="1"], .photo-btn[data-armed="1"], .menu-card-del[data-armed="1"], .sx-hbtn[data-armed="1"], .sess-head-btn[data-armed="1"], .menu-card-go[data-armed="1"] { background: var(--danger) !important; color: #fff !important; border-color: transparent !important; }
+  /* APIキー欄（Password fieldの作法）：表示/非表示の切替ボタン */
+  .pw-field { position: relative; flex: 1; min-width: 0; display: flex; }
+  .pw-field .ef-input { flex: 1; padding-right: 46px; }
+  .pw-eye { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; border: none; background: none; color: var(--sub); display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 10px; -webkit-tap-highlight-color: transparent; }
+  .pw-eye svg { width: 20px; height: 20px; display: block; }
+  .pw-eye:active { transform: translateY(-50%) scale(0.92); }
   :where(button, a, [role="button"], input, select, textarea):focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .rec-lead { font-size: 13px; color: var(--sub); margin: 0 4px 16px; }
   .rec-label { font-size: 13px; font-weight: 700; color: var(--sub); letter-spacing: 0.06em; margin: 22px 4px 10px; }
@@ -2155,7 +2164,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.19o";
+  var APP_VERSION = "v2026.11.19p";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -4783,6 +4792,35 @@
     if (toastTimer) clearTimeout(toastTimer);
     toastTimer = setTimeout(function () { t.classList.remove("show"); }, 2000);
   }
+  // インライン確認（Confirm morphの作法）：危険なボタンは1回目で armed（赤＋確認文言）になり、4秒以内の2回目で実行する。標準ダイアログは出さない
+  var armMap = {};
+  function disarmBtn(rec) {
+    if (!rec.btn) return;
+    rec.btn.classList.remove("armed");
+    rec.btn.removeAttribute("data-armed");
+    if (rec.html != null) rec.btn.innerHTML = rec.html;
+  }
+  function armConfirm(token, btn, armedText) {
+    var rec = armMap[token];
+    if (rec && Date.now() - rec.t < 6000) {
+      clearTimeout(rec.timer);
+      delete armMap[token];
+      disarmBtn(rec);
+      return true;
+    }
+    if (rec) { clearTimeout(rec.timer); disarmBtn(rec); }
+    rec = { t: Date.now(), btn: btn || null, html: btn ? btn.innerHTML : null };
+    armMap[token] = rec;
+    if (btn) {
+      btn.classList.add("armed");
+      btn.setAttribute("data-armed", "1");
+      if (armedText) btn.textContent = armedText;
+    }
+    rec.timer = setTimeout(function () {
+      if (armMap[token] === rec) { delete armMap[token]; disarmBtn(rec); }
+    }, 6000);
+    return false;
+  }
   function fmtNum(n) { return String(Math.round(n * 100) / 100); }
   function nowTimeStr() { var n = new Date(); return pad2(n.getHours()) + ":" + pad2(n.getMinutes()); }
 
@@ -5211,11 +5249,27 @@
       if (ok) resolve(); else reject(new Error("copy"));
     });
   }
-  function copyWithToast(text) {
-    copyText(text).then(function () { showToast("コピーしました"); })
-      .catch(function () { showToast("コピーできませんでした"); });
+  function copyWithToast(text, btn) {
+    copyText(text).then(function () {
+      if (btn) morphCopiedBtn(btn);
+      else showToast("コピーしました");
+    }).catch(function () { showToast("コピーできませんでした"); });
   }
-  function exportLocal() {
+  // コピーボタンの作法：押した場所で「✓ コピーしました」に変わる。幅は広い方に合わせて固定し、周りをずらさない
+  function morphCopiedBtn(btn) {
+    if (btn.getAttribute("data-copied") === "1") return;
+    var orig = btn.innerHTML;
+    var w0 = btn.offsetWidth;
+    btn.setAttribute("data-copied", "1");
+    btn.textContent = "✓ コピーしました";
+    var w1 = btn.offsetWidth;
+    btn.style.minWidth = Math.max(w0, w1) + "px";
+    setTimeout(function () {
+      btn.innerHTML = orig;
+      btn.removeAttribute("data-copied");
+    }, 1800);
+  }
+  function exportLocal(btn) {
     var text = buildExportText();
     if (!text) { showToast("書き出す記録がありません"); return; }
     if (navigator.share) {
@@ -5223,11 +5277,11 @@
       try { p = navigator.share({ title: "筋トレ記録（端末入力）", text: text }); } catch (e) { p = null; }
       if (p && p.then) {
         p.then(function () { showToast("共有しました"); })
-          .catch(function (err) { if (err && err.name === "AbortError") return; copyWithToast(text); });
+          .catch(function (err) { if (err && err.name === "AbortError") return; copyWithToast(text, btn); });
         return;
       }
     }
-    copyWithToast(text);
+    copyWithToast(text, btn);
   }
 
   // ---------- AIで記録（テキスト → OpenAI で種目ごとに変換 → 確認 → 端末記録へ保存） ----------
@@ -5348,8 +5402,11 @@
     var btn = efEl("entryModalOverlay").querySelector('[data-ef-act="save"]');
     if (btn) btn.style.display = ((ef.type === "train" && ai.review) || (ef.type === "meal" && mai.review)) ? "none" : "";
   }
+  var EYE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+  var EYE_OFF_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
   function aiKeyRowHtml(placeholder) {
-    return '<div class="ai-key-row"><input class="ef-input" id="efAiKey" type="password" placeholder="' + placeholder + '" aria-label="OpenAI APIキー" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="done">' +
+    return '<div class="ai-key-row"><div class="pw-field"><input class="ef-input" id="efAiKey" type="password" placeholder="' + placeholder + '" aria-label="OpenAI APIキー" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="done">' +
+      '<button type="button" class="pw-eye" data-ai-act="key-eye" aria-label="キーを表示">' + EYE_ICON + '</button></div>' +
       '<button type="button" class="rec-pill lg" data-ai-act="key-save">キーを保存</button></div>';
   }
   function renderAiBox() {
@@ -5536,8 +5593,19 @@
       case "convert": aiConvert(); break;
       case "key-toggle": ai.keyOpen = !ai.keyOpen; renderAiBox(); if (ai.keyOpen && efEl("efAiKey")) efEl("efAiKey").focus(); break;
       case "key-save": aiSaveKey(); break;
+      case "key-eye": {
+        var kin = efEl("efAiKey");
+        if (kin) {
+          var show = kin.type === "password";
+          kin.type = show ? "text" : "password";
+          el.innerHTML = show ? EYE_OFF_ICON : EYE_ICON;
+          el.setAttribute("aria-label", show ? "キーを隠す" : "キーを表示");
+          try { kin.focus(); } catch (e) {}
+        }
+        break;
+      }
       case "key-del":
-        if (!window.confirm("保存したOpenAI APIキーを削除しますか？\n同じキーを使うほかのアプリ（単語帳など）でも使えなくなります。")) break;
+        if (!armConfirm("aikeydel", el, "本当に削除しますか？")) { showToast("もう一度押すとキーを削除します（単語帳などでも使えなくなります）"); break; }
         try { localStorage.removeItem(AI_KEY_STORAGE); } catch (e) {}
         ai.keyOpen = false;
         ai.err = "";
@@ -6051,7 +6119,7 @@
       }
       b = t.closest("[data-del-id]");
       if (b) {
-        if (!window.confirm("この記録を削除しますか？")) return;
+        if (!armConfirm("locdel:" + b.getAttribute("data-del-id"), b, "本当に削除？")) return;
         deleteLocal(b.getAttribute("data-del-kind"), b.getAttribute("data-del-id"), b.getAttribute("data-del-date"));
         return;
       }
@@ -6061,7 +6129,7 @@
       if (act === "close") closeEntryModal();
       else if (act === "bw-photo") pickBwPhoto();
       else if (act === "save") saveEntry();
-      else if (act === "export") exportLocal();
+      else if (act === "export") exportLocal(b);
       else if (act === "minus" || act === "plus") {
         var vals = currentRepValues();
         ef.setCount = Math.max(1, Math.min(20, ef.setCount + (act === "plus" ? 1 : -1)));
@@ -6875,7 +6943,6 @@
       go("session");
     }
     function discardSession() {
-      if (!window.confirm("このトレーニングを破棄しますか？\n記録は保存されません。")) return;
       sess = null;
       writeSession();
       resetAfterEnd();
@@ -6997,7 +7064,10 @@
       var i = parseInt(el.getAttribute("data-i"), 10);
       switch (act) {
         case "close": closeUi(); break;
-        case "discard": discardSession(); break;
+        case "discard":
+          if (!armConfirm("sessdiscard", el, "本当に破棄？")) { showToast("もう一度押すと破棄します（記録は保存されません）"); break; }
+          discardSession();
+          break;
         // 開始画面
         case "start-part": {
           var p = el.getAttribute("data-part"), k = sv.startParts.indexOf(p);
@@ -7029,7 +7099,7 @@
           break;
         case "del":
           if (!sess.items[i]) break;
-          if (!window.confirm("「" + sess.items[i].exercise + "」を削除しますか？")) break;
+          if (!armConfirm("sessexdel:" + i, el, null)) { showToast("もう一度押すと「" + sess.items[i].exercise + "」を削除します"); break; }
           sess.items.splice(i, 1);
           sv.sheet = null;
           // 残してある編集中の下書きの対象を合わせる（対象が消えたら下書きも消す。前の種目が消えたら番号を詰める）
@@ -7324,14 +7394,14 @@
     // メニューの「開始」：部位はメニューの種目の部位（重複なし）、種目はメニューの順番どおり。
     // 各種目には直近の記録のセット（セット数・重量・回数、完了の丸はなし）をコピーし、記録の無い種目は空のセット1つ。
     // 有酸素は従来どおり時間（分）の形（空のまま。エディタで前回の時間を貼り付けられる）
-    function startMenu(id) {
+    function startMenu(id, btn) {
       if (readSession()) {
-        if (!window.confirm("進行中のトレーニングがあります。\n破棄して、このメニューで新しく始めますか？")) return;
+        if (!armConfirm("menustart:" + id, btn, "破棄して開始")) return false;
         sess = null;
         writeSession();
       }
       var menu = findMenu(id);
-      if (!menu || !menu.exercises.length) { showToast("メニューに種目がありません"); return; }
+      if (!menu || !menu.exercises.length) { showToast("メニューに種目がありません"); return false; }
       var idx = exerciseIndex();
       var now = new Date();
       sess = { startedAt: now.toISOString(), date: dateToKey(now), restSec: 90, parts: [], items: [] };
@@ -7346,11 +7416,12 @@
         if (last) sess.items.push({ exercise: n, part: part, weight_type: last.wtype, sets: last.sets, note: "", copied: true });
         else sess.items.push({ exercise: n, part: part, weight_type: "合計", sets: [{ w: null, r: null, done: false }], note: "" });
       });
-      if (!writeSession()) { sess = null; return; }
+      if (!writeSession()) { sess = null; return false; }
       sv.startParts = sess.parts.slice();
       sv.addPart = sess.parts[0];
       showOverlay();
       go("session");
+      return true;
     }
 
     // メニュー開始専用の「直近の記録」：今日の記録も含めて、種目ごとの一番新しい日のセットを返す
@@ -7781,8 +7852,7 @@
     if (!head || !start || !sub) return;
     var v = rv.view;
     if (v === "hub") {
-      head.innerHTML = recHeadHtml(
-        '<button type="button" class="sess-head-btn" data-ract="close">閉じる</button>', "", "");
+      head.innerHTML = recHeadHtml("", "", "");
       sub.innerHTML = "";
       sub.hidden = true;
       start.hidden = true;
@@ -7834,9 +7904,9 @@
     recEl("recordSheetBtn").setAttribute("aria-expanded", "false");
     resetRecView();
   }
-  function recStartMenu(id) {
-    closeRecordSheet();
-    sessionApi.startMenu(id);
+  function recStartMenu(id, btn) {
+    // 進行中セッションがある場合、1回目はボタンが「破棄して開始」に変わるだけ（シートは閉じない）
+    if (sessionApi.startMenu(id, btn)) closeRecordSheet();
   }
 
   // ---- 操作 ----
@@ -7860,7 +7930,7 @@
         break;
       case "ed-start": {
         var sid = recSaveDraft();
-        if (sid) recStartMenu(sid);
+        if (sid) recStartMenu(sid, el);
         break;
       }
       case "ex-del":
@@ -7921,11 +7991,12 @@
     ov.addEventListener("click", function (e) {
       if (!e.target.closest) return;
       var b = e.target.closest("[data-menu-start]");
-      if (b) { recStartMenu(b.getAttribute("data-menu-start")); return; }
+      if (b) { recStartMenu(b.getAttribute("data-menu-start"), b); return; }
       b = e.target.closest("[data-menu-del]");
       if (b) {
         var dm = sessionApi.findMenu(b.getAttribute("data-menu-del"));
-        if (!dm || !window.confirm("メニュー「" + dm.name + "」を削除しますか？")) return;
+        if (!dm) return;
+        if (!armConfirm("menudel:" + dm.id, b, null)) { showToast("もう一度押すと「" + dm.name + "」を削除します"); return; }
         if (sessionApi.deleteMenu(dm.id)) { renderRec(); showToast("メニューを削除しました"); }
         return;
       }
@@ -7980,8 +8051,8 @@
   document.getElementById("recMenuEditBtn").addEventListener("click", function () { recOpenEditor(null); });
   document.getElementById("recFreeBtn").addEventListener("click", function () { sessionApi.open(); });
   document.getElementById("recordSheetBtn").addEventListener("click", function () {
-    if (isRecordSheetOpen()) closeRecordSheet();
-    else openRecordSheet();
+    // 開いているときにもう一度押しても何もしない（記録タブへ落ちない）。離れるときはほかのタブを押す
+    if (!isRecordSheetOpen()) openRecordSheet();
   });
   document.addEventListener("keydown", function (e) {
     if ((e.key === "Escape" || e.key === "Esc") && isRecordSheetOpen()) closeRecordSheet();
@@ -8059,7 +8130,7 @@
       if (act === "pick") openPhotoPicker();
       else if (act === "delete") {
         if (!state.photoKey || !state.photoCache[state.photoKey]) return;
-        if (!window.confirm("この日の写真を削除しますか。削除すると元に戻せません。")) return;
+        if (!armConfirm("photodel:" + state.photoKey, actEl, "本当に削除？")) return;
         deletePhoto(state.photoKey).then(function () { renderPhotoTab(); });
       } else if (act === "share") {
         sharePhoto(state.photoKey);
