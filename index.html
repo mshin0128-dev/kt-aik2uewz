@@ -1121,8 +1121,6 @@
   .ef-btn:active, .rec-pill:active, .menu-card-go:active { transform: scale(0.97); }
   .sess-head-btn:active { transform: scale(0.96); }
   /* インライン確認（Confirm morphの作法）：危険なボタンは1回目で armed になり、2回目で実行される */
-  [data-armed="1"] { color: var(--danger) !important; font-weight: 700; }
-  .ef-btn[data-armed="1"], .ef-del[data-armed="1"], .photo-btn[data-armed="1"], .menu-card-del[data-armed="1"], .sx-hbtn[data-armed="1"], .sess-head-btn[data-armed="1"], .menu-card-go[data-armed="1"] { background: var(--danger) !important; color: #fff !important; border-color: transparent !important; }
   /* APIキー欄（Password fieldの作法）：表示/非表示の切替ボタン */
   .pw-field { position: relative; flex: 1; min-width: 0; display: flex; }
   .pw-field .ef-input { flex: 1; padding-right: 46px; }
@@ -1284,6 +1282,11 @@
   .rec-pick-empty { padding: 26px 4px; text-align: center; font-size: 13px; line-height: 1.7; color: var(--sub); }
   .rec-btn-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .entry-box { max-height: 90vh; max-height: 90dvh; }
+  .confirm-overlay { z-index: 90; }
+  .confirm-box { max-width: 420px; text-align: center; padding-top: 26px; }
+  .confirm-title { margin: 0 0 8px; font-size: 17px; font-weight: 800; letter-spacing: 0.02em; }
+  .confirm-msg { margin: 0 0 18px; font-size: 13px; line-height: 1.65; color: var(--sub); white-space: pre-wrap; }
+  .confirm-box .ef-btn.danger { background: #ff453a; border-color: transparent; color: #fff; margin-top: 0; }
   .sheet-grab { display: flex; justify-content: center; padding: 2px 0 12px; margin: -8px -6px 0; touch-action: none; cursor: grab; }
   .sheet-grab span { width: 44px; height: 5px; border-radius: 999px; background: var(--border); display: block; }
   .sheet-grab:active { cursor: grabbing; }
@@ -2209,6 +2212,15 @@
   </div>
 </div>
 
+<div class="modal-overlay confirm-overlay" id="confirmOverlay">
+  <div class="modal-box confirm-box" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle" aria-describedby="confirmMsg">
+    <h3 class="confirm-title" id="confirmTitle">確認しますか？</h3>
+    <p class="confirm-msg" id="confirmMsg"></p>
+    <button class="ef-btn danger" type="button" id="confirmOk">実行する</button>
+    <button class="modal-close-btn" type="button" id="confirmCancel">キャンセル</button>
+  </div>
+</div>
+
 <div class="sess-overlay" id="sessOverlay" role="dialog" aria-modal="true" aria-label="トレーニングセッション">
   <div class="sess-shell">
     <header class="sess-head" id="sessHead"></header>
@@ -2225,7 +2237,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.19v";
+  var APP_VERSION = "v2026.11.19w";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -4870,35 +4882,31 @@
     if (toastTimer) clearTimeout(toastTimer);
     toastTimer = setTimeout(function () { t.classList.remove("show"); }, 2000);
   }
-  // インライン確認（Confirm morphの作法）：危険なボタンは1回目で armed（赤＋確認文言）になり、4秒以内の2回目で実行する。標準ダイアログは出さない
-  var armMap = {};
-  function disarmBtn(rec) {
-    if (!rec.btn) return;
-    rec.btn.classList.remove("armed");
-    rec.btn.removeAttribute("data-armed");
-    if (rec.html != null) rec.btn.innerHTML = rec.html;
+  // 画面内確認ダイアログ：破棄・削除はボタン2度押しではなく、必ずこれで「する／しない」を選ばせる
+  var confirmState = null;
+  function askConfirm(opts, onOk) {
+    confirmState = { onOk: onOk };
+    document.getElementById("confirmTitle").textContent = opts.title || "確認しますか？";
+    var msgEl = document.getElementById("confirmMsg");
+    msgEl.textContent = opts.message || "";
+    msgEl.style.display = opts.message ? "" : "none";
+    document.getElementById("confirmOk").textContent = opts.okText || "実行する";
+    document.getElementById("confirmCancel").textContent = opts.cancelText || "キャンセル";
+    document.getElementById("confirmOverlay").classList.add("show");
   }
-  function armConfirm(token, btn, armedText) {
-    var rec = armMap[token];
-    if (rec && Date.now() - rec.t < 6000) {
-      clearTimeout(rec.timer);
-      delete armMap[token];
-      disarmBtn(rec);
-      return true;
-    }
-    if (rec) { clearTimeout(rec.timer); disarmBtn(rec); }
-    rec = { t: Date.now(), btn: btn || null, html: btn ? btn.innerHTML : null };
-    armMap[token] = rec;
-    if (btn) {
-      btn.classList.add("armed");
-      btn.setAttribute("data-armed", "1");
-      if (armedText) btn.textContent = armedText;
-    }
-    rec.timer = setTimeout(function () {
-      if (armMap[token] === rec) { delete armMap[token]; disarmBtn(rec); }
-    }, 6000);
-    return false;
+  function closeConfirm(result) {
+    document.getElementById("confirmOverlay").classList.remove("show");
+    var st = confirmState;
+    confirmState = null;
+    if (result && st && st.onOk) st.onOk();
   }
+  (function () {
+    var ov = document.getElementById("confirmOverlay");
+    if (!ov) return;
+    document.getElementById("confirmOk").addEventListener("click", function () { closeConfirm(true); });
+    document.getElementById("confirmCancel").addEventListener("click", function () { closeConfirm(false); });
+    ov.addEventListener("click", function (e) { if (e.target === ov) closeConfirm(false); });
+  })();
   function fmtNum(n) { return String(Math.round(n * 100) / 100); }
   function nowTimeStr() { var n = new Date(); return pad2(n.getHours()) + ":" + pad2(n.getMinutes()); }
 
@@ -5719,12 +5727,13 @@
         break;
       }
       case "key-del":
-        if (!armConfirm("aikeydel", el, "本当に削除しますか？")) { showToast("もう一度押すとキーを削除します（単語帳などでも使えなくなります）"); break; }
-        try { localStorage.removeItem(AI_KEY_STORAGE); } catch (e) {}
-        ai.keyOpen = false;
-        ai.err = "";
-        renderAiBox();
-        showToast("APIキーを削除しました");
+        askConfirm({ title: "APIキーを削除しますか？", message: "単語帳など、この端末の他のアプリでも使えなくなります。", okText: "削除する", cancelText: "削除しない" }, function () {
+          try { localStorage.removeItem(AI_KEY_STORAGE); } catch (e) {}
+          ai.keyOpen = false;
+          ai.err = "";
+          renderAiBox();
+          showToast("APIキーを削除しました");
+        });
         break;
       case "wt":
         if (!c) break;
@@ -6233,8 +6242,8 @@
       }
       b = t.closest("[data-del-id]");
       if (b) {
-        if (!armConfirm("locdel:" + b.getAttribute("data-del-id"), b, "本当に削除？")) return;
-        deleteLocal(b.getAttribute("data-del-kind"), b.getAttribute("data-del-id"), b.getAttribute("data-del-date"));
+        var delKind = b.getAttribute("data-del-kind"), delId = b.getAttribute("data-del-id"), delDate = b.getAttribute("data-del-date");
+        askConfirm({ title: "削除しますか？", message: "この記録を削除します。", okText: "削除する", cancelText: "削除しない" }, function () { deleteLocal(delKind, delId, delDate); });
         return;
       }
       b = t.closest("[data-ef-act]");
@@ -7069,10 +7078,22 @@
       resetAfterEnd();
       showToast("破棄しました");
     }
+    function delSessionItem(i) {
+      if (!sess || !sess.items[i]) return;
+      sess.items.splice(i, 1);
+      sv.sheet = null;
+      // 残してある編集中の下書きの対象を合わせる（対象が消えたら下書きも消す。前の種目が消えたら番号を詰める）
+      if (sess.draft && sess.draft.editIdx != null) {
+        if (sess.draft.editIdx === i) sess.draft = null;
+        else if (sess.draft.editIdx > i) sess.draft.editIdx--;
+      }
+      writeSession();
+      render();
+    }
     function endSession() {
       var pending = sess.items.filter(isPendingItem).length;
       if (pending && pending === sess.items.length) {
-        if (window.confirm("まだ記録した種目がありません。このトレーニングを破棄しますか？")) { sess = null; writeSession(); resetAfterEnd(); }
+        askConfirm({ title: "破棄しますか？", message: "まだ記録した種目がありません。このトレーニングを破棄しますか？", okText: "破棄する", cancelText: "破棄しない" }, function () { sess = null; writeSession(); resetAfterEnd(); });
         return;
       }
       // 完了の丸を1つ以上付けた種目にある、丸の付いていないセット（回数あり）の数
@@ -7081,8 +7102,16 @@
         if (isPendingItem(it) || isCardioItem(it) || !it.sets.some(isDone)) return;
         it.sets.forEach(function (s) { if (s.r > 0 && !isDone(s)) undone++; });
       });
-      if (pending && !window.confirm("未入力（完了の丸が無い）の種目が" + pending + "件あります。\nこれらの種目は記録せずに終了しますか？")) return;
-      if (undone && !window.confirm("未完了のセットが" + undone + "セットあります。\n完了したセットだけを記録しますか？\n（キャンセルするとトレーニングに戻ります）")) return;
+      var steps = [];
+      if (pending) steps.push({ title: "終了しますか？", message: "未入力（完了の丸が無い）の種目が" + pending + "件あります。\nこれらの種目は記録せずに終了しますか？", okText: "終了する", cancelText: "戻る" });
+      if (undone) steps.push({ title: "終了しますか？", message: "未完了のセットが" + undone + "セットあります。\n完了したセットだけを記録しますか？", okText: "記録して終了", cancelText: "戻る" });
+      runConfirmSteps(steps, function () { finishEndSession(pending); });
+    }
+    function runConfirmSteps(steps, done) {
+      if (!steps.length) { done(); return; }
+      askConfirm(steps[0], function () { runConfirmSteps(steps.slice(1), done); });
+    }
+    function finishEndSession(pending) {
       if (pending) sess.items = sess.items.filter(function (it) { return !isPendingItem(it); });
       // 未入力のセットと（丸を付けた種目の）未完了セットを外す。丸を1つも付けていない種目は従来どおり全セットを記録
       sess.items.forEach(function (it) {
@@ -7094,7 +7123,7 @@
       sv.sheet = null;
       writeSession();
       if (!sess.items.length) {
-        if (window.confirm("種目が1つもありません。このトレーニングを破棄しますか？")) { sess = null; writeSession(); resetAfterEnd(); }
+        askConfirm({ title: "破棄しますか？", message: "種目が1つもありません。このトレーニングを破棄しますか？", okText: "破棄する", cancelText: "破棄しない" }, function () { sess = null; writeSession(); resetAfterEnd(); });
         return;
       }
       sv.summaryAt = Date.now();
@@ -7186,8 +7215,7 @@
       switch (act) {
         case "close": closeUi(); break;
         case "discard":
-          if (!armConfirm("sessdiscard", el, "本当に破棄？")) { showToast("もう一度押すと破棄します（記録は保存されません）"); break; }
-          discardSession();
+          askConfirm({ title: "破棄しますか？", message: "このトレーニングの記録は保存されません。", okText: "破棄する", cancelText: "破棄しない" }, discardSession);
           break;
         // 開始画面
         case "start-part": {
@@ -7218,19 +7246,12 @@
           writeSession();
           go("editor");
           break;
-        case "del":
+        case "del": {
           if (!sess.items[i]) break;
-          if (!armConfirm("sessexdel:" + i, el, null)) { showToast("もう一度押すと「" + sess.items[i].exercise + "」を削除します"); break; }
-          sess.items.splice(i, 1);
-          sv.sheet = null;
-          // 残してある編集中の下書きの対象を合わせる（対象が消えたら下書きも消す。前の種目が消えたら番号を詰める）
-          if (sess.draft && sess.draft.editIdx != null) {
-            if (sess.draft.editIdx === i) sess.draft = null;
-            else if (sess.draft.editIdx > i) sess.draft.editIdx--;
-          }
-          writeSession();
-          render();
+          var delName = sess.items[i].exercise;
+          askConfirm({ title: "削除しますか？", message: "「" + delName + "」をこのトレーニングから削除します。", okText: "削除する", cancelText: "削除しない" }, function () { delSessionItem(i); });
           break;
+        }
         case "end": endSession(); break;
         case "sum-back": sv.summaryAt = null; go("session"); break;
         case "save": saveSession(); break;
@@ -7558,14 +7579,21 @@
     // メニューの「開始」：部位はメニューの種目の部位（重複なし）、種目はメニューの順番どおり。
     // 各種目には直近の記録のセット（セット数・重量・回数、完了の丸はなし）をコピーし、記録の無い種目は空のセット1つ。
     // 有酸素は従来どおり時間（分）の形（空のまま。エディタで前回の時間を貼り付けられる）
-    function startMenu(id, btn) {
+    function startMenu(id, onStarted) {
       if (readSession()) {
-        if (!armConfirm("menustart:" + id, btn, "破棄して開始")) return false;
-        sess = null;
-        writeSession();
+        // 進行中があるときは即座には始めず、画面内の確認で「破棄して開始／開始しない」を選ばせる
+        askConfirm({ title: "破棄して開始しますか？", message: "進行中のトレーニングは保存されません。", okText: "破棄して開始", cancelText: "開始しない" }, function () {
+          sess = null;
+          writeSession();
+          beginMenu(id, onStarted);
+        });
+        return;
       }
+      beginMenu(id, onStarted);
+    }
+    function beginMenu(id, onStarted) {
       var menu = findMenu(id);
-      if (!menu || !menu.exercises.length) { showToast("メニューに種目がありません"); return false; }
+      if (!menu || !menu.exercises.length) { showToast("メニューに種目がありません"); return; }
       var idx = exerciseIndex();
       var now = new Date();
       sess = { startedAt: now.toISOString(), date: dateToKey(now), restSec: 90, parts: [], items: [] };
@@ -7580,12 +7608,12 @@
         if (last) sess.items.push({ exercise: n, part: part, weight_type: last.wtype, sets: last.sets, note: "", copied: true });
         else sess.items.push({ exercise: n, part: part, weight_type: "合計", sets: [{ w: null, r: null, done: false }], note: "" });
       });
-      if (!writeSession()) { sess = null; return false; }
+      if (!writeSession()) { sess = null; return; }
       sv.startParts = sess.parts.slice();
       sv.addPart = sess.parts[0];
       showOverlay();
       go("session");
-      return true;
+      if (onStarted) onStarted();
     }
 
     // メニュー開始専用の「直近の記録」：今日の記録も含めて、種目ごとの一番新しい日のセットを返す
@@ -8087,8 +8115,8 @@
     resetRecView();
   }
   function recStartMenu(id, btn) {
-    // 進行中セッションがある場合、1回目はボタンが「破棄して開始」に変わるだけ（シートは閉じない）
-    if (sessionApi.startMenu(id, btn)) closeRecordSheet();
+    // 進行中セッションがある場合は確認ダイアログが出る。実際に開始したときだけ記録シートを閉じる
+    sessionApi.startMenu(id, function () { closeRecordSheet(); });
   }
 
   // ---- 操作 ----
@@ -8178,8 +8206,9 @@
       if (b) {
         var dm = sessionApi.findMenu(b.getAttribute("data-menu-del"));
         if (!dm) return;
-        if (!armConfirm("menudel:" + dm.id, b, null)) { showToast("もう一度押すと「" + dm.name + "」を削除します"); return; }
-        if (sessionApi.deleteMenu(dm.id)) { renderRec(); showToast("メニューを削除しました"); }
+        askConfirm({ title: "メニューを削除しますか？", message: "「" + dm.name + "」を削除します。", okText: "削除する", cancelText: "削除しない" }, function () {
+          if (sessionApi.deleteMenu(dm.id)) { renderRec(); showToast("メニューを削除しました"); }
+        });
         return;
       }
       b = e.target.closest("[data-menu-open]");
@@ -8380,8 +8409,8 @@
       if (act === "pick") openPhotoPicker();
       else if (act === "delete") {
         if (!state.photoKey || !state.photoCache[state.photoKey]) return;
-        if (!armConfirm("photodel:" + state.photoKey, actEl, "本当に削除？")) return;
-        deletePhoto(state.photoKey).then(function () { renderPhotoTab(); });
+        var photoKey = state.photoKey;
+        askConfirm({ title: "写真を削除しますか？", message: "この日の写真を削除します。", okText: "削除する", cancelText: "削除しない" }, function () { deletePhoto(photoKey).then(function () { renderPhotoTab(); }); });
       } else if (act === "share") {
         sharePhoto(state.photoKey);
       } else if (act === "compare-toggle") {
