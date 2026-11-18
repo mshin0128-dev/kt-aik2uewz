@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-19T01:14:54+09:00",
+ "source_mtime": "2026-11-19T01:20:21+09:00",
  "parts": [
   "胸",
   "背中",
@@ -6555,6 +6555,75 @@
     }
    ],
    "summary_only": null
+  },
+  {
+   "date": "2026-11-18",
+   "entries": [
+    {
+     "date": "2026-11-18",
+     "time": "01:20",
+     "exercise": "ラットプルダウン",
+     "part": "背中",
+     "weight_kg": 45.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "01:20 ラットプルダウン 45kg×10(1セット目) /負荷量 45kg×10=450kg",
+     "load_kg": 45.0,
+     "load_reps": 10,
+     "volume_kg": 450.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-18",
+     "time": "01:20",
+     "exercise": "ラットプルダウン",
+     "part": "背中",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      9
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "01:20 ラットプルダウン 40kg×9(2セット目) /負荷量 40kg×9=360kg",
+     "load_kg": 40.0,
+     "load_reps": 9,
+     "volume_kg": 360.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-18",
+     "time": "01:20",
+     "exercise": "ラットプルダウン",
+     "part": "背中",
+     "weight_kg": 40.0,
+     "weight_type": "マシン",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "01:20 ラットプルダウン 40kg×10(3セット目) /負荷量 40kg×10=400kg",
+     "load_kg": 40.0,
+     "load_reps": 10,
+     "volume_kg": 400.0,
+     "hands": null
+    }
+   ],
+   "summary_only": null
   }
  ],
  "bodyweight": [
@@ -8325,6 +8394,6 @@
    "note": null
   }
  },
- "content_hash": "7f60bb4e462e",
- "generated_at": "2026-11-19T01:15:39+09:00"
+ "content_hash": "811afe281278",
+ "generated_at": "2026-11-19T01:21:15+09:00"
 }
