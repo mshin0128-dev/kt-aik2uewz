@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-19T02:05:01+09:00",
+ "source_mtime": "2026-11-19T13:53:35+09:00",
  "parts": [
   "胸",
   "背中",
@@ -6744,6 +6744,50 @@
     }
    ],
    "summary_only": null
+  },
+  {
+   "date": "2026-11-19",
+   "entries": [
+    {
+     "date": "2026-11-19",
+     "time": "13:53",
+     "exercise": "アブローラー",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "13:53 アブローラー 10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-19",
+     "time": "13:53",
+     "exercise": "腹筋",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "13:53 腹筋 20回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    }
+   ],
+   "summary_only": null
   }
  ],
  "bodyweight": [
@@ -6886,6 +6930,11 @@
    "date": "2026-11-17",
    "kg": 75.2,
    "raw": "- 10:17 体重 75.2kg"
+  },
+  {
+   "date": "2026-11-19",
+   "kg": 75.8,
+   "raw": "- 13:53 体重 75.8kg"
   }
  ],
  "exercises": [
@@ -8514,8 +8563,15 @@
     }
    ],
    "note": null
+  },
+  "2026-11-19": {
+   "kcal": null,
+   "kcal_range": null,
+   "protein": null,
+   "items": [],
+   "note": null
   }
  },
- "content_hash": "99cf2996e3b4",
- "generated_at": "2026-11-19T02:06:07+09:00"
+ "content_hash": "0403e9672718",
+ "generated_at": "2026-11-19T13:54:44+09:00"
 }
