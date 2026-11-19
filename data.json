@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-19T17:07:31+09:00",
+ "source_mtime": "2026-11-19T21:22:25+09:00",
  "parts": [
   "胸",
   "背中",
@@ -8584,9 +8584,9 @@
    "note": null
   },
   "2026-11-19": {
-   "kcal": 507,
+   "kcal": 704,
    "kcal_range": null,
-   "protein": 25.9,
+   "protein": 34.9,
    "items": [
     {
      "time": "17:07",
@@ -8595,11 +8595,15 @@
     {
      "time": "17:07",
      "text": "カルボナーラ(商品名一部未確認) 428kcal・P19.1g"
+    },
+    {
+     "time": "21:22",
+     "text": "チャーシュー入り醤油ラーメンサラダ 197kcal・P9.0g"
     }
    ],
    "note": null
   }
  },
- "content_hash": "643a56d714c3",
- "generated_at": "2026-11-19T17:08:03+09:00"
+ "content_hash": "4cd0f8062db0",
+ "generated_at": "2026-11-19T21:23:51+09:00"
 }
