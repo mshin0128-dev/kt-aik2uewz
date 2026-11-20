@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-20T18:41:40+09:00",
+ "source_mtime": "2026-11-20T18:43:26+09:00",
  "parts": [
   "胸",
   "背中",
@@ -9056,9 +9056,9 @@
    "note": null
   },
   "2026-11-20": {
-   "kcal": 1140,
+   "kcal": 1240,
    "kcal_range": null,
-   "protein": 36,
+   "protein": 56,
    "items": [
     {
      "time": "18:20",
@@ -9067,11 +9067,15 @@
     {
      "time": "18:20",
      "text": "小ご飯 概算 約1140kcal・P約36g(こってりラーメン約900kcal・P約32g、小ご飯約150g 234kcal・P3.8g、のり約5kcal・P0.5g)"
+    },
+    {
+     "time": "18:43",
+     "text": "ザバスプロテイン(P20g・ドリンク想定、商品名未確認) 概算 約100kcal・P20g"
     }
    ],
    "note": null
   }
  },
- "content_hash": "e6e90cfa0495",
- "generated_at": "2026-11-20T18:42:21+09:00"
+ "content_hash": "8351667654ed",
+ "generated_at": "2026-11-20T18:43:56+09:00"
 }
