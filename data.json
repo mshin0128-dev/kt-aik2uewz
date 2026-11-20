@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-20T14:44:40+09:00",
+ "source_mtime": "2026-11-20T14:47:36+09:00",
  "parts": [
   "胸",
   "背中",
@@ -7011,6 +7011,26 @@
      "volume_kg": 150.0,
      "hands": "両手",
      "total_kg": 25.0
+    },
+    {
+     "date": "2026-11-20",
+     "time": "14:47",
+     "exercise": "インクラインダンベルカール",
+     "part": "二頭",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "14:47 インクラインダンベルカール 片手12.5kg×6(2セット目) /負荷量 25kg×6=150kg",
+     "load_kg": 25.0,
+     "load_reps": 6,
+     "volume_kg": 150.0,
+     "hands": "両手",
+     "total_kg": 25.0
     }
    ],
    "summary_only": null
@@ -8840,6 +8860,6 @@
    "note": null
   }
  },
- "content_hash": "8d0d3fd4b290",
- "generated_at": "2026-11-20T14:45:36+09:00"
+ "content_hash": "7c868c58903a",
+ "generated_at": "2026-11-20T14:48:35+09:00"
 }
