@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-20T18:20:13+09:00",
+ "source_mtime": "2026-11-20T18:41:40+09:00",
  "parts": [
   "胸",
   "背中",
@@ -9056,22 +9056,22 @@
    "note": null
   },
   "2026-11-20": {
-   "kcal": 990,
+   "kcal": 1140,
    "kcal_range": null,
-   "protein": 34,
+   "protein": 36,
    "items": [
     {
      "time": "18:20",
-     "text": "夕食:来来亭ラーメン(並・未確認)のりトッピング"
+     "text": "夕食:来来亭こってりラーメン(並・未確認)のりトッピング"
     },
     {
      "time": "18:20",
-     "text": "小ご飯 概算 約990kcal・P約34g(ラーメン約750kcal・P約30g、小ご飯約150g 234kcal・P3.8g、のり約5kcal・P0.5g)"
+     "text": "小ご飯 概算 約1140kcal・P約36g(こってりラーメン約900kcal・P約32g、小ご飯約150g 234kcal・P3.8g、のり約5kcal・P0.5g)"
     }
    ],
    "note": null
   }
  },
- "content_hash": "6f02d96e20b5",
- "generated_at": "2026-11-20T18:21:30+09:00"
+ "content_hash": "e6e90cfa0495",
+ "generated_at": "2026-11-20T18:42:21+09:00"
 }
