@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-20T15:38:08+09:00",
+ "source_mtime": "2026-11-20T18:20:13+09:00",
  "parts": [
   "胸",
   "背中",
@@ -9056,13 +9056,22 @@
    "note": null
   },
   "2026-11-20": {
-   "kcal": null,
+   "kcal": 990,
    "kcal_range": null,
-   "protein": null,
-   "items": [],
+   "protein": 34,
+   "items": [
+    {
+     "time": "18:20",
+     "text": "夕食:来来亭ラーメン(並・未確認)のりトッピング"
+    },
+    {
+     "time": "18:20",
+     "text": "小ご飯 概算 約990kcal・P約34g(ラーメン約750kcal・P約30g、小ご飯約150g 234kcal・P3.8g、のり約5kcal・P0.5g)"
+    }
+   ],
    "note": null
   }
  },
- "content_hash": "1ead0510d8d8",
- "generated_at": "2026-11-20T15:39:35+09:00"
+ "content_hash": "6f02d96e20b5",
+ "generated_at": "2026-11-20T18:21:30+09:00"
 }
