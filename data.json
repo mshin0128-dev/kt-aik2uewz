@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-20T14:26:40+09:00",
+ "source_mtime": "2026-11-20T14:38:45+09:00",
  "parts": [
   "胸",
   "背中",
@@ -6949,6 +6949,27 @@
      "load_reps": 7,
      "volume_kg": 210.0,
      "hands": null
+    },
+    {
+     "date": "2026-11-20",
+     "time": "14:38",
+     "exercise": "EZバーカール",
+     "part": "二頭",
+     "weight_kg": 30.0,
+     "weight_type": "バー",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "14:38 EZバーカール 30kg×10(3セット目) /負荷量 30kg×10=300kg",
+     "load_kg": 30.0,
+     "load_reps": 10,
+     "volume_kg": 300.0,
+     "hands": null
     }
    ],
    "summary_only": null
@@ -8778,6 +8799,6 @@
    "note": null
   }
  },
- "content_hash": "62f44d6e3a06",
- "generated_at": "2026-11-20T14:27:24+09:00"
+ "content_hash": "c52d91538f75",
+ "generated_at": "2026-11-20T14:40:00+09:00"
 }
