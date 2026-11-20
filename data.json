@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-19T21:22:25+09:00",
+ "source_mtime": "2026-11-20T14:26:40+09:00",
  "parts": [
   "胸",
   "背中",
@@ -6804,6 +6804,151 @@
      "load_reps": null,
      "volume_kg": null,
      "hands": null
+    },
+    {
+     "date": "2026-11-19",
+     "time": "02:25",
+     "exercise": "アブローラー",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "02:25 アブローラー 10回(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-19",
+     "time": "02:25",
+     "exercise": "ウォーキング",
+     "part": "有酸素",
+     "weight_kg": null,
+     "weight_type": "不明",
+     "reps": null,
+     "sets": null,
+     "unknown": [
+      "重さ",
+      "回数",
+      "セット数"
+     ],
+     "note": "重さの記載なし / 回数・セット数不明",
+     "raw": "02:25 ウォーキング 60分(速度・距離は未確認)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    }
+   ],
+   "summary_only": null
+  },
+  {
+   "date": "2026-11-20",
+   "entries": [
+    {
+     "date": "2026-11-20",
+     "time": "12:58",
+     "exercise": "アブローラー",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "12:58 アブローラー 10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-20",
+     "time": "13:16",
+     "exercise": "アブローラー",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "13:16 アブローラー 10回(2セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-20",
+     "time": "13:25",
+     "exercise": "アブローラー",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      5
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "13:25 アブローラー 5回(3セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-20",
+     "time": "14:24",
+     "exercise": "EZバーカール",
+     "part": "二頭",
+     "weight_kg": 30.0,
+     "weight_type": "バー",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "14:24 EZバーカール 30kg×10(1セット目) /負荷量 30kg×10=300kg",
+     "load_kg": 30.0,
+     "load_reps": 10,
+     "volume_kg": 300.0,
+     "hands": null
+    },
+    {
+     "date": "2026-11-20",
+     "time": "14:26",
+     "exercise": "EZバーカール",
+     "part": "二頭",
+     "weight_kg": 30.0,
+     "weight_type": "バー",
+     "reps": [
+      7
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "14:26 EZバーカール 30kg×7(2セット目) /負荷量 30kg×7=210kg",
+     "load_kg": 30.0,
+     "load_reps": 7,
+     "volume_kg": 210.0,
+     "hands": null
     }
    ],
    "summary_only": null
@@ -6954,6 +7099,11 @@
    "date": "2026-11-19",
    "kg": 75.8,
    "raw": "- 13:53 体重 75.8kg"
+  },
+  {
+   "date": "2026-11-20",
+   "kg": 76.2,
+   "raw": "- 12:28 体重 76.2kg"
   }
  ],
  "exercises": [
@@ -6965,6 +7115,7 @@
   "インクラインダンベルフライ",
   "インクラインダンベルプレス",
   "インクラインハンマーカール",
+  "ウォーキング",
   "ケーブルアームカール",
   "ケーブルオーバーヘッドエクステンション",
   "ケーブルサイドレイズ",
@@ -8584,9 +8735,9 @@
    "note": null
   },
   "2026-11-19": {
-   "kcal": 704,
+   "kcal": 2097,
    "kcal_range": null,
-   "protein": 34.9,
+   "protein": 90.2,
    "items": [
     {
      "time": "17:07",
@@ -8599,11 +8750,34 @@
     {
      "time": "21:22",
      "text": "チャーシュー入り醤油ラーメンサラダ 197kcal・P9.0g"
+    },
+    {
+     "time": "02:15",
+     "text": "ファミマ・ザ・海苔弁 857kcal・P21.5g"
+    },
+    {
+     "time": "02:15",
+     "text": "弁当(商品名未確認) 267kcal・P4.5g"
+    },
+    {
+     "time": "05:52",
+     "text": "プロテイン30g"
+    },
+    {
+     "time": "05:52",
+     "text": "牛乳250g 約269kcal・P約29.3g"
     }
    ],
    "note": null
+  },
+  "2026-11-20": {
+   "kcal": null,
+   "kcal_range": null,
+   "protein": null,
+   "items": [],
+   "note": null
   }
  },
- "content_hash": "4cd0f8062db0",
- "generated_at": "2026-11-19T21:23:51+09:00"
+ "content_hash": "62f44d6e3a06",
+ "generated_at": "2026-11-20T14:27:24+09:00"
 }
