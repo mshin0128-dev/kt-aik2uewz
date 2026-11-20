@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-20T15:34:29+09:00",
+ "source_mtime": "2026-11-20T15:38:08+09:00",
  "parts": [
   "胸",
   "背中",
@@ -7213,6 +7213,27 @@
      "load_reps": 8,
      "volume_kg": 320.0,
      "hands": null
+    },
+    {
+     "date": "2026-11-20",
+     "time": "15:37",
+     "exercise": "ケーブルアームカール",
+     "part": "二頭",
+     "weight_kg": 35.0,
+     "weight_type": "マシン",
+     "reps": [
+      9
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "15:37 ケーブルアームカール 35kg×9(3セット目) /負荷量 35kg×9=315kg",
+     "load_kg": 35.0,
+     "load_reps": 9,
+     "volume_kg": 315.0,
+     "hands": null
     }
    ],
    "summary_only": null
@@ -9042,6 +9063,6 @@
    "note": null
   }
  },
- "content_hash": "74eaa0ccf63e",
- "generated_at": "2026-11-20T15:35:58+09:00"
+ "content_hash": "1ead0510d8d8",
+ "generated_at": "2026-11-20T15:39:35+09:00"
 }
