@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-22T19:53:59+09:00",
+ "source_mtime": "2026-11-23T07:37:04+09:00",
  "parts": [
   "胸",
   "背中",
@@ -9090,8 +9090,24 @@
     }
    ],
    "note": null
+  },
+  "2026-11-22": {
+   "kcal": 590,
+   "kcal_range": null,
+   "protein": 16,
+   "items": [
+    {
+     "time": null,
+     "text": "時刻未確認 ごはん1杯(約150g・量は概算)"
+    },
+    {
+     "time": null,
+     "text": "シチュー(量・具は未確認) 概算 約590kcal・P約16g(ごはん234kcal・P3.8g、シチュー約350kcal・P約12g)(11/23 7:36に報告)"
+    }
+   ],
+   "note": null
   }
  },
- "content_hash": "cb174c287c02",
- "generated_at": "2026-11-22T19:55:19+09:00"
+ "content_hash": "b0c87f518d71",
+ "generated_at": "2026-11-23T07:38:19+09:00"
 }
