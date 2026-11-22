@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-23T07:37:04+09:00",
+ "source_mtime": "2026-11-23T08:06:02+09:00",
  "parts": [
   "胸",
   "背中",
@@ -9106,8 +9106,20 @@
     }
    ],
    "note": null
+  },
+  "2026-11-23": {
+   "kcal": 346,
+   "kcal_range": null,
+   "protein": 8.4,
+   "items": [
+    {
+     "time": "08:05",
+     "text": "山崎製パン(商品名未確認・2個入り)2個想定 346kcal・P8.4g(1個173kcal・P4.2g、表示値)/ペットボトル飲料(商品名・kcal未確認)"
+    }
+   ],
+   "note": null
   }
  },
- "content_hash": "b0c87f518d71",
- "generated_at": "2026-11-23T07:38:19+09:00"
+ "content_hash": "d1e237bea06d",
+ "generated_at": "2026-11-23T08:07:29+09:00"
 }
