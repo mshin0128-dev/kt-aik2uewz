@@ -2275,7 +2275,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.20c";
+  var APP_VERSION = "v2026.11.23a";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -2982,18 +2982,11 @@
 
   // 選んだ1日分の詳細（体重・部位カード・食事・写真）— カレンダー画面と日ビューで共用
   function dayDetailHtml(dayMap) {
+    // 記録タブではトレーニングの記録だけを表示する（食事・写真・体重は各専用タブで表示。2026-11-23 紳さん指示）
     var day = dayMap[state.dayKey];
     var html = "";
-    var bw = state.bwMap ? state.bwMap[state.dayKey] : null;
-    if (bw != null) {
-      html += '<div class="card"><span class="bw-pill" style="margin-bottom:0">体重 ' + formatWeight(bw) + "kg</span></div>";
-    }
-    var extras = dayMealCardHtml(state.dayKey) + dayPhotoCardHtml(state.dayKey);
     if (!day) {
-      if (!html && !extras) {
-        html += '<div class="card"><div class="empty-day">' + ICON_CALENDAR_EMPTY + '<div class="empty-day-text">この日の記録はありません</div></div></div>';
-      }
-      return html + extras;
+      return '<div class="card"><div class="empty-day">' + ICON_CALENDAR_EMPTY + '<div class="empty-day-text">この日の記録はありません</div></div></div>';
     }
     if (day.summary_only) {
       var so = day.summary_only;
@@ -3006,7 +2999,7 @@
     } else {
       html += daySessionCardsHtml(day);
     }
-    return html + extras;
+    return html;
   }
 
   // 日ビュー：カレンダーを出さず、選んだ1日分だけを表示する
