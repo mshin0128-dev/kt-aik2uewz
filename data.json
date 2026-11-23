@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-23T12:36:44+09:00",
+ "source_mtime": "2026-11-23T17:15:03+09:00",
  "parts": [
   "胸",
   "背中",
@@ -9158,18 +9158,26 @@
    "note": null
   },
   "2026-11-23": {
-   "kcal": 346,
+   "kcal": 603,
    "kcal_range": null,
-   "protein": 8.4,
+   "protein": 49,
    "items": [
     {
      "time": "08:05",
      "text": "山崎製パン(商品名未確認・2個入り)2個想定 346kcal・P8.4g(1個173kcal・P4.2g、表示値)/ペットボトル飲料(商品名・kcal未確認)"
+    },
+    {
+     "time": "17:14",
+     "text": "セブン ブロッコリーエッグ(ブロッコリー・卵・チキン入り、11/2と同じ商品と判断) 表示 150kcal・P20.6g"
+    },
+    {
+     "time": "17:14",
+     "text": "ザバス ミルクプロテイン 脂肪0 200ml(11/19と同じ商品と判断) 107kcal・P20.0g"
     }
    ],
    "note": null
   }
  },
- "content_hash": "9c13adb5f148",
- "generated_at": "2026-11-23T12:37:22+09:00"
+ "content_hash": "de17dee0d695",
+ "generated_at": "2026-11-23T17:16:13+09:00"
 }
