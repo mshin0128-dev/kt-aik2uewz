@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-23T20:37:27+09:00",
+ "source_mtime": "2026-11-23T20:43:01+09:00",
  "parts": [
   "胸",
   "背中",
@@ -7439,6 +7439,26 @@
      "volume_kg": 330.0,
      "hands": "両手",
      "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-23",
+     "time": "20:42",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      7
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:42 ダンベルフライ 片手15kg×7(4セット目) /負荷量 30kg×7=210kg",
+     "load_kg": 30.0,
+     "load_reps": 7,
+     "volume_kg": 210.0,
+     "hands": "両手",
+     "total_kg": 30.0
     }
    ],
    "summary_only": null
@@ -9342,6 +9362,6 @@
    "note": null
   }
  },
- "content_hash": "eeeeb5456846",
- "generated_at": "2026-11-23T20:38:28+09:00"
+ "content_hash": "f9f8d975ecca",
+ "generated_at": "2026-11-23T20:44:07+09:00"
 }
