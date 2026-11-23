@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-23T17:15:03+09:00",
+ "source_mtime": "2026-11-23T19:54:00+09:00",
  "parts": [
   "胸",
   "背中",
@@ -9158,7 +9158,7 @@
    "note": null
   },
   "2026-11-23": {
-   "kcal": 603,
+   "kcal": 1603,
    "kcal_range": null,
    "protein": 49,
    "items": [
@@ -9173,11 +9173,15 @@
     {
      "time": "17:14",
      "text": "ザバス ミルクプロテイン 脂肪0 200ml(11/19と同じ商品と判断) 107kcal・P20.0g"
+    },
+    {
+     "time": "19:53",
+     "text": "中華(料理名・量は未確認) 約1000kcal(本人申告の概算)・P未確認"
     }
    ],
    "note": null
   }
  },
- "content_hash": "de17dee0d695",
- "generated_at": "2026-11-23T17:16:13+09:00"
+ "content_hash": "56067614b989",
+ "generated_at": "2026-11-23T19:54:52+09:00"
 }
