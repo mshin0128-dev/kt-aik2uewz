@@ -2275,7 +2275,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.23a";
+  var APP_VERSION = "v2026.11.23b";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -3206,6 +3206,28 @@
       html += '<div class="week-dot-col" data-day-key="' + info.key + '"><span>' + info.label + '</span><span class="week-dot ' + info.status + '"></span></div>';
     });
     html += "</div></div>";
+
+    // 週内の各日のセッション詳細を集計の下に並べる（部位の集計だけでなく種目・セットまで見えるように。2026-11-23 紳さん要望）
+    var wDays = (state.data && state.data.days) || [];
+    var wMap = {};
+    wDays.forEach(function (d) { wMap[d.date] = d; });
+    for (var wi = 0; wi < 7; wi++) {
+      var wKey = dateToKey(addDays(weekStart, wi));
+      var wDay = wMap[wKey];
+      if (!wDay) continue;
+      html += '<div class="section-title" style="margin:18px 2px 8px">' + formatDayHeading(wKey) + "</div>";
+      if (wDay.summary_only) {
+        var wso = wDay.summary_only;
+        var wIdx = registerRaw(wso.raw || "");
+        html += '<div class="card summary-only-box" data-raw-idx="' + wIdx + '">';
+        html += '<div class="so-title">詳細不明: ' + escapeHtml(wso.parts_text || "") + "</div>";
+        if (wso.sets != null) html += '<div class="li-meta">合計約' + wso.sets + "セット</div>";
+        html += '<div class="so-sub">タップして原文を表示</div>';
+        html += "</div>";
+      } else {
+        html += daySessionCardsHtml(wDay);
+      }
+    }
 
     document.getElementById("weekContent").innerHTML = html;
   }
