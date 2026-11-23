@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-23T20:11:08+09:00",
+ "source_mtime": "2026-11-23T20:24:26+09:00",
  "parts": [
   "胸",
   "背中",
@@ -7359,6 +7359,46 @@
      "volume_kg": 280.0,
      "hands": "両手",
      "total_kg": 40.0
+    },
+    {
+     "date": "2026-11-23",
+     "time": "20:24",
+     "exercise": "ダンベルフライ",
+     "part": "胸",
+     "weight_kg": 15.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:24 ダンベルフライ 片手15kg×10(1セット目) /負荷量 30kg×10=300kg",
+     "load_kg": 30.0,
+     "load_reps": 10,
+     "volume_kg": 300.0,
+     "hands": "両手",
+     "total_kg": 30.0
+    },
+    {
+     "date": "2026-11-23",
+     "time": "20:24",
+     "exercise": "ダンベルベンチプレス",
+     "part": "胸",
+     "weight_kg": 20.0,
+     "weight_type": "片手",
+     "reps": [
+      6
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "20:24 ダンベルベンチプレス 片手20kg×6(5セット目) /負荷量 40kg×6=240kg",
+     "load_kg": 40.0,
+     "load_reps": 6,
+     "volume_kg": 240.0,
+     "hands": "両手",
+     "total_kg": 40.0
     }
    ],
    "summary_only": null
@@ -9262,6 +9302,6 @@
    "note": null
   }
  },
- "content_hash": "f0dd290d808d",
- "generated_at": "2026-11-23T20:11:52+09:00"
+ "content_hash": "2b43b4c88865",
+ "generated_at": "2026-11-23T20:25:09+09:00"
 }
