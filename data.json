@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-23T11:37:41+09:00",
+ "source_mtime": "2026-11-23T12:36:44+09:00",
  "parts": [
   "胸",
   "背中",
@@ -7237,6 +7237,51 @@
     }
    ],
    "summary_only": null
+  },
+  {
+   "date": "2026-11-23",
+   "entries": [
+    {
+     "date": "2026-11-23",
+     "time": "12:36",
+     "exercise": "アブローラー",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "12:36 アブローラー 10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-23",
+     "time": "12:36",
+     "exercise": "ダンベルカール",
+     "part": "二頭",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "12:36 ダンベルカール 片手10kg×20(1セット目) /負荷量 20kg×20=400kg",
+     "load_kg": 20.0,
+     "load_reps": 20,
+     "volume_kg": 400.0,
+     "hands": "両手",
+     "total_kg": 20.0
+    }
+   ],
+   "summary_only": null
   }
  ],
  "bodyweight": [
@@ -9125,6 +9170,6 @@
    "note": null
   }
  },
- "content_hash": "6917c706eb95",
- "generated_at": "2026-11-23T11:38:30+09:00"
+ "content_hash": "9c13adb5f148",
+ "generated_at": "2026-11-23T12:37:22+09:00"
 }
