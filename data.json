@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-24T01:17:55+09:00",
+ "source_mtime": "2026-11-24T13:39:01+09:00",
  "parts": [
   "胸",
   "背中",
@@ -9395,8 +9395,20 @@
     }
    ],
    "note": null
+  },
+  "2026-11-24": {
+   "kcal": 249,
+   "kcal_range": null,
+   "protein": 23.3,
+   "items": [
+    {
+     "time": "13:38",
+     "text": "セブン たんぱく質が摂れるチキン&チリ(調理パン)1個 表示 249kcal・P23.3g(脂質7.1g・炭水化物25.0g)"
+    }
+   ],
+   "note": null
   }
  },
- "content_hash": "3bed346d5ab5",
- "generated_at": "2026-11-24T01:19:05+09:00"
+ "content_hash": "42f728780822",
+ "generated_at": "2026-11-24T13:39:53+09:00"
 }
