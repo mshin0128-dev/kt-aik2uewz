@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-24T18:10:35+09:00",
+ "source_mtime": "2026-11-24T18:11:43+09:00",
  "parts": [
   "胸",
   "背中",
@@ -9402,18 +9402,22 @@
    "note": null
   },
   "2026-11-24": {
-   "kcal": 249,
+   "kcal": 629,
    "kcal_range": null,
-   "protein": 23.3,
+   "protein": 44.3,
    "items": [
     {
      "time": "13:38",
      "text": "セブン たんぱく質が摂れるチキン&チリ(調理パン)1個 表示 249kcal・P23.3g(脂質7.1g・炭水化物25.0g)"
+    },
+    {
+     "time": "18:11",
+     "text": "マクドナルド ビッグマック 概算 約525kcal・P約26g/ポテトL 概算 約517kcal・P約6.5g/エッグチーズバーガー 概算 約380kcal・P約21g"
     }
    ],
    "note": null
   }
  },
- "content_hash": "ea0fd73269ba",
- "generated_at": "2026-11-24T18:11:20+09:00"
+ "content_hash": "9115e2e8f22b",
+ "generated_at": "2026-11-24T18:12:56+09:00"
 }
