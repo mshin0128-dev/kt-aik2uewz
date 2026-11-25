@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-26T00:18:21+09:00",
+ "source_mtime": "2026-11-26T00:20:42+09:00",
  "parts": [
   "胸",
   "背中",
@@ -7618,6 +7618,45 @@
      "volume_kg": 90.0,
      "hands": "両手",
      "total_kg": 6.0
+    },
+    {
+     "date": "2026-11-25",
+     "time": "00:20",
+     "exercise": "アブローラー",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "00:20(11/26深夜・11/25分)アブローラー 10回(4セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-25",
+     "time": "00:20",
+     "exercise": "サイドレイズ",
+     "part": "肩",
+     "weight_kg": 3.0,
+     "weight_type": "片手",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "00:20(11/26深夜・11/25分)サイドレイズ 片手3kg×15(2セット目) /負荷量 6kg×15=90kg",
+     "load_kg": 6.0,
+     "load_reps": 15,
+     "volume_kg": 90.0,
+     "hands": "両手",
+     "total_kg": 6.0
     }
    ],
    "summary_only": null
@@ -9595,6 +9634,6 @@
    "note": null
   }
  },
- "content_hash": "2cdb3d3d8e31",
- "generated_at": "2026-11-26T00:19:05+09:00"
+ "content_hash": "7ce0d6d2f1c7",
+ "generated_at": "2026-11-26T00:21:40+09:00"
 }
