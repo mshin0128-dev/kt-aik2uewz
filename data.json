@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-26T00:20:42+09:00",
+ "source_mtime": "2026-11-26T00:21:59+09:00",
  "parts": [
   "胸",
   "背中",
@@ -7657,6 +7657,25 @@
      "volume_kg": 90.0,
      "hands": "両手",
      "total_kg": 6.0
+    },
+    {
+     "date": "2026-11-25",
+     "time": "00:21",
+     "exercise": "レッグレイズ",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "00:21(11/26深夜・11/25分)レッグレイズ 10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
     }
    ],
    "summary_only": null
@@ -9634,6 +9653,6 @@
    "note": null
   }
  },
- "content_hash": "7ce0d6d2f1c7",
- "generated_at": "2026-11-26T00:21:40+09:00"
+ "content_hash": "344896536eea",
+ "generated_at": "2026-11-26T00:23:15+09:00"
 }
