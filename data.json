@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-25T17:19:37+09:00",
+ "source_mtime": "2026-11-25T17:21:55+09:00",
  "parts": [
   "胸",
   "背中",
@@ -7522,6 +7522,25 @@
      "load_reps": null,
      "volume_kg": null,
      "hands": null
+    },
+    {
+     "date": "2026-11-25",
+     "time": "17:21",
+     "exercise": "腹筋",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      20
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "17:21 腹筋 20回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
     }
    ],
    "summary_only": null
@@ -9487,6 +9506,6 @@
    "note": null
   }
  },
- "content_hash": "35cfd6c7b875",
- "generated_at": "2026-11-25T17:20:19+09:00"
+ "content_hash": "ca41a44eb6eb",
+ "generated_at": "2026-11-25T17:22:54+09:00"
 }
