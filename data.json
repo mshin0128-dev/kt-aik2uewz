@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-25T15:13:26+09:00",
+ "source_mtime": "2026-11-25T17:00:53+09:00",
  "parts": [
   "胸",
   "背中",
@@ -9418,18 +9418,26 @@
    "note": null
   },
   "2026-11-25": {
-   "kcal": 92,
+   "kcal": 957,
    "kcal_range": null,
-   "protein": 10,
+   "protein": 43,
    "items": [
+    {
+     "time": "06:00",
+     "text": "ごろ やよい軒 しょうが焼定食(ごはん量は未確認・普通盛り想定) 概算 約860kcal・P約32g"
+    },
     {
      "time": "15:13",
      "text": "オイコス(味・個数は未確認、1個想定) 概算 約92kcal・P約10g"
+    },
+    {
+     "time": "17:00",
+     "text": "来来亭 こってりラーメン並 概算 約750kcal・P約28g/小ごはん 概算 約250kcal・P約4g/のり 概算 約5kcal・P約1g"
     }
    ],
    "note": null
   }
  },
- "content_hash": "2152769f19df",
- "generated_at": "2026-11-25T15:14:29+09:00"
+ "content_hash": "ee4743354fc6",
+ "generated_at": "2026-11-25T17:01:46+09:00"
 }
