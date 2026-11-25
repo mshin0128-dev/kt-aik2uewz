@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-25T17:39:23+09:00",
+ "source_mtime": "2026-11-25T23:59:47+09:00",
  "parts": [
   "胸",
   "背中",
@@ -9524,9 +9524,9 @@
    "note": null
   },
   "2026-11-25": {
-   "kcal": 957,
+   "kcal": 1235,
    "kcal_range": null,
-   "protein": 43,
+   "protein": 76.8,
    "items": [
     {
      "time": "06:00",
@@ -9539,11 +9539,23 @@
     {
      "time": "17:00",
      "text": "来来亭 こってりラーメン並 概算 約750kcal・P約28g/小ごはん 概算 約250kcal・P約4g/のり 概算 約5kcal・P約1g"
+    },
+    {
+     "time": "23:59",
+     "text": "プロテイン粉38g(約147kcal・P約26.6g)"
+    },
+    {
+     "time": "23:59",
+     "text": "牛乳215g(約131kcal・P約7.2g)"
+    },
+    {
+     "time": "23:59",
+     "text": "クレアチン5g(0kcal) 計 約278kcal・P約33.8g"
     }
    ],
    "note": null
   }
  },
- "content_hash": "0d76f598ed72",
- "generated_at": "2026-11-25T17:40:01+09:00"
+ "content_hash": "7de708a118a0",
+ "generated_at": "2026-11-26T00:00:28+09:00"
 }
