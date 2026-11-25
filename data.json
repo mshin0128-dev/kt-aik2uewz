@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-25T17:24:27+09:00",
+ "source_mtime": "2026-11-25T17:39:23+09:00",
  "parts": [
   "胸",
   "背中",
@@ -7560,6 +7560,25 @@
      "load_reps": null,
      "volume_kg": null,
      "hands": null
+    },
+    {
+     "date": "2026-11-25",
+     "time": "17:39",
+     "exercise": "ブルガリアンスクワット",
+     "part": "脚",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "17:39 ブルガリアンスクワット 片手10kg×左右各10(1セット目) /負荷量 20kg×20(左右計)=400kg",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": "判断不可"
     }
    ],
    "summary_only": null
@@ -9525,6 +9544,6 @@
    "note": null
   }
  },
- "content_hash": "72fbe9caad14",
- "generated_at": "2026-11-25T17:25:29+09:00"
+ "content_hash": "0d76f598ed72",
+ "generated_at": "2026-11-25T17:40:01+09:00"
 }
