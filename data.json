@@ -9605,9 +9605,9 @@
    "note": null
   },
   "2026-11-24": {
-   "kcal": 629,
+   "kcal": 1671,
    "kcal_range": null,
-   "protein": 44.3,
+   "protein": 76.8,
    "items": [
     {
      "time": "13:38",
@@ -9621,9 +9621,9 @@
    "note": null
   },
   "2026-11-25": {
-   "kcal": 1235,
+   "kcal": 2235,
    "kcal_range": null,
-   "protein": 76.8,
+   "protein": 108.8,
    "items": [
     {
      "time": "06:00",
@@ -9653,6 +9653,6 @@
    "note": null
   }
  },
- "content_hash": "344896536eea",
- "generated_at": "2026-11-26T00:23:15+09:00"
+ "content_hash": "2c64a65d0583",
+ "generated_at": "2026-11-26T00:24:20+09:00"
 }
