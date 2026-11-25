@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-24T18:11:43+09:00",
+ "source_mtime": "2026-11-25T15:13:26+09:00",
  "parts": [
   "胸",
   "背中",
@@ -9416,8 +9416,20 @@
     }
    ],
    "note": null
+  },
+  "2026-11-25": {
+   "kcal": 92,
+   "kcal_range": null,
+   "protein": 10,
+   "items": [
+    {
+     "time": "15:13",
+     "text": "オイコス(味・個数は未確認、1個想定) 概算 約92kcal・P約10g"
+    }
+   ],
+   "note": null
   }
  },
- "content_hash": "9115e2e8f22b",
- "generated_at": "2026-11-24T18:12:56+09:00"
+ "content_hash": "2152769f19df",
+ "generated_at": "2026-11-25T15:14:29+09:00"
 }
