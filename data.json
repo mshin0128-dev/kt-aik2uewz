@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-26T19:47:22+09:00",
+ "source_mtime": "2026-11-26T19:51:24+09:00",
  "parts": [
   "胸",
   "背中",
@@ -8025,6 +8025,27 @@
      "load_reps": 10,
      "volume_kg": 500.0,
      "hands": null
+    },
+    {
+     "date": "2026-11-26",
+     "time": "19:51",
+     "exercise": "シーテッドレッグプレス",
+     "part": "脚",
+     "weight_kg": 50.0,
+     "weight_type": "マシン",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "19:51 シーテッドレッグプレス 50kg×15(2セット目) /負荷量 50kg×15=750kg",
+     "load_kg": 50.0,
+     "load_reps": 15,
+     "volume_kg": 750.0,
+     "hands": null
     }
    ],
    "summary_only": null
@@ -10020,6 +10041,6 @@
    "note": null
   }
  },
- "content_hash": "f1d7eb001949",
- "generated_at": "2026-11-26T19:48:30+09:00"
+ "content_hash": "c80d68f88ce6",
+ "generated_at": "2026-11-26T19:52:05+09:00"
 }
