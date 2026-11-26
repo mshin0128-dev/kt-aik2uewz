@@ -8,7 +8,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="筋トレ">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#111316">
 <script>
 (function () {
   try {
@@ -18,7 +18,7 @@
     document.documentElement.setAttribute("data-theme", pref);
     var dark = pref === "dark" || (pref === "auto" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
     var tc = document.querySelector('meta[name="theme-color"]');
-    if (tc) tc.setAttribute("content", dark ? "#000000" : "#F2F2F7");
+    if (tc) tc.setAttribute("content", dark ? "#111316" : "#F3F4F6");
     var sb = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
     if (sb) sb.setAttribute("content", dark ? "black-translucent" : "default");
     document.documentElement.style.colorScheme = dark ? "dark" : "light";
@@ -32,136 +32,186 @@
 <link rel="manifest" href="manifest.webmanifest?v=2026111801">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
-  /* テーマ：既定はダーク（ほぼ黒の背景・濃いグレーの角丸カード・明るい青のアクセント）。
-     ライトは同じ青系の明るい版。設定の「自動/ライト/ダーク」（kintore_theme_pref）はそのまま有効 */
+  /* ===== デザイントークン（v2026.11.26d-trial 試作：見た目だけ統一） =====
+     色は「役割」で定義し、全画面でこの変数だけを使う。既存の変数名（--card, --sub, --border など）は
+     下の対応表で新トークンに割り当てて互換を保つ。既定はダーク、ライトは [data-theme="light"] と auto。 */
   :root {
-    --bg: #000000;
-    --card: #1C1E22;
-    --card-2: #22242A;
-    --accent: #0A84FF;
-    --accent-strong: #0A84FF;
-    --accent2: #64B5F6;
-    --grad-primary: linear-gradient(135deg, #35A7FF, #0A84FF);
-    --accent-shadow: 0 6px 18px rgba(10,132,255,0.35);
-    --accent-shadow-sm: 0 3px 10px rgba(10,132,255,0.30);
-    --accent-glow: rgba(10,132,255,0.55);
+    /* --- 余白（4 / 8 / 12 / 16 / 24 / 32） --- */
+    --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px; --sp-6: 32px;
+    /* --- 角丸 --- */
+    --r-card: 16px;   /* カード・設定シート */
+    --r-tile: 12px;   /* カード内の数字タイル・写真 */
+    --r-field: 10px;  /* カレンダーのマス・入力欄 */
+    --r-chip: 6px;    /* 小さいチップ */
+    --r-pill: 999px;  /* 期間ピル・セグメント・主なボタン */
+    /* --- 文字 --- */
+    --fs-cap: 12px;     /* 補足 */
+    --fs-label: 13px;   /* カード見出し（やや太・補足色） */
+    --fs-body: 15px;    /* 本文 */
+    --fs-title: 17px;   /* ヘッダーのタイトル */
+    --fs-head: 20px;    /* 画面内の見出し（日付など） */
+    --fs-num: 30px;     /* 主要な数値 */
+    --fs-num-sm: 22px;  /* 数字タイル */
+    /* --- 色（ダーク） --- */
+    --bg: #111316;            /* 背景：真っ黒をやめて濃いグレー */
+    --card: #1A1D21;          /* カード面：背景より少し明るい */
+    --card-2: #20242A;        /* カードの上に重ねる面（凡例ポップなど） */
+    --surface-alt: #23272D;   /* カード内のくぼみ（タイル・トラック・ボタン） */
+    --line: rgba(255,255,255,0.08);        /* 区切り・カード枠 */
+    --line-strong: rgba(255,255,255,0.14); /* 入力欄の枠など */
+    --text: #F2F4F7;          /* 文字：主 */
+    --sub: #9BA3AE;           /* 文字：補足 */
+    --weak: #6B727C;          /* 文字：弱い（未来の日付・フッター） */
+    --accent: #0A84FF;        /* 強調色（1系統） */
+    --accent-soft: rgba(10,132,255,0.16);  /* 強調色の薄い背景 */
+    --on-accent: #FFFFFF;
     --success: #30D158;
-    --success-shadow: 0 3px 10px rgba(48,209,88,0.35);
-    --header-grad-1: #0A84FF;
-    --header-grad-2: #35A7FF;
-    --text: #F5F7FA;
-    --sub: #9AA3AD;
-    --danger: #FF453A;
+    --success-soft: rgba(48,209,88,0.14);
+    --warn: #FFB020;
+    --warn-soft: rgba(255,176,32,0.12);
+    --danger: #FF5A4F;
+    --danger-soft: rgba(255,90,79,0.13);
+    --up: #FF8A65;            /* 増加 */
+    --down: #4FC3F7;          /* 減少 */
+    --seg-bg: #23272D;        /* セグメントの溝 */
+    --seg-thumb: #353B44;     /* セグメントの選択中のつまみ */
+    --chart-grid: rgba(255,255,255,0.07);
+    --w-ma: #BF5AF2;          /* 7日移動平均：紫の実線（現行版に戻す） */
+    --w-goal: #D97000;        /* 目標：オレンジ破線（現行版に戻す） */
+    --meal-kcal: #0A84FF;     /* 食事 kcal（全画面で固定） */
+    --meal-p: #34C3A9;        /* 食事 P（全画面で固定） */
+    --cal-track: #2B3037;     /* カレンダーの輪の下地 */
+    --shadow-card: none;      /* ダークは影を使わず、明るさと枠で階層を出す */
+    --shadow-float: 0 12px 32px rgba(0,0,0,0.45);
+    --modal-overlay: rgba(0,0,0,0.6);
+
+    /* --- 既存の変数名 → 新トークン（互換） --- */
+    --card2: var(--card-2);
+    --surface: var(--seg-thumb);
+    --surface-2: var(--card-2);
+    --accent-strong: var(--accent);
+    --accent2: #64B5F6;
+    --grad-primary: var(--accent);
+    --accent-shadow: none;
+    --accent-shadow-sm: none;
+    --accent-glow: rgba(10,132,255,0.4);
+    --success-shadow: none;
+    --header-grad-1: var(--accent);
+    --header-grad-2: var(--accent);
     --teal: #64B5F6;
-    --border: rgba(255,255,255,0.12);
-    --border-soft: rgba(255,255,255,0.08);
-    --border-softer: rgba(255,255,255,0.06);
-    --surface-alt: #2A2D33;
-    --chip-active-bg: rgba(10,132,255,0.18);
-    --seg-bg: #1C1E22;
-    --w-goal: #D97000;
-    --w-ma: #BF5AF2;
-    --banner-error-bg: rgba(255,69,58,0.12);
-    --banner-error-border: rgba(255,69,58,0.35);
-    --banner-warn-bg: rgba(255,214,10,0.10);
-    --banner-warn-border: rgba(255,214,10,0.30);
-    --banner-warn-text: #FFD60A;
-    --bw-pill-bg: rgba(100,181,246,0.14);
-    --status-on-bg: rgba(48,209,88,0.16);
-    --status-off-bg: rgba(255,69,58,0.15);
-    --tabbar-bg: rgba(28,30,34,0.92);
-    --tabbar-border: rgba(255,255,255,0.08);
-    --tab-pill-bg: #2A2D33;
-    --modal-overlay: rgba(0,0,0,0.65);
-    --radius-lg: 24px;
-    --radius: 22px;
-    --radius-md: 16px;
-    --radius-sm: 12px;
-    --space: 16px;
-    --space-sm: 8px;
-    --ctl-h: 40px;
-    --field-h: 48px; /* 入力パネル・セッションの入力欄（text/number/date/time/select）共通の高さ */
-    --select-chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239AA3AD' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-    --shadow-card: none;
-    --shadow-float: 0 12px 34px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.35);
+    --border: var(--line-strong);
+    --border-soft: var(--line);
+    --border-softer: var(--line);
+    --chip-active-bg: var(--accent-soft);
+    --banner-error-bg: var(--danger-soft);
+    --banner-error-border: rgba(255,90,79,0.32);
+    --banner-warn-bg: var(--warn-soft);
+    --banner-warn-border: rgba(255,176,32,0.30);
+    --banner-warn-text: var(--warn);
+    --bw-pill-bg: var(--accent-soft);
+    --status-on-bg: var(--success-soft);
+    --status-off-bg: var(--danger-soft);
+    --tabbar-bg: rgba(22,25,29,0.94);
+    --tabbar-border: var(--line);
+    --tab-pill-bg: var(--surface-alt);
+    --radius-lg: var(--r-card);
+    --radius: var(--r-card);
+    --radius-md: var(--r-tile);
+    --radius-sm: var(--r-field);
+    --space: var(--sp-4);
+    --space-sm: var(--sp-2);
+    --ctl-h: 36px;
+    --field-h: 48px;
+    --select-chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239BA3AE' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
     --ease: cubic-bezier(.2,.7,.3,1);
-    --font-label: 13px;
+    --font-label: var(--fs-label);
     --font-base: 16px;
-    --font-lg: 20px;
+    --font-lg: var(--fs-head);
     --safe-t: env(safe-area-inset-top, 0px);
     --safe-b: env(safe-area-inset-bottom, 0px);
     --safe-l: env(safe-area-inset-left, 0px);
     --safe-r: env(safe-area-inset-right, 0px);
+    --tabbar-h: 58px;
     --nav-h: 88px; /* 浮いたピル型タブバー＋余白分の高さ。#app の padding-bottom に使う */
   }
   :root, :root[data-theme="dark"] { color-scheme: dark; }
   :root[data-theme="light"] {
-    --bg: #F2F2F7;
+    --bg: #F3F4F6;
     --card: #FFFFFF;
-    --card-2: #F7F8FA;
+    --card-2: #FFFFFF;
+    --surface-alt: #F1F3F5;
+    --line: rgba(17,24,39,0.08);
+    --line-strong: rgba(17,24,39,0.14);
+    --text: #14171C;
+    --sub: #626B77;
+    --weak: #A0A7B1;
     --accent: #0A7AFF;
-    --text: #111418;
-    --sub: #6B7480;
-    --danger: #E5372C;
-    --teal: #0A84C8;
-    --border: rgba(0,0,0,0.10);
-    --border-soft: rgba(0,0,0,0.07);
-    --border-softer: rgba(0,0,0,0.05);
-    --surface-alt: #EEF0F3;
-    --chip-active-bg: rgba(10,132,255,0.12);
-    --seg-bg: #E4E6EB;
-    --w-goal: #D97000;
+    --accent-soft: rgba(10,122,255,0.10);
+    --success: #1FA94A;
+    --success-soft: rgba(31,169,74,0.12);
+    --warn: #B26A00;
+    --warn-soft: rgba(255,176,32,0.14);
+    --danger: #E0392E;
+    --danger-soft: rgba(224,57,46,0.10);
+    --up: #E0662F;
+    --down: #0A84C8;
+    --seg-bg: #E9EBEF;
+    --seg-thumb: #FFFFFF;
+    --chart-grid: rgba(17,24,39,0.07);
     --w-ma: #8E44C9;
-    --banner-error-bg: #FFF0EF;
-    --banner-error-border: #FFD3CF;
-    --banner-warn-bg: #FFF8E6;
-    --banner-warn-border: #FFE6A8;
-    --banner-warn-text: #8A6100;
-    --bw-pill-bg: rgba(10,132,255,0.10);
-    --status-on-bg: rgba(48,209,88,0.14);
-    --status-off-bg: rgba(229,55,44,0.10);
-    --tabbar-bg: rgba(255,255,255,0.94);
-    --tabbar-border: rgba(0,0,0,0.06);
-    --tab-pill-bg: #EEF0F3;
-    --modal-overlay: rgba(0,0,0,0.4);
-    --select-chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B7480' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-    --shadow-card: 0 1px 2px rgba(0,0,0,0.04), 0 6px 20px rgba(0,0,0,0.05);
-    --shadow-float: 0 10px 30px rgba(0,0,0,0.14), 0 2px 6px rgba(0,0,0,0.06);
+    --w-goal: #D97000;
+    --meal-kcal: #0A7AFF;
+    --meal-p: #1FA88F;
+    --cal-track: #E6E8EC;
+    --shadow-card: 0 1px 2px rgba(17,24,39,0.04);
+    --shadow-float: 0 10px 28px rgba(17,24,39,0.12);
+    --modal-overlay: rgba(17,24,39,0.36);
+    --tabbar-bg: rgba(255,255,255,0.95);
+    --accent2: #4C9BE8;
+    --teal: #0A84C8;
+    --banner-error-border: rgba(224,57,46,0.28);
+    --banner-warn-border: rgba(178,106,0,0.25);
+    --select-chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23626B77' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
     color-scheme: light;
   }
   @media (prefers-color-scheme: light) {
     :root[data-theme="auto"] {
-      --bg: #F2F2F7;
+      --bg: #F3F4F6;
       --card: #FFFFFF;
-      --card-2: #F7F8FA;
+      --card-2: #FFFFFF;
+      --surface-alt: #F1F3F5;
+      --line: rgba(17,24,39,0.08);
+      --line-strong: rgba(17,24,39,0.14);
+      --text: #14171C;
+      --sub: #626B77;
+      --weak: #A0A7B1;
       --accent: #0A7AFF;
-      --text: #111418;
-      --sub: #6B7480;
-      --danger: #E5372C;
-      --teal: #0A84C8;
-      --border: rgba(0,0,0,0.10);
-      --border-soft: rgba(0,0,0,0.07);
-      --border-softer: rgba(0,0,0,0.05);
-      --surface-alt: #EEF0F3;
-      --chip-active-bg: rgba(10,132,255,0.12);
-      --seg-bg: #E4E6EB;
-      --w-goal: #D97000;
+      --accent-soft: rgba(10,122,255,0.10);
+      --success: #1FA94A;
+      --success-soft: rgba(31,169,74,0.12);
+      --warn: #B26A00;
+      --warn-soft: rgba(255,176,32,0.14);
+      --danger: #E0392E;
+      --danger-soft: rgba(224,57,46,0.10);
+      --up: #E0662F;
+      --down: #0A84C8;
+      --seg-bg: #E9EBEF;
+      --seg-thumb: #FFFFFF;
+      --chart-grid: rgba(17,24,39,0.07);
       --w-ma: #8E44C9;
-      --banner-error-bg: #FFF0EF;
-      --banner-error-border: #FFD3CF;
-      --banner-warn-bg: #FFF8E6;
-      --banner-warn-border: #FFE6A8;
-      --banner-warn-text: #8A6100;
-      --bw-pill-bg: rgba(10,132,255,0.10);
-      --status-on-bg: rgba(48,209,88,0.14);
-      --status-off-bg: rgba(229,55,44,0.10);
-      --tabbar-bg: rgba(255,255,255,0.94);
-      --tabbar-border: rgba(0,0,0,0.06);
-      --tab-pill-bg: #EEF0F3;
-      --modal-overlay: rgba(0,0,0,0.4);
-      --select-chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B7480' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-      --shadow-card: 0 1px 2px rgba(0,0,0,0.04), 0 6px 20px rgba(0,0,0,0.05);
-      --shadow-float: 0 10px 30px rgba(0,0,0,0.14), 0 2px 6px rgba(0,0,0,0.06);
+      --w-goal: #D97000;
+      --meal-kcal: #0A7AFF;
+      --meal-p: #1FA88F;
+      --cal-track: #E6E8EC;
+      --shadow-card: 0 1px 2px rgba(17,24,39,0.04);
+      --shadow-float: 0 10px 28px rgba(17,24,39,0.12);
+      --modal-overlay: rgba(17,24,39,0.36);
+      --tabbar-bg: rgba(255,255,255,0.95);
+      --accent2: #4C9BE8;
+      --teal: #0A84C8;
+      --banner-error-border: rgba(224,57,46,0.28);
+      --banner-warn-border: rgba(178,106,0,0.25);
+      --select-chev: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23626B77' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
       color-scheme: light;
     }
   }
@@ -1993,6 +2043,326 @@
   }
   .sess-ico:active { transform: scale(0.94); background: var(--chip-active-bg); }
   .sess-mrow .sess-mini { flex: 0 0 auto; min-width: 60px; }
+  /* =====================================================================
+     ThinkUI 試作レイヤー（v2026.11.26d-trial）：見た目だけを全画面で統一する上書き。
+     参考にした考え方：薄い枠のカード／小さなラベル→大きな数値→グラフ（Supabase Reports, Apache-2.0）、
+     真っ黒を避けた階層・点線の基準線・角丸マス（Actual Budget, MIT）、数字カードとグラフカードの枠と余白の統一・
+     グラフ下の凡例（Formbricks, 考え方のみ）、上角丸シート・太いタイトルと小さな補足（Strong/Freeletics, 考え方のみ）。
+     どの製品のマークアップもコピーしていない。機能・データ処理には触れない。
+     ===================================================================== */
+  html, body { font-size: var(--fs-body); }
+  main { padding: var(--sp-4) var(--sp-4) var(--sp-3); }
+
+  /* ---------- ヘッダー：再読み込み（左）・タイトル（中央）・歯車（右） ---------- */
+  header.topbar {
+    padding: calc(var(--sp-2) + var(--safe-t)) var(--sp-4) var(--sp-2);
+    gap: var(--sp-3);
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    min-height: calc(52px + var(--safe-t));
+  }
+  header.topbar .title-wrap { align-items: center; gap: 2px; }
+  header.topbar .title { text-align: center; font-size: var(--fs-title); font-weight: 700; letter-spacing: 0.06em; line-height: 1.25; }
+  header.topbar .title-cap { font-size: 10px; font-weight: 600; letter-spacing: 0.28em; text-indent: 0.28em; color: var(--accent); }
+  header.topbar .reload-btn, header.topbar .settings-btn {
+    width: 36px; height: 36px; background: var(--card); border: 1px solid var(--line); color: var(--sub);
+  }
+  header.topbar .settings-btn[aria-pressed="true"] { color: var(--accent); background: var(--accent-soft); border-color: transparent; }
+
+  /* ---------- カード：同じ枠・同じ余白・同じ角丸 ---------- */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--r-card);
+    padding: var(--sp-4);
+    margin-bottom: var(--sp-3);
+    box-shadow: var(--shadow-card);
+  }
+  /* カード見出し：13px・やや太・補足色 */
+  .section-title {
+    font-size: var(--fs-label); font-weight: 600; color: var(--sub);
+    letter-spacing: 0.02em; line-height: 1.4; margin-bottom: var(--sp-3);
+  }
+  .section-title span { font-size: var(--fs-cap) !important; color: var(--weak) !important; }
+  .empty-msg { padding: var(--sp-6) 0; font-size: 14px; }
+  .app-footer { color: var(--weak); font-size: 11px; margin-top: var(--sp-2); padding: var(--sp-2) 0 var(--sp-1); font-variant-numeric: tabular-nums; }
+  .top-banner { border-radius: var(--r-tile); padding: var(--sp-3) var(--sp-4); margin-bottom: var(--sp-3); }
+  .top-banner button { border-radius: var(--r-pill); padding: 8px 18px; }
+
+  /* 数値は等幅数字。単位は一段小さく補足色（.u は表示時に自動で付ける） */
+  .stat-value, .li-right, .pace-value, .bar-value, .exr-val, .rm-num, .num, .nav-label, .cal-title, .day-head-date { font-variant-numeric: tabular-nums; }
+  small.u { font-size: 0.56em; font-weight: 600; color: var(--sub); margin-left: 2px; letter-spacing: 0; }
+  .li-right small.u, .pace-value small.u { font-size: 0.8em; }
+
+  /* ---------- セグメント（日・週・月／体重・写真）と期間ピル：カプセル型・控えめ ---------- */
+  .record-segment {
+    gap: 2px; margin: 0 0 var(--sp-4); padding: 3px;
+    background: var(--seg-bg); border: none; border-radius: var(--r-pill);
+  }
+  .record-seg-btn {
+    height: 34px; min-height: 34px; border-radius: var(--r-pill);
+    color: var(--sub); font-size: 14px; font-weight: 600; letter-spacing: 0.06em;
+  }
+  .record-seg-btn.active {
+    background: var(--seg-thumb); color: var(--text); font-weight: 700;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.18);
+  }
+  .record-segment.weight-range-seg.show { margin: 0 0 var(--sp-3); }
+  .weight-range-seg .record-seg-btn { height: 30px; min-height: 30px; font-size: 13px; letter-spacing: 0; }
+
+  /* ---------- 前後移動（日・週・月・体重） ---------- */
+  .nav-switch { gap: var(--sp-2); margin-bottom: 0; }
+  .nav-switch button {
+    width: var(--ctl-h); height: var(--ctl-h);
+    background: var(--surface-alt); border: none; color: var(--text);
+  }
+  .nav-switch button[disabled] { opacity: 0.3; }
+  .nav-switch .nav-label { font-size: 16px; font-weight: 700; letter-spacing: 0.01em; }
+
+  /* ---------- 記録：カレンダー ---------- */
+  .cal-card { padding: var(--sp-4) var(--sp-3) var(--sp-3); }
+  .cal-head { gap: var(--sp-1); padding: 0 var(--sp-1); margin-bottom: var(--sp-3); }
+  .cal-title { font-size: 18px; font-weight: 700; }
+  .cal-nav, .cal-info-btn { width: 34px; height: 34px; background: var(--surface-alt); color: var(--text); }
+  .cal-info-btn { font-size: 15px; font-weight: 700; font-family: Georgia, "Times New Roman", serif; font-style: italic; color: var(--sub); }
+  .cal-today {
+    height: 34px; padding: 0 var(--sp-3); border: none; border-radius: var(--r-pill);
+    background: var(--accent-soft); color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: 0.02em;
+  }
+  .cal-grid { row-gap: var(--sp-1); }
+  .cal-dow { font-size: 11px; font-weight: 600; color: var(--sub); letter-spacing: 0.04em; padding-bottom: var(--sp-1); }
+  .cal-dow.sun { color: #E8776F; }
+  .cal-dow.sat { color: #6FA8E8; }
+  .cal-day { font-size: 15px; font-weight: 600; }
+  .cal-day.future { color: var(--weak); font-weight: 500; }
+  .cal-day.today .cal-num { color: var(--accent); font-weight: 800; }
+  .cal-day.selected .cal-num { color: var(--on-accent); font-weight: 800; }
+  .cal-legend {
+    top: 60px; left: var(--sp-3); right: var(--sp-3);
+    background: var(--card-2); border: 1px solid var(--line-strong); border-radius: var(--r-card);
+    padding: var(--sp-4); box-shadow: var(--shadow-float);
+  }
+  .cal-legend-text { font-size: 13px; color: var(--sub); line-height: 1.65; }
+  .cal-legend-item { font-size: 12px; }
+  .cal-legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* 選んだ日の見出しとセッションカード */
+  .day-head { margin: var(--sp-5) var(--sp-1) var(--sp-3); }
+  .day-head-date { font-size: var(--fs-head); font-weight: 800; }
+  .day-head-sub { font-size: var(--fs-cap); color: var(--sub); }
+  .sess-sum-row { gap: var(--sp-3); font-size: var(--fs-cap); font-weight: 600; color: var(--sub); margin-bottom: var(--sp-1); }
+  .sess-sum-row svg { width: 14px; height: 14px; }
+  .day-part-name { font-size: 15px; font-weight: 800; gap: var(--sp-2); }
+  .day-part-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .day-ex-row { gap: var(--sp-3); padding: var(--sp-3) 0 0; }
+  .day-ex-row + .day-ex-row { border-top: 1px solid var(--line); margin-top: var(--sp-3); }
+  .day-ex-bar { width: 3px; margin: 3px 0 3px; }
+  .day-ex-name { font-size: 16px; font-weight: 700; line-height: 1.35; }
+  .day-ex-sub { font-size: 13px; color: var(--sub); margin-top: 2px; }
+  .ex-note { font-size: var(--fs-cap); color: var(--sub); margin-top: var(--sp-1); }
+  .day-photo-link { font-size: var(--fs-cap); }
+  .local-chip { border-radius: var(--r-chip) !important; }
+
+  /* 週・月・日の集計：「ラベル → 大きな数」 */
+  .trained-days-box { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; margin-bottom: var(--sp-3); }
+  .trained-days-box .lbl { font-size: var(--fs-label); font-weight: 600; color: var(--sub); letter-spacing: 0.08em; }
+  .trained-days-box .num { font-size: 34px; font-weight: 800; color: var(--accent); line-height: 1.15; letter-spacing: -0.02em; }
+
+  /* 横棒（部位別セット数・食事 kcal/P） */
+  .bar-row { gap: var(--sp-3); margin-bottom: var(--sp-3); }
+  .bar-label { width: 40px; font-size: 13px; font-weight: 600; }
+  .bar-track { height: 8px; background: var(--surface-alt); border-radius: var(--r-pill); }
+  .bar-fill { border-radius: var(--r-pill); }
+  .bar-value { width: auto; min-width: 64px; max-width: 96px; white-space: normal; line-height: 1.3; font-size: var(--fs-cap); color: var(--sub); }
+  .part-tag-value { font-size: var(--fs-cap); }
+  /* 有酸素・総負荷量の1行カード：カードの中に箱を重ねず「ラベル　値」の1行にする */
+  .aerobic-row { background: none; border-radius: 0; padding: 0; margin-top: 0; font-size: 14px; color: var(--sub); font-weight: 600; }
+  .aerobic-row > :last-child { color: var(--text); font-size: 17px; font-weight: 800; font-variant-numeric: tabular-nums; }
+
+  /* 週：記録のある日は小さな印 */
+  .week-dots { gap: 2px; }
+  .week-dot-col { gap: 6px; font-size: 11px; font-weight: 600; border-radius: var(--r-field); min-height: 52px; }
+  .week-dot { width: 10px; height: 10px; border: 1.5px solid var(--line-strong); background: transparent; }
+  .week-dot.full { background: var(--accent); border-color: var(--accent); }
+  .week-dot.summary { background: transparent; border-color: var(--accent); }
+
+  /* 月：角丸のマス */
+  .month-cal { gap: var(--sp-1); }
+  .month-cal-dow { font-size: 11px; font-weight: 600; }
+  .month-day { border-radius: var(--r-field); background: var(--surface-alt); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; gap: 3px; }
+  .month-day.today { box-shadow: 0 0 0 1.5px var(--accent) inset; color: var(--accent); }
+  .md-dot { width: 5px; height: 5px; }
+  .md-dot.summary-dot { width: 5px; height: 5px; background: transparent; border: 1.2px solid var(--sub); }
+
+  /* 数字タイル（体重・食事・種目別で共通） */
+  .stat-grid { gap: var(--sp-2); }
+  .stat-box {
+    background: var(--surface-alt); border: none; border-radius: var(--r-tile);
+    padding: var(--sp-3); text-align: center;
+  }
+  .stat-box .stat-label { font-size: var(--fs-cap); font-weight: 600; color: var(--sub); letter-spacing: 0.01em; line-height: 1.35; }
+  .stat-box .stat-value { font-size: var(--fs-num-sm); font-weight: 800; margin-top: var(--sp-1); line-height: 1.2; letter-spacing: -0.01em; }
+  .stat-box .li-meta { margin-top: 2px; }
+
+  /* ---------- チップ ---------- */
+  .part-chip { border-radius: var(--r-chip); padding: 2px 8px; font-size: 11px; font-weight: 700; background: var(--surface-alt); color: var(--sub); }
+  .part-chip-lg { font-size: 13px; padding: 4px 10px; }
+  .part-chip-btn { height: 32px; padding: 0 var(--sp-3); border-radius: var(--r-pill); font-size: 13px; font-weight: 600; background: var(--surface-alt); color: var(--sub); }
+  .part-chip-btn.active { background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+  .chip { border-radius: var(--r-pill); border: 1px solid var(--line); background: var(--surface-alt); font-size: 13px; }
+  .chip.active { border-color: transparent; background: var(--accent-soft); color: var(--accent); }
+  .set-chip { border-radius: var(--r-chip); border: none; background: var(--surface-alt); font-size: 13px; padding: 3px 8px; }
+  .best-badge { border-radius: var(--r-chip); background: var(--accent-soft); color: var(--accent); font-size: 11px; padding: 2px 6px; }
+  .bw-pill { border-radius: var(--r-pill); background: var(--accent-soft); color: var(--accent); font-size: 13px; }
+  .ex-block { border-bottom: 1px solid var(--line); padding: var(--sp-3) 0 var(--sp-3) var(--sp-3); border-left-width: 3px !important; }
+  .ex-name { font-size: 15px; font-weight: 700; }
+  .load-tag { font-size: 11px; }
+
+  /* ---------- 種目別：一覧と詳細 ---------- */
+  .chip-row-scroll { gap: var(--sp-2); }
+  .exr-card { padding: 0 var(--sp-4); }
+  .exr { gap: var(--sp-3); padding: var(--sp-4) 0; border-bottom: 1px solid var(--line); }
+  .exr-name { font-size: 15px; font-weight: 700; }
+  .exr-val { font-size: 28px; font-weight: 800; }
+  .exr-val small { font-size: 13px; font-weight: 600; color: var(--sub); }
+  .exr-val.none { font-size: 14px; font-weight: 600; }
+  .exr-delta { font-size: var(--fs-cap); }
+  .exr-delta.up b { color: var(--success); }
+  .exr-axis, .exr-tick { stroke: var(--line-strong); }
+  .exr-tl { fill: var(--weak); }
+  .ex-detail-name { font-size: 22px; font-weight: 800; margin: var(--sp-1) var(--sp-1) var(--sp-3); }
+  .ex-back { height: 34px; padding: 0 var(--sp-4) 0 var(--sp-2); margin: 0 0 var(--sp-3); border-radius: var(--r-pill); border: 1px solid var(--line); background: var(--card); font-size: 14px; font-weight: 600; }
+  .rm-stats { gap: var(--sp-3); margin: 0 0 var(--sp-3); }
+  .rm-num { font-size: var(--fs-num); font-weight: 800; }
+  .rm-cap { font-size: var(--fs-cap); }
+  .rm-seg { background: var(--seg-bg); border-radius: var(--r-pill); padding: 3px; margin-bottom: var(--sp-3); }
+  .rm-seg button { font-size: 13px; padding: 6px 0; border-radius: var(--r-pill); }
+  .rm-seg button.active { background: var(--seg-thumb); color: var(--text); font-weight: 700; box-shadow: 0 1px 2px rgba(0,0,0,0.18); }
+  .rm-note { font-size: var(--fs-cap); }
+  .rmt-row { border-bottom: 1px solid var(--line); padding: var(--sp-2) 0; }
+  .chart-wrap { margin: var(--sp-3) auto var(--sp-1); }
+
+  /* ---------- 体重：大きなグラフ（約 320px、横幅いっぱい寄り）＋グラフ下の凡例 ---------- */
+  .chart-wrap.weight-chart { height: 320px; margin: var(--sp-3) calc(-1 * var(--sp-4) + 4px) var(--sp-1); }
+  .weight-legend { justify-content: center; gap: var(--sp-1) var(--sp-4); margin: var(--sp-2) 0 0; padding-top: var(--sp-3); border-top: 1px solid var(--line); }
+  .weight-legend-item { font-size: var(--fs-cap); color: var(--sub); gap: 6px; }
+  .weight-legend-item svg { width: 20px; height: 10px; }
+  .goal-form { gap: var(--sp-3); }
+  .goal-field label { font-size: var(--fs-cap); font-weight: 600; color: var(--sub); margin-bottom: 6px; }
+  .goal-field input {
+    height: 44px; padding: 0 var(--sp-3); font-size: 16px; font-variant-numeric: tabular-nums;
+    border: 1px solid var(--line-strong); border-radius: var(--r-field); background: var(--surface-alt);
+  }
+  .goal-field input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .pace-row { padding: var(--sp-3) 0; border-bottom: 1px solid var(--line); }
+  .pace-row .pace-label { font-size: 13px; color: var(--sub); }
+  .pace-row .pace-value { font-size: 15px; font-weight: 700; }
+  .status-badge { border-radius: var(--r-pill); padding: 3px 10px; font-size: var(--fs-cap); }
+  .status-badge.neutral { background: var(--surface-alt); }
+
+  /* 一覧（体重など）：タイトルは太く、補足は小さく */
+  .list-item { padding: var(--sp-3) 0; border-bottom: 1px solid var(--line); }
+  .li-item { font-size: 15px; font-weight: 600; }
+  .li-meta { font-size: var(--fs-cap); color: var(--sub); }
+  .li-right { font-size: 15px; font-weight: 700; }
+  .li-right .diff { font-size: var(--fs-cap); font-weight: 500; color: var(--sub); margin-top: 1px; }
+
+  /* ---------- 食事 ---------- */
+  .meal-day-card { padding-bottom: var(--sp-3); }
+  .meal-day-head { min-height: 28px; }
+  .meal-day-head .md-date { font-size: 15px; font-weight: 700; }
+  .meal-day-toggle { width: 28px; height: 28px; border-radius: 50%; background: var(--surface-alt); }
+  .meal-day-toggle svg { width: 14px; height: 14px; }
+  .meal-bars { margin-top: var(--sp-3); }
+  .meal-bars .bar-value { width: 92px; font-size: 11px; }
+  .meal-bars .bar-row:last-child { margin-bottom: 0; }
+  .meal-items { margin-top: var(--sp-3); padding-top: var(--sp-2); border-top: 1px solid var(--line); }
+  .meal-item-row { font-size: 14px; padding: var(--sp-2) 0; border-bottom: 1px solid var(--line); }
+  .meal-item-row .mi-time { font-size: var(--fs-cap); color: var(--sub); font-variant-numeric: tabular-nums; }
+  .meal-note, .meal-empty { font-size: var(--fs-cap); }
+  .meal-thumb { border-radius: var(--r-chip) !important; }
+
+  /* ---------- 写真 ---------- */
+  .photo-stage { border-radius: var(--r-tile); background: var(--surface-alt); }
+  .photo-empty-stage { border-radius: var(--r-tile); background: var(--surface-alt); min-height: 200px; font-size: 14px; }
+  .photo-empty-stage svg { width: 32px; height: 32px; opacity: 0.8; }
+  .photo-overlay { padding: 32px var(--sp-3) var(--sp-3); }
+  .photo-overlay-date { font-size: 15px; font-weight: 700; }
+  .photo-overlay-weight { font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .photo-weight-row { margin-top: var(--sp-3); }
+  .photo-weight-row .photo-weight-value { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .photo-hint { font-size: var(--fs-cap); color: var(--sub); margin-top: var(--sp-2); line-height: 1.6; }
+  .photo-actions { gap: var(--sp-2); margin-top: var(--sp-3); }
+  /* 主なボタン（追加・比べるのをやめる）は全幅の落ち着いたピル。副ボタンはくぼみ色のピル */
+  .photo-btn {
+    flex: 1 1 100%; min-height: 44px; padding: 10px var(--sp-4); border-radius: var(--r-pill);
+    background: var(--accent-soft); color: var(--accent); border: none; box-shadow: none;
+    font-size: 15px; font-weight: 700; letter-spacing: 0.02em;
+  }
+  .photo-btn.secondary { flex: 1 1 calc(50% - 8px); background: var(--surface-alt); color: var(--text); border: none; font-weight: 600; }
+  .photo-thumbs { gap: var(--sp-2); }
+  .photo-thumb { border-radius: var(--r-field); border-width: 2px; }
+  .photo-cal-cell.selected { box-shadow: 0 0 0 2px var(--accent) inset; }
+  .photo-compare { gap: var(--sp-2); }
+  .photo-compare-cap { font-size: 11px; margin-top: var(--sp-1); }
+
+  /* ---------- タブバー：現行と同じ浮いた角丸バー。選択中は試作のシンプルな強調色（背景なし） ---------- */
+  .tabbar {
+    left: calc(12px + var(--safe-l));
+    right: calc(12px + var(--safe-r));
+    bottom: calc(8px + var(--safe-b));
+    max-width: 456px;
+    margin: 0 auto;
+    gap: 2px;
+    background: var(--tabbar-bg);
+    -webkit-backdrop-filter: saturate(160%) blur(18px);
+    backdrop-filter: saturate(160%) blur(18px);
+    border: 1px solid var(--tabbar-border);
+    border-radius: 30px;
+    box-shadow: var(--shadow-float);
+    padding: 6px;
+    overflow: hidden;
+  }
+  .tab-btn {
+    min-height: 52px;
+    padding: 6px 2px;
+    gap: 3px;
+    border-radius: 24px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--sub);
+    background: none;
+  }
+  .tab-btn .icon svg { width: 21px; height: 21px; stroke-width: 2; }
+  .tab-btn.active { color: var(--accent); background: none; font-weight: 700; }
+  .tab-btn.active .icon svg { stroke-width: 2.2; }
+  .toast { bottom: calc(var(--nav-h) + var(--safe-b) + 8px); border-radius: var(--r-pill); }
+
+  /* ---------- 設定シート・原文シート：上角丸＋つまみ ---------- */
+  .modal-box {
+    background: var(--card); border-radius: var(--r-card) var(--r-card) 0 0; border: 1px solid var(--line); border-bottom: none;
+    padding: var(--sp-2) var(--sp-4) calc(var(--sp-4) + var(--safe-b)); box-shadow: var(--shadow-float);
+  }
+  .modal-box::before { content: ""; display: block; width: 36px; height: 5px; border-radius: var(--r-pill); background: var(--line-strong); margin: 0 auto var(--sp-3); }
+  .modal-box h4 { font-size: 17px; font-weight: 700; color: var(--text); margin: 0 0 var(--sp-4); }
+  .modal-box p { font-size: 14px; }
+  .modal-box .section-title { margin-bottom: var(--sp-1); }
+  .theme-option-list { background: var(--surface-alt); border-radius: var(--r-tile); padding: 0 var(--sp-3); }
+  .theme-option { min-height: 48px; padding: var(--sp-3) 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .settings-note { margin-top: var(--sp-5); padding-top: 0; border-top: none; }
+  .settings-note p { font-size: 13px; color: var(--sub); }
+  .modal-close-btn { height: 48px; margin-top: var(--sp-5); border: none; border-radius: var(--r-pill); background: var(--surface-alt); color: var(--text); font-size: 15px; font-weight: 700; letter-spacing: 0.04em; }
+
+  @media (max-width: 359px) {
+    .stat-box .stat-value { font-size: 20px; }
+    .trained-days-box .num { font-size: 30px; }
+    .exr-val { font-size: 24px; }
+    .rm-num { font-size: 26px; }
+    .cal-title { font-size: 16px; }
+    header.topbar .title { font-size: 16px; }
+  }
+
 </style>
 </head>
 <body>
@@ -2182,7 +2552,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.26b";
+  var APP_VERSION = "v2026.11.26d";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -2308,7 +2678,7 @@
   function updateThemeMeta() {
     var dark = isDarkActive();
     var tc = document.querySelector('meta[name="theme-color"]');
-    if (tc) tc.setAttribute("content", dark ? "#000000" : "#F2F2F7");
+    if (tc) tc.setAttribute("content", dark ? "#111316" : "#F3F4F6");
     var sb = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
     if (sb) sb.setAttribute("content", dark ? "black-translucent" : "default");
     document.documentElement.style.colorScheme = dark ? "dark" : "light";
@@ -2324,7 +2694,7 @@
     return {
       text: cs.getPropertyValue("--text").trim() || "#333",
       sub: cs.getPropertyValue("--sub").trim() || "#888",
-      grid: cs.getPropertyValue("--border").trim() || "#eee"
+      grid: cs.getPropertyValue("--chart-grid").trim() || cs.getPropertyValue("--border").trim() || "#eee"
     };
   }
   function applyThemePref(pref) {
@@ -2824,8 +3194,8 @@
       var cls = "cal-day" + (future ? " future" : "") + (isToday ? " today" : "") + (sel ? " selected" : "");
       var aria = m.month + "月" + day + "日" + (trained ? "（トレーニングあり）" : "") + (isToday ? "（今日）" : "");
       var svg = '<svg class="cal-ring" viewBox="0 0 48 48" aria-hidden="true">';
-      if (sel) svg += '<circle cx="24" cy="24" r="15.5" fill="#0A84FF"></circle>';
-      if (!future) svg += '<circle cx="24" cy="24" r="19.5" fill="none" stroke="#2E2E33" stroke-width="3.2"></circle>';
+      if (sel) svg += '<circle cx="24" cy="24" r="15.5" style="fill:var(--accent)"></circle>';
+      if (!future) svg += '<circle cx="24" cy="24" r="19.5" fill="none" style="stroke:var(--cal-track)" stroke-width="3.2"></circle>';
       var shares = dayPartShares(dayObj);
       if (shares) {
         var off = 0;
@@ -2835,9 +3205,9 @@
           off += s.share * C;
         });
       } else if (trained && dayObj && dayObj.summary_only) {
-        svg += '<circle cx="24" cy="24" r="19.5" fill="none" stroke="#0A84FF" stroke-width="3.2"></circle>';
+        svg += '<circle cx="24" cy="24" r="19.5" fill="none" style="stroke:var(--accent)" stroke-width="3.2"></circle>';
       }
-      if (isToday) svg += '<circle cx="24" cy="24" r="22.3" fill="none" stroke="#FF453A" stroke-width="2"></circle>';
+      if (isToday) svg += '<circle cx="24" cy="24" r="22.6" fill="none" style="stroke:var(--accent)" stroke-width="1.4" stroke-dasharray="2 2.4"></circle>';
       svg += "</svg>";
       html += '<div class="cal-cell"><button type="button" class="' + cls + '" data-cal-key="' + key + '" aria-pressed="' + (sel ? "true" : "false") + '" aria-label="' + aria + '">' + svg + '<span class="cal-num">' + day + "</span></button></div>";
     }
@@ -2850,8 +3220,8 @@
     var items = (m.items || []).filter(function (it) { return !MEAL_NOISE_RE.test(it.text); });
     if (m.kcal == null && m.protein == null && !items.length && !m.note) return "";
     var html = '<div class="card"><div class="section-title">食事</div><div class="meal-bars" style="margin-top:0">';
-    html += mealBarRow("kcal", m.kcal, MEAL_KCAL_TARGET, "#0A84FF", "kcal");
-    html += mealBarRow("P", m.protein, MEAL_PROTEIN_TARGET, "#64B5F6", "g");
+    html += mealBarRow("kcal", m.kcal, MEAL_KCAL_TARGET, "var(--meal-kcal)", "kcal");
+    html += mealBarRow("P", m.protein, MEAL_PROTEIN_TARGET, "var(--meal-p)", "g");
     html += "</div>";
     if (m.note) html += '<div class="meal-note">' + escapeHtml(m.note) + "</div>";
     if (items.length) {
@@ -4389,13 +4759,13 @@
         scales: {
           x: {
             ticks: { color: tcol.sub, maxRotation: 0, autoSkip: true, autoSkipPadding: 10, maxTicksLimit: periodKeys.length <= 7 ? 7 : 6 },
-            grid: { color: tcol.grid }
+            grid: { display: false }, border: { color: tcol.grid }
           },
           y: {
             grace: "8%",
             title: { display: true, text: "kg", color: tcol.sub },
             ticks: { color: tcol.sub, callback: function (v) { return Number(v).toFixed(1); } },
-            grid: { color: tcol.grid }
+            grid: { color: tcol.grid }, border: { display: false }
           }
         }
       },
@@ -4499,8 +4869,8 @@
         html += '<div class="card meal-day-card">';
         html += '<div class="meal-day-head" data-meal-toggle="' + k + '"><span class="md-date">' + formatDateLabel(k) + '</span><span class="meal-day-toggle' + (open ? " open" : "") + '">' + ICON_CHEVRON_DOWN + "</span></div>";
         html += '<div class="meal-bars">';
-        html += mealBarRow("kcal", m ? m.kcal : null, MEAL_KCAL_TARGET, "#0A84FF", "kcal");
-        html += mealBarRow("P", m ? m.protein : null, MEAL_PROTEIN_TARGET, "#64B5F6", "g");
+        html += mealBarRow("kcal", m ? m.kcal : null, MEAL_KCAL_TARGET, "var(--meal-kcal)", "kcal");
+        html += mealBarRow("P", m ? m.protein : null, MEAL_PROTEIN_TARGET, "var(--meal-p)", "g");
         html += "</div>";
         html += '<div class="meal-items' + (open ? " open" : "") + '" id="mealItems-' + k + '">';
         if (m && m.note) html += '<div class="meal-note">' + escapeHtml(m.note) + "</div>";
@@ -5717,7 +6087,34 @@
     if (h === "week" || h === "month") return h;
     return getRecordPeriod();
   }
+  // ---------- 見た目だけ：数値の後ろの単位を一段小さく補足色にする（文字は変えない・データには触れない） ----------
+  var UNIT_RE = /^([\s\S]*?[\d.,)]\s?)(kg\/週|kcal|kg|g|日|回|分)$/;
+  var UNIT_SEL = ".stat-value, .li-right, .pace-value";
+  function decorateUnits(root) {
+    var els = root.querySelectorAll ? root.querySelectorAll(UNIT_SEL) : [];
+    Array.prototype.forEach.call(els, function (el) {
+      if (el.getAttribute("data-u") === "1") return;
+      el.setAttribute("data-u", "1");
+      Array.prototype.slice.call(el.childNodes).forEach(function (n) {
+        if (n.nodeType !== 3) return;
+        var m = n.nodeValue.match(UNIT_RE);
+        if (!m) return;
+        var u = document.createElement("small");
+        u.className = "u";
+        u.textContent = m[2];
+        n.nodeValue = m[1];
+        n.parentNode.insertBefore(u, n.nextSibling);
+      });
+    });
+  }
+  function startUnitDecorator() {
+    var mainEl = document.querySelector("main");
+    if (!mainEl || !window.MutationObserver) return;
+    decorateUnits(mainEl);
+    new MutationObserver(function () { decorateUnits(mainEl); }).observe(mainEl, { childList: true, subtree: true });
+  }
   function init() {
+    startUnitDecorator();
     loadGoalSettings();
     var initial = initialTabFromHash();
     switchTab(initial);
