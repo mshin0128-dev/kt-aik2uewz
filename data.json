@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-26T20:56:52+09:00",
+ "source_mtime": "2026-11-27T00:31:02+09:00",
  "parts": [
   "胸",
   "背中",
@@ -10050,9 +10050,9 @@
    "note": null
   },
   "2026-11-26": {
-   "kcal": 1655,
+   "kcal": 446,
    "kcal_range": null,
-   "protein": 58,
+   "protein": 53.7,
    "items": [
     {
      "time": "18:38",
@@ -10061,11 +10061,23 @@
     {
      "time": "20:56",
      "text": "重厚軍団 つけ麺(麺180g、スープ・具は未確認) 概算 約650kcal・P約25g"
+    },
+    {
+     "time": "00:30",
+     "text": "プロテイン(粉60g 約232kcal・P42g)"
+    },
+    {
+     "time": "00:30",
+     "text": "牛乳350g(約214kcal・P約11.7g)"
+    },
+    {
+     "time": "00:30",
+     "text": "クレアチン5g"
     }
    ],
    "note": null
   }
  },
- "content_hash": "76425b1c10b1",
- "generated_at": "2026-11-26T20:58:02+09:00"
+ "content_hash": "125ff48376fa",
+ "generated_at": "2026-11-27T00:32:13+09:00"
 }
