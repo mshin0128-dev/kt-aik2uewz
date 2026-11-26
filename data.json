@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-26T17:16:48+09:00",
+ "source_mtime": "2026-11-26T18:38:56+09:00",
  "parts": [
   "胸",
   "背中",
@@ -9821,13 +9821,18 @@
    "note": null
   },
   "2026-11-26": {
-   "kcal": null,
+   "kcal": 1005,
    "kcal_range": null,
-   "protein": null,
-   "items": [],
+   "protein": 33,
+   "items": [
+    {
+     "time": "18:38",
+     "text": "来来亭 こってりラーメン(サイズ未確認・並想定) 概算 約750kcal・P約28g/小ごはん 概算 約250kcal・P約4g/のり 概算 約5kcal・P約1g"
+    }
+   ],
    "note": null
   }
  },
- "content_hash": "ab42d9dae421",
- "generated_at": "2026-11-26T17:18:01+09:00"
+ "content_hash": "6355b73a5220",
+ "generated_at": "2026-11-26T18:40:00+09:00"
 }
