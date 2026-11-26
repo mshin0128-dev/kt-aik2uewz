@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-26T19:51:24+09:00",
+ "source_mtime": "2026-11-26T19:56:10+09:00",
  "parts": [
   "胸",
   "背中",
@@ -8046,6 +8046,27 @@
      "load_reps": 15,
      "volume_kg": 750.0,
      "hands": null
+    },
+    {
+     "date": "2026-11-26",
+     "time": "19:56",
+     "exercise": "シーテッドレッグプレス",
+     "part": "脚",
+     "weight_kg": 60.0,
+     "weight_type": "マシン",
+     "reps": [
+      11
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "19:56 シーテッドレッグプレス 60kg×11(3セット目) /負荷量 60kg×11=660kg",
+     "load_kg": 60.0,
+     "load_reps": 11,
+     "volume_kg": 660.0,
+     "hands": null
     }
    ],
    "summary_only": null
@@ -10041,6 +10062,6 @@
    "note": null
   }
  },
- "content_hash": "c80d68f88ce6",
- "generated_at": "2026-11-26T19:52:05+09:00"
+ "content_hash": "ee6687d938d7",
+ "generated_at": "2026-11-26T19:56:57+09:00"
 }
