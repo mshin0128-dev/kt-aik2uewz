@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-26T19:12:08+09:00",
+ "source_mtime": "2026-11-26T19:14:40+09:00",
  "parts": [
   "胸",
   "背中",
@@ -7881,6 +7881,27 @@
      "load_reps": 4,
      "volume_kg": 200.0,
      "hands": "判断不可"
+    },
+    {
+     "date": "2026-11-26",
+     "time": "19:14",
+     "exercise": "ベンチプレス",
+     "part": "胸",
+     "weight_kg": 50.0,
+     "weight_type": "片手",
+     "reps": [
+      3
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "19:14 ベンチプレス 50kg×3(3セット目) /負荷量 50kg×3=150kg",
+     "load_kg": 50.0,
+     "load_reps": 3,
+     "volume_kg": 150.0,
+     "hands": "判断不可"
     }
    ],
    "summary_only": null
@@ -9875,6 +9896,6 @@
    "note": null
   }
  },
- "content_hash": "e04977a1f3ed",
- "generated_at": "2026-11-26T19:13:17+09:00"
+ "content_hash": "6039926705cb",
+ "generated_at": "2026-11-26T19:15:52+09:00"
 }
