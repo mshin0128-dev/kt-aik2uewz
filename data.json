@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-26T19:24:34+09:00",
+ "source_mtime": "2026-11-26T19:31:12+09:00",
  "parts": [
   "胸",
   "背中",
@@ -7944,6 +7944,26 @@
      "load_reps": 1,
      "volume_kg": 55.0,
      "hands": "判断不可"
+    },
+    {
+     "date": "2026-11-26",
+     "time": "19:31",
+     "exercise": "インクラインダンベルプレス",
+     "part": "胸",
+     "weight_kg": 12.5,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "19:31 インクラインダンベルプレス 片手12.5kg×10(1セット目) /負荷量 25kg×10=250kg",
+     "load_kg": 25.0,
+     "load_reps": 10,
+     "volume_kg": 250.0,
+     "hands": "両手",
+     "total_kg": 25.0
     }
    ],
    "summary_only": null
@@ -9938,6 +9958,6 @@
    "note": null
   }
  },
- "content_hash": "d68e12da6f24",
- "generated_at": "2026-11-26T19:25:07+09:00"
+ "content_hash": "e3453160d3de",
+ "generated_at": "2026-11-26T19:32:04+09:00"
 }
