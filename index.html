@@ -59,6 +59,8 @@
     --surface-alt: #2A2D33;
     --chip-active-bg: rgba(10,132,255,0.18);
     --seg-bg: #1C1E22;
+    --w-goal: #D97000;
+    --w-ma: #BF5AF2;
     --banner-error-bg: rgba(255,69,58,0.12);
     --banner-error-border: rgba(255,69,58,0.35);
     --banner-warn-bg: rgba(255,214,10,0.10);
@@ -108,6 +110,8 @@
     --surface-alt: #EEF0F3;
     --chip-active-bg: rgba(10,132,255,0.12);
     --seg-bg: #E4E6EB;
+    --w-goal: #D97000;
+    --w-ma: #8E44C9;
     --banner-error-bg: #FFF0EF;
     --banner-error-border: #FFD3CF;
     --banner-warn-bg: #FFF8E6;
@@ -141,6 +145,8 @@
       --surface-alt: #EEF0F3;
       --chip-active-bg: rgba(10,132,255,0.12);
       --seg-bg: #E4E6EB;
+      --w-goal: #D97000;
+      --w-ma: #8E44C9;
       --banner-error-bg: #FFF0EF;
       --banner-error-border: #FFD3CF;
       --banner-warn-bg: #FFF8E6;
@@ -655,6 +661,14 @@
   .chip.active { border-color: var(--accent); background: var(--chip-active-bg); font-weight: 700; color: var(--accent); }
 
   .chart-wrap { position: relative; height: 230px; margin: 12px auto 4px; }
+  /* 体重グラフ専用：カードの左右余白まで広げて高くする（他の .chart-wrap は 230px のまま） */
+  .weight-chart-card { overflow: hidden; }
+  .chart-wrap.weight-chart { height: 320px; margin: 8px calc(-1 * var(--space) + 4px) 4px; }
+  .record-segment.weight-range-seg.show { grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0 0 12px; }
+  .weight-range-seg .record-seg-btn { letter-spacing: 0.02em; }
+  .weight-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; margin: 6px 0 2px; min-width: 0; }
+  .weight-legend-item { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--sub); white-space: nowrap; }
+  .weight-legend-item svg { width: 26px; height: 10px; flex: 0 0 auto; }
 
   /* 種目別：進捗リスト（種目名・最新の最大重量・3か月の変化・スパークライン） */
   .exr-card { padding: 4px 14px; }
@@ -2108,6 +2122,7 @@
       <div class="app-footer" id="footerPhoto"></div>
     </section>
   </main>
+  <input type="file" id="photoFileInput" class="photo-file-input" accept="image/*" aria-hidden="true" tabindex="-1">
   <nav class="tabbar">
     <button class="tab-btn active" data-screen="record" type="button" aria-label="記録">
       <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>記録
@@ -2167,7 +2182,7 @@
 (function () {
   "use strict";
 
-  var APP_VERSION = "v2026.11.26a";
+  var APP_VERSION = "v2026.11.26b";
   var STRENGTH_PARTS = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋"];
   var PART_DISPLAY_ORDER = ["胸", "背中", "肩", "二頭", "三頭", "脚", "腹筋", "有酸素"];
   // 部位ごとの色分けはやめ、すべてアクセントの青に統一（バー・月カレンダーの点・種目カードの線など）。
@@ -2195,6 +2210,7 @@
   var GOAL_WEIGHT_KEY = "kintore_goal_weight";
   var GOAL_DATE_KEY = "kintore_goal_date";
   var RECORD_PERIOD_KEY = "kintore_record_period";
+  var WEIGHT_RANGE_KEY = "kintore_weight_range"; // 体重グラフの期間ピル（1週/1か月/3か月/全期間）だけを覚える新しいキー
   var MEAL_KCAL_TARGET = 2200;
   var MEAL_PROTEIN_TARGET = 130;
   // 念のための表示側フィルタ：体重・筋トレ・有酸素・睡眠の行は食事項目として出さない
@@ -2209,6 +2225,8 @@
     selectedExercise: null,
     selectedPart: null,
     weightPeriod: null,
+    weightRange: null,
+    weightEnd: null,
     mealPeriod: null,
     goalWeight: 70,
     goalDate: "",
@@ -2245,6 +2263,23 @@
   function saveGoalDate(v) {
     state.goalDate = v;
     try { localStorage.setItem(GOAL_DATE_KEY, v); } catch (e) {}
+  }
+
+  // ---------- 体重グラフの期間（1週/1か月/3か月/全期間、localStorage は新キー kintore_weight_range のみ） ----------
+  // 1週＝7日、1か月＝直近30日、3か月＝直近90日（いずれも右端の日を含む）。全期間＝最初の体重記録日〜最新の体重記録日
+  var WEIGHT_RANGES = { w1: { days: 7, label: "1週" }, m1: { days: 30, label: "1か月" }, m3: { days: 90, label: "3か月" }, all: { days: 0, label: "全期間" } };
+  var WEIGHT_RANGE_ORDER = ["w1", "m1", "m3", "all"];
+  function getWeightRange() {
+    if (state.weightRange) return state.weightRange;
+    var r = null;
+    try { r = localStorage.getItem(WEIGHT_RANGE_KEY); } catch (e) {}
+    state.weightRange = WEIGHT_RANGES.hasOwnProperty(r) ? r : "w1";
+    return state.weightRange;
+  }
+  function saveWeightRange(r) {
+    if (!WEIGHT_RANGES.hasOwnProperty(r)) return;
+    state.weightRange = r;
+    try { localStorage.setItem(WEIGHT_RANGE_KEY, r); } catch (e) {}
   }
 
   // ---------- 記録タブの表示期間（日/週/月、localStorage） ----------
@@ -2309,17 +2344,19 @@
       var ctx = chart.ctx;
       chart.data.datasets.forEach(function (ds, dsIndex) {
         if (ds.hideValueLabel) return;
+        var labelFilter = typeof ds.valueLabelFilter === "function" ? ds.valueLabelFilter : null;
         var meta = chart.getDatasetMeta(dsIndex);
         if (!meta || meta.hidden) return;
         meta.data.forEach(function (point, i) {
           var v = ds.data[i];
           if (v == null) return;
+          if (labelFilter && !labelFilter(i)) return;
           var text = String(Math.round(v * 10) / 10);
           ctx.save();
           ctx.font = "9px sans-serif";
           ctx.fillStyle = ds.borderColor || "#333";
           ctx.textAlign = "center";
-          ctx.fillText(text, point.x, point.y - 6);
+          ctx.fillText(text, point.x, point.y - (ds.valueLabelOffset || 6));
           ctx.restore();
         });
       });
@@ -4175,9 +4212,8 @@
     var bwMap = {};
     bwAll.forEach(function (b) { bwMap[b.date] = b.kg; });
 
-    if (!state.weightPeriod) state.weightPeriod = periodFromKey(bwAll[bwAll.length - 1].date);
-    var period = state.weightPeriod;
-    var periodKeys = periodDateKeys(period);
+    var win = weightWindow(bwAll);
+    var periodKeys = win.keys;
     var periodVals = periodKeys.map(function (k) { return bwMap.hasOwnProperty(k) ? bwMap[k] : null; });
     var hasPeriodData = periodVals.some(function (v) { return v != null; });
 
@@ -4191,16 +4227,31 @@
     var change = latest.kg - first.kg;
     var changeStr = (change >= 0 ? "+" : "") + Math.round(change * 10) / 10 + "kg";
 
-    var html = '<div class="card period-swipe-zone">';
+    var html = '<div class="card weight-chart-card period-swipe-zone">';
+    html += '<div class="record-segment weight-range-seg show" role="tablist" aria-label="体重グラフの期間">';
+    WEIGHT_RANGE_ORDER.forEach(function (r) {
+      var on = r === win.range;
+      html += '<button class="record-seg-btn' + (on ? " active" : "") + '" type="button" role="tab" aria-selected="' + (on ? "true" : "false") + '" data-weight-range="' + r + '">' + WEIGHT_RANGES[r].label + "</button>";
+    });
+    html += "</div>";
     html += '<div class="nav-switch">';
-    html += '<button id="weightPeriodPrevBtn" type="button" aria-label="前の期間">' + ICON_CHEVRON_LEFT + "</button>";
-    html += '<span class="nav-label">' + periodLabel(period) + "</span>";
-    html += '<button id="weightPeriodNextBtn" type="button" aria-label="次の期間">' + ICON_CHEVRON_RIGHT + "</button>";
+    if (win.range === "all") {
+      html += '<span class="nav-label">' + weightWindowLabel(win) + "</span>";
+    } else {
+      html += '<button id="weightPeriodPrevBtn" type="button" aria-label="前の期間"' + (win.canPrev ? "" : " disabled") + ">" + ICON_CHEVRON_LEFT + "</button>";
+      html += '<span class="nav-label">' + weightWindowLabel(win) + "</span>";
+      html += '<button id="weightPeriodNextBtn" type="button" aria-label="次の期間"' + (win.canNext ? "" : " disabled") + ">" + ICON_CHEVRON_RIGHT + "</button>";
+    }
     html += "</div>";
     if (!hasPeriodData) {
       html += '<div class="empty-msg">この期間の記録なし</div>';
     } else {
-      html += '<div class="chart-wrap"><canvas id="weightChartCanvas"></canvas></div>';
+      html += '<div class="chart-wrap weight-chart"><canvas id="weightChartCanvas" role="img" aria-label="体重の推移グラフ"></canvas></div>';
+      html += '<div class="weight-legend">';
+      html += '<span class="weight-legend-item"><svg viewBox="0 0 26 10" aria-hidden="true"><line x1="1" y1="5" x2="25" y2="5" style="stroke:#0A84FF" stroke-width="2"/><circle cx="13" cy="5" r="3" style="fill:#0A84FF"/></svg>体重(実測)</span>';
+      html += '<span class="weight-legend-item"><svg viewBox="0 0 26 10" aria-hidden="true"><line x1="1" y1="5" x2="25" y2="5" style="stroke:var(--w-ma)" stroke-width="2.5" stroke-linecap="round"/></svg>7日移動平均</span>';
+      html += '<span class="weight-legend-item"><svg viewBox="0 0 26 10" aria-hidden="true"><line x1="1" y1="5" x2="25" y2="5" style="stroke:var(--w-goal)" stroke-width="2" stroke-dasharray="5 3"/></svg>目標 ' + escapeHtml(formatWeight(state.goalWeight)) + "kg</span>";
+      html += "</div>";
     }
     html += "</div>";
 
@@ -4232,71 +4283,116 @@
     var nextBtn = document.getElementById("weightPeriodNextBtn");
     if (prevBtn) prevBtn.addEventListener("click", function () { changeWeightPeriod(-1); });
     if (nextBtn) nextBtn.addEventListener("click", function () { changeWeightPeriod(1); });
+    Array.prototype.forEach.call(content.querySelectorAll("[data-weight-range]"), function (btn) {
+      btn.addEventListener("click", function () {
+        var r = btn.getAttribute("data-weight-range");
+        if (r === getWeightRange()) return;
+        saveWeightRange(r);
+        state.weightEnd = null; // 期間を切り替えたら最新側から表示
+        renderWeightTab();
+      });
+    });
     wireGoalEvents();
 
     if (charts.weight) { charts.weight.destroy(); charts.weight = null; }
     if (!hasPeriodData) return;
 
     var presentVals = periodVals.filter(function (v) { return v != null; });
-    var avg = presentVals.reduce(function (s, v) { return s + v; }, 0) / presentVals.length;
     var minVal = Math.min.apply(null, presentVals), maxVal2 = Math.max.apply(null, presentVals);
     var minIdx = periodVals.indexOf(minVal);
     var maxIdx = periodVals.lastIndexOf(maxVal2);
+    // 7日移動平均：その日を含む過去7日間（当日〜6日前）の実測がある日だけの平均。実測が1つも無ければ null
+    var maVals = periodKeys.map(function (k) {
+      var d0 = dkToDate(k), sum = 0, n = 0;
+      for (var j = 0; j < 7; j++) {
+        var kk = dateToKey(addDays(d0, -j));
+        if (bwMap.hasOwnProperty(kk) && bwMap[kk] != null && isFinite(bwMap[kk])) { sum += bwMap[kk]; n++; }
+      }
+      return n ? Math.round((sum / n) * 100) / 100 : null;
+    });
+    var dense = periodKeys.length > 7;
+    var ptR = periodKeys.length <= 7 ? 3 : (periodKeys.length <= 31 ? 2.5 : 2);
+    var ptBig = periodKeys.length <= 7 ? 6 : 4.5;
 
     var ctx = document.getElementById("weightChartCanvas").getContext("2d");
     var tcol = themeColors();
+    var cs = getComputedStyle(document.documentElement);
+    var goalColor = cs.getPropertyValue("--w-goal").trim() || "#D97000";
+    var maColor = cs.getPropertyValue("--w-ma").trim() || "#BF5AF2";
     charts.weight = new Chart(ctx, {
       type: "line",
       data: {
         labels: periodKeys.map(formatShortDate),
         datasets: [
           {
-            label: "体重(kg)",
+            label: "体重(実測)",
             data: periodVals,
             borderColor: "#0A84FF",
             backgroundColor: "#0A84FF",
+            borderWidth: 2,
             spanGaps: true,
             tension: 0.3,
-            pointRadius: function (c) { return (c.dataIndex === minIdx || c.dataIndex === maxIdx) ? 6 : 3; },
+            order: 1,
+            pointRadius: function (c) { return (c.dataIndex === minIdx || c.dataIndex === maxIdx) ? ptBig : ptR; },
             // 最大・最小は上下の増減ではなく期間内の端点なので、青系（淡い青＋大きい点）で示す
             pointBackgroundColor: function (c) {
               if (c.dataIndex === maxIdx || c.dataIndex === minIdx) return "#64B5F6";
               return "#0A84FF";
-            }
+            },
+            // 1週は全点に値、それより長い期間は最大・最小だけに値を出す（重なり防止）
+            valueLabelFilter: dense ? function (i) { return i === minIdx || i === maxIdx; } : null,
+            valueLabelOffset: ptBig + 5
           },
           {
-            label: "期間平均",
-            data: periodKeys.map(function () { return avg; }),
-            borderColor: "#aaaaaa",
-            backgroundColor: "#aaaaaa",
-            borderDash: [6, 4],
-            borderWidth: 1,
+            label: "7日移動平均",
+            data: maVals,
+            borderColor: maColor,
+            backgroundColor: maColor,
+            borderWidth: 2.5,
+            borderCapStyle: "round",
             pointRadius: 0,
-            tension: 0,
+            pointHoverRadius: 3,
+            spanGaps: false,
+            tension: 0.3,
+            order: 2,
             hideValueLabel: true
           },
           {
-            label: "目標体重",
+            label: "目標",
             data: periodKeys.map(function () { return state.goalWeight; }),
-            borderColor: "#64B5F6",
-            backgroundColor: "#64B5F6",
-            borderDash: [4, 3],
+            borderColor: goalColor,
+            backgroundColor: goalColor,
+            borderDash: [6, 4],
             borderWidth: 2,
             pointRadius: 0,
+            pointHoverRadius: 0,
             tension: 0,
+            order: 3,
             hideValueLabel: true
           }
         ]
       },
       options: {
         responsive: true, maintainAspectRatio: false,
-        interaction: { mode: "nearest", intersect: false },
-        plugins: { legend: { display: false }, tooltip: { enabled: true } },
-        layout: { padding: { top: 20 } },
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+          legend: { display: false }, // 凡例はグラフ下の HTML（折り返し可・ライト/ダーク両対応）
+          tooltip: {
+            enabled: true,
+            filter: function (item) { return item.raw != null; },
+            callbacks: {
+              label: function (item) { return item.dataset.label + ": " + (Math.round(item.raw * 10) / 10) + "kg"; }
+            }
+          }
+        },
+        layout: { padding: { top: 18, left: 0, right: 6 } },
         scales: {
-          x: { ticks: { color: tcol.sub }, grid: { color: tcol.grid } },
+          x: {
+            ticks: { color: tcol.sub, maxRotation: 0, autoSkip: true, autoSkipPadding: 10, maxTicksLimit: periodKeys.length <= 7 ? 7 : 6 },
+            grid: { color: tcol.grid }
+          },
           y: {
-            grace: "10%",
+            grace: "8%",
             title: { display: true, text: "kg", color: tcol.sub },
             ticks: { color: tcol.sub, callback: function (v) { return Number(v).toFixed(1); } },
             grid: { color: tcol.grid }
@@ -4307,9 +4403,40 @@
     });
   }
 
+  // 体重グラフの表示窓。state.weightEnd が null のときは最新の体重記録日を右端にする
+  function weightWindow(bwAll) {
+    var range = getWeightRange();
+    var firstKey = bwAll[0].date;
+    var latestKey = bwAll[bwAll.length - 1].date;
+    var keys = [];
+    if (range === "all") {
+      for (var d = dkToDate(firstKey); dateToKey(d) <= latestKey; d = addDays(d, 1)) keys.push(dateToKey(d));
+      return { range: range, keys: keys, canPrev: false, canNext: false };
+    }
+    var days = WEIGHT_RANGES[range].days;
+    var endKey = state.weightEnd && state.weightEnd < latestKey ? state.weightEnd : latestKey;
+    var endD = dkToDate(endKey);
+    for (var i = days - 1; i >= 0; i--) keys.push(dateToKey(addDays(endD, -i)));
+    return { range: range, keys: keys, canPrev: keys[0] > firstKey, canNext: endKey < latestKey, latestKey: latestKey };
+  }
+  function weightWindowLabel(win) {
+    var a = dkToDate(win.keys[0]), b = dkToDate(win.keys[win.keys.length - 1]);
+    var left = a.getFullYear() + "/" + pad2(a.getMonth() + 1) + "/" + pad2(a.getDate());
+    var right = (a.getFullYear() !== b.getFullYear() ? b.getFullYear() + "/" : "") + pad2(b.getMonth() + 1) + "/" + pad2(b.getDate());
+    return left + "〜" + right;
+  }
+
   // ---------- 期間切替 ----------
   function changeWeightPeriod(delta) {
-    state.weightPeriod = shiftPeriod(state.weightPeriod, delta);
+    var bwAll = ((state.data && state.data.bodyweight) || []).slice().sort(function (a, b) { return a.date < b.date ? -1 : 1; });
+    if (!bwAll.length) return false;
+    var win = weightWindow(bwAll);
+    if (win.range === "all") return false;
+    if (delta < 0 && !win.canPrev) return false;
+    if (delta > 0 && !win.canNext) return false;
+    var days = WEIGHT_RANGES[win.range].days;
+    var newEnd = dateToKey(addDays(dkToDate(win.keys[win.keys.length - 1]), delta * days));
+    state.weightEnd = newEnd >= win.latestKey ? null : newEnd;
     renderWeightTab();
     return true;
   }
@@ -4399,6 +4526,7 @@
   // ---------- 体の写真（IndexedDB のみ。サーバーへは送らない） ----------
   var PHOTO_DB_NAME = "kintore_photos_v1";
   var PHOTO_STORE = "photos";
+  var PHOTO_MAX_EDGE = 1600;
   var PHOTO_JPEG_QUALITY = 0.85;
   var ICON_CAMERA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>';
   // v2：食事の写真用ストア "meal_photos"（keyPath "id"＝食事の端末記録の id。{ id, blob, date, createdAt }）。
@@ -4606,6 +4734,94 @@
     ctx.fillText(formatPhotoDateLabel(dateKey), pad, y);
     ctx.shadowBlur = 0;
   }
+  function resizeImageBlob(blob) {
+    return loadImageFromBlob(blob).then(function (img) {
+      var w = img.width;
+      var h = img.height;
+      var scale = Math.min(1, PHOTO_MAX_EDGE / Math.max(w, h));
+      var cw = Math.max(1, Math.round(w * scale));
+      var ch = Math.max(1, Math.round(h * scale));
+      var canvas = document.createElement("canvas");
+      canvas.width = cw;
+      canvas.height = ch;
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, cw, ch);
+      if (img.close) img.close();
+      return canvasToJpeg(canvas, PHOTO_JPEG_QUALITY).then(function (out) {
+        return { blob: out, width: cw, height: ch };
+      });
+    });
+  }
+  // 写真の保存は「追加」だけ。既存の photos[date] は絶対に上書きしない：
+  // 同じトランザクション内で get して既にあれば何もせず中断し、無いときだけ add（put は使わない。add は同じキーがあると失敗する）
+  function putPhotoRecord(rec) {
+    return withPhotoStore("readwrite", function (store) {
+      return idbReq(store.get(rec.date)).then(function (existing) {
+        if (existing) { var err = new Error("exists"); err.name = "PhotoExistsError"; throw err; }
+        return idbReq(store.add(rec));
+      });
+    }).then(function () {
+      revokePhotoUrl(rec.date);
+      state.photoCache[rec.date] = rec;
+      if (state.photoDates.indexOf(rec.date) === -1) {
+        state.photoDates.push(rec.date);
+        state.photoDates.sort();
+      }
+    });
+  }
+  // 体重は data.json（＋端末記録）の体重だけを使う。無い日は手入力欄を出さず、日付のみを重ねて保存する
+  function savePhotoFromFile(file, dateKey) {
+    var kg = (state.bwMap && state.bwMap[dateKey] != null && isFinite(state.bwMap[dateKey])) ? state.bwMap[dateKey] : null;
+    return resizeImageBlob(file).then(function (resized) {
+      return makeOverlayBlob(resized.blob, resized.width, resized.height, dateKey, kg).then(function (overlay) {
+        var rec = {
+          date: dateKey,
+          weightKg: kg,
+          weightSource: kg != null ? "data" : null,
+          blob: resized.blob,
+          overlayBlob: overlay,
+          width: resized.width,
+          height: resized.height,
+          updatedAt: Date.now()
+        };
+        return putPhotoRecord(rec);
+      });
+    });
+  }
+  var PHOTO_EXISTS_MSG = "この日にはすでに写真があります";
+  var photoSaving = false;
+  function openPhotoPicker() {
+    ensurePhotoCursor();
+    if (state.photoCache[state.photoKey]) { showToast(PHOTO_EXISTS_MSG); return; }
+    var input = document.getElementById("photoFileInput");
+    if (!input) return;
+    state.photoPickKey = state.photoKey; // 選んでいる間に日付が変わっても、押した日の写真として扱う
+    input.value = "";
+    input.click();
+  }
+  function handlePhotoFile(file) {
+    if (!file || photoSaving) return;
+    var key = state.photoPickKey || state.photoKey;
+    state.photoPickKey = null;
+    if (!key) return;
+    if (dkToDate(key).getTime() > photoNavRange().end.getTime()) return;
+    // 万一その日に写真がある状態で走っても、保存せず IndexedDB も触らない
+    if (state.photoCache[key]) { showToast(PHOTO_EXISTS_MSG); renderPhotoTab(); return; }
+    photoSaving = true;
+    savePhotoFromFile(file, key).then(function () {
+      photoSaving = false;
+      showToast("写真を追加しました");
+      renderPhotoTab();
+    }).catch(function (err) {
+      photoSaving = false;
+      if (err && (err.name === "PhotoExistsError" || err.name === "ConstraintError")) {
+        showToast(PHOTO_EXISTS_MSG);
+        loadAllPhotos().then(renderPhotoTab, renderPhotoTab);
+        return;
+      }
+      window.alert("写真を保存できませんでした。別の画像で試してください。");
+    });
+  }
   function makeOverlayBlob(srcBlob, width, height, dateKey, weightKg) {
     return loadImageFromBlob(srcBlob).then(function (img) {
       var canvas = document.createElement("canvas");
@@ -4713,11 +4929,16 @@
       if (winfo.source === "data") html += '<div class="photo-hint">体重の記録から自動で入れています</div>';
       html += "</div>";
     }
-    // 写真の追加・撮り直し・削除はできない（閲覧専用）。保存／共有だけ残す
+    // 写真が無い日だけ「追加」を出す。写真がある日は保存／共有のみ（撮り直し・削除はできない）
     if (rec) {
       html += '<div class="photo-actions">';
       html += '<button class="photo-btn secondary" type="button" data-photo-act="share">画像を保存／共有</button>';
       html += "</div>";
+    } else {
+      html += '<div class="photo-actions">';
+      html += '<button class="photo-btn" type="button" data-photo-act="add">写真を追加</button>';
+      html += "</div>";
+      html += '<div class="photo-hint">撮影またはライブラリから選べます。1日1枚で、追加した写真はあとから置き換え・削除できません。</div>';
     }
     html += "</div>";
 
@@ -5222,11 +5443,18 @@
     if (toggleEl) toggleEl.classList.toggle("open", !!mealOpenDays[k]);
   });
 
+  document.getElementById("photoFileInput").addEventListener("change", function () {
+    var file = this.files && this.files[0];
+    this.value = "";
+    if (file) handlePhotoFile(file);
+  });
   document.addEventListener("click", function (e) {
     var actEl = e.target.closest ? e.target.closest("[data-photo-act]") : null;
     if (actEl) {
       var act = actEl.getAttribute("data-photo-act");
-      if (act === "share") {
+      if (act === "add") {
+        openPhotoPicker();
+      } else if (act === "share") {
         sharePhoto(state.photoKey);
       } else if (act === "compare-toggle") {
         state.photoCompareOn = !state.photoCompareOn;
