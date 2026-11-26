@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-26T19:56:10+09:00",
+ "source_mtime": "2026-11-26T20:56:52+09:00",
  "parts": [
   "胸",
   "背中",
@@ -10050,18 +10050,22 @@
    "note": null
   },
   "2026-11-26": {
-   "kcal": 1005,
+   "kcal": 1655,
    "kcal_range": null,
-   "protein": 33,
+   "protein": 58,
    "items": [
     {
      "time": "18:38",
      "text": "来来亭 こってりラーメン(サイズ未確認・並想定) 概算 約750kcal・P約28g/小ごはん 概算 約250kcal・P約4g/のり 概算 約5kcal・P約1g"
+    },
+    {
+     "time": "20:56",
+     "text": "重厚軍団 つけ麺(麺180g、スープ・具は未確認) 概算 約650kcal・P約25g"
     }
    ],
    "note": null
   }
  },
- "content_hash": "ee6687d938d7",
- "generated_at": "2026-11-26T19:56:57+09:00"
+ "content_hash": "76425b1c10b1",
+ "generated_at": "2026-11-26T20:58:02+09:00"
 }
