@@ -10050,9 +10050,9 @@
    "note": null
   },
   "2026-11-26": {
-   "kcal": 446,
+   "kcal": 2101,
    "kcal_range": null,
-   "protein": 53.7,
+   "protein": 111.7,
    "items": [
     {
      "time": "18:38",
@@ -10078,6 +10078,6 @@
    "note": null
   }
  },
- "content_hash": "125ff48376fa",
- "generated_at": "2026-11-27T00:32:13+09:00"
+ "content_hash": "c5a964c7ff37",
+ "generated_at": "2026-11-27T12:18:32+09:00"
 }
