@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-27T16:20:19+09:00",
+ "source_mtime": "2026-11-27T17:11:58+09:00",
  "parts": [
   "胸",
   "背中",
@@ -10083,13 +10083,18 @@
    "note": null
   },
   "2026-11-27": {
-   "kcal": null,
+   "kcal": 1395,
    "kcal_range": null,
-   "protein": null,
-   "items": [],
+   "protein": 64,
+   "items": [
+    {
+     "time": "17:11",
+     "text": "パスタ250g(乾麺の重さとして計算・未確認) 概算 約945kcal・P約32g/ツナ缶1缶(油漬け70g想定・種類未確認) 概算 約190kcal・P約13g/目玉焼き3個 概算 約260kcal・P約19g"
+    }
+   ],
    "note": null
   }
  },
- "content_hash": "97135ea2b674",
- "generated_at": "2026-11-27T16:21:35+09:00"
+ "content_hash": "9a5dd4b2de48",
+ "generated_at": "2026-11-27T17:13:02+09:00"
 }
