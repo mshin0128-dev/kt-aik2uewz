@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-27T20:52:55+09:00",
+ "source_mtime": "2026-11-27T21:12:21+09:00",
  "parts": [
   "胸",
   "背中",
@@ -10165,9 +10165,9 @@
    "note": null
   },
   "2026-11-27": {
-   "kcal": 1731,
+   "kcal": 1798,
    "kcal_range": null,
-   "protein": 87,
+   "protein": 87.8,
    "items": [
     {
      "time": "17:11",
@@ -10176,11 +10176,15 @@
     {
      "time": "17:21",
      "text": "牛乳2杯(1杯200g想定・量未確認) 概算 約244kcal・P約13g/オイコス1個(113g・味未確認) 概算 約92kcal・P約10g"
+    },
+    {
+     "time": "21:12",
+     "text": "カゴメ 野菜ジュース(カロテンチャージ)1本200ml 67kcal・P0.8g(ラベル写真)"
     }
    ],
    "note": null
   }
  },
- "content_hash": "91cc52faa7ab",
- "generated_at": "2026-11-27T20:53:52+09:00"
+ "content_hash": "ca387fd53f35",
+ "generated_at": "2026-11-27T21:13:12+09:00"
 }
