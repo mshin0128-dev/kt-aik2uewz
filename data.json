@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-27T17:11:58+09:00",
+ "source_mtime": "2026-11-27T17:21:40+09:00",
  "parts": [
   "胸",
   "背中",
@@ -10083,18 +10083,22 @@
    "note": null
   },
   "2026-11-27": {
-   "kcal": 1395,
+   "kcal": 1731,
    "kcal_range": null,
-   "protein": 64,
+   "protein": 87,
    "items": [
     {
      "time": "17:11",
      "text": "パスタ250g(乾麺の重さとして計算・未確認) 概算 約945kcal・P約32g/ツナ缶1缶(油漬け70g想定・種類未確認) 概算 約190kcal・P約13g/目玉焼き3個 概算 約260kcal・P約19g"
+    },
+    {
+     "time": "17:21",
+     "text": "牛乳2杯(1杯200g想定・量未確認) 概算 約244kcal・P約13g/オイコス1個(113g・味未確認) 概算 約92kcal・P約10g"
     }
    ],
    "note": null
   }
  },
- "content_hash": "9a5dd4b2de48",
- "generated_at": "2026-11-27T17:13:02+09:00"
+ "content_hash": "21273976042d",
+ "generated_at": "2026-11-27T17:23:06+09:00"
 }
