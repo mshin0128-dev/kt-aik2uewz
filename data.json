@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-28T18:30:29+09:00",
+ "source_mtime": "2026-11-28T19:40:56+09:00",
  "parts": [
   "胸",
   "背中",
@@ -10473,18 +10473,30 @@
    "note": null
   },
   "2026-11-28": {
-   "kcal": 1085,
+   "kcal": 1323,
    "kcal_range": null,
-   "protein": 41.5,
+   "protein": 69.2,
    "items": [
     {
      "time": "18:30",
      "text": "ウィンナー1袋(約100g想定・商品と量は未確認) 概算 約320kcal・P約12g/卵焼き(卵3個) 概算 約270kcal・P約19g/ご飯300g 約470kcal・P約7.5g/ブロッコリー5房(約75g想定) 概算 約25kcal・P約3g"
+    },
+    {
+     "time": "19:40",
+     "text": "プロテイン(粉30g 約116kcal・P21g)"
+    },
+    {
+     "time": "19:40",
+     "text": "牛乳200g(約122kcal・P約6.7g)"
+    },
+    {
+     "time": "19:40",
+     "text": "クレアチン(量未確認・いつもの5g想定)"
     }
    ],
    "note": null
   }
  },
- "content_hash": "307bc64fe06e",
- "generated_at": "2026-11-28T18:31:40+09:00"
+ "content_hash": "49e8cf6f8975",
+ "generated_at": "2026-11-28T19:42:07+09:00"
 }
