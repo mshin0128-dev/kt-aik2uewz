@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-28T17:26:20+09:00",
+ "source_mtime": "2026-11-28T17:29:35+09:00",
  "parts": [
   "胸",
   "背中",
@@ -8313,6 +8313,26 @@
      "volume_kg": 300.0,
      "hands": "両手",
      "total_kg": 20.0
+    },
+    {
+     "date": "2026-11-28",
+     "time": "17:29",
+     "exercise": "ショルダープレス",
+     "part": "肩",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      15
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "17:29 ショルダープレス 片手10kg×15(3セット目) /負荷量 20kg×15=300kg",
+     "load_kg": 20.0,
+     "load_reps": 15,
+     "volume_kg": 300.0,
+     "hands": "両手",
+     "total_kg": 20.0
     }
    ],
    "summary_only": null
@@ -10362,6 +10382,6 @@
    "note": null
   }
  },
- "content_hash": "ec7eafc6c579",
- "generated_at": "2026-11-28T17:26:54+09:00"
+ "content_hash": "c5c9386758a3",
+ "generated_at": "2026-11-28T17:31:04+09:00"
 }
