@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-28T17:44:23+09:00",
+ "source_mtime": "2026-11-28T17:51:50+09:00",
  "parts": [
   "胸",
   "背中",
@@ -8412,6 +8412,25 @@
      "load_reps": null,
      "volume_kg": null,
      "hands": "片腕ずつ"
+    },
+    {
+     "date": "2026-11-28",
+     "time": "17:51",
+     "exercise": "ダンベルロウ",
+     "part": "背中",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "17:51 ダンベルロウ 片手10kg×左右各10(2セット目) /負荷量 20kg×10(左右計)=200kg",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": "片腕ずつ"
     }
    ],
    "summary_only": null
@@ -10461,6 +10480,6 @@
    "note": null
   }
  },
- "content_hash": "27de7e019458",
- "generated_at": "2026-11-28T17:45:47+09:00"
+ "content_hash": "60b853294da2",
+ "generated_at": "2026-11-28T17:53:16+09:00"
 }
