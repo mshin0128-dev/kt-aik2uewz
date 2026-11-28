@@ -1,7 +1,7 @@
 {
  "version": 1,
  "source": "log.md",
- "source_mtime": "2026-11-28T14:50:51+09:00",
+ "source_mtime": "2026-11-28T15:30:49+09:00",
  "parts": [
   "胸",
   "背中",
@@ -8152,6 +8152,71 @@
     }
    ],
    "summary_only": null
+  },
+  {
+   "date": "2026-11-28",
+   "entries": [
+    {
+     "date": "2026-11-28",
+     "time": "15:30",
+     "exercise": "アブローラー",
+     "part": "腹筋",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "15:30 アブローラー 10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-28",
+     "time": "15:30",
+     "exercise": "腕立て伏せ",
+     "part": "胸",
+     "weight_kg": null,
+     "weight_type": "自重",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [],
+     "note": null,
+     "raw": "15:30 腕立て伏せ 10回(1セット目)",
+     "load_kg": null,
+     "load_reps": null,
+     "volume_kg": null,
+     "hands": null
+    },
+    {
+     "date": "2026-11-28",
+     "time": "15:30",
+     "exercise": "スクワット",
+     "part": "脚",
+     "weight_kg": 10.0,
+     "weight_type": "片手",
+     "reps": [
+      10
+     ],
+     "sets": 1,
+     "unknown": [
+      "片手/合計の別"
+     ],
+     "note": null,
+     "raw": "15:30 スクワット 10kg×10(1セット目) /負荷量 10kg×10=100kg",
+     "load_kg": 10.0,
+     "load_reps": 10,
+     "volume_kg": 100.0,
+     "hands": "判断不可"
+    }
+   ],
+   "summary_only": null
   }
  ],
  "bodyweight": [
@@ -8357,6 +8422,7 @@
   "シーテッドサイドレイズ",
   "シーテッドレッグプレス",
   "シーテッドロウ",
+  "スクワット",
   "スミスマシンベンチプレス",
   "ダンベルオーバーヘッドエクステンション",
   "ダンベルカール",
@@ -10197,6 +10263,6 @@
    "note": null
   }
  },
- "content_hash": "ebb55472f2a6",
- "generated_at": "2026-11-28T14:52:16+09:00"
+ "content_hash": "968a719b1a74",
+ "generated_at": "2026-11-28T15:31:38+09:00"
 }
